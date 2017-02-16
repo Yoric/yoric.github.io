@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Vision &middot; Il y a du thé renversé au bord de la table !</title>
+
+    <meta name="description" content="Aventure! Excitement! Random ramblings by David Teller!">
+
+    <meta name="generator" content="Hugo 0.18.1" />
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="Computer Vision &middot; Il y a du thé renversé au bord de la table !">
+    <meta name="twitter:description" content="Aventure! Excitement! Random ramblings by David Teller!">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Computer Vision &middot; Il y a du thé renversé au bord de la table !">
+    <meta property="og:description" content="Aventure! Excitement! Random ramblings by David Teller!">
+
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io//css/all.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="alternate" type="application/rss+xml" title="Il y a du thé renversé au bord de la table !" href="https://yoric.github.io//index.xml" />
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="https://yoric.github.io/">Il y a du thé renversé au bord de la table !</a></h1>
+            <h2 class="brand-tagline"> Aventure! Excitement! Random ramblings by David Teller! </h2>
+        </hgroup>
+
+        <nav class="nav">
+            <ul class="nav-list">
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://twitter.com/ImYoric"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://github.com/Yoric "><i class="fa fa-github-alt"></i> github</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://yoric.github.io//index.xml"><i class="fa fa-rss"></i> rss</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">16 Feb 2017, 23:44</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="https://yoric.github.io/post/extracting-text-from-images/" class="post-title">Extracting text from images is not easy (who would have guessed?)</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under 
+                                
+                                <a class="post-category post-category-Mozilla" href="https://yoric.github.io//categories/mozilla">Mozilla</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<p>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision
+disabilities?</p>
+
+<p>From there, we started a number of experiments. I figured out it was time to
+braindump some of them.</p>
+
+<h2 id="our-problem">Our problem</h2>
+
+<p>Consider the following example:</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/10190/18631303/80cce95a-7e71-11e6-8a4e-bed542e6e7bb.png" alt="" /></p>
+
+<p>How do we get from this beautiful picture of Mozilla&rsquo;s Paris office to the text &ldquo;PRIDE and PREJUDICE&rdquo;, &ldquo;Jane Austen&rdquo;, &ldquo;Great Books&rdquo;, &ldquo;Great Prices&rdquo;, &ldquo;$9.99&rdquo;, &ldquo;Super livres&rdquo;, &ldquo;Super prix&rdquo;? That&rsquo;s Canadian dollars, if you wonder.</p>
+
+<p>Too easy? What about this one?</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/10190/18631577/13481e2a-7e73-11e6-9057-72aa048d7040.jpeg" alt="" /></p>
+
+<p>Or that one?</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/10190/18631784/45764bd2-7e74-11e6-9b2c-5ef823fd129a.jpeg" alt="" /></p>
+
+<p>Not very easy to read, right? Now, remember one thing: these pictures were taken by people who can use a camera correctly because, well, they can see the image. If we want to build a device that will be useful for blind or vision-impaired users, we need a tool that can perform text recognition on images that are taken in much worse conditions or light or angle – or at least, we must be able to tell the user what&rsquo;s the problem with the image.</p>
+
+<p>Actually, extracting text from an image is a Hard Problem &trade;. Sufficiently hard that there are tracks in research conferences that deal with this kind of problem. But, surely, in this age of Deep Learning, there must be a Magic Cloud API &trade; that can do that, right?</p>
+
+<h2 id="looking-for-a-cloud-api">Looking for a Cloud API</h2>
+
+<p>So, we set out to benchmarkg existing APIs that claim that they can perform text recognition on images. This includes Google&rsquo;s APIs, IBM/AlchemyVision&rsquo;s APIs, CloudSight&rsquo;s APIs, Microsoft&rsquo;s Vision APIs.</p>
+
+<p>If you are curious, I invite you to try with the three samples above. The results are limited. In some cases, we get acceptable recognition. In most cases, the APIs just can&rsquo;t help.</p>
+
+<p>To make things worse, these Magic Cloud APIs are, of course, not free. Using them comes at a cost, in terms of device bandwith, data plan, and actual per-request dollars.</p>
+
+<p><em>Bottom line</em> These Magic Cloud APIs are acceptable for a demo, but are far from sufficient if we want to build a tool useful for an actual blind person.</p>
+
+<h2 id="looking-for-an-offline-api">Looking for an offline API</h2>
+
+<p>These days, the recommended OCR library in the open-source world seems to be Tesseract. Testing it against any of the images above yields strictly nothing usable.</p>
+
+<p>This is not a surprise: Tesseract is fine-tuned for use in a scanner. Give it black letters, white paper, no textures, and a simple layout, and Tesseract will return text with an acceptable quality. Give it anything else and Tesseract will assume that it&rsquo;s black letters, white paper, no textures and a simple layout, and will attempt to interpret every single line, every single intersection as a letter. And fail.</p>
+
+<p><em>Bottom line</em> On its own, Tesseract is not usable.</p>
+
+<h2 id="looking-for-a-way-out">Looking for a way out</h2>
+
+<p>To summarize, I believe that we have the following problems:</p>
+
+<ol>
+<li>Magic Cloud APIs attempt to solve all the issues in the world at once and are consequently great at nothing;</li>
+<li>Tesseract is too specific to a single use case which is not ours, and consequently not usable as-is for our project.</li>
+</ol>
+
+<h3 id="working-around-the-limitations-of-tesseract">Working around the limitations of Tesseract</h3>
+
+<p>Let&rsquo;s start with problem 2., because there are many options to solve it. If Tesseract cannot be used on unclean text, we <em>just</em> need to clean up the text, using well-known or not-so-well-known Computer Vision algorithms, before feeding it to Tesseract. A quick look at Stack Overflow indicates that we are hardly the first project attempting to do this and that there are a number of solutions that <em>should</em> work. Sadly, not much feedback on whether they <em>actually</em> work, but hey, that&rsquo;s what experimenting is all about, right?</p>
+
+<p>If we succeed, we will have at hand a super-Tesseract, well-adapted to <em>some categories of images</em>. A super-Tesseract that we can further train to adapt it to the images in which we are interested. Say, text recognition on packaging, with the lighting conditions available in a supermarket.</p>
+
+<p><em>We have a plan</em> we don&rsquo;t need to build a full OCR engine, we just need a flexible text cleanup/extraction tool.</p>
+
+<h3 id="working-around-poor-lights-angle">Working around poor lights, angle, &hellip;</h3>
+
+<p>Let&rsquo;s be pessimistic and assume that, despite our best efforts, our super-Tesseract will not be able to handle poor light, poor angle, etc. any better than the Magic Cloud APIs.</p>
+
+<p>Super-Tesseract will still have a few aces up its metaphoric sleeve:</p>
+
+<ol>
+<li>If we run it locally, on the user&rsquo;s device, it is not limited by bandwidth, data plan or per-request cost;</li>
+<li>While performing actual text recognition is relatively slow on a smartphone-style device, we have hopes that performing text detection and cleanup can be made quite fast.</li>
+<li>As part of super-Tesseract, we can build algorithms that can actually determine whether the angle is wrong, or the lightning is bad, etc. All sorts of information that the Magic Cloud APIs do not give us.</li>
+</ol>
+
+<p>Put together, these two aces open several possibilities:</p>
+
+<ul>
+<li>We can afford to perform at least the first few steps of super-Tesseract <em>on videos</em>, rather than on a single image, which will give us more samples from which to extract clean text.</li>
+<li>We can afford to perform these same steps several times, using several different filters and parameters, to offset the light, angle, etc.</li>
+<li>We can provide feedback for the users, actually telling them what&rsquo;s wrong, if they need to turn the cereal bar, or move the camera closer, or if the text is just simply unreadable because of too many textures.</li>
+</ul>
+
+<p><em>Bottom line</em>: We need a very fast implementation of text clean-up/extraction that can also diagnose its own problems.</p>
+
+<h2 id="towards-super-tesseract">Towards super-Tesseract</h2>
+
+<p>At this stage, my hopes are to perform the following steps:</p>
+
+<p>a. locating the text in an image;
+b. removing everything that isn&rsquo;t the text;
+c. turning it if necessary to make sure that it&rsquo;s horizontal;
+d. now that the text is as clean as in a book, feed it to Tesseract.</p>
+
+<p>During the past few weeks, I have been experimenting with algorithms for these things. All the problems are tricky, but I am making progress.</p>
+
+<p>a. An algorithm based on <a href="https://www.microsoft.com/en-us/research/publication/stroke-width-transform/[Stroke">https://www.microsoft.com/en-us/research/publication/stroke-width-transform/[Stroke</a> Width Transforms] (SWT) has very good results on locating the text in an image. I have tested the implementation of this algorithm in the <a href="https://github.com/liuliu/ccv[CCV">https://github.com/liuliu/ccv[CCV</a>] library and it has very good performance, both in terms of speed and in terms of results. So far, so good. As I am prototyping in Rust, I have published <a href="https://github.com/Yoric/ccv.rs[very">https://github.com/Yoric/ccv.rs[very</a> early bindings] – feel free to use them if you want to toy with this algorithm.</p>
+
+<p>b. I have tested several algorithms for cleaning up everything that isn&rsquo;t text. Unfortunately, so far, these algorithms perform quite poorly, both in terms of speed and accuracy. Looking harder at SWT, I believe that this algorithm can be extended to perform the cleanup. I am currently working such an extension, but it might be a few weeks before I can seriously test it.</p>
+
+<p>c. An algorithm called Deskewing is rumored to have good results. I have located an implementation of this as part of a library called
+<a href="http://www.leptonica.org/[Leptonica">http://www.leptonica.org/[Leptonica</a>]. The implementation is very fast, but it doesn&rsquo;t work too well on my samples. I need to investigate this further. It may be a problem with my samples, which are not sufficiently cleaned up at this stage, or with the algorithm, or even with me misunderstanding the results of the algorithm. Again, I have published <a href="https://github.com/Yoric/lepton.rs[minimal">https://github.com/Yoric/lepton.rs[minimal</a> Rust bindings for Leptonica], to simplify experimentation.</p>
+
+<h2 id="things-not-text">Things not text</h2>
+
+<p>Byproduct of the study: there are several very important pieces of
+information on boxes and clothes that would be useful for blind or vision-impaired users but that most likely cannot be treated by OCR.</p>
+
+<p>I&rsquo;m thinking of logos (e.g. no amount of OCR will recognize
+Coca Cola, Kellogs, &hellip;) and other symbols (e.g. non-recycle plastic,
+toxicity warning, hand wash only, &hellip;)</p>
+
+<p>At some point, we will certainly want to recognize them. I suspect that neural networks/deep learning would be pretty good for that purpose, but I have no idea how much effort that would take. I also suspect that Magic Cloud APIs already handle these quite nicely already, so at least for a prototype, it might be useful to use these as a baseline.</p>
+
+<h1 id="commenting">Commenting</h1>
+
+<p>You can leave comments <a href="https://github.com/Yoric/yoric.github.io/issues/1[on">https://github.com/Yoric/yoric.github.io/issues/1[on</a> github] or using Disqus below. I haven&rsquo;t decided what&rsquo;s best yet.</p>
+
+                    </div>
+                </section>
+                
+            </div>
+            
+
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="https://gohugo.io/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="https://yoric.github.io//js/all.min.js"></script>
+
+        </div>
+    </div>
+</div>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
