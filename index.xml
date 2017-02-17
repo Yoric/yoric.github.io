@@ -21,17 +21,6 @@ my password, so I have migrated to Hugo.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Blog migration in progress</title>
-      <link>https://yoric.github.io/post/migration/</link>
-      <pubDate>Thu, 16 Feb 2017 23:42:19 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/post/migration/</guid>
-      <description>&lt;p&gt;I am in the process of migrating to github.io. You can find my previous blog
-&lt;a href=&#34;http://dutherenverseauborddelatable.wordpress.com/&#34;&gt;on Wordpress&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Extracting text from images is not easy (who would have guessed?)</title>
       <link>https://yoric.github.io/post/extracting-text-from-images/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
@@ -154,6 +143,17 @@ toxicity warning, hand wash only, &amp;hellip;)&lt;/p&gt;
 &lt;h1 id=&#34;commenting&#34;&gt;Commenting&lt;/h1&gt;
 
 &lt;p&gt;You can leave comments &lt;a href=&#34;https://github.com/Yoric/yoric.github.io/issues/1[on&#34;&gt;https://github.com/Yoric/yoric.github.io/issues/1[on&lt;/a&gt; github] or using Disqus below. I haven&amp;rsquo;t decided what&amp;rsquo;s best yet.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Blog migration in progress</title>
+      <link>https://yoric.github.io/post/migration/</link>
+      <pubDate>Thu, 01 Dec 2016 23:42:19 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/migration/</guid>
+      <description>&lt;p&gt;I am in the process of migrating to github.io. You can find my previous blog
+&lt;a href=&#34;http://dutherenverseauborddelatable.wordpress.com/&#34;&gt;on Wordpress&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
