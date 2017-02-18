@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Y on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/categories/y/index.xml</link>
+    <description>Recent content in Y on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://yoric.github.io/categories/y/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title></title>
+      <link>https://yoric.github.io/tags/</link>
+      <pubDate>Sat, 18 Feb 2017 11:27:12 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://yoric.github.io/about/</link>
+      <pubDate>Sat, 18 Feb 2017 11:27:08 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/about/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

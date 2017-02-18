@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://yoric.github.io/tags/</loc>
+    <lastmod>2017-02-18T16:29:32+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/about/</loc>
+    <lastmod>2017-02-18T16:06:26+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://yoric.github.io/post/how-to-survive/</loc>
     <lastmod>2017-02-17T00:10:34+01:00</lastmod>
   </url>
@@ -70,7 +80,7 @@
   
   <url>
     <loc>https://yoric.github.io/categories/meta/</loc>
-    <lastmod>2017-02-17T00:07:21+01:00</lastmod>
+    <lastmod>2017-02-18T16:29:32+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -123,7 +133,8 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/</loc>
+    <loc>https://yoric.github.io/tags/yoric/</loc>
+    <lastmod>2017-02-18T16:06:26+01:00</lastmod>
     <priority>0</priority>
   </url>
   
