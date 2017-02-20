@@ -1,0 +1,71 @@
+languageCode = "en-us"
+title = "Il y a du thé renversé au bord de la table !"
+baseurl = "https://yoric.github.io/"
+theme = "hugo-theme-cactus-plus"
+Paginate = 10
+
+[params]
+	name = "Il y a du thé renversé au bord de la table !"
+	description = "Aventure! Excitement! Random ramblings by David Teller!"
+	bio = "Aventure! Excitement! Random ramblings by David Teller!"
+	# Enter optionally your twitter account
+	twitter = "ImYoric"
+	enableRSS = true
+
+	# Disqus comment
+  disqusShortname = "il-y-a-du-the-renverse-au-bord-de-la-table"
+	# Disable disqus comments by set `enableDisqus = "false"`
+	enableDisqus = true
+
+	# Duoshuo comment
+	duoshuoShortname = "your_duoshuo_short_name"
+	# Disable duoshuo comments by set `enableDuoshuo = "false"`
+	enableDuoshuo = false
+
+	enableGithubIssuesTips = false
+
+	# Use description as title in single page, posts page and tags page.
+	useDescriptionAsTitle = false
+
+	# Enable googleAnalytics
+	enableGoogleAnalytics = false
+
+	# Enable baiduAnalytics
+	enableBaiduAnalytics = false
+	# Baidu Tongji Code
+	baiduAnalytics = 'your_baidu_tongji_code'
+
+	# Add custom assets with their paths relative to the static folder
+	customCSS = []
+	customJS  = []
+
+	# The variables below are optionally too and can be used to
+	# translate or customize each string of the theme.
+
+	# Navigation links
+	home = ""
+	about = ""
+	archive = ""
+	subscribe = "Subscribe (RSS)"
+	# Pagination links
+	olderPosts = ""
+	newerPosts = ""
+	readMore = ""
+	copyright = ""
+	# Sharing options and author information in posts
+	aboutAuthor = "I am so interesting."
+	tweet = ""
+	share = ""
+	# 404 page
+	title404 = ""
+	subtitle404 = ""
+
+	# Choose a font for the social icons in the footer. Either "mono-social" or "font-awesome"
+	iconFont = "font-awesome"
+  # The social icons can be styled differently if you use mono as font - circle, rounded, or empty
+  socialIconStyle = ""
+
+  # Add additional social link entries underneath
+[social]
+  twitter-square = "https://twitter.com/ImYoric"
+  github-square = "https://github.com/Yoric"
