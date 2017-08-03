@@ -12,6 +12,24 @@
     
     
     <item>
+      <title>Ast</title>
+      <link>https://yoric.github.io/tags/ast/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/ast/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Babel</title>
+      <link>https://yoric.github.io/tags/babel/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/babel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Blogging</title>
       <link>https://yoric.github.io/tags/blogging/</link>
       <pubDate>Thu, 01 Dec 2016 23:42:19 +0100</pubDate>
@@ -26,6 +44,15 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Compiler</title>
+      <link>https://yoric.github.io/tags/compiler/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/compiler/</guid>
       <description></description>
     </item>
     
@@ -84,6 +111,15 @@
     </item>
     
     <item>
+      <title>Javascript</title>
+      <link>https://yoric.github.io/tags/javascript/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Kickstarter</title>
       <link>https://yoric.github.io/tags/kickstarter/</link>
       <pubDate>Fri, 17 Feb 2017 00:10:34 +0100</pubDate>
@@ -95,9 +131,18 @@
     <item>
       <title>Mozilla</title>
       <link>https://yoric.github.io/tags/mozilla/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Newsletter</title>
+      <link>https://yoric.github.io/tags/newsletter/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/newsletter/</guid>
       <description></description>
     </item>
     
@@ -134,6 +179,24 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/opencv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Parsing</title>
+      <link>https://yoric.github.io/tags/parsing/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/parsing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Performance</title>
+      <link>https://yoric.github.io/tags/performance/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/performance/</guid>
       <description></description>
     </item>
     
@@ -188,6 +251,15 @@
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spidermonkey</title>
+      <link>https://yoric.github.io/tags/spidermonkey/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/spidermonkey/</guid>
       <description></description>
     </item>
     

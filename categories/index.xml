@@ -6,9 +6,19 @@
     <description>Recent content in Categories on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Thu, 03 Aug 2017 23:31:43 +0200</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Binjs</title>
+      <link>https://yoric.github.io/categories/binjs/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/binjs/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Iot</title>
@@ -16,6 +26,15 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/categories/iot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Javascript</title>
+      <link>https://yoric.github.io/categories/javascript/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/javascript/</guid>
       <description></description>
     </item>
     
@@ -31,9 +50,27 @@
     <item>
       <title>Mozilla</title>
       <link>https://yoric.github.io/categories/mozilla/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Newsletter</title>
+      <link>https://yoric.github.io/categories/newsletter/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/newsletter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Performance</title>
+      <link>https://yoric.github.io/categories/performance/</link>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/performance/</guid>
       <description></description>
     </item>
     

@@ -6,7 +6,7 @@
     <description>Recent content in Ast on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Aug 2017 23:44:19 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 03 Aug 2017 23:31:43 +0200</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/tags/ast/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,11 @@
     <item>
       <title>Towards a JavaScript Binary AST</title>
       <link>https://yoric.github.io/post/binary-ast-newsletter-1/</link>
-      <pubDate>Thu, 03 Aug 2017 23:44:19 +0100</pubDate>
+      <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-newsletter-1/</guid>
-      <description>Over the years, JavaScript has grown from one of the slowest scripting languages available to a high-performance powerhouse, fast enough that it can run desktop, server and mobile applications.</description>
+      <description>In this blog post, I would like to introduce the JavaScript Binary AST, an ongoing project that we hope will help make webpages load faster, along with a number of other benefits.
+A little background Over the years, JavaScript has grown from one of the slowest scripting languages available to a high-performance powerhouse, fast enough that it can run desktop, server, mobile and even embedded applications, whether through web browsers or other environments.</description>
     </item>
     
   </channel>
