@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Project Lighthouse on Il y a du thé renversé au bord de la table !</title>
-    <link>https://yoric.github.io/tags/project-lighthouse/index.xml</link>
+    <link>https://yoric.github.io/tags/project-lighthouse/</link>
     <description>Recent content in Project Lighthouse on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://yoric.github.io/tags/project-lighthouse/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Jan 2017 23:44:19 +0100</lastBuildDate>
+    
+	<atom:link href="https://yoric.github.io/tags/project-lighthouse/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Extracting text from images is not easy (who would have guessed?)</title>
@@ -14,124 +17,10 @@
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
       
       <guid>https://yoric.github.io/post/extracting-text-from-images/</guid>
-      <description>
-
-&lt;p&gt;At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision
-disabilities?&lt;/p&gt;
-
-&lt;p&gt;From there, we started a number of experiments. I figured out it was time to
-braindump some of them.&lt;/p&gt;
-
-&lt;h2 id=&#34;our-problem&#34;&gt;Our problem&lt;/h2&gt;
-
-&lt;p&gt;Consider the following example:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/10190/18631303/80cce95a-7e71-11e6-8a4e-bed542e6e7bb.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.99&amp;rdquo;, &amp;ldquo;Super livres&amp;rdquo;, &amp;ldquo;Super prix&amp;rdquo;? That&amp;rsquo;s Canadian dollars, if you wonder.&lt;/p&gt;
-
-&lt;p&gt;Too easy? What about this one?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/10190/18631577/13481e2a-7e73-11e6-9057-72aa048d7040.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Or that one?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://cloud.githubusercontent.com/assets/10190/18631784/45764bd2-7e74-11e6-9b2c-5ef823fd129a.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Not very easy to read, right? Now, remember one thing: these pictures were taken by people who can use a camera correctly because, well, they can see the image. If we want to build a device that will be useful for blind or vision-impaired users, we need a tool that can perform text recognition on images that are taken in much worse conditions or light or angle – or at least, we must be able to tell the user what&amp;rsquo;s the problem with the image.&lt;/p&gt;
-
-&lt;p&gt;Actually, extracting text from an image is a Hard Problem &amp;trade;. Sufficiently hard that there are tracks in research conferences that deal with this kind of problem. But, surely, in this age of Deep Learning, there must be a Magic Cloud API &amp;trade; that can do that, right?&lt;/p&gt;
-
-&lt;h2 id=&#34;looking-for-a-cloud-api&#34;&gt;Looking for a Cloud API&lt;/h2&gt;
-
-&lt;p&gt;So, we set out to benchmarkg existing APIs that claim that they can perform text recognition on images. This includes Google&amp;rsquo;s APIs, IBM/AlchemyVision&amp;rsquo;s APIs, CloudSight&amp;rsquo;s APIs, Microsoft&amp;rsquo;s Vision APIs.&lt;/p&gt;
-
-&lt;p&gt;If you are curious, I invite you to try with the three samples above. The results are limited. In some cases, we get acceptable recognition. In most cases, the APIs just can&amp;rsquo;t help.&lt;/p&gt;
-
-&lt;p&gt;To make things worse, these Magic Cloud APIs are, of course, not free. Using them comes at a cost, in terms of device bandwith, data plan, and actual per-request dollars.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Bottom line&lt;/em&gt; These Magic Cloud APIs are acceptable for a demo, but are far from sufficient if we want to build a tool useful for an actual blind person.&lt;/p&gt;
-
-&lt;h2 id=&#34;looking-for-an-offline-api&#34;&gt;Looking for an offline API&lt;/h2&gt;
-
-&lt;p&gt;These days, the recommended OCR library in the open-source world seems to be Tesseract. Testing it against any of the images above yields strictly nothing usable.&lt;/p&gt;
-
-&lt;p&gt;This is not a surprise: Tesseract is fine-tuned for use in a scanner. Give it black letters, white paper, no textures, and a simple layout, and Tesseract will return text with an acceptable quality. Give it anything else and Tesseract will assume that it&amp;rsquo;s black letters, white paper, no textures and a simple layout, and will attempt to interpret every single line, every single intersection as a letter. And fail.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Bottom line&lt;/em&gt; On its own, Tesseract is not usable.&lt;/p&gt;
-
-&lt;h2 id=&#34;looking-for-a-way-out&#34;&gt;Looking for a way out&lt;/h2&gt;
-
-&lt;p&gt;To summarize, I believe that we have the following problems:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Magic Cloud APIs attempt to solve all the issues in the world at once and are consequently great at nothing;&lt;/li&gt;
-&lt;li&gt;Tesseract is too specific to a single use case which is not ours, and consequently not usable as-is for our project.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;working-around-the-limitations-of-tesseract&#34;&gt;Working around the limitations of Tesseract&lt;/h3&gt;
-
-&lt;p&gt;Let&amp;rsquo;s start with problem 2., because there are many options to solve it. If Tesseract cannot be used on unclean text, we &lt;em&gt;just&lt;/em&gt; need to clean up the text, using well-known or not-so-well-known Computer Vision algorithms, before feeding it to Tesseract. A quick look at Stack Overflow indicates that we are hardly the first project attempting to do this and that there are a number of solutions that &lt;em&gt;should&lt;/em&gt; work. Sadly, not much feedback on whether they &lt;em&gt;actually&lt;/em&gt; work, but hey, that&amp;rsquo;s what experimenting is all about, right?&lt;/p&gt;
-
-&lt;p&gt;If we succeed, we will have at hand a super-Tesseract, well-adapted to &lt;em&gt;some categories of images&lt;/em&gt;. A super-Tesseract that we can further train to adapt it to the images in which we are interested. Say, text recognition on packaging, with the lighting conditions available in a supermarket.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;We have a plan&lt;/em&gt; we don&amp;rsquo;t need to build a full OCR engine, we just need a flexible text cleanup/extraction tool.&lt;/p&gt;
-
-&lt;h3 id=&#34;working-around-poor-lights-angle&#34;&gt;Working around poor lights, angle, &amp;hellip;&lt;/h3&gt;
-
-&lt;p&gt;Let&amp;rsquo;s be pessimistic and assume that, despite our best efforts, our super-Tesseract will not be able to handle poor light, poor angle, etc. any better than the Magic Cloud APIs.&lt;/p&gt;
-
-&lt;p&gt;Super-Tesseract will still have a few aces up its metaphoric sleeve:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;If we run it locally, on the user&amp;rsquo;s device, it is not limited by bandwidth, data plan or per-request cost;&lt;/li&gt;
-&lt;li&gt;While performing actual text recognition is relatively slow on a smartphone-style device, we have hopes that performing text detection and cleanup can be made quite fast.&lt;/li&gt;
-&lt;li&gt;As part of super-Tesseract, we can build algorithms that can actually determine whether the angle is wrong, or the lightning is bad, etc. All sorts of information that the Magic Cloud APIs do not give us.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Put together, these two aces open several possibilities:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;We can afford to perform at least the first few steps of super-Tesseract &lt;em&gt;on videos&lt;/em&gt;, rather than on a single image, which will give us more samples from which to extract clean text.&lt;/li&gt;
-&lt;li&gt;We can afford to perform these same steps several times, using several different filters and parameters, to offset the light, angle, etc.&lt;/li&gt;
-&lt;li&gt;We can provide feedback for the users, actually telling them what&amp;rsquo;s wrong, if they need to turn the cereal bar, or move the camera closer, or if the text is just simply unreadable because of too many textures.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;em&gt;Bottom line&lt;/em&gt;: We need a very fast implementation of text clean-up/extraction that can also diagnose its own problems.&lt;/p&gt;
-
-&lt;h2 id=&#34;towards-super-tesseract&#34;&gt;Towards super-Tesseract&lt;/h2&gt;
-
-&lt;p&gt;At this stage, my hopes are to perform the following steps:&lt;/p&gt;
-
-&lt;p&gt;a. locating the text in an image;
-b. removing everything that isn&amp;rsquo;t the text;
-c. turning it if necessary to make sure that it&amp;rsquo;s horizontal;
-d. now that the text is as clean as in a book, feed it to Tesseract.&lt;/p&gt;
-
-&lt;p&gt;During the past few weeks, I have been experimenting with algorithms for these things. All the problems are tricky, but I am making progress.&lt;/p&gt;
-
-&lt;p&gt;a. An algorithm based on &lt;a href=&#34;https://www.microsoft.com/en-us/research/publication/stroke-width-transform/[Stroke&#34;&gt;https://www.microsoft.com/en-us/research/publication/stroke-width-transform/[Stroke&lt;/a&gt; Width Transforms] (SWT) has very good results on locating the text in an image. I have tested the implementation of this algorithm in the &lt;a href=&#34;https://github.com/liuliu/ccv[CCV&#34;&gt;https://github.com/liuliu/ccv[CCV&lt;/a&gt;] library and it has very good performance, both in terms of speed and in terms of results. So far, so good. As I am prototyping in Rust, I have published &lt;a href=&#34;https://github.com/Yoric/ccv.rs[very&#34;&gt;https://github.com/Yoric/ccv.rs[very&lt;/a&gt; early bindings] – feel free to use them if you want to toy with this algorithm.&lt;/p&gt;
-
-&lt;p&gt;b. I have tested several algorithms for cleaning up everything that isn&amp;rsquo;t text. Unfortunately, so far, these algorithms perform quite poorly, both in terms of speed and accuracy. Looking harder at SWT, I believe that this algorithm can be extended to perform the cleanup. I am currently working such an extension, but it might be a few weeks before I can seriously test it.&lt;/p&gt;
-
-&lt;p&gt;c. An algorithm called Deskewing is rumored to have good results. I have located an implementation of this as part of a library called
-&lt;a href=&#34;http://www.leptonica.org/[Leptonica&#34;&gt;http://www.leptonica.org/[Leptonica&lt;/a&gt;]. The implementation is very fast, but it doesn&amp;rsquo;t work too well on my samples. I need to investigate this further. It may be a problem with my samples, which are not sufficiently cleaned up at this stage, or with the algorithm, or even with me misunderstanding the results of the algorithm. Again, I have published &lt;a href=&#34;https://github.com/Yoric/lepton.rs[minimal&#34;&gt;https://github.com/Yoric/lepton.rs[minimal&lt;/a&gt; Rust bindings for Leptonica], to simplify experimentation.&lt;/p&gt;
-
-&lt;h2 id=&#34;things-not-text&#34;&gt;Things not text&lt;/h2&gt;
-
-&lt;p&gt;Byproduct of the study: there are several very important pieces of
-information on boxes and clothes that would be useful for blind or vision-impaired users but that most likely cannot be treated by OCR.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;m thinking of logos (e.g. no amount of OCR will recognize
-Coca Cola, Kellogs, &amp;hellip;) and other symbols (e.g. non-recycle plastic,
-toxicity warning, hand wash only, &amp;hellip;)&lt;/p&gt;
-
-&lt;p&gt;At some point, we will certainly want to recognize them. I suspect that neural networks/deep learning would be pretty good for that purpose, but I have no idea how much effort that would take. I also suspect that Magic Cloud APIs already handle these quite nicely already, so at least for a prototype, it might be useful to use these as a baseline.&lt;/p&gt;
-
-&lt;h1 id=&#34;commenting&#34;&gt;Commenting&lt;/h1&gt;
-
-&lt;p&gt;You can leave comments &lt;a href=&#34;https://github.com/Yoric/yoric.github.io/issues/1[on&#34;&gt;https://github.com/Yoric/yoric.github.io/issues/1[on&lt;/a&gt; github] or using Disqus below. I haven&amp;rsquo;t decided what&amp;rsquo;s best yet.&lt;/p&gt;
-</description>
+      <description>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
+From there, we started a number of experiments. I figured out it was time to braindump some of them.
+Our problem Consider the following example:
+How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.</description>
     </item>
     
   </channel>

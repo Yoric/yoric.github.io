@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/categories/</link>
+    <description>Recent content in Categories on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Iot</title>
+      <link>https://yoric.github.io/categories/iot/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/iot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Meta</title>
+      <link>https://yoric.github.io/categories/meta/</link>
+      <pubDate>Sat, 18 Feb 2017 16:29:32 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/meta/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mozilla</title>
+      <link>https://yoric.github.io/categories/mozilla/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Post Mortem</title>
+      <link>https://yoric.github.io/categories/post-mortem/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/post-mortem/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Project Lighthouse</title>
+      <link>https://yoric.github.io/categories/project-lighthouse/</link>
+      <pubDate>Fri, 17 Feb 2017 00:10:34 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/project-lighthouse/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

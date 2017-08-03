@@ -9,6 +9,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     padding: 0
 }
 
+p {
+    margin-top: 1em;
+}
+
+section#post-body h1, section#post-body h2, section#post-body h3, section#post-body h4, section#post-body h5, section#post-body h6 {
+    border-bottom: 1px solid #eaecef !important;
+}
+
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     display: block
 }
@@ -132,6 +140,8 @@ h1 {
 h2 {
     font: italic 19px/1.3em Georgia, serif;
     color: #bbb;
+    margin-top: 2em;
+    margin-left: 2em;
 }
 
 .profile #wrapper {

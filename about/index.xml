@@ -2,12 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>About me on Il y a du thé renversé au bord de la table !</title>
-    <link>https://yoric.github.io/about/index.xml</link>
+    <link>https://yoric.github.io/about/</link>
     <description>Recent content in About me on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 18 Feb 2017 16:06:26 +0100</lastBuildDate>
-    <atom:link href="https://yoric.github.io/about/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://yoric.github.io/about/index.xml" rel="self" type="application/rss+xml" />
+    
     
   </channel>
 </rss>
