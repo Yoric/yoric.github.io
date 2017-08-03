@@ -16,6 +16,7 @@ produce code, speed, programming languages and performance data for a living.
 
 I've been spotted spending time on
 
+- the SpiderMonkey JavaScript Virtual Machine;
 - a micro-kernel;
 - a next-gen browser engine;
 - a few compilers;
