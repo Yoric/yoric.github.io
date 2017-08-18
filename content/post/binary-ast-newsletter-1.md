@@ -1,10 +1,8 @@
 +++
 title = "Towards a JavaScript Binary AST"
-description = "JavaScript Binary AST newsletter #1"
 tags = ["JavaScript", "Mozilla", "parsing", "ast", "compiler", "performance", "SpiderMonkey", "Babel", "newsletter"]
 categories = ["JavaScript", "Mozilla", "performance", "binjs", "newsletter"]
-draft = true
-date = "2017-08-03T23:44:19+01:00"
+date = "2017-08-03T23:31:43+02:00"
 +++
 
 In this blog post, I would like to introduce the JavaScript Binary AST, an
