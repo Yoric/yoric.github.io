@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</loc>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://yoric.github.io/post/binary-ast-newsletter-1/</loc>
     <lastmod>2017-08-03T23:31:43+02:00</lastmod>
   </url>
@@ -44,19 +49,19 @@
   
   <url>
     <loc>https://yoric.github.io/tags/ast/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/babel/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/binjs/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -74,13 +79,13 @@
   
   <url>
     <loc>https://yoric.github.io/categories/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/compiler/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -104,7 +109,7 @@
   
   <url>
     <loc>https://yoric.github.io/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -134,13 +139,13 @@
   
   <url>
     <loc>https://yoric.github.io/tags/javascript/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/javascript/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -158,25 +163,25 @@
   
   <url>
     <loc>https://yoric.github.io/tags/mozilla/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/mozilla/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/newsletter/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/newsletter/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -206,19 +211,19 @@
   
   <url>
     <loc>https://yoric.github.io/tags/parsing/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/performance/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/performance/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -230,7 +235,7 @@
   
   <url>
     <loc>https://yoric.github.io/post/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -278,7 +283,7 @@
   
   <url>
     <loc>https://yoric.github.io/tags/spidermonkey/</loc>
-    <lastmod>2017-08-03T23:31:43+02:00</lastmod>
+    <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Aug 2017 23:31:43 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 18 Aug 2017 13:46:54 +0200</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JavaScript Binary AST Engineering Newsletter #1</title>
+      <link>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</link>
+      <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</guid>
+      <description>Hey, all cool kids have exciting Engineering Newsletters these days, so it&amp;rsquo;s high time the JavaScript Binary AST got one!
+Summary JavaScript Binary AST is a joint project between Mozilla and Facebook to rethink how JavaScript source code is stored/transmitted/parsed. We expect that this project will help visibly speed up the loading of large codebases of JS applications and will have a large impact on the JS development community, including both web developers, Node developers, add-on developers and ourselves.</description>
+    </item>
     
     <item>
       <title>Towards a JavaScript Binary AST</title>

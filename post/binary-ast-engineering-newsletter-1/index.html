@@ -1,0 +1,290 @@
+    <!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Il y a du thé renversé au bord de la table !">
+		<meta name="description" content="Aventure! Excitement! Random ramblings by David Teller!">
+		<meta name="generator" content="Hugo 0.25.1" />
+		<title>JavaScript Binary AST Engineering Newsletter #1 &middot; Il y a du thé renversé au bord de la table !</title>
+		<link rel="shortcut icon" href="https://yoric.github.io/images/favicon.ico">
+		<link rel="stylesheet" href="https://yoric.github.io/css/style.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/atom-one-light.min.css">
+		
+
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://yoric.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Il y a du thé renversé au bord de la table !" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://yoric.github.io/'> <span class="arrow">←</span>Home</a>
+	
+
+	
+		<a href='https://yoric.github.io/post'>Archive</a>
+	
+
+	
+		<a href='https://yoric.github.io/tags'>Tags</a>
+	
+
+	
+		<a href='https://yoric.github.io/about'>About</a>
+	
+
+	
+
+	
+	<a class="cta" href="https://yoric.github.io/index.xml">Subscribe (RSS)</a>
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        
+                            JavaScript Binary AST Engineering Newsletter #1
+                        
+                    </h1>
+                    <h2 class="headline">
+                    Aug 18, 2017 13:46
+                    · 680 words
+                    · 4 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://yoric.github.io/tags/javascript">JavaScript</a>
+                          
+                              <a href="https://yoric.github.io/tags/mozilla">Mozilla</a>
+                          
+                              <a href="https://yoric.github.io/tags/parsing">parsing</a>
+                          
+                              <a href="https://yoric.github.io/tags/ast">ast</a>
+                          
+                              <a href="https://yoric.github.io/tags/compiler">compiler</a>
+                          
+                              <a href="https://yoric.github.io/tags/performance">performance</a>
+                          
+                              <a href="https://yoric.github.io/tags/spidermonkey">SpiderMonkey</a>
+                          
+                              <a href="https://yoric.github.io/tags/babel">Babel</a>
+                          
+                              <a href="https://yoric.github.io/tags/newsletter">newsletter</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                <section id="post-body">
+                    
+
+<p>Hey, all cool kids have exciting Engineering Newsletters these days, so
+it&rsquo;s high time the JavaScript Binary AST got one!</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>JavaScript Binary AST is a joint project between Mozilla and Facebook to
+rethink how JavaScript source code is stored/transmitted/parsed. We
+expect that this project will help visibly speed up the loading of large
+codebases of JS applications and will have
+a large impact on the JS development community, including both web
+developers, Node developers, add-on developers and ourselves.</p>
+
+<h1 id="context">Context</h1>
+
+<p>The size of JavaScript-based applications – starting with webpages –
+keep increasing, while the parsing speed of JavaScript VMs has basically
+peaked. The result is that the startup of many web/js applications is
+now limited by JavaScript parsing speed. While there are measures that
+JS developers can take to improve the loading speed of their code, many
+applications have reached a situation in which such an effort becomes
+unmanageable.</p>
+
+<p>The JavaScript Binary AST is a novel format for storing JavaScript code.
+The global objective is to decrease the time spent between
+first-byte-received and code-execution-starts. To achieve this, we focus
+on a new file format, which we hope will aid our goal by:</p>
+
+<ul>
+<li>making parsing easier/faster</li>
+<li>supporting parallel parsing</li>
+<li>supporting lazy parsing</li>
+<li>supporting on-the-fly bytecode generation</li>
+<li>decreasing file size.</li>
+</ul>
+
+<p>For more context on the JavaScript Binary AST and alternative
+approaches, see <a href="https://yoric.github.io/post/binary-ast-newsletter-1/">the announcement</a>.</p>
+
+<h1 id="progress">Progress</h1>
+
+<h2 id="benchmarking-prototype">Benchmarking Prototype</h2>
+
+<p>The first phase of the project was spent developing an early prototype
+format and parser to validate our hypothesis that:</p>
+
+<ul>
+<li>we can make parsing much faster</li>
+<li>we can make lazy parsing much faster</li>
+<li>we can reduce the size of files.</li>
+</ul>
+
+<p>The prototype built for benchmarking was, by definition, incomplete, but
+sufficient to represent ES5-level source code. All our benchmarking was
+performed on snapshots of Facebook’s chat and of the JS source code our
+own DevTools.</p>
+
+<p>While numbers are bound to change as we progress from a proof-of-concept
+prototype towards a robust and future-proof implementation, the results
+we obtained from the prototype are very encouraging.</p>
+
+<ul>
+<li>parsing time x0.3 (i.e. parsing time is less than a third of original time)</li>
+<li>lazy parsing time x0.1</li>
+<li>gzipped file size vs gzipped human-readable source code x0.3</li>
+<li>gzipped file size vs gzipped minified source code x0.95.</li>
+</ul>
+
+<p>Please keep in mind that future versions may have very different
+results. However, these values confirm that the approach can
+considerably improve performance.</p>
+
+<p>More details in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1349917">bug 1349917</a>.</p>
+
+<h2 id="reference-prototype">Reference Prototype</h2>
+
+<p>The second phase of the project consisted of building a second prototype
+format designed to:</p>
+
+<ul>
+<li>support future evolutions of JavaScript</li>
+<li>support annotations designed to allow safe lazy/concurrent parsing</li>
+<li>serve as a reference implementation for third-party developers</li>
+</ul>
+
+<p>This reference prototype has been implemented (minus compression) and is
+currently being tested. It is entirely independent from SpiderMonkey and
+uses Rust (for all the heavy data structure manipulation) and Node (to
+benefit from existing parsing/pretty-printing tool Babylon). It is
+likely that, as data structures stabilize, the reference prototype will
+migrate to a full JS implementation, so as to make it easier for
+third-party contributors to join in.</p>
+
+<p>More details <a href="https://github.com/Yoric/binjs-ref/">on the tracker</a>.</p>
+
+<h2 id="standard-tracks">Standard tracks</h2>
+
+<p>As any proposed addition to the JavaScript language, the JavaScript
+Binary AST needs to go through standards body.</p>
+
+<p>The project has successfully been accepted as an ECMA TC39 Stage 1
+Proposal. Once we have a working Firefox implementation and compelling
+results, we will proceed towards Stage 2.</p>
+
+<p>More details <a href="https://github.com/syg/ecmascript-binary-ast/">on the tracker</a>.</p>
+
+<h1 id="next-few-steps">Next few steps</h1>
+
+<p>There is still lots of work before we can land this on the web.</p>
+
+<h2 id="spidermonkey-implementation">SpiderMonkey implementation</h2>
+
+<p>We are currently working on a SpiderMonkey implementation of the
+Reference Prototype, initially without lazy or concurrent parsing. We
+need to finish it to be able to properly test that JavaScript decoding
+works.</p>
+
+<h2 id="compression">Compression</h2>
+
+<p>The benchmarking prototype only implemented naive compression, while the
+reference prototype – which carries more data – doesn’t implement any
+form of compression yet. We need to reintroduce compression to be able
+to measure the impact on file size.</p>
+
+<h1 id="how-can-i-help">How can I help?</h1>
+
+<p>If you wish to help with the project, please get in touch with either
+Naveed Ihsanullah (IRC: <code>naveed</code>, mail: <code>nihsanullah</code>) or myself (IRC:
+<code>Yoric</code>, mail: <code>dteller</code>).</p>
+
+                </section>
+            </article>
+
+            
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'il-y-a-du-the-renverse-au-bord-de-la-table'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://github.com/Yoric">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://twitter.com/ImYoric">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2017 <i class="fa fa-heart" aria-hidden="true"></i> Il y a du thé renversé au bord de la table !
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="http://nodejh.com">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<script src="https://yoric.github.io/js/main.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+    </body>
+</html>
