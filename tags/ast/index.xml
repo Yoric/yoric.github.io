@@ -6,10 +6,20 @@
     <description>Recent content in Ast on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Aug 2017 13:46:54 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 07 Sep 2017 23:31:43 +0200</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/tags/ast/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Binary AST - Motivations and Design Decisions - Part 1</title>
+      <link>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</link>
+      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</guid>
+      <description>By Kannan Vijayan, Mike Hoye  &amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
+Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.</description>
+    </item>
     
     <item>
       <title>JavaScript Binary AST Engineering Newsletter #1</title>
