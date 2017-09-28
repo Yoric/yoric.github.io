@@ -48,7 +48,7 @@ start executing its JavaScript: the Binary AST.
 
 # Introducing the Binary AST
 
-The idea of the JavaScript Binary AST is simple: instead of sending text source
+The idea of the JavaScript Binary [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) is simple: instead of sending text source
 code, what could we improve by sending *binary* source code?
 
 Let me clarify: the Binary AST source code is equivalent to the text
