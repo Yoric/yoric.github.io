@@ -2,93 +2,112 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Il y a du thé renversé au bord de la table !</title>
-    <link>https://yoric.github.io/categories/</link>
+    <link>http://yoric.github.io/categories/</link>
     <description>Recent content in Categories on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
     <lastBuildDate>Thu, 07 Sep 2017 23:31:43 +0200</lastBuildDate>
     
-	<atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Binjs</title>
-      <link>https://yoric.github.io/categories/binjs/</link>
+      <link>http://yoric.github.io/categories/binjs/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/categories/binjs/</guid>
+      <guid>http://yoric.github.io/categories/binjs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Iot</title>
-      <link>https://yoric.github.io/categories/iot/</link>
+      <link>http://yoric.github.io/categories/iot/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/categories/iot/</guid>
+      <guid>http://yoric.github.io/categories/iot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Javascript</title>
-      <link>https://yoric.github.io/categories/javascript/</link>
+      <link>http://yoric.github.io/categories/javascript/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/categories/javascript/</guid>
+      <guid>http://yoric.github.io/categories/javascript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Meta</title>
-      <link>https://yoric.github.io/categories/meta/</link>
+      <link>http://yoric.github.io/categories/meta/</link>
       <pubDate>Sat, 18 Feb 2017 16:29:32 +0100</pubDate>
       
-      <guid>https://yoric.github.io/categories/meta/</guid>
+      <guid>http://yoric.github.io/categories/meta/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Mozilla</title>
-      <link>https://yoric.github.io/categories/mozilla/</link>
+      <link>http://yoric.github.io/categories/mozilla/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/categories/mozilla/</guid>
+      <guid>http://yoric.github.io/categories/mozilla/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Newsletter</title>
-      <link>https://yoric.github.io/categories/newsletter/</link>
+      <link>http://yoric.github.io/categories/newsletter/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/categories/newsletter/</guid>
+      <guid>http://yoric.github.io/categories/newsletter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Performance</title>
-      <link>https://yoric.github.io/categories/performance/</link>
+      <link>http://yoric.github.io/categories/performance/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/categories/performance/</guid>
+      <guid>http://yoric.github.io/categories/performance/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Post Mortem</title>
-      <link>https://yoric.github.io/categories/post-mortem/</link>
+      <link>http://yoric.github.io/categories/post-mortem/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/categories/post-mortem/</guid>
+      <guid>http://yoric.github.io/categories/post-mortem/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming Languages</title>
+      <link>http://yoric.github.io/categories/programming-languages/</link>
+      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
+      
+      <guid>http://yoric.github.io/categories/programming-languages/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Project Lighthouse</title>
-      <link>https://yoric.github.io/categories/project-lighthouse/</link>
+      <link>http://yoric.github.io/categories/project-lighthouse/</link>
       <pubDate>Fri, 17 Feb 2017 00:10:34 +0100</pubDate>
       
-      <guid>https://yoric.github.io/categories/project-lighthouse/</guid>
+      <guid>http://yoric.github.io/categories/project-lighthouse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>http://yoric.github.io/categories/rust/</link>
+      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
+      
+      <guid>http://yoric.github.io/categories/rust/</guid>
       <description></description>
     </item>
     

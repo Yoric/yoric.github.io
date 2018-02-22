@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Rust Typestates</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="Rust Typestates" />
+    <meta name="twitter:description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.
+
+" />
+    <meta name="twitter:image" content="http://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Rust Typestates" />
+  <meta property="og:description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.
+
+" />
+  <meta property="og:url" content="http://yoric.github.io/post/rust-typestate/" />
+  <meta property="og:image" content="http://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.36.1" />
+
+
+<link rel="canonical" href="http://yoric.github.io/post/rust-typestate/" />
+<link rel="alternative" href="http://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="http://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="http://yoric.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="http://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="http://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="http://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="http://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="http://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Rust Typestates</h1>
+      <p class="post-meta">@David Teller · Feb 22, 2018 · 8 min read</p>
+    </header>
+    <article class="post-content"><p>A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.</p>
+
+<p></p>
+
+<h1 id="wait-what-s-a-typestate">Wait, what’s a typestate?</h1>
+
+<p>Consider an object representing a file – let’s call that data structure a <code>MyFile</code>. Before a <code>MyFile</code> is opened, it cannot be read. Once a <code>MyFile</code> is closed, it cannot be read. In between, the file can be read. Typestates are a mechanism to let the type-checker check that you’re not making the following mistakes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; String {
+  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::new(path);
+  my_file.open();  <span style="color:#75715e">// Error: this may fail.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> my_file.read_all(); <span style="color:#75715e">// Invalid if `my_file.open()` failed.
+</span><span style="color:#75715e"></span>  my_file.close();
+
+  my_file.seek(Seek::Start); <span style="color:#75715e">// Error: we have closed `my_file`.
+</span><span style="color:#75715e"></span>  result
+}</code></pre></div>
+<p>In this example, we have made two mistakes:</p>
+
+<ol>
+<li>we have read a file that may not have been opened;</li>
+<li>we have seeked in a file that was already closed.</li>
+</ol>
+
+<p>In most programming languages, we can easily design the API
+of <code>MyFile</code> to ensure that the first error is impossible,
+simply by throwing an exception when the file fails to open.
+Some standard libraries and frameworks decide to not follow
+this principle for the sake of flexibility, but the capability
+exists in the language itself.</p>
+
+<p>The second error, however, is much harder to catch. Most
+programming languages support the necessary features to
+make this error hard, typically by closing the file upon
+destruction or at the end of a higher-order function call,
+but the only non-academic language that I know of that
+can actually entirely prevent that error is Rust.</p>
+
+<h1 id="trivial-typestates-in-rust">Trivial typestates in Rust</h1>
+
+<p>How do we do this in Rust?</p>
+
+<p>Well, the simplest way to do it is to introduce sane types
+for our operations on <code>MyFile</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">impl</span> MyFile {
+    <span style="color:#75715e">// `open` is the only way of constructing an instance of `MyFile`.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">open</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>MyFile, Error<span style="color:#f92672">&gt;</span> { ... }
+
+    <span style="color:#75715e">// `seek` requires an instance of `MyFile`.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">seek</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, pos: <span style="color:#a6e22e">Seek</span>) -&gt; Result<span style="color:#f92672">&lt;</span>(), Error<span style="color:#f92672">&gt;</span> { ... }
+
+    <span style="color:#75715e">// `read_all` requires an instance of `MyFile`.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_all</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> { ... }
+
+    <span style="color:#75715e">// `close` takes an argument `self`, not `&amp;self` or `&amp;mut self`,
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// which means that it *moves* its object, effectively
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// consuming it.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">close</span>(self) -&gt; Result<span style="color:#f92672">&lt;</span>(), Error<span style="color:#f92672">&gt;</span> { ... }
+}
+<span style="color:#66d9ef">impl</span> Drop <span style="color:#66d9ef">for</span> MyFile {
+    <span style="color:#75715e">// Introduce a destructor to auto-close an instance of `MyFile`
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// if we haven&#39;t closed it yet.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">drop</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) { ... }
+}</code></pre></div>
+<p>Let&rsquo;s rewrite our above example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
+  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
+  <span style="color:#75715e">// Note the `?` above. It&#39;s a simple operator that asks
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// the compiler to check whether the operation succeeded.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// The *only* way to obtain a `MyFile` object is to
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// have a successful `MyFile::open`.
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">// At this line, `my_file` is a `MyFile`, which means
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// that we may use it.
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> my_file.read_all()<span style="color:#f92672">?</span>; <span style="color:#75715e">// Valid.
+</span><span style="color:#75715e"></span>  my_file.close(); <span style="color:#75715e">// Valid
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">// Since `my_file.close()` consumed `my_file`,
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// this variable doesn&#39;t exist anymore.
+</span><span style="color:#75715e"></span>
+  my_file.seek(Seek::Start)<span style="color:#f92672">?</span>; <span style="color:#75715e">// Error, detected by the compiler
+</span><span style="color:#75715e"></span>  result
+}</code></pre></div>
+<p>This works even in more complex cases:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
+  <span style="color:#75715e">// As above.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
+  <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> my_file.read_all()<span style="color:#f92672">?</span>; <span style="color:#75715e">// Valid.
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">if</span> are_we_happy_yet() {
+      my_file.close(); <span style="color:#75715e">// Valid
+</span><span style="color:#75715e"></span>  }
+
+  <span style="color:#75715e">// Since `my_file.close()` consumed `my_file`,
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// this variable doesn&#39;t exist anymore in at least
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// one execution path.
+</span><span style="color:#75715e"></span>
+  my_file.seek(Seek::Start)<span style="color:#f92672">?</span>; <span style="color:#75715e">// Error, detected by the compiler
+</span><span style="color:#75715e"></span>  result
+
+  <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<p>The key here is that the Rust type system enforces the fact
+that a variable may not be used after having been <strong>moved</strong>.
+In our case, <code>my_file.close()</code> moved the value, effectively
+consuming it.</p>
+
+<p>Even if we had attempted to hide the variable somewhere
+else, and reuse it after the call to <code>my_file.close()</code>,
+we would have been thwarted by the compiler:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
+  <span style="color:#75715e">// As above.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
+  <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> my_file.read_all()<span style="color:#f92672">?</span>;
+
+  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file_sneaky_backup <span style="color:#f92672">=</span> my_file;
+  <span style="color:#75715e">// Here, we have moved `my_file` to `my_file_sneaky_backup`.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// So we cannot use `my_file` anymore.
+</span><span style="color:#75715e"></span>
+  my_file.close(); <span style="color:#75715e">// Error, detected by the compiler
+</span><span style="color:#75715e"></span>
+  my_file_sneaky_backup.seek(Seek::Start)<span style="color:#f92672">?</span>;
+  result
+
+  <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<p>Let&rsquo;s try another way to cheat the compiler by making
+the file accessible after it has been closed:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
+  <span style="color:#66d9ef">let</span> my_shared_file <span style="color:#f92672">=</span> Rc::new(RefCell::new(MyFile::open(path)<span style="color:#f92672">?</span>));
+  <span style="color:#75715e">// Here, `my_shared_file` is a shared pointer to a mutable
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// instance of `MyFile`, pretty much as a regular
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// reference in Java, C# or Python.
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> my_shared_file.borrow_mut()
+    .read_all()<span style="color:#f92672">?</span>; <span style="color:#75715e">// Valid
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">let</span> my_shared_file_sneaky_backup <span style="color:#f92672">=</span> my_shared_file.clone();
+  <span style="color:#75715e">// We have cloned the pointer, creating a second manner
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// of accessing `my_shared_file`.
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">// Let&#39;s make sure that we can use both the backup
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// and the orignal file:
+</span><span style="color:#75715e"></span>  my_shared_file_sneaky_backup.seek(Seek::Start)<span style="color:#f92672">?</span>; <span style="color:#75715e">// Valid
+</span><span style="color:#75715e"></span>  my_shared_file.seek(Seek::Start)<span style="color:#f92672">?</span>; <span style="color:#75715e">// Also valid
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">// Ahah, now we can surely close `my_shared_file`
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// then manipulate `my_shared_file_sneaky_backup`,
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// as we would in Java, C# or Python!
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">// Except we can&#39;t call `my_shared_file.close()`,
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// because the underlying `MyFile` is shared,
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// which means that nobody can *move* it
+</span><span style="color:#75715e"></span>  my_shared_file.close(); <span style="color:#75715e">// Error, detected by the compiler
+</span><span style="color:#75715e"></span>
+  my_shared_file_sneaky_backup.seek(Seek::Start)<span style="color:#f92672">?</span>;
+  result
+
+  <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
+</span><span style="color:#75715e"></span>}</code></pre></div>
+<p>Again, we have been thwarted by the compiler. Indeed, short
+of explicitly going into <code>unsafe</code> mode, we will not be able
+to break the invariant that <code>seek</code> cannot be used after <code>close</code>.</p>
+
+<p>So far, so good. But we are only dealing with a trivial
+case, in which files only have two states: <strong>opened</strong> and <strong>closed</strong>.</p>
+
+<p>Let&rsquo;s see if we can handle more complex cases.</p>
+
+<h1 id="complex-typestates">Complex typestates</h1>
+
+<p>Instead of files, let us now consider the following (and admittedly pretty dumb)
+network protocol:</p>
+
+<ol>
+<li>Sender sends message &ldquo;HELLO&rdquo;.</li>
+<li>Receiver receives message &ldquo;HELLO&rdquo;, responds with message &ldquo;HELLO, YOU&rdquo;.</li>
+<li>Sender receives message &ldquo;HELLO, YOU&rdquo;, responds with random number.</li>
+<li>Receiver receives number from sender, responds with the same number.</li>
+<li>Sender receives same number from receiver, responds &ldquo;BYE&rdquo;.</li>
+<li>Receiver receives &ldquo;BYE&rdquo; from sender, responds &ldquo;BYE, YOU&rdquo;.</li>
+<li>Return to 1.</li>
+</ol>
+
+<p>Any other message is ignored.</p>
+
+<p>We can design our <code>Sender</code> (and similarly, <code>Receiver</code>) to ensure that operations
+proceed in the right order. For the moment, we don&rsquo;t care
+about identifying the correspondant or the number.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// A series of 0-sized types representing
+</span><span style="color:#75715e">// the state of the sender.
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderReadyToSendHello</span>;
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentHello</span>;
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentNumber</span>;
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasReceivedNumber</span>;
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Sender</span><span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span> {
+  <span style="color:#e6db74">/// Actual implementation of network I/O.
+</span><span style="color:#e6db74"></span>  inner: <span style="color:#a6e22e">SenderImpl</span>;  
+  <span style="color:#e6db74">/// 0-sized field, doesn&#39;t exist at runtime.
+</span><span style="color:#e6db74"></span>  state: <span style="color:#a6e22e">S</span>;
+}
+
+<span style="color:#e6db74">/// The following methods may be called regardless of the state.
+</span><span style="color:#e6db74"></span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span> Sender<span style="color:#f92672">&lt;</span>S<span style="color:#f92672">&gt;</span> {
+    <span style="color:#e6db74">/// The port used to connect the sender.
+</span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">port</span>(<span style="color:#f92672">&amp;</span>self) -&gt; <span style="color:#66d9ef">usize</span>;
+
+    <span style="color:#e6db74">/// Close the sender, once and for all.
+</span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">close</span>(self);
+}
+
+<span style="color:#e6db74">/// The following method may be called only in a state SenderReadyToSendHello.
+</span><span style="color:#e6db74"></span><span style="color:#66d9ef">impl</span> Sender<span style="color:#f92672">&lt;</span>SenderReadyToSendHello<span style="color:#f92672">&gt;</span> {
+    <span style="color:#e6db74">/// Send hello.
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// This method consumes the sender in its current state,
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// returns it in a new state.
+</span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">send_hello</span>(<span style="color:#66d9ef">mut</span> self) -&gt; <span style="color:#a6e22e">Sender</span><span style="color:#f92672">&lt;</span>SenderHasSentHello<span style="color:#f92672">&gt;</span> {
+        self.inner.send_message(<span style="color:#e6db74">&#34;HELLO&#34;</span>);
+        Sender {
+            <span style="color:#e6db74">/// Move the implementation of network I/O.
+</span><span style="color:#e6db74"></span>            <span style="color:#e6db74">/// The compiler is typically smart enough
+</span><span style="color:#e6db74"></span>            <span style="color:#e6db74">/// to realize that this requires no runtime
+</span><span style="color:#e6db74"></span>            <span style="color:#e6db74">/// operation.
+</span><span style="color:#e6db74"></span>            inner: <span style="color:#a6e22e">self</span>.inner,
+            <span style="color:#e6db74">/// Replace the 0-sized field.
+</span><span style="color:#e6db74"></span>            <span style="color:#e6db74">/// This operation is erased at runtime.
+</span><span style="color:#e6db74"></span>            state: <span style="color:#a6e22e">SenderHasSentHello</span>
+        }
+    }
+}
+
+<span style="color:#e6db74">/// The following method may be called only in a state SenderHasSentHello.
+</span><span style="color:#e6db74"></span><span style="color:#66d9ef">impl</span> Sender<span style="color:#f92672">&lt;</span>SenderHasSentHello<span style="color:#f92672">&gt;</span> {
+    <span style="color:#e6db74">/// Wait until the receiver has sent &#34;HELLO, YOU&#34;,
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// respond with number.
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// Return the sender in state `SenderHasSentNumber`
+</span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">wait_respond_to_hello_you</span>(<span style="color:#66d9ef">mut</span> self) -&gt; <span style="color:#a6e22e">Sender</span><span style="color:#f92672">&lt;</span>SenderHasSentNumber<span style="color:#f92672">&gt;</span> {
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#e6db74">/// If the receiver has sent &#34;HELLO, YOU&#34;, respond with number and
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// return the sender in state `SenderHasSentNumber`.
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// Otherwise, return the unchanged state.
+</span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">try_respond_to_hello_you</span>(<span style="color:#66d9ef">mut</span> self) -&gt; Result<span style="color:#f92672">&lt;</span>Sender<span style="color:#f92672">&lt;</span>SenderHasSentNumber<span style="color:#f92672">&gt;</span>, Self<span style="color:#f92672">&gt;</span> {
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    }
+}
+
+
+<span style="color:#e6db74">/// The following method may be called only in a state SenderHasSentNumber.
+</span><span style="color:#e6db74"></span><span style="color:#66d9ef">impl</span> Sender<span style="color:#f92672">&lt;</span>SenderHasSentNumber<span style="color:#f92672">&gt;</span> {
+    <span style="color:#e6db74">/// Wait until the receiver has sent number, respond &#34;BYE&#34;.
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// Return the sender in state `SenderReadyToSendHello`
+</span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">wait_respond_to_hello_you</span>(<span style="color:#66d9ef">mut</span> self) -&gt; <span style="color:#a6e22e">Sender</span><span style="color:#f92672">&lt;</span>SenderReadyToSendHello<span style="color:#f92672">&gt;</span> {
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#e6db74">/// If the receiver has sent number, respond and return the sender
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// in state `SenderReadyToSendHello`.
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">///
+</span><span style="color:#e6db74"></span>    <span style="color:#e6db74">/// Otherwise, return the unchanged state.
+</span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">try_respond_to_hello_you</span>(<span style="color:#66d9ef">mut</span> self) -&gt; Result<span style="color:#f92672">&lt;</span>Sender<span style="color:#f92672">&lt;</span>SenderReadyToSendHello<span style="color:#f92672">&gt;</span>, Self<span style="color:#f92672">&gt;</span> {
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    }
+}</code></pre></div>
+<p>With this design, it is clear that the <code>Sender</code> can only follow the protocol:</p>
+
+<ul>
+<li>from step 1 (<code>SenderReadyToSendHello</code>, it may only go to step 3);</li>
+<li>from step 3 (<code>SenderHasSentHello</code>, it may only stay in step 3 or go to step 5);</li>
+<li>from step 5 (<code>SenderHasSentNumber</code>, it may only stay in step 5 or go back to step 1).</li>
+</ul>
+
+<p>Any attempt to detract from the protocol will be blocked by the type system.</p>
+
+<p>Welcome to the world of type states.</p>
+
+<p>If you ever need to work with network protocols, device drivers,
+industrial devices with specific safety instructions or OpenGL/DirectX/anything
+else that requires you to perform complex interactions with the hardware,
+you&rsquo;ll probably be happy to have such guarantees!</p>
+
+<h1 id="quick-note-beyond-type-states">Quick note: beyond type states</h1>
+
+<p>By the way, to continue on our network example,
+what if we wanted to, say, store the number sent by the <code>Server</code> to
+check that the response matched? Well, to do this, we can simply
+store the number on <code>SenderHasSentNumber</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentNumber</span> {
+    number_sent: <span style="color:#66d9ef">u32</span>,
+}</code></pre></div>
+<p>Once again, the compiler will check that the code only accesses <code>number_sent</code>
+when the sender is in state <code>SenderHasSentNumber</code>.</p>
+
+<p>We will lose a (tiny) amount of performance, we the compiler won&rsquo;t be able to
+optimize the transformation of the <code>Sender</code> between identical representations,
+but that&rsquo;s generally worth it.</p>
+
+<h1 id="closing-words">Closing words</h1>
+
+<p>I hope that this quick demonstration has convinced you that the power of Rust
+<strong>typed move</strong> is a great tool to ensure the safety of your code. It is used
+all around the Rust standard libraries and many well-designed third-party
+libraries.</p>
+
+<p>For the moment, I am not aware of any other programming language with typed
+move semantics (note: C++ has <em>untyped</em> move semantics), but I imagine that
+other languages will eventually imitate Rust if this feature proves to be
+well-liked. I, for one, couldn&rsquo;t do without :)</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="http://yoric.github.io/tags/rust"><span class="tag">Rust</span></a></li>
+        
+          <li><a href="http://yoric.github.io/tags/programming-languages"><span class="tag">Programming Languages</span></a></li>
+        
+          <li><a href="http://yoric.github.io/tags/types"><span class="tag">Types</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="http://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

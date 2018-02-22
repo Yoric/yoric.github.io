@@ -2,309 +2,328 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Il y a du thé renversé au bord de la table !</title>
-    <link>https://yoric.github.io/tags/</link>
+    <link>http://yoric.github.io/tags/</link>
     <description>Recent content in Tags on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
     <lastBuildDate>Sat, 18 Feb 2017 16:29:32 +0100</lastBuildDate>
     
-	<atom:link href="https://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ast</title>
-      <link>https://yoric.github.io/tags/ast/</link>
+      <link>http://yoric.github.io/tags/ast/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/ast/</guid>
+      <guid>http://yoric.github.io/tags/ast/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Babel</title>
-      <link>https://yoric.github.io/tags/babel/</link>
+      <link>http://yoric.github.io/tags/babel/</link>
       <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/babel/</guid>
+      <guid>http://yoric.github.io/tags/babel/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Blogging</title>
-      <link>https://yoric.github.io/tags/blogging/</link>
+      <link>http://yoric.github.io/tags/blogging/</link>
       <pubDate>Thu, 01 Dec 2016 23:42:19 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/blogging/</guid>
+      <guid>http://yoric.github.io/tags/blogging/</guid>
       <description></description>
     </item>
     
     <item>
       <title>C&#43;&#43;</title>
-      <link>https://yoric.github.io/tags/c&#43;&#43;/</link>
+      <link>http://yoric.github.io/tags/c&#43;&#43;/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
+      <guid>http://yoric.github.io/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Compiler</title>
-      <link>https://yoric.github.io/tags/compiler/</link>
+      <link>http://yoric.github.io/tags/compiler/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/compiler/</guid>
+      <guid>http://yoric.github.io/tags/compiler/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Computer Vision</title>
-      <link>https://yoric.github.io/tags/computer-vision/</link>
+      <link>http://yoric.github.io/tags/computer-vision/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/computer-vision/</guid>
+      <guid>http://yoric.github.io/tags/computer-vision/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Connected Devices</title>
-      <link>https://yoric.github.io/tags/connected-devices/</link>
+      <link>http://yoric.github.io/tags/connected-devices/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/connected-devices/</guid>
+      <guid>http://yoric.github.io/tags/connected-devices/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker</title>
-      <link>https://yoric.github.io/tags/docker/</link>
+      <link>http://yoric.github.io/tags/docker/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/docker/</guid>
+      <guid>http://yoric.github.io/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ios</title>
-      <link>https://yoric.github.io/tags/ios/</link>
+      <link>http://yoric.github.io/tags/ios/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/ios/</guid>
+      <guid>http://yoric.github.io/tags/ios/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Iot</title>
-      <link>https://yoric.github.io/tags/iot/</link>
+      <link>http://yoric.github.io/tags/iot/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/iot/</guid>
+      <guid>http://yoric.github.io/tags/iot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Iphone</title>
-      <link>https://yoric.github.io/tags/iphone/</link>
+      <link>http://yoric.github.io/tags/iphone/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/iphone/</guid>
+      <guid>http://yoric.github.io/tags/iphone/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Javascript</title>
-      <link>https://yoric.github.io/tags/javascript/</link>
+      <link>http://yoric.github.io/tags/javascript/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/javascript/</guid>
+      <guid>http://yoric.github.io/tags/javascript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kickstarter</title>
-      <link>https://yoric.github.io/tags/kickstarter/</link>
+      <link>http://yoric.github.io/tags/kickstarter/</link>
       <pubDate>Fri, 17 Feb 2017 00:10:34 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/kickstarter/</guid>
+      <guid>http://yoric.github.io/tags/kickstarter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Mozilla</title>
-      <link>https://yoric.github.io/tags/mozilla/</link>
+      <link>http://yoric.github.io/tags/mozilla/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/mozilla/</guid>
+      <guid>http://yoric.github.io/tags/mozilla/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Newsletter</title>
-      <link>https://yoric.github.io/tags/newsletter/</link>
+      <link>http://yoric.github.io/tags/newsletter/</link>
       <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/newsletter/</guid>
+      <guid>http://yoric.github.io/tags/newsletter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Obj C</title>
-      <link>https://yoric.github.io/tags/obj-c/</link>
+      <link>http://yoric.github.io/tags/obj-c/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/obj-c/</guid>
+      <guid>http://yoric.github.io/tags/obj-c/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Ocr</title>
-      <link>https://yoric.github.io/tags/ocr/</link>
+      <link>http://yoric.github.io/tags/ocr/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/ocr/</guid>
+      <guid>http://yoric.github.io/tags/ocr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Open Source</title>
-      <link>https://yoric.github.io/tags/open-source/</link>
+      <link>http://yoric.github.io/tags/open-source/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/open-source/</guid>
+      <guid>http://yoric.github.io/tags/open-source/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Opencv</title>
-      <link>https://yoric.github.io/tags/opencv/</link>
+      <link>http://yoric.github.io/tags/opencv/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/opencv/</guid>
+      <guid>http://yoric.github.io/tags/opencv/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Parsing</title>
-      <link>https://yoric.github.io/tags/parsing/</link>
+      <link>http://yoric.github.io/tags/parsing/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/parsing/</guid>
+      <guid>http://yoric.github.io/tags/parsing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Performance</title>
-      <link>https://yoric.github.io/tags/performance/</link>
+      <link>http://yoric.github.io/tags/performance/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/performance/</guid>
+      <guid>http://yoric.github.io/tags/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming Languages</title>
+      <link>http://yoric.github.io/tags/programming-languages/</link>
+      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
+      
+      <guid>http://yoric.github.io/tags/programming-languages/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Project Lighthouse</title>
-      <link>https://yoric.github.io/tags/project-lighthouse/</link>
+      <link>http://yoric.github.io/tags/project-lighthouse/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/project-lighthouse/</guid>
+      <guid>http://yoric.github.io/tags/project-lighthouse/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Prototype</title>
-      <link>https://yoric.github.io/tags/prototype/</link>
+      <link>http://yoric.github.io/tags/prototype/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/prototype/</guid>
+      <guid>http://yoric.github.io/tags/prototype/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
-      <link>https://yoric.github.io/tags/python/</link>
+      <link>http://yoric.github.io/tags/python/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/python/</guid>
+      <guid>http://yoric.github.io/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Raspberry Pi</title>
-      <link>https://yoric.github.io/tags/raspberry-pi/</link>
+      <link>http://yoric.github.io/tags/raspberry-pi/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/raspberry-pi/</guid>
+      <guid>http://yoric.github.io/tags/raspberry-pi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Raspbian</title>
-      <link>https://yoric.github.io/tags/raspbian/</link>
+      <link>http://yoric.github.io/tags/raspbian/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/raspbian/</guid>
+      <guid>http://yoric.github.io/tags/raspbian/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
+      <link>http://yoric.github.io/tags/rust/</link>
+      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/rust/</guid>
+      <guid>http://yoric.github.io/tags/rust/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spidermonkey</title>
-      <link>https://yoric.github.io/tags/spidermonkey/</link>
+      <link>http://yoric.github.io/tags/spidermonkey/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/spidermonkey/</guid>
+      <guid>http://yoric.github.io/tags/spidermonkey/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Swift</title>
-      <link>https://yoric.github.io/tags/swift/</link>
+      <link>http://yoric.github.io/tags/swift/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/swift/</guid>
+      <guid>http://yoric.github.io/tags/swift/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Types</title>
+      <link>http://yoric.github.io/tags/types/</link>
+      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
+      
+      <guid>http://yoric.github.io/tags/types/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Vision Impaired</title>
-      <link>https://yoric.github.io/tags/vision-impaired/</link>
+      <link>http://yoric.github.io/tags/vision-impaired/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/vision-impaired/</guid>
+      <guid>http://yoric.github.io/tags/vision-impaired/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Wearable</title>
-      <link>https://yoric.github.io/tags/wearable/</link>
+      <link>http://yoric.github.io/tags/wearable/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/wearable/</guid>
+      <guid>http://yoric.github.io/tags/wearable/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Wot</title>
-      <link>https://yoric.github.io/tags/wot/</link>
+      <link>http://yoric.github.io/tags/wot/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/wot/</guid>
+      <guid>http://yoric.github.io/tags/wot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Yoric</title>
-      <link>https://yoric.github.io/tags/yoric/</link>
+      <link>http://yoric.github.io/tags/yoric/</link>
       <pubDate>Sat, 18 Feb 2017 16:06:26 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/yoric/</guid>
+      <guid>http://yoric.github.io/tags/yoric/</guid>
       <description></description>
     </item>
     

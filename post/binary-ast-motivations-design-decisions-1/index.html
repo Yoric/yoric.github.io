@@ -1,95 +1,230 @@
-    <!DOCTYPE html>
-<html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="Il y a du thé renversé au bord de la table !">
-		<meta name="description" content="Aventure! Excitement! Random ramblings by David Teller!">
-		<meta name="generator" content="Hugo 0.26" />
-		<title>Binary AST - Motivations and Design Decisions - Part 1 &middot; Il y a du thé renversé au bord de la table !</title>
-		<link rel="shortcut icon" href="https://yoric.github.io/images/favicon.ico">
-		<link rel="stylesheet" href="https://yoric.github.io/css/style.css">
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/atom-one-light.min.css">
-		
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		
+  <meta charset="utf-8" />
 
-		
-		<link href="https://yoric.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Il y a du thé renversé au bord de la table !" />
-		
-	</head>
+  
+  <title>Binary AST - Motivations and Design Decisions - Part 1</title>
 
-    <body>
-       <nav class="main-nav">
-	
-	
-		<a href='https://yoric.github.io/'> <span class="arrow">←</span>Home</a>
-	
-
-	
-		<a href='https://yoric.github.io/post'>Archive</a>
-	
-
-	
-		<a href='https://yoric.github.io/tags'>Tags</a>
-	
-
-	
-		<a href='https://yoric.github.io/about'>About</a>
-	
-
-	
-
-	
-	<a class="cta" href="https://yoric.github.io/index.xml">Subscribe (RSS)</a>
-	
-</nav>
+  
+  
 
 
-        <section id="wrapper">
-            <article class="post">
-                <header>
-                    <h1>
-                        
-                            Binary AST - Motivations and Design Decisions - Part 1
-                        
-                    </h1>
-                    <h2 class="headline">
-                    Sep 7, 2017 23:31
-                    · 2845 words
-                    · 14 minutes read
-                      <span class="tags">
-                      
-                      
-                          
-                              <a href="https://yoric.github.io/tags/javascript">JavaScript</a>
-                          
-                              <a href="https://yoric.github.io/tags/mozilla">Mozilla</a>
-                          
-                              <a href="https://yoric.github.io/tags/parsing">parsing</a>
-                          
-                              <a href="https://yoric.github.io/tags/ast">ast</a>
-                          
-                              <a href="https://yoric.github.io/tags/compiler">compiler</a>
-                          
-                              <a href="https://yoric.github.io/tags/performance">performance</a>
-                          
-                              <a href="https://yoric.github.io/tags/spidermonkey">SpiderMonkey</a>
-                          
-                      
-                      
-                      </span>
-                    </h2>
-                </header>
-                <section id="post-body">
-                    
 
-<ul>
-<li>By Kannan Vijayan, Mike Hoye</li>
-</ul>
+
+
+  
+  <meta name="author" content="Kannan Vijayan, Mike Hoye" />
+  <meta name="description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
+Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
+It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="Binary AST - Motivations and Design Decisions - Part 1" />
+    <meta name="twitter:description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
+Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
+It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype." />
+    <meta name="twitter:image" content="http://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Binary AST - Motivations and Design Decisions - Part 1" />
+  <meta property="og:description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
+Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
+It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype." />
+  <meta property="og:url" content="http://yoric.github.io/post/binary-ast-motivations-design-decisions-1/" />
+  <meta property="og:image" content="http://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.36.1" />
+
+
+<link rel="canonical" href="http://yoric.github.io/post/binary-ast-motivations-design-decisions-1/" />
+<link rel="alternative" href="http://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="http://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="http://yoric.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="http://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="http://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="http://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="http://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="http://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Binary AST - Motivations and Design Decisions - Part 1</h1>
+      <p class="post-meta">@Kannan Vijayan, Mike Hoye · Sep 7, 2017 · 14 min read</p>
+    </header>
+    <article class="post-content">
 
 <p><em>&ldquo;The key to making programs fast is to make them do practically nothing.&rdquo;</em>
                       - <a href="https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html">Mike Haertel, creator of GNU Grep</a>.</p>
@@ -446,72 +581,91 @@ must be scanned linearly, and there&rsquo;s no jumping around allowed.</p>
 
 <p>This ability to embed &ldquo;pointers&rdquo; in the encoding also allows for
 a much more machine-friendly structuring of information.</p>
-
-                </section>
-            </article>
-
-            
-
-            
-                <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'il-y-a-du-the-renverse-au-bord-de-la-table'; 
-
-     
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="http://yoric.github.io/tags/javascript"><span class="tag">JavaScript</span></a></li>
+        
+          <li><a href="http://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
+        
+          <li><a href="http://yoric.github.io/tags/parsing"><span class="tag">Parsing</span></a></li>
+        
+          <li><a href="http://yoric.github.io/tags/ast"><span class="tag">Ast</span></a></li>
+        
+          <li><a href="http://yoric.github.io/tags/compiler"><span class="tag">Compiler</span></a></li>
+        
+          <li><a href="http://yoric.github.io/tags/performance"><span class="tag">Performance</span></a></li>
+        
+          <li><a href="http://yoric.github.io/tags/spidermonkey"><span class="tag">SpiderMonkey</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.This post was published <strong>167</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
     (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-
-            
-
-            
-
-            <footer id="footer">
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
     
-        <div id="social">
-
-	
-	
-    <a class="symbol" href="https://github.com/Yoric">
-        <i class="fa fa-github-square"></i>
-    </a>
-    
-    <a class="symbol" href="https://twitter.com/ImYoric">
-        <i class="fa fa-twitter-square"></i>
-    </a>
-    
-
-
-</div>
-
-    
-    <p class="small">
-    
-        © Copyright 2017 <i class="fa fa-heart" aria-hidden="true"></i> Il y a du thé renversé au bord de la table !
-    
-    </p>
-    <p class="small">
-        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="http://nodejh.com">nodejh</a>
-    </p>
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
 </footer>
 
-        </section>
-
-        <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-<script src="https://yoric.github.io/js/main.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
 
 
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="http://yoric.github.io/js/bundle.js"></script>
 
 
 
 
-
-    </body>
+  </body>
 </html>

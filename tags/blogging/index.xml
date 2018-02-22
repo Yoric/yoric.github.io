@@ -2,21 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogging on Il y a du thé renversé au bord de la table !</title>
-    <link>https://yoric.github.io/tags/blogging/</link>
+    <link>http://yoric.github.io/tags/blogging/</link>
     <description>Recent content in Blogging on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
     <lastBuildDate>Thu, 01 Dec 2016 23:42:19 +0100</lastBuildDate>
     
-	<atom:link href="https://yoric.github.io/tags/blogging/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://yoric.github.io/tags/blogging/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Blog migration in progress</title>
-      <link>https://yoric.github.io/post/migration/</link>
+      <link>http://yoric.github.io/post/migration/</link>
       <pubDate>Thu, 01 Dec 2016 23:42:19 +0100</pubDate>
       
-      <guid>https://yoric.github.io/post/migration/</guid>
+      <guid>http://yoric.github.io/post/migration/</guid>
       <description>I am in the process of migrating to github.io. You can find my previous blog on Wordpress.</description>
     </item>
     

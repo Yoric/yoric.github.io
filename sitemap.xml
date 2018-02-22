@@ -3,321 +3,350 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</loc>
+    <loc>http://yoric.github.io/post/rust-typestate/</loc>
+    <lastmod>2018-02-22T17:25:55+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</loc>
+    <loc>http://yoric.github.io/post/binary-ast-engineering-newsletter-1/</loc>
     <lastmod>2017-08-18T13:46:54+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/post/binary-ast-newsletter-1/</loc>
+    <loc>http://yoric.github.io/post/binary-ast-newsletter-1/</loc>
     <lastmod>2017-08-03T23:31:43+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/post/post-mortem-lighthouse/</loc>
+    <loc>http://yoric.github.io/post/post-mortem-lighthouse/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/</loc>
+    <loc>http://yoric.github.io/tags/</loc>
     <lastmod>2017-02-18T16:29:32+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/about/</loc>
+    <loc>http://yoric.github.io/about/</loc>
     <lastmod>2017-02-18T16:06:26+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/post/how-to-survive/</loc>
+    <loc>http://yoric.github.io/post/how-to-survive/</loc>
     <lastmod>2017-02-17T00:10:34+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/post/migration-2/</loc>
+    <loc>http://yoric.github.io/post/migration-2/</loc>
     <lastmod>2017-02-17T00:07:21+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/post/extracting-text-from-images/</loc>
+    <loc>http://yoric.github.io/post/extracting-text-from-images/</loc>
     <lastmod>2017-01-01T23:44:19+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/post/migration/</loc>
+    <loc>http://yoric.github.io/post/migration/</loc>
     <lastmod>2016-12-01T23:42:19+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/ast/</loc>
+    <loc>http://yoric.github.io/tags/ast/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/babel/</loc>
+    <loc>http://yoric.github.io/tags/babel/</loc>
     <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/binjs/</loc>
+    <loc>http://yoric.github.io/categories/binjs/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/blogging/</loc>
+    <loc>http://yoric.github.io/tags/blogging/</loc>
     <lastmod>2016-12-01T23:42:19+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/c&#43;&#43;/</loc>
+    <loc>http://yoric.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/</loc>
+    <loc>http://yoric.github.io/categories/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/compiler/</loc>
+    <loc>http://yoric.github.io/tags/compiler/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/computer-vision/</loc>
+    <loc>http://yoric.github.io/tags/computer-vision/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/connected-devices/</loc>
+    <loc>http://yoric.github.io/tags/connected-devices/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/docker/</loc>
+    <loc>http://yoric.github.io/tags/docker/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/</loc>
+    <loc>http://yoric.github.io/</loc>
+    <lastmod>2018-02-22T17:25:55+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/tags/ios/</loc>
+    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/tags/iot/</loc>
+    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/categories/iot/</loc>
+    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/tags/iphone/</loc>
+    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/tags/javascript/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/ios/</loc>
-    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/categories/iot/</loc>
-    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/iot/</loc>
-    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/iphone/</loc>
-    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/categories/javascript/</loc>
+    <loc>http://yoric.github.io/categories/javascript/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/javascript/</loc>
-    <lastmod>2017-09-07T23:31:43+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/kickstarter/</loc>
+    <loc>http://yoric.github.io/tags/kickstarter/</loc>
     <lastmod>2017-02-17T00:10:34+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/meta/</loc>
+    <loc>http://yoric.github.io/categories/meta/</loc>
     <lastmod>2017-02-18T16:29:32+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/mozilla/</loc>
+    <loc>http://yoric.github.io/tags/mozilla/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/mozilla/</loc>
+    <loc>http://yoric.github.io/categories/mozilla/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/newsletter/</loc>
-    <lastmod>2017-09-07T23:31:43+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/newsletter/</loc>
+    <loc>http://yoric.github.io/tags/newsletter/</loc>
     <lastmod>2017-08-18T13:46:54+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/obj-c/</loc>
+    <loc>http://yoric.github.io/categories/newsletter/</loc>
+    <lastmod>2017-09-07T23:31:43+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/tags/obj-c/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/ocr/</loc>
+    <loc>http://yoric.github.io/tags/ocr/</loc>
     <lastmod>2017-01-01T23:44:19+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/open-source/</loc>
+    <loc>http://yoric.github.io/tags/open-source/</loc>
     <lastmod>2017-01-01T23:44:19+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/opencv/</loc>
+    <loc>http://yoric.github.io/tags/opencv/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/parsing/</loc>
+    <loc>http://yoric.github.io/tags/parsing/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/performance/</loc>
+    <loc>http://yoric.github.io/tags/performance/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/performance/</loc>
+    <loc>http://yoric.github.io/categories/performance/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/post-mortem/</loc>
+    <loc>http://yoric.github.io/categories/post-mortem/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/post/</loc>
-    <lastmod>2017-09-07T23:31:43+02:00</lastmod>
+    <loc>http://yoric.github.io/post/</loc>
+    <lastmod>2018-02-22T17:25:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/project-lighthouse/</loc>
+    <loc>http://yoric.github.io/tags/programming-languages/</loc>
+    <lastmod>2018-02-22T17:25:55+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/categories/programming-languages/</loc>
+    <lastmod>2018-02-22T17:25:55+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/tags/project-lighthouse/</loc>
+    <lastmod>2017-01-01T23:44:19+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/categories/project-lighthouse/</loc>
     <lastmod>2017-02-17T00:10:34+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/project-lighthouse/</loc>
-    <lastmod>2017-01-01T23:44:19+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/prototype/</loc>
+    <loc>http://yoric.github.io/tags/prototype/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/python/</loc>
+    <loc>http://yoric.github.io/tags/python/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/raspberry-pi/</loc>
+    <loc>http://yoric.github.io/tags/raspberry-pi/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/raspbian/</loc>
+    <loc>http://yoric.github.io/tags/raspbian/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/rust/</loc>
-    <lastmod>2017-01-01T23:44:19+01:00</lastmod>
+    <loc>http://yoric.github.io/tags/rust/</loc>
+    <lastmod>2018-02-22T17:25:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/spidermonkey/</loc>
+    <loc>http://yoric.github.io/categories/rust/</loc>
+    <lastmod>2018-02-22T17:25:55+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/tags/spidermonkey/</loc>
     <lastmod>2017-09-07T23:31:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/swift/</loc>
+    <loc>http://yoric.github.io/tags/swift/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/vision-impaired/</loc>
+    <loc>http://yoric.github.io/tags/types/</loc>
+    <lastmod>2018-02-22T17:25:55+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yoric.github.io/tags/vision-impaired/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/wearable/</loc>
+    <loc>http://yoric.github.io/tags/wearable/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/wot/</loc>
+    <loc>http://yoric.github.io/tags/wot/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/yoric/</loc>
+    <loc>http://yoric.github.io/tags/yoric/</loc>
     <lastmod>2017-02-18T16:06:26+01:00</lastmod>
     <priority>0</priority>
   </url>
