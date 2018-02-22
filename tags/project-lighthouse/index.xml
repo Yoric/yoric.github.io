@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Project Lighthouse on Il y a du thé renversé au bord de la table !</title>
-    <link>http://yoric.github.io/tags/project-lighthouse/</link>
+    <link>https://yoric.github.io/tags/project-lighthouse/</link>
     <description>Recent content in Project Lighthouse on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
     <lastBuildDate>Sun, 01 Jan 2017 23:44:19 +0100</lastBuildDate>
     
-	<atom:link href="http://yoric.github.io/tags/project-lighthouse/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://yoric.github.io/tags/project-lighthouse/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Extracting text from images is not easy (who would have guessed?)</title>
-      <link>http://yoric.github.io/post/extracting-text-from-images/</link>
+      <link>https://yoric.github.io/post/extracting-text-from-images/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
       
-      <guid>http://yoric.github.io/post/extracting-text-from-images/</guid>
+      <guid>https://yoric.github.io/post/extracting-text-from-images/</guid>
       <description>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
 From there, we started a number of experiments. I figured out it was time to braindump some of them.
 Our problem Consider the following example:

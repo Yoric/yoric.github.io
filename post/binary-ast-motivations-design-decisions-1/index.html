@@ -28,7 +28,7 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
     <meta name="twitter:description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
 Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
 It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype." />
-    <meta name="twitter:image" content="http://yoric.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
   
 
   
@@ -37,8 +37,8 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
   <meta property="og:description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
 Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
 It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype." />
-  <meta property="og:url" content="http://yoric.github.io/post/binary-ast-motivations-design-decisions-1/" />
-  <meta property="og:image" content="http://yoric.github.io/img/avatar.jpg" />
+  <meta property="og:url" content="https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
 
 
 
@@ -46,8 +46,8 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
 <meta name="generator" content="Hugo 0.36.1" />
 
 
-<link rel="canonical" href="http://yoric.github.io/post/binary-ast-motivations-design-decisions-1/" />
-<link rel="alternative" href="http://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+<link rel="canonical" href="https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -72,18 +72,18 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="http://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="http://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="http://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="http://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="http://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="http://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="http://yoric.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
 
 
   
@@ -118,7 +118,7 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
     
     
   <header class="site-header">
-  <img class="avatar" src="http://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
   
@@ -139,21 +139,21 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
             
               is-active
             ">
-            <a href="http://yoric.github.io/">Home</a>
+            <a href="https://yoric.github.io/">Home</a>
           </li>
       
         <li class="menu-item
             
             
             ">
-            <a href="http://yoric.github.io/categories/">Categories</a>
+            <a href="https://yoric.github.io/categories/">Categories</a>
           </li>
       
         <li class="menu-item
             
             
             ">
-            <a href="http://yoric.github.io/tags/">Tags</a>
+            <a href="https://yoric.github.io/tags/">Tags</a>
           </li>
       
     </ul>
@@ -212,7 +212,7 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
       
 
       <li class="social-item">
-        <a href="http://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -586,19 +586,19 @@ a much more machine-friendly structuring of information.</p>
       
       <ul class="post-tags">
         
-          <li><a href="http://yoric.github.io/tags/javascript"><span class="tag">JavaScript</span></a></li>
+          <li><a href="https://yoric.github.io/tags/javascript"><span class="tag">JavaScript</span></a></li>
         
-          <li><a href="http://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
+          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
         
-          <li><a href="http://yoric.github.io/tags/parsing"><span class="tag">Parsing</span></a></li>
+          <li><a href="https://yoric.github.io/tags/parsing"><span class="tag">Parsing</span></a></li>
         
-          <li><a href="http://yoric.github.io/tags/ast"><span class="tag">Ast</span></a></li>
+          <li><a href="https://yoric.github.io/tags/ast"><span class="tag">Ast</span></a></li>
         
-          <li><a href="http://yoric.github.io/tags/compiler"><span class="tag">Compiler</span></a></li>
+          <li><a href="https://yoric.github.io/tags/compiler"><span class="tag">Compiler</span></a></li>
         
-          <li><a href="http://yoric.github.io/tags/performance"><span class="tag">Performance</span></a></li>
+          <li><a href="https://yoric.github.io/tags/performance"><span class="tag">Performance</span></a></li>
         
-          <li><a href="http://yoric.github.io/tags/spidermonkey"><span class="tag">SpiderMonkey</span></a></li>
+          <li><a href="https://yoric.github.io/tags/spidermonkey"><span class="tag">SpiderMonkey</span></a></li>
         
       </ul>
       
@@ -662,7 +662,7 @@ a much more machine-friendly structuring of information.</p>
   });
 </script>
 
-<script src="http://yoric.github.io/js/bundle.js"></script>
+<script src="https://yoric.github.io/js/bundle.js"></script>
 
 
 

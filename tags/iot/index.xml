@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Iot on Il y a du thé renversé au bord de la table !</title>
-    <link>http://yoric.github.io/tags/iot/</link>
+    <link>https://yoric.github.io/tags/iot/</link>
     <description>Recent content in Iot on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
     <lastBuildDate>Mon, 20 Feb 2017 10:44:33 +0100</lastBuildDate>
     
-	<atom:link href="http://yoric.github.io/tags/iot/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://yoric.github.io/tags/iot/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Project Lighthouse: A post-mortem</title>
-      <link>http://yoric.github.io/post/post-mortem-lighthouse/</link>
+      <link>https://yoric.github.io/post/post-mortem-lighthouse/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
-      <guid>http://yoric.github.io/post/post-mortem-lighthouse/</guid>
+      <guid>https://yoric.github.io/post/post-mortem-lighthouse/</guid>
       <description>A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
 One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life.</description>
     </item>
     
     <item>
       <title>Things to do before you[r project] die[s]</title>
-      <link>http://yoric.github.io/post/how-to-survive/</link>
+      <link>https://yoric.github.io/post/how-to-survive/</link>
       <pubDate>Fri, 17 Feb 2017 00:10:34 +0100</pubDate>
       
-      <guid>http://yoric.github.io/post/how-to-survive/</guid>
+      <guid>https://yoric.github.io/post/how-to-survive/</guid>
       <description>&lt;p&gt;It&amp;rsquo;s no secret that all projects die, eventually, and that most projects die
 before they have had a chance to have any impact. This is true of personal projects,
 of open-source projects, of startup projects, of hardware projects, and more.&lt;/p&gt;
@@ -52,10 +52,10 @@ summary useful.&lt;/p&gt;
     
     <item>
       <title>Extracting text from images is not easy (who would have guessed?)</title>
-      <link>http://yoric.github.io/post/extracting-text-from-images/</link>
+      <link>https://yoric.github.io/post/extracting-text-from-images/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
       
-      <guid>http://yoric.github.io/post/extracting-text-from-images/</guid>
+      <guid>https://yoric.github.io/post/extracting-text-from-images/</guid>
       <description>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
 From there, we started a number of experiments. I figured out it was time to braindump some of them.
 Our problem Consider the following example:
