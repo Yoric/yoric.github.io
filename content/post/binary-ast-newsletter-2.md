@@ -223,11 +223,19 @@ This description lets the parser immediately determine which version(s) of
 Here, the file contains `FunctionDeclaration` nodes with three
 properties: `name`, `arguments` and `body`.
 
-Oh, and since this is definition
-is entry 42 in the description of the format, we can immediately reuse this
-number 42 to represent our instance of `FunctionDeclaration`.
+# Making it fast to send
 
-So, instead of
+If we want to make the Binary AST useful, we need to make sure that files do not
+become too large. Not only that, but we would like Binary AST compression
+to beat minification + gzip compression in terms of disk usage.
+
+- **TODO** adopt a size-efficient representation of the AST;
+- **TODO** during development, benchmark size against minified + gzipped code;
+
+Of course, to do this, we need to adopt an efficient representation of the AST.
+
+In the examples above, we have put the definition of `FunctionDeclaration` in an
+index, with number 42. Which means that istead of
 
 ```js
 FunctionDeclaration {
@@ -237,23 +245,101 @@ FunctionDeclaration {
 }
 ```
 
-we can write in our file
+we can write in our file the following sequence of 9 bytes:
 
 ```js
-[42, "empty", [], []]
+[42, 5 /*length of string*/, 'e', 'm', 'p', 't', 'y', 0 /* length of list*/, 0 /* length of list */]
 ```
 
-That's not binary yet, but we are already getting smaller. And that's before we get
-serious about compression.
+This is already much shorter.
 
-# Making it fast to send
+Similarly, let us revisit
 
-If we want to make the Binary AST useful, we need to make sure that files do not
-become too large. Ideally, we would like Binary AST files to be smaller than
-minified + compressed text source:
+```js
+// `item` is declared implicitly
+for (item of document.getElementsByClassName("sun")) {
+    if (!item.classList.contains("clouds")) {
+        item.classList.add("sundown");
+    }
+}
+```
 
-- **TODO** during development, benchmark size against gzip;
+We describe it as
 
+
+```js
+Constructions [
+    /*0*/ "ForOf" ["vars", "left", "right"],
+    /*1*/ "Name" ["value"],
+    /*2*/ "Apply" ["function", "args"],
+    /*3*/ "Dot" ["object", "property"],
+    /*4*/ "If" ["condition", "then", "else"],
+    /*5*/ "Unary" ["operation", "operand"],
+    /*6*/ "String" ["value"],
+    /*7*/ null,
+]
+Strings [
+    /*0*/"item",
+    /*1*/"document",
+    /*2*/"getElementsByClassName",
+    /*3*/"sun",
+    /*4*/"classList",
+    /*5*/"contains",
+    /*6*/"clouds",
+    /*7*/"add",
+    /*8*/"sundown",
+    /*9*/"!",
+]
+
+ForOf /*0*/{
+    vars: ["item"], /*1, 0*/
+    left: Name "item"  /*1, 0*/,
+    right: Apply /*2*/{
+        function: Dot /*3*/{
+            object: Name "document" /*1, 1*/,
+            property: Name "getElementsByClassName" /*1, 2*/
+        },
+        args: [String "sun"] /*1, 6, 3*/
+    }
+    body: If /*4*/{
+        condition: Unary /*5*/{
+            operation: "!", /*9*/
+            operand: Apply /*2*/{
+                function: Dot /*3*/{
+                    object: Dot /*3*/{
+                        object: Name: "item", /*1, 9*/
+                        property: Name "classList" /*1, 4*/
+                    },
+                    property: Name "contains" /*1, 5*/
+                },
+                args: [String "clouds"] /*1, 6, 6*/
+            }
+        }
+        then: Apply /*2*/{
+            function: Dot /*3*/{
+                object: Dot /*3*/{
+                    object: Name: "item", /*1, 9*/
+                    property: Name "classList" /*1, 4*/
+                },
+                property: Name: "add" /*1, 7*/
+            },
+            args: [String "sundown"] /*1, 6, 8*/
+        }
+        else: null /*7*/
+    }
+}
+```
+
+Or, in binary...
+
+```js
+/* Index*/ ...
+/* Strings */ [/*Number of strings*/10, /*Length*/4, 'i', 't', 'e', 'm', /*Length*/8, 'd', 'o', 'c', 'u', 'm', 'e', 'n', 't', /*Length*/22, 'g', 'e', 't', 'E', 'l', 'e', 'm', 'e', 'n', 't', 's', 'B', 'y', 'C', 'l', 'a', 's', 's', 'N', 'a', 'm', 'e', /*Length*/3, 's', 'u', 'n', /*Length*/ 9, 'c', 'l', 'a', 's', 's', 'L', 'i', 's', 't', /*Length*/8, 'c', 'o', 'n', 't', 'a', 'i', 'n', 's', /*Length*/8, 'c', 'l', 'o', 'u', 'd', 's', /*Length*/ 3, 'a', 'd', 'd', /*Length*/ 7, 's', 'u', 'n', 'd', 'o', 'w', 'n'
+/* AST */ [0, 1, 0, 1, 0, 2, 3, 1, 1, 1, 2, 1, 6, 3, 4, 5, 9, 2, 3, 3, 1, 9, 1, 4, 1, 5, 1, 6, 6, 2, 3, 3, 1, 9, 1, 4, 1, 7, 1, 6, 8, 7]
+```
+
+- **TODO** use well-known compression techniques to further reduce the size of
+    the binary.
 
 # Making it fast to parse
 

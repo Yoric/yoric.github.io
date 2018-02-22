@@ -1,16 +1,16 @@
-baseURL = "http://yoric.github.io"
+baseURL = "http://localhost:1313"
 languageCode = "en"
-title = "Il y a du thé renversé au bord de la table !"
+title = "Hugo Blog"
 theme = "hugo-nuo"
 enableRobotsTXT = true
 PygmentsCodeFences = true
 canonifyurls = true
 
 # Disqus Username
-disqusShortname = "il-y-a-du-the-renverse-au-bord-de-la-table"
+disqusShortname = "disqus_shortname"
 
 # Google Analytics UA number
-# googleAnalytics = "UA-XXXXXXXX-X"
+googleAnalytics = "UA-XXXXXXXX-X"
 
 # Copyright of your post
 copyright = "© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce."
@@ -23,10 +23,10 @@ copyright = "© This post is licensed under a Creative Commons Attribution-NonCo
   url = "/"
 
 [[menu.main]]
-  name = "Categories"
+  name = "Works"
   weight = 20
-  identifier = "categories"
-  url = "/categories/"
+  identifier = "works"
+  url = "https://github.com/laozhu"
 
 [[menu.main]]
   name = "Tags"
@@ -36,20 +36,20 @@ copyright = "© This post is licensed under a Creative Commons Attribution-NonCo
 
 # Add your own params here
 [params]
-  author = "David Teller"
+  author = "Ritchie Zhu"
   avatar = "/img/avatar.jpg"
-  seotitle = "Il y a du thé renversé au bord de la table !"
-  subtitle = "Aventure! Excitement! Random ramblings by David Teller!"
+  seotitle = "Hugo Blog (SEO Version)"
+  subtitle = "~ Keep It Simple & Stupid ~"
   description = "Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again."
   paginate = 10
 
   # Choose your social networks
-#  email = "name@domain.com"
-  github = "Yoric"
-  twitter = "ImYoric"
-  linkedin = "davidteller"
-#  weibo = "weibo_username"
-#  wechat= "/img/qrcode.jpg" # Replace with your wechat qrcode image
+  email = "name@domain.com"
+  github = "github_username"
+  twitter = "twitter_username"
+  linkedin = "linkedin_username"
+  weibo = "weibo_username"
+  wechat= "/img/qrcode.jpg" # Replace with your wechat qrcode image
   # facebook = "facebook_username"
   # google = "googlplus_id_number"
   # instagram = "instagram_username"
@@ -73,11 +73,11 @@ copyright = "© This post is licensed under a Creative Commons Attribution-NonCo
 
   # Google Webmaster
   # https://www.google.com/webmasters/
- # googleSiteVerification = "_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"
+  googleSiteVerification = "_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"
 
   # Bing Webmaster
   # https://www.bing.com/toolbox/webmaster/
-#  msValidate = "22596E34341DD1D17D6022C44647E587"
+  msValidate = "22596E34341DD1D17D6022C44647E587"
 
   # Baidu Webmaster (China Only)
   # https://zhanzhang.baidu.com/

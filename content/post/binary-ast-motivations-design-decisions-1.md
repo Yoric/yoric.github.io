@@ -3,9 +3,9 @@ title = "Binary AST - Motivations and Design Decisions - Part 1"
 tags = ["JavaScript", "Mozilla", "parsing", "ast", "compiler", "performance", "SpiderMonkey"]
 categories = ["JavaScript", "Mozilla", "performance", "binjs", "newsletter"]
 date = "2017-09-07T23:31:43+02:00"
+author = "Kannan Vijayan, Mike Hoye"
 +++
 
-- By Kannan Vijayan, Mike Hoye
 
 
 _"The key to making programs fast is to make them do practically nothing."_
