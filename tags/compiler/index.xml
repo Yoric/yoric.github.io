@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 07 Sep 2017 23:31:43 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 23 Feb 2018 10:04:39 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/tags/compiler/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
+      <link>https://yoric.github.io/post/binary-ast-pcc/</link>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
+      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Binary AST - Motivations and Design Decisions - Part 1</title>

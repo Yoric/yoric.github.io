@@ -15,7 +15,7 @@
     <item>
       <title>Ast</title>
       <link>https://yoric.github.io/tags/ast/</link>
-      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/ast/</guid>
       <description></description>
@@ -51,7 +51,7 @@
     <item>
       <title>Compiler</title>
       <link>https://yoric.github.io/tags/compiler/</link>
-      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/compiler/</guid>
       <description></description>
@@ -114,7 +114,7 @@
     <item>
       <title>Javascript</title>
       <link>https://yoric.github.io/tags/javascript/</link>
-      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/javascript/</guid>
       <description></description>
@@ -132,7 +132,7 @@
     <item>
       <title>Mozilla</title>
       <link>https://yoric.github.io/tags/mozilla/</link>
-      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/mozilla/</guid>
       <description></description>
@@ -141,7 +141,7 @@
     <item>
       <title>Newsletter</title>
       <link>https://yoric.github.io/tags/newsletter/</link>
-      <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/newsletter/</guid>
       <description></description>
@@ -186,16 +186,25 @@
     <item>
       <title>Parsing</title>
       <link>https://yoric.github.io/tags/parsing/</link>
-      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/parsing/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Pcc</title>
+      <link>https://yoric.github.io/tags/pcc/</link>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/pcc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Performance</title>
       <link>https://yoric.github.io/tags/performance/</link>
-      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/performance/</guid>
       <description></description>
@@ -265,9 +274,27 @@
     </item>
     
     <item>
+      <title>Safety</title>
+      <link>https://yoric.github.io/tags/safety/</link>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/safety/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Shift</title>
+      <link>https://yoric.github.io/tags/shift/</link>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/shift/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Spidermonkey</title>
       <link>https://yoric.github.io/tags/spidermonkey/</link>
-      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/spidermonkey/</guid>
       <description></description>
@@ -288,6 +315,15 @@
       <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/types/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Verification</title>
+      <link>https://yoric.github.io/tags/verification/</link>
+      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/verification/</guid>
       <description></description>
     </item>
     
