@@ -211,6 +211,10 @@
 
       
 
+      
+
+      
+
       <li class="social-item">
         <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
@@ -336,7 +340,7 @@ and decide whether to emit optimized or deoptimized bytecode;</li>
 <code>hasDirectEval</code> before we actually execute the code.</li>
 </ul>
 
-<p>In other words, we will be able to start emitting code much earlier, which means that we can start running code much faster. Mozilla recently released [a streaming compiler for WebAssembly]((<a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/">https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/</a>), which considerably improves the startup time for WebAssembly code. <em>Streaming compilation is a game
+<p>In other words, we will be able to start emitting code much earlier, which means that we can start running code much faster. Mozilla recently released <a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/">a streaming compiler for WebAssembly</a>, which considerably improves the startup time for WebAssembly code. <em>Streaming compilation is a game
 changer for WebAssembly performance and we expect that we will be able to achieve similar results for JavaScript with Binary AST</em>.</p>
 
 <p>If you’re wondering why JavaScript VMs currently don’t provide streaming compilers, it is simply because the Bytecode Emitter currently needs to wait until the end of parsing to get the information it needs just to start generating the bytecode. This includes not only direct <code>eval</code>, but also declared variables or captured names.</p>
@@ -416,7 +420,7 @@ can achieve with fully lazy parsing.</p>
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
       </p>
     </footer>
     
