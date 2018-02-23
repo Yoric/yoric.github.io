@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>Rust Typestates</title>
+  <title>Typestates in Rust</title>
 
   
   
@@ -24,7 +24,7 @@
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="Rust Typestates" />
+    <meta name="twitter:title" content="Typestates in Rust" />
     <meta name="twitter:description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.
 
 " />
@@ -33,7 +33,7 @@
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Rust Typestates" />
+  <meta property="og:title" content="Typestates in Rust" />
   <meta property="og:description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.
 
 " />
@@ -221,8 +221,8 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">Rust Typestates</h1>
-      <p class="post-meta">@David Teller · Feb 22, 2018 · 8 min read</p>
+      <h1 class="post-title">Typestates in Rust</h1>
+      <p class="post-meta">@David Teller · Feb 22, 2018 · 9 min read</p>
     </header>
     <article class="post-content"><p>A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.</p>
 
@@ -391,8 +391,10 @@ the file accessible after it has been closed:</p>
 of explicitly going into <code>unsafe</code> mode, we will not be able
 to break the invariant that <code>seek</code> cannot be used after <code>close</code>.</p>
 
-<p>So far, so good. But we are only dealing with a trivial
-case, in which files only have two states: <strong>opened</strong> and <strong>closed</strong>.</p>
+<p>This example demonstrated the first brick of type states in
+Rust: the <strong>typed move operation</strong>. So far, so good. But we are
+only dealing with a trivial case, in which files only have two
+states: <strong>opened</strong> and <strong>closed</strong>.</p>
 
 <p>Let&rsquo;s see if we can handle more complex cases.</p>
 
@@ -413,11 +415,18 @@ network protocol:</p>
 
 <p>Any other message is ignored.</p>
 
-<p>We can design our <code>Sender</code> (and similarly, <code>Receiver</code>) to ensure that operations
-proceed in the right order. For the moment, we don&rsquo;t care
-about identifying the correspondant or the number.</p>
+<p>We can design our <code>Sender</code> (and similarly, <code>Receiver</code>) to
+ensure that operations proceed in the right order. For
+the moment, we don&rsquo;t care about identifying the
+correspondant or the number.</p>
+
+<p>For this purpose, we&rsquo;ll combine the <strong>typed moves</strong>
+with another technique, well known to strongly-typed
+functional programmers, known as <strong>phantom types</strong>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// A series of 0-sized types representing
-</span><span style="color:#75715e">// the state of the sender.
+</span><span style="color:#75715e">// the state of the sender. The value
+</span><span style="color:#75715e">// is not important, only the type
+</span><span style="color:#75715e">// (hence the name &#34;phantom type&#34;).
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderReadyToSendHello</span>;
 <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentHello</span>;
 <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentNumber</span>;
@@ -507,12 +516,12 @@ about identifying the correspondant or the number.</p>
 
 <p>Any attempt to detract from the protocol will be blocked by the type system.</p>
 
-<p>Welcome to the world of type states.</p>
-
 <p>If you ever need to work with network protocols, device drivers,
 industrial devices with specific safety instructions or OpenGL/DirectX/anything
 else that requires you to perform complex interactions with the hardware,
 you&rsquo;ll probably be happy to have such guarantees!</p>
+
+<p>Welcome to the world of type states.</p>
 
 <h1 id="quick-note-beyond-type-states">Quick note: beyond type states</h1>
 
@@ -533,7 +542,8 @@ but that&rsquo;s generally worth it.</p>
 <h1 id="closing-words">Closing words</h1>
 
 <p>I hope that this quick demonstration has convinced you that the power of Rust
-<strong>typed move</strong> is a great tool to ensure the safety of your code. It is used
+<strong>typed move</strong>, combined with <strong>phantom types</strong>,
+is a great tool to ensure the safety of your code. It is used
 all around the Rust standard libraries and many well-designed third-party
 libraries.</p>
 
