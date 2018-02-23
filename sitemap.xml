@@ -135,13 +135,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/iot/</loc>
+    <loc>https://yoric.github.io/tags/iot/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/iot/</loc>
+    <loc>https://yoric.github.io/categories/iot/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -153,13 +153,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/javascript/</loc>
+    <loc>https://yoric.github.io/tags/javascript/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/javascript/</loc>
+    <loc>https://yoric.github.io/categories/javascript/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -177,25 +177,25 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/mozilla/</loc>
-    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://yoric.github.io/tags/mozilla/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/newsletter/</loc>
+    <loc>https://yoric.github.io/categories/mozilla/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/newsletter/</loc>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/categories/newsletter/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -237,13 +237,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/performance/</loc>
+    <loc>https://yoric.github.io/tags/performance/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/performance/</loc>
+    <loc>https://yoric.github.io/categories/performance/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -261,26 +261,26 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/programming-languages/</loc>
-    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://yoric.github.io/tags/programming-languages/</loc>
     <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/project-lighthouse/</loc>
-    <lastmod>2017-02-17T00:10:34+01:00</lastmod>
+    <loc>https://yoric.github.io/categories/programming-languages/</loc>
+    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/project-lighthouse/</loc>
     <lastmod>2017-01-01T23:44:19+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/categories/project-lighthouse/</loc>
+    <lastmod>2017-02-17T00:10:34+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -309,13 +309,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/rust/</loc>
+    <loc>https://yoric.github.io/tags/rust/</loc>
     <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/rust/</loc>
+    <loc>https://yoric.github.io/categories/rust/</loc>
     <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -345,14 +345,14 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/types/</loc>
-    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
+    <loc>https://yoric.github.io/tags/types/</loc>
+    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/types/</loc>
-    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
+    <loc>https://yoric.github.io/categories/types/</loc>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
