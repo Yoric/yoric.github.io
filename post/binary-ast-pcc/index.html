@@ -371,12 +371,13 @@ changer for WebAssembly performance and we expect that we will be able to achiev
 
 <p><strong>Note</strong> Modern JavaScript VMs implement something different that is also sometimes called lazy parsing, but still requires parsing the entire file. The &ldquo;lazy&rdquo; aspects consist in allocating memory to store the
 proof only when that proof is needed, and require re-parsing parts of the file that have already been
-parsed when the proof is needed. This does improve performance, but not nearly as much as we
+parsed when the proof is needed. This does improve startup performance, but not nearly as much as we
 can achieve with fully lazy parsing.</p>
 
 <h1 id="benchmarks">Benchmarks?</h1>
 
-<p>At this stage, we are still knees-deep in the implementation of the Firefox/SpiderMonkey Binary AST parser. We are getting close to being able to provide benchmarks without lazy parsing, but lazy parsing itself isn’t implemented yet. In other words, we do not have any reliable benchmarks yet. We do have extremely encouraging early proof-of-concept early benchmarks with and without lazy parsing, but we know better than to trust them, so we don’t want to publish them.</p>
+<p>At this stage, we are still knees-deep in the implementation of the Firefox/SpiderMonkey Binary AST parser. We are getting close to being able to provide benchmarks on full parsing, but lazy parsing
+and streaming compilation aren&rsquo;t implemented yet. In other words, we do not have any reliable benchmarks yet. We do have extremely encouraging early proof-of-concept early benchmarks with and without lazy parsing, but we know better than to trust them, so we don’t want to publish them.</p>
 
 <p>Also, there is a cost to storing in a file all the Asserted Scopes needed to perform lazy parsing. Very simply, it increases the file size, which increases the download duration. While we are actively working on minimizing the size increase, we also believe that the parsing speed improvements will make this worth.</p>
 
@@ -384,7 +385,7 @@ can achieve with fully lazy parsing.</p>
 
 <ul>
 <li><a href="https://binast.github.io/ecmascript-binary-ast/">Latest specifications of the JavaScript Binary AST</a></li>
-<li><a href="https://github.com/binast/binjs-ref">Reference implementation (encoder and decoder)</a>  (help needed!)</li>
+<li><a href="https://github.com/binast/binjs-ref">Reference implementation (encoder and decoder)</a>  (<a href="https://github.com/binast/binjs-ref/issues?q=is%3Aissue+is%3Aopen+label%3A%22Help+wanted%22">help wanted!</a>)</li>
 <li><a href="https://bugzilla.mozilla.org/showdependencytree.cgi?id=1349917&amp;hide_resolved=0">Firefox/SpiderMonkey implementation status</a>.</li>
 </ul>
 
