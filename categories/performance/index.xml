@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 23 Feb 2018 10:04:39 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 23 Feb 2018 10:44:39 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/categories/performance/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,22 +15,10 @@
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
       <link>https://yoric.github.io/post/binary-ast-pcc/</link>
-      <pubDate>Fri, 23 Feb 2018 10:04:39 +0100</pubDate>
+      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
       <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;
-
-&lt;h1 id=&#34;in-the-previous-episodes&#34;&gt;In the previous episodes&lt;/h1&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;The JavaScript Binary AST is a proposed compression format for JavaScript, designed to compress source code and make it much faster to load. This is a work in progress by Mozilla, Bloomberg and Facebook.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&#34;proofs-in-javascript&#34;&gt;Proofs, in JavaScript?&lt;/h1&gt;
-
-&lt;p&gt;As every other programming language, the execution model of JavaScript could not work without some guarantees. For instance, you do not execute a JavaScript file if you do not first have a guarantee that it is syntactically correct. A file is not syntactically correct if it a labelled &lt;code&gt;break&lt;/code&gt; statement uses a label that does not exist, etc.&lt;/p&gt;
-
-&lt;p&gt;Whenever a developer needs to deal with guarantees of this kind, the simplest way to do it without introducing bugs is to make sure that the program can only reach the point where the guarantees are necessary &lt;em&gt;after&lt;/em&gt; all the checks have been completed. Quite often, the component in charge of performing the checks will issue some kind of object once the checks are complete, and this object is required to proceed with execution. If this is the only way of obtaining the object, the object is considered a &lt;em&gt;proof&lt;/em&gt; that the checks have passed.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

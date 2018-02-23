@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning proof-building into validation, and why this is very good news for performance (and maybe not so good news for file size).
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="JavaScript Binary AST diaries - How to replace proving with validating for fun and profit" />
+    <meta name="twitter:description" content="In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning proof-building into validation, and why this is very good news for performance (and maybe not so good news for file size).
+
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="JavaScript Binary AST diaries - How to replace proving with validating for fun and profit" />
+  <meta property="og:description" content="In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning proof-building into validation, and why this is very good news for performance (and maybe not so good news for file size).
+
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/binary-ast-pcc/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.36.1" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/binary-ast-pcc/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</h1>
+      <p class="post-meta">@David Teller · Feb 23, 2018 · 8 min read</p>
+    </header>
+    <article class="post-content"><p>In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning <em>proof-building</em> into <em>validation</em>, and why this is very good news for performance (and maybe not so good news for file size).</p>
+
+<p></p>
+
+<h1 id="in-the-previous-episodes">In the previous episodes</h1>
+
+<blockquote>
+<p>The JavaScript Binary AST is a proposed compression format for JavaScript, designed to compress source code and make it much faster to load. This is a work in progress by Mozilla, Bloomberg and Facebook.</p>
+</blockquote>
+
+<h1 id="proofs-in-javascript">Proofs, in JavaScript?</h1>
+
+<p>As every other programming language, the execution model of JavaScript could not work without some guarantees. For instance, you do not execute a JavaScript file if you do not first have a guarantee that it is syntactically correct. A file is not syntactically correct if it a labelled <code>break</code> statement uses a label that does not exist, etc.</p>
+
+<p>Whenever a developer needs to deal with guarantees of this kind, the simplest way to do it without introducing bugs is to make sure that the program can only reach the point where the guarantees are necessary <em>after</em> all the checks have been completed. Quite often, the component in charge of performing the checks will issue some kind of object once the checks are complete, and this object is required to proceed with execution. If this is the only way of obtaining the object, the object is considered a <em>proof</em> that the checks have passed.</p>
+
+<p>For instance, in JavaScript VMs, the component in charge of checking the syntax is called the Parser. The Parser is also the only component that can convert a JavaScript source code into the data structure known as an AST (Abstract Syntax Tree), which is required by the next step, the Bytecode Emitter. In this setting, the AST is a proof that the syntax has been checked. This proof is used by the the Bytecode Emitter, which will itself produce Bytecode, etc.</p>
+
+<p>Now, all of this is important to us because some of the verifications that the JavaScript VM needs to perform have a strong impact on performance.</p>
+
+<h1 id="direct-evals-and-indirect-evils">Direct evals and indirect evils</h1>
+
+<p>In addition to checking the syntax, the Parser must check many other, more subtle, properties of the program. For instance, consider the most dynamic construction in the JavaScript language: <code>eval</code>. This magic function takes a string and executes it immediately, as if it were a source code. From the point of view
+of VM implementors, it’s scary because it can change the structure of the program itself in interesting and unpredictable ways:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">(<span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>(<span style="color:#a6e22e">code</span>) {
+    eval(<span style="color:#a6e22e">code</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>;
+  }
+
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;&#34;</span>));      <span style="color:#75715e">// &#34;10&#34;
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;var a&#34;</span>)); <span style="color:#75715e">// &#34;undefined&#34;
+</span><span style="color:#75715e"></span>})();</code></pre></div>
+<p>(seriously, don&rsquo;t use <code>eval</code>).</p>
+
+<p>Because <code>eval</code> is so powerful, making <code>eval</code> work in a JIT is very hard. Hard enough that it basically cannot optimize a function if it thinks that there may be a direct call to <code>eval</code> lurking somewhere in this function.</p>
+
+<p>For this reason, in addition to checking that the syntax is valid, the Parser also checks which functions contain a direct call to <code>eval</code>. This information is stored in the AST and used later during the execution to decide which functions can be optimized and which cannot. In other words, the AST also serves as a <em>proof</em> that checking whether a function contains <code>eval</code> has been performed.</p>
+
+<p>One of the reasons for which we don’t like checking for direct calls to <code>eval</code> is that it’s actually harder than it looks:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">(<span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>(<span style="color:#a6e22e">code</span>) {
+    eval(<span style="color:#a6e22e">code</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>;
+  }
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;&#34;</span>)); <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;var a&#34;</span>)); <span style="color:#75715e">// still 10, this time
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">function</span> eval() {
+    <span style="color:#75715e">// Yes, by appending something to our source code, we have removed the `eval`.
+</span><span style="color:#75715e"></span>  }
+})();</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">(<span style="color:#66d9ef">function</span>() {
+  <span style="color:#e6db74">&#34;use strict&#34;</span>; <span style="color:#75715e">// Yes, the &#34;use strict&#34; is necessary here. You can try removing it and see what happens.
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">backup</span> <span style="color:#f92672">=</span> eval;  
+
+  (<span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+    <span style="color:#66d9ef">var</span> eval <span style="color:#f92672">=</span> <span style="color:#a6e22e">backup</span>; <span style="color:#75715e">// This is eval, except it isn’t.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>(<span style="color:#a6e22e">code</span>) {
+      eval(<span style="color:#a6e22e">code</span>);
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>;
+    }
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;&#34;</span>)); <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;var a&#34;</span>)); <span style="color:#75715e">// still 10
+</span><span style="color:#75715e"></span>  })()
+})()</code></pre></div>
+<p>In theory, before the Parser could <em>build a proof</em> that there is no direct eval, it should check all the nooks and crannies of the function. For performance reason, Parsers cheat: they simply assume that
+anything that looks like <code>eval(...)</code> is a direct call to <code>eval</code>, even if it is actually a call to another function that happens to be called <code>eval</code>. Despite this optimization, the Parser needs to visit all the blocks and all the nested functions of a function before it can build its proof. This is slow, complex,
+and this cannot be skipped.</p>
+
+<h1 id="from-proof-building-to-validation">From proof-building to validation</h1>
+
+<p>Now, the JavaScript Binary AST handles <code>eval</code> and a few other things a bit differently.</p>
+
+<p>Firstly, in a Binary AST file, every function and every block contains an <strong>Asserted Scope</strong>,
+which is a bag of additional properties, including a boolean flag <code>hasDirectEval</code>.</p>
+
+<p>Secondly, the Binary AST Parser allows itself to throw instances of <code>SyntaxError</code> after the execution of the code has started (the name of the exception may yet change), in particular if it finds out that the
+<strong>Asserted Scope</strong> is lying.</p>
+
+<p>These two modifications change everything.</p>
+
+<h2 id="validation">Validation</h2>
+
+<p>Firstly, they change everything for the Parser, as the Binary AST Parser may now follow a much simpler algorithm:</p>
+
+<ul>
+<li>if we see a call <code>eval(...)</code> from a function or block with <code>hasDirectEval: false</code>, we were lied to,
+throw a <code>SyntaxError</code>;</li>
+<li>if we see a block or a nested function, we can check its flag <code>hasDirectEval</code> – if it is <code>true</code>
+and the parent function or block has <code>hasDirectEval: false</code>, we were lied to, throw a <code>SyntaxError</code>;</li>
+<li>otherwise, proceed.</li>
+</ul>
+
+<p>This <em>validation</em> algorithm is considerably simpler than the original <em>proof-building</em> algorithm.</p>
+
+<h2 id="streaming-compilation">Streaming compilation</h2>
+
+<p>Secondly, if you are familiar with Streaming Compilation, you may see that these changes are exactly the changes necessary to allow the language to
+be stream-compiled:</p>
+
+<ul>
+<li>when encountering a function, the Bytecode Emitter can immediately read the <code>hasDirectEval</code> property
+and decide whether to emit optimized or deoptimized bytecode;</li>
+<li>at this stage, <code>hasDirectEval</code> may be lying, but we only need to make sure that we have finished checking
+<code>hasDirectEval</code> before we actually execute the code.</li>
+</ul>
+
+<p>In other words, we will be able to start emitting code much earlier, which means that we can start running code much faster. Mozilla recently released [a streaming compiler for WebAssembly]((<a href="https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/">https://hacks.mozilla.org/2018/01/making-webassembly-even-faster-firefoxs-new-streaming-and-tiering-compiler/</a>), which considerably improves the startup time for WebAssembly code. <em>Streaming compilation is a game
+changer for WebAssembly performance and we expect that we will be able to achieve similar results for JavaScript with Binary AST</em>.</p>
+
+<p>If you’re wondering why JavaScript VMs currently don’t provide streaming compilers, it is simply because the Bytecode Emitter currently needs to wait until the end of parsing to get the information it needs just to start generating the bytecode. This includes not only direct <code>eval</code>, but also declared variables or captured names.</p>
+
+<p>These limitations are lifted by the Binary AST.</p>
+
+<h2 id="lazy-parsing">Lazy parsing</h2>
+
+<p>Finally, this representation lends itself to lazy parsing. Where the original Parser needed to look at the entire function to infer that there is no direct eval, we may now:</p>
+
+<ul>
+<li>validate only we are certain we are going to execute, using the algorithm above, which may throw <code>SyntaxError</code>;</li>
+<li>if there was no <code>SyntaxError</code>, execute that code;</li>
+<li>later, once we know that we are going to execute a piece of code that hasn’t been validated yet, repeat the process.</li>
+</ul>
+
+<p>Consider how this will affect JavaScript applications. Modern JavaScript applications quite often consist in a few main files and then one or several frameworks webpacked together. However, applications often only use a few of the features of these frameworks. Even when they use nearly all the features of these frameworks, they typically only use a few of them during startup. In either case, <strong>lazy parsing can also be a game-changer in terms of performance, as it lets us start executing JavaScript code much, much faster</strong>.</p>
+
+<p>If you’re wondering why JavaScript VMs currently don’t provide lazy parsers:</p>
+
+<ul>
+<li>the current semantics of SyntaxError require the Parser to check the entire source for syntax errors before executing;</li>
+<li>the current syntax of JavaScript make it so that the Parser simply cannot skip anything in the source code, because it cannot find the end of a block/function/string/&hellip; without parsing it first;</li>
+<li>many of the proofs needed by the Bytecode Emitter can only be built by inspecting the entire source code.</li>
+</ul>
+
+<p>All three of these limitations are lifted by the Binary AST.</p>
+
+<p><strong>Note</strong> Modern JavaScript VMs implement something different that is also sometimes called lazy parsing, but still requires parsing the entire file. The &ldquo;lazy&rdquo; aspects consist in allocating memory to store the
+proof only when that proof is needed, and require re-parsing parts of the file that have already been
+parsed when the proof is needed. This does improve performance, but not nearly as much as we
+can achieve with fully lazy parsing.</p>
+
+<h1 id="benchmarks">Benchmarks?</h1>
+
+<p>At this stage, we are still knees-deep in the implementation of the Firefox/SpiderMonkey Binary AST parser. We are getting close to being able to provide benchmarks without lazy parsing, but lazy parsing itself isn’t implemented yet. In other words, we do not have any reliable benchmarks yet. We do have extremely encouraging early proof-of-concept early benchmarks with and without lazy parsing, but we know better than to trust them, so we don’t want to publish them.</p>
+
+<p>Also, there is a cost to storing in a file all the Asserted Scopes needed to perform lazy parsing. Very simply, it increases the file size, which increases the download duration. While we are actively working on minimizing the size increase, we also believe that the parsing speed improvements will make this worth.</p>
+
+<h1 id="further-readings">Further readings</h1>
+
+<ul>
+<li><a href="https://binast.github.io/ecmascript-binary-ast/">Latest specifications of the JavaScript Binary AST</a></li>
+<li><a href="https://github.com/binast/binjs-ref">Reference implementation (encoder and decoder)</a>  (help needed!)</li>
+<li><a href="https://bugzilla.mozilla.org/showdependencytree.cgi?id=1349917&amp;hide_resolved=0">Firefox/SpiderMonkey implementation status</a>.</li>
+</ul>
+
+<p>If you are familiar with <a href="https://en.wikipedia.org/wiki/Proof-carrying_code">Proof-Carrying Code</a>, you have probably already realized that the vocabulary used in this entry is taken from PCC and related fields. While the techniques used here do not use formal logics or dependent type systems, they are a form to PCC.</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://yoric.github.io/tags/javascript"><span class="tag">JavaScript</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/parsing"><span class="tag">Parsing</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/ast"><span class="tag">Ast</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/compiler"><span class="tag">Compiler</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/performance"><span class="tag">Performance</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/spidermonkey"><span class="tag">SpiderMonkey</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/shift"><span class="tag">Shift</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/newsletter"><span class="tag">Newsletter</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/pcc"><span class="tag">Pcc</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/verification"><span class="tag">Verification</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/safety"><span class="tag">Safety</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

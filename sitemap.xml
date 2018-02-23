@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://yoric.github.io/post/binary-ast-pcc/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
   </url>
   
   <url>
@@ -64,7 +64,7 @@
   
   <url>
     <loc>https://yoric.github.io/tags/ast/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -76,7 +76,7 @@
   
   <url>
     <loc>https://yoric.github.io/categories/binjs/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -94,13 +94,13 @@
   
   <url>
     <loc>https://yoric.github.io/categories/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/compiler/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -124,7 +124,7 @@
   
   <url>
     <loc>https://yoric.github.io/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -154,13 +154,13 @@
   
   <url>
     <loc>https://yoric.github.io/tags/javascript/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/javascript/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -178,25 +178,25 @@
   
   <url>
     <loc>https://yoric.github.io/tags/mozilla/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/mozilla/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/newsletter/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/newsletter/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -226,25 +226,25 @@
   
   <url>
     <loc>https://yoric.github.io/tags/parsing/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/pcc/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/performance/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/performance/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -256,7 +256,7 @@
   
   <url>
     <loc>https://yoric.github.io/post/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -322,19 +322,19 @@
   
   <url>
     <loc>https://yoric.github.io/tags/safety/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/shift/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/spidermonkey/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -352,13 +352,13 @@
   
   <url>
     <loc>https://yoric.github.io/categories/types/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/verification/</loc>
-    <lastmod>2018-02-23T10:04:39+01:00</lastmod>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   

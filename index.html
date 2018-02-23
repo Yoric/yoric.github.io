@@ -219,9 +219,6 @@
   </header>
   
   <p class="post-summary">In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning proof-building into validation, and why this is very good news for performance (and maybe not so good news for file size).
-In the previous episodes  The JavaScript Binary AST is a proposed compression format for JavaScript, designed to compress source code and make it much faster to load. This is a work in progress by Mozilla, Bloomberg and Facebook.
- Proofs, in JavaScript? As every other programming language, the execution model of JavaScript could not work without some guarantees. For instance, you do not execute a JavaScript file if you do not first have a guarantee that it is syntactically correct. A file is not syntactically correct if it a labelled break statement uses a label that does not exist, etc.
-Whenever a developer needs to deal with guarantees of this kind, the simplest way to do it without introducing bugs is to make sure that the program can only reach the point where the guarantees are necessary after all the checks have been completed. Quite often, the component in charge of performing the checks will issue some kind of object once the checks are complete, and this object is required to proceed with execution. If this is the only way of obtaining the object, the object is considered a proof that the checks have passed.
 
 </p>
   <footer class="post-footer">
