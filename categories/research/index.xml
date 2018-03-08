@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Research on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/categories/research/</link>
+    <description>Recent content in Research on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Fri, 23 Feb 2018 10:44:39 +0100</lastBuildDate>
+    
+	<atom:link href="https://yoric.github.io/categories/research/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
+      <link>https://yoric.github.io/post/binary-ast-pcc/</link>
+      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
+      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Binary AST - Motivations and Design Decisions - Part 1</title>
+      <link>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</link>
+      <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</guid>
+      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
+Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
+It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript Binary AST Engineering Newsletter #1</title>
+      <link>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</link>
+      <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</guid>
+      <description>Hey, all cool kids have exciting Engineering Newsletters these days, so it&amp;rsquo;s high time the JavaScript Binary AST got one!
+Summary JavaScript Binary AST is a joint project between Mozilla and Facebook to rethink how JavaScript source code is stored/transmitted/parsed. We expect that this project will help visibly speed up the loading of large codebases of JS applications and will have a large impact on the JS development community, including both web developers, Node developers, add-on developers and ourselves.</description>
+    </item>
+    
+  </channel>
+</rss>
