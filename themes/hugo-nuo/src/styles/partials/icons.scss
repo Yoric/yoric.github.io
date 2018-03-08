@@ -180,3 +180,15 @@
     content: $icon-quora;
   }
 }
+
+.icon-reddit {
+  &::before {
+    content: $icon-reddit;
+  }
+}
+
+.icon-stack {
+  &::before {
+    content: $icon-stack;
+  }
+}

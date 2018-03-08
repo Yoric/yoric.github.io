@@ -121,6 +121,14 @@
         <a href="//space.bilibili.com/{{ .Site.Params.bilibili }}" title="Bilibili"><span class="icon icon-bilibili"></span></a>
       </li>{{ end }}
 
+      {{ if isset .Site.Params "stack" }}<li class="social-item">
+        <a href="//stackoverflow.com/cv/{{ .Site.Params.stack }}" title="Stack Overflow"><span class="icon icon-stack"></span></a>
+      </li>{{ end }}
+
+      {{ if isset .Site.Params "reddit" }}<li class="social-item">
+        <a href="//www.reddit.com/user/{{ .Site.Params.stack }}" title="Reddit"><span class="icon icon-reddit"></span></a>
+      </li>{{ end }}
+
       <li class="social-item">
         <a href="{{ "/index.xml" | relURL }}"><span class="icon icon-rss" title="RSS"></span></a>
       </li>

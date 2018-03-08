@@ -1,8 +1,8 @@
 ---
 title: "Thinkerbell Postmortem/Brain dump"
 date: 2018-03-08T08:50:05+01:00
-lastmod: 2018-03-08T08:50:05+01:00
-draft: true
+lastmod: 2018-03-08T07:26:05+01:00
+draft: false
 keywords: ["programming language", "DSL", "types", "process algebra", "IoT"]
 description: "A programming language for the SmartHome. Also, a type system and a process algebra."
 tags: ["programming language", "DSL", "types", "process algebra", "IoT"]

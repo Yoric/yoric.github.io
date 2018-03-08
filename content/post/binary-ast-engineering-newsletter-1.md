@@ -1,7 +1,7 @@
 +++
 title = "JavaScript Binary AST Engineering Newsletter #1"
 tags = ["JavaScript", "Mozilla", "parsing", "ast", "compiler", "performance", "SpiderMonkey", "Babel", "newsletter"]
-categories = ["JavaScript", "Mozilla", "performance", "binjs", "newsletter"]
+categories = ["JavaScript", "Mozilla", "performance", "binjs", "newsletter", "research"]
 date = "2017-08-18T13:46:54+02:00"
 +++
 

@@ -1,4 +1,4 @@
-baseURL = "http://yoric.github.io"
+baseURL = "https://yoric.github.io"
 languageCode = "en"
 title = "Il y a du thé renversé au bord de la table !"
 theme = "hugo-nuo"
@@ -13,7 +13,7 @@ disqusShortname = "il-y-a-du-the-renverse-au-bord-de-la-table"
 # googleAnalytics = "UA-XXXXXXXX-X"
 
 # Copyright of your post
-copyright = "© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you likes to quote or reproduce."
+copyright = "© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce."
 
 # Initial site menu, you can extend menu with content.
 [[menu.main]]
@@ -21,6 +21,13 @@ copyright = "© This post is licensed under a Creative Commons Attribution-NonCo
   weight = 10
   identifier = "home"
   url = "/"
+
+[[menu.main]]
+  name = "About"
+  weight = 15
+  identifier = "about"
+  url = "/about/"
+
 
 [[menu.main]]
   name = "Categories"
@@ -40,11 +47,11 @@ copyright = "© This post is licensed under a Creative Commons Attribution-NonCo
   avatar = "/img/avatar.jpg"
   seotitle = "Il y a du thé renversé au bord de la table !"
   subtitle = "Aventure! Excitement! Random ramblings by David Teller!"
-  description = "Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again."
+  description = "Aventure! Excitement! Random ramblings by David Teller!"
   paginate = 10
 
   # Choose your social networks
-#  email = "name@domain.com"
+  email = "D.O.(MyLastName)@gmail.com"
   github = "Yoric"
   twitter = "ImYoric"
   linkedin = "davidteller"

@@ -1,7 +1,7 @@
 +++
 title = "Binary AST - Motivations and Design Decisions - Part 1"
 tags = ["JavaScript", "Mozilla", "parsing", "ast", "compiler", "performance", "SpiderMonkey"]
-categories = ["JavaScript", "Mozilla", "performance", "binjs", "newsletter"]
+categories = ["JavaScript", "Mozilla", "performance", "binjs", "newsletter", "research"]
 date = "2017-09-07T23:31:43+02:00"
 author = "Kannan Vijayan, Mike Hoye"
 +++
