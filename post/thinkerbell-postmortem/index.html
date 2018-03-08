@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Thinkerbell Postmortem/Brain dump</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of the Connected Devices branch of Mozilla. While this branch has since been stopped, some part of Project Link lives on as Project Things.
+One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
+ Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
+ or
+ If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone
+ Thinkerbell also had:
+ semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras.  Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
+Note that some of the ideas exposed here were never actually implemented.
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="Thinkerbell Postmortem/Brain dump" />
+    <meta name="twitter:description" content="Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of the Connected Devices branch of Mozilla. While this branch has since been stopped, some part of Project Link lives on as Project Things.
+One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
+ Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
+ or
+ If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone
+ Thinkerbell also had:
+ semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras.  Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
+Note that some of the ideas exposed here were never actually implemented.
+
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Thinkerbell Postmortem/Brain dump" />
+  <meta property="og:description" content="Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of the Connected Devices branch of Mozilla. While this branch has since been stopped, some part of Project Link lives on as Project Things.
+One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
+ Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
+ or
+ If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone
+ Thinkerbell also had:
+ semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras.  Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
+Note that some of the ideas exposed here were never actually implemented.
+
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/thinkerbell-postmortem/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.36.1" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/thinkerbell-postmortem/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Thinkerbell Postmortem/Brain dump</h1>
+      <p class="post-meta">@David Teller · Mar 8, 2018 · 14 min read</p>
+    </header>
+    <article class="post-content"><p>Two years ago, I was working on a research project called &ldquo;Project Link&rdquo; as part of
+the Connected Devices branch of Mozilla. While this branch has since been stopped,
+some part of Project Link lives on as <a href="https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/">Project Things</a>.</p>
+
+<p>One of the parts of Project Link that hasn&rsquo;t made it to Project Things (so far)
+was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome
+without coding. While only parts of Thinkerbell were ever implemented, they were sufficient
+to write programs such as:</p>
+
+<blockquote>
+<p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
+</blockquote>
+
+<p>or</p>
+
+<blockquote>
+<p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone</p>
+</blockquote>
+
+<p>Thinkerbell also had:</p>
+
+<ul>
+<li>semantics that ensured that scripts could continue/resume running unmonitored even when hardware
+was replaced/upgraded/moved around the house, including both the server and the sensors;</li>
+<li>a visual syntax, rather than a text syntax;</li>
+<li>a novel type system designed to avoid physical accidents;</li>
+<li>a semantics based on process algebras.</li>
+</ul>
+
+<p>Ideally, I&rsquo;d like to take the time to write a research paper on Thinkerbell, but
+realistically, there is very little chance that I&rsquo;ll find that time.
+So, rather than letting these ideas die in some corner of my brain, here is a post-mortem
+for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
+it a second life.</p>
+
+<p>Note that some of the ideas exposed here were never actually implemented.</p>
+
+<p></p>
+
+<h1 id="scripts">Scripts</h1>
+
+<p>Let us consider the kind of scripts we wanted to write:</p>
+
+<blockquote>
+<p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
+</blockquote>
+
+<p>or</p>
+
+<blockquote>
+<p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
+</blockquote>
+
+<p>or</p>
+
+<blockquote>
+<p>When the motion detector of the living room hasn&rsquo;t noticed motion for 30 seconds, turn off all the lights in the living room.</p>
+</blockquote>
+
+<p>or</p>
+
+<blockquote>
+<p>If the entry door is locked and the motion detector notices motion in the living room, if I have a camera in the living room, send an picture to my SmartPhone.</p>
+</blockquote>
+
+<p>All these scripts were meant to be executed on a server hosted inside the home (for both privacy
+and reliability reasons). The server itself would also run (mostly trusted) device drivers that
+would let scripts access connected devices such as lightbulbs, water faucets, fridges, &hellip; These
+same device drivers also provided access to remote applications, through a mechanism of authorizations
+and tunneling that has been ported to Project Things (and wasn&rsquo;t part of Thinkerbell itself).</p>
+
+<h2 id="text-syntax">Text syntax</h2>
+
+<p>We never attempted to design a human-readable text syntax, as Thinkerbell was designed for
+visual programming. Indeed, we implemented a visual interface for programming without
+writing, although what we had was for demonstration purposes and was much more limited
+thank Thinkerbell itself.</p>
+
+<p>So, anything below is actually the JSON syntax designed to serve as back-end for the UX.</p>
+
+<blockquote>
+<p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+    <span style="color:#75715e">// Rules are triggered when a set of conditions becomes true.
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// These conditions are provided by device drivers, aka `source`s.
+</span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;conditions&#34;</span><span style="color:#f92672">:</span> [
+        {
+            <span style="color:#75715e">// In Thinkerbell, we almost never specify a single device.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// Rather, we describe it. This ensures that the script can
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// continue working unmonitored even if we replace a device
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// or add more devices with the same features.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// The following source describes all the on-off buttons
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// in the living room.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// The condition is triggered if ANY of these buttons changes
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// state.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;source&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// A `feature` represents something that a device driver
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// knows how to produce and/or consume.
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// A feature itself is just a name, registered by one (or more)
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// device drivers. By convention, `switch/on-off` (which is
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// already registered in the standard library) is a feature
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// shared by all devices that have a on/off switch.
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// The user interface can request a list of features currently
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// provided by drivers, and use it to populate the visual
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// scripting UX.
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// Here, we could request a device driver that has several
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// features at once, but we only need one.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;switch/on-off&#34;</span>,
+
+                <span style="color:#75715e">// Tags are just strings, which may be attached/removed from the
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// user interface. By convention, `location/*` means a
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// human-readable description of where the device is placed.
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// The user interface can request a list of tags currently
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// registered, and use it to populate the visual scripting UX.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;location/Living Room&#34;</span>,
+
+                <span style="color:#75715e">// By convention, `function/Light Switch` means that the user
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// intends to use the device as a light switch. After all, in
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// this script, we don&#39;t want to toggle the lights when the oven
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// is turned on.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;function/Light Switch&#34;</span>,
+            },
+
+            <span style="color:#75715e">// Specify which feature we&#39;re actually using. This could be a subset
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// of the features mentioned in `source`.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;switch/on-off&#34;</span>,
+
+            <span style="color:#75715e">// We are not going to use the value provided by this `feature`,
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// so we don&#39;t need to bind it. We could just skip this key,
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// since we don&#39;t need it.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;bind&#34;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+
+            <span style="color:#75715e">// We are only interested in changes, not in specific value.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// The device driver is in charge of checking this condition.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// This `on change` means that whenver ANY of the sources
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// changes value, the condition is verified.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;when&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;on change&#34;</span>,
+        }
+    ],
+
+    <span style="color:#75715e">// Every time the AND of conditions switches from false to true,
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// we execute the `execute` block.
+</span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;execute&#34;</span><span style="color:#f92672">:</span> [
+        {
+            <span style="color:#75715e">// `destination` behaves exactly like `source`.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// We&#39;ll send a message to ALL devices that match
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// the criteria in `destination`.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;destination&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// We only wish to talk to devices that are lights that
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// can be turned on/off.
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// This feature is pre-defined in the standard library.
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// Its type is the enum &#34;light/on&#34; | &#34;light/off&#34; | &#34;light/toggle&#34;.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;light/on-off&#34;</span>,
+
+                <span style="color:#75715e">// We only wish to talk to devices that are in the
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// living room.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;location/Living Room&#34;</span>,
+            }
+
+            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;light/on-off&#34;</span>,
+
+            <span style="color:#e6db74">&#34;instruction&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;light/toggle&#34;</span>,
+        }
+    ]
+}</code></pre></div>
+<p>Similarly,</p>
+
+<blockquote>
+<p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+    <span style="color:#e6db74">&#34;conditions&#34;</span><span style="color:#f92672">:</span> [
+        <span style="color:#75715e">// First condition: the entry door must be locked.
+</span><span style="color:#75715e"></span>        {
+            <span style="color:#e6db74">&#34;source&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;door/locked-unlocked&#34;</span>,
+                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;location/entry&#34;</span>,
+            },
+            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;door/locked-unlocked&#34;</span>,
+            <span style="color:#e6db74">&#34;when&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// Equality check. Checked by the device driver.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;Eq&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;door/locked&#34;</span>
+            },
+        }
+        <span style="color:#75715e">// Second condition: the motion detector must notice motion.
+</span><span style="color:#75715e"></span>        {
+            <span style="color:#e6db74">&#34;source&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;motion detector/motion-nomotion&#34;</span>,
+            }
+            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;motion detector/motion-nomotion&#34;</span>,
+            <span style="color:#e6db74">&#34;when&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// Equality check. Checked by the device driver.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;Eq&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;motion detector/motion&#34;</span>
+            }
+        }
+    ],
+
+    <span style="color:#75715e">// Every time the AND of conditions switches from false to true,
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// we execute the `execute` block. This means that we won&#39;t send
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// another message while the entry door is locked and there is
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// motion. However, if motion stops and resumes, we&#39;ll send
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// another message.
+</span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;execute&#34;</span><span style="color:#f92672">:</span> [
+        {
+            <span style="color:#e6db74">&#34;destination&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// All the devices that can be used to send a text message
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// to the user.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;user agent/text message&#34;</span>,
+                <span style="color:#75715e">// Restricted to the phone.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;form factor/phone&#34;</span>,
+            }
+
+            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;user agent/text message&#34;</span>,
+
+            <span style="color:#e6db74">&#34;instruction&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;message&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;There&#39;s someone in your home!&#34;</span>
+            },
+        }
+    ]
+}</code></pre></div>
+<p>If you factor in the fact that:</p>
+
+<ul>
+<li>the scripts will continue working when we change the motion detector (including changing
+the brand of that motion detector), or the other devices;</li>
+<li>the scripts will resume working if there is a power outage;</li>
+<li>these scripts are easy to run in a power-efficient and bandwidth-efficient manner
+(assuming well-behaved device drivers).</li>
+</ul>
+
+<p>these scripts are actually impressively concise for what they&rsquo;re doing. Also,
+recall that most IoT applications these days are written with Turing-complete
+programming languages, often with the highly dynamic but nearly impossible
+to verify JavaScript language. By opposition, these tiny scripts could be
+easily mechanically verified.</p>
+
+<p>Let&rsquo;s look at a more sophisticated example before proceeding:</p>
+
+<blockquote>
+<p>If the entry door is locked and the motion detector notices motion in the living room, if I have a camera in the living room, send an picture to my SmartPhone.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+    <span style="color:#e6db74">&#34;conditions&#34;</span><span style="color:#f92672">:</span> [
+        <span style="color:#75715e">// First condition: the entry door must be locked.
+</span><span style="color:#75715e"></span>        {
+            <span style="color:#e6db74">&#34;source&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;door/locked-unlocked&#34;</span>,
+                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;location/entry&#34;</span>,
+            },
+            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;door/locked-unlocked&#34;</span>,
+            <span style="color:#e6db74">&#34;when&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;Eq&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;door/locked&#34;</span>
+            },
+        }
+        <span style="color:#75715e">// Second condition: the motion detector must notice motion.
+</span><span style="color:#75715e"></span>        {
+            <span style="color:#e6db74">&#34;source&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;motion detector/motion-nomotion&#34;</span>,
+                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;location/Living Room&#34;</span>,
+            }
+            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;motion detector/motion-nomotion&#34;</span>,
+            <span style="color:#e6db74">&#34;when&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;Eq&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;motion detector/motion&#34;</span>
+            }
+        }
+        <span style="color:#75715e">// Third condition: if I have a camera in the living room
+</span><span style="color:#75715e"></span>        {
+            <span style="color:#e6db74">&#34;source&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;camera/lazy-snapshot&#34;</span>,
+                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;location/Loving Room&#34;</span>,
+            }
+
+            <span style="color:#75715e">// By convention, a lazy snapshot is a snapshot that is
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// only taken when all conditions are true (more precisely
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// when the `bind` is computed): we don&#39;t want to waste
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// the battery of the camera.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// The type of `camera/lazy-snapshot` is `image/*`.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// One could imagine having a feature `camera/lazy-snapshot-4k`
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// which prouces a `image/4k`.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;camera/lazy-snapshot&#34;</span>,
+
+            <span style="color:#75715e">// The snapshot is always &#34;true&#34;.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;when&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;true&#34;</span>,
+
+            <span style="color:#75715e">// Let&#39;s give a name to our snapshot.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">//
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// The semantics of `bind` mean that we need to have a value
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// to proceed. In particular, the condition can only ever
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// be validated if we have at least one camera in the living
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// room.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;bind&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;snapshot of the living room&#34;</span>,
+        }
+    ],
+
+    <span style="color:#75715e">// Every time the AND of conditions switches from false to true,
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// we execute the `execute` block. Here, this could mean that
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// a camera in the living room has suddenly become available
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// while the entry is locked and the motion detector detects
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// movement.
+</span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;execute&#34;</span><span style="color:#f92672">:</span> [
+        {
+            <span style="color:#e6db74">&#34;destination&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#75715e">// All the devices that can be used to send a photo
+</span><span style="color:#75715e"></span>                <span style="color:#75715e">// to the user.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;user agent/image message&#34;</span>,
+
+                <span style="color:#75715e">// Restricted to the phone.
+</span><span style="color:#75715e"></span>                <span style="color:#e6db74">&#34;tag&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;form factor/phone&#34;</span>,
+            }
+
+            <span style="color:#75715e">// The type of `user agent/image message` is `image/*`.
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// We could imagine more restricted types that accept
+</span><span style="color:#75715e"></span>            <span style="color:#75715e">// only some image formats.
+</span><span style="color:#75715e"></span>            <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;user agent/image message&#34;</span>,
+
+            <span style="color:#e6db74">&#34;instruction&#34;</span><span style="color:#f92672">:</span> {
+                <span style="color:#e6db74">&#34;caption&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;There&#39;s someone in your home!&#34;</span>,
+                <span style="color:#e6db74">&#34;image&#34;</span><span style="color:#f92672">:</span> {
+                    <span style="color:#75715e">// Value captured by `bind` earlier.
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// The type system ensures that both
+</span><span style="color:#75715e"></span>                    <span style="color:#75715e">// have the same type.
+</span><span style="color:#75715e"></span>                    <span style="color:#e6db74">&#34;$var&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;snapshot of the living room&#34;</span>
+                }
+            },
+        }
+    ]
+}</code></pre></div>
+<h1 id="features-and-types">Features and types</h1>
+
+<p>The first prototype of Thinkerbell didn&rsquo;t really have specific types,
+just the usual number/boolean/string/&hellip; . We quickly
+realized that this was a bad idea.</p>
+
+<p>In your future SmartHome, everything is controllable by scripts and APIs.
+This means that your lights, your water tap and your oven all can be turned
+on/off, your heater, your oven, your fridge and your blowtorch (why not?)
+all have a temperature setting &ndash; and that confusing them can flood or
+burn your house, killing you and your loved ones along the way.</p>
+
+<p>Let me stress this: <strong>in the SmartHome, types can be the difference between life and death</strong>.</p>
+
+<p>We followed the example of <a href="https://www.semanticscholar.org/paper/Types-for-Units-of-Measure%3A-Theory-and-Practice-Kennedy/10652afefe9d6470e44f0d70cec80207eb243291">F#&rsquo;s unit-of-measure</a> and introduced types
+for temperatures and other physical measurements, On/Off
+instead of simple booleans, etc. This was not sufficient
+to solve the problem, because setting your freezer to
+bath temperature is still a pretty bad idea.</p>
+
+<p>Our solution was to differentiate <em>everything</em>. As can seen
+above in the sample, we have values <code>light/on</code>, <code>light/off</code>,
+<code>light/toggle</code>. These values are distinct from <code>oven/on</code>,
+<code>oven/off</code>. We have a type of oven temperature and a different
+type of freezer temperature and a different type of water
+temperature. And, of course, temperatures and other physical
+measurements had units-of-measure.</p>
+
+<p>For instance, a device driver for freezers would register
+(in pseudo syntax – this was done by an API):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
+    <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;freezer/set-temperature&#34;</span>,
+        <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;freezer/temperature&#34;</span>,
+    }
+    <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> {
+        <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;freezer/temperature&#34;</span>,
+        <span style="color:#e6db74">&#34;tuple&#34;</span><span style="color:#f92672">:</span> [
+            <span style="color:#e6db74">&#34;core/temperature&#34;</span>
+        ]
+    }
+}</code></pre></div>
+<p>where predefined type <code>core/temperature</code> could itself handle ºC/ºF
+conversion.</p>
+
+<p>Two device drivers for freezers would conflict if they both
+defined a feature <code>freezer/set-temperature</code> with a
+structurally different type.</p>
+
+<p>Once we have such definitions, implementing a type system for
+this simple language is not complicated.</p>
+
+<h2 id="actual-implementation">Actual implementation</h2>
+
+<p>In the prototype implementation of Thinkerbell, types
+were verified dynamically, during the execution of a script.</p>
+
+<p>The real reason for this was that we operated under strict
+deadlines and simply didn&rsquo;t have time to implement static
+type checking, during the installation of a script.</p>
+
+<p>There was also a fundamental issue that we would have needed
+to resolve. Indeed, Thinkerbell supported dynamically removing
+device drivers, which could unregister features/types dynamically.
+This could have invalidated scripts that had already passed type-checking.
+Worse, device drivers could then be re-added, with incompatible
+feature/types definitions. We would have needed to specify a
+semantics for the effect on previously-well-typed and
+previously-ill-typed scripts.</p>
+
+<h1 id="surviving-earthquakes-kind-of">Surviving earthquakes, kind of</h1>
+
+<p>One of the key ideas behind Project Link is that the server needs
+to live in the house of a end-user, who may have very little
+technical knowledge, and it will live through famine and war.</p>
+
+<p>Well, more precisely, a server would be unplugged because the
+user would need to plug in the vacuum cleaner, or while it was moved
+between rooms, and it would be rebooted during firmware
+upgrades. All of this needed to happen unmonitored.</p>
+
+<p>On the other side, old connected lightbulbs were bound to be
+replaced by newer connected lightbulbs, cameras bought from
+one company were bound to be replaced by cameras bought from
+another company and scripts needed to continue working,
+unmonitored.</p>
+
+<p>So, we designed Thinkerbell and its lower-level API (one
+can think of this API as the Thinkerbell VM) to
+handle as much of this as possible.</p>
+
+<p>We have seen above how Thinkerbell scripts (and its lower-level
+API) access devices by their properties (features and tags),
+rather than by unique identifiers. Features are exposed
+by the device driver, while tags are entered by the user
+whenever they install a new device or wish to reconfigure
+it. This mechanism was designed specifically to
+handle the problem of replacing devices by other devices,
+possibly from incompatible vendor, without having to alter
+their scripts (either Thinkerbell-level or remote scripts).</p>
+
+<p>Now, the problem of server reboots is made easy to solve
+by the simplicity of Thinkerbell scripts and the mechanism
+of device drivers. Since Thinkerbell knows exactly which
+conditions to monitor, and since it communicates with
+the device drivers, Thinkerbell can store and persist the
+information to disk - it is a simple boolean per condition.
+If Thinkerbell discovers it has rebooted, it
+can simply load the information from disk, request an
+update-as-soon-as-convenient from device drivers,
+check if conditions have changed, and proceed from there.</p>
+
+<h2 id="limitations">Limitations</h2>
+
+<p>Persistence wasn&rsquo;t actually implemented in
+Thinkerbell prototypes, due to lack of time.</p>
+
+<p>The persistence mechanism discussed above doesn&rsquo;t handle the
+case in which Thinkerbell is interrupted while executing
+after conditions have become true. While several semantics
+can be designed and implemented, we did not have the time
+to consider and experiment on the topic.</p>
+
+<h1 id="process-algebra-aka-formalizing-it">Process algebra (aka formalizing it)</h1>
+
+<p>The language was never fully formalized, largely because of the
+deadline pressure mentioned above, and then because Project
+Link pivoted suddenly.</p>
+
+<p>However, the design of the language was made with the sketch
+of a process algebra in mind. This clearly helped minimize the
+language and design the type system. Also, the idea was to
+eventually extend the language to:</p>
+
+<ul>
+<li>let scripts dynamically add or remove scripts;</li>
+<li>let scripts put themselves on temporary pause, e.g. to avoid spamming the user with messages;</li>
+<li>define pseudo-device drivers combining several tasks.</li>
+</ul>
+
+<p>For all of this, having
+a formal basis of the language would have
+helped ensure that we knew what we were doing, in
+terms of (non-)interference between scripts and device
+drivers, infinite loops, etc.</p>
+
+<p>Plus, it was fun to have.</p>
+
+<p>Semi-formally, the syntax for the process algebra looked like:</p>
+
+<pre><code>// Rules
+R, R' ::= 0
+       |  R|R'       // Two parallel rules
+       |  C =&gt; E
+
+// Conditions
+C, C' ::= 0
+       | C &amp;&amp; C'     // Expect two conditions
+       | D when W(x) // Receive and bind
+
+// Devices
+D, D' ::= 0
+       | D ∩ D' // Match two criterial
+       | feature &quot;some/name&quot;
+       | tag &quot;some/name&quot;
+
+// When
+W,W' ::= 0
+       | W &amp;&amp; W'
+       | true
+       | arbitrary string // interpreted by device driver
+
+// Executions
+E, E' ::= 0
+       | E || E' // Execute two things in parallel
+       | D&lt;V&gt;    // Send an instruction
+
+// Values
+V, V' ::= x // Variable
+       | { key_1: V, key_2: V', ... } // Structured message
+       | string
+       | number
+</code></pre>
+
+<p>I never got around to writing a formal semantics for this
+process algebra, but I suspect that it would be pretty easy.</p>
+
+<h1 id="what-now">What now?</h1>
+
+<p>Well, this is the end of this post-mortem/brain dump.</p>
+
+<p>I hope I have convinced you that Thinkerbell was pretty cool and some of the ideas
+deserve a second life. If you&rsquo;re interested in doing so, have fun!</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://yoric.github.io/tags/programming-language"><span class="tag">Programming Language</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/dsl"><span class="tag">DSL</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/types"><span class="tag">Types</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/process-algebra"><span class="tag">Process Algebra</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/iot"><span class="tag">IoT</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

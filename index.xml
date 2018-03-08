@@ -7,10 +7,56 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 23 Feb 2018 10:44:39 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 08 Mar 2018 08:50:05 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Thinkerbell Postmortem/Brain dump</title>
+      <link>https://yoric.github.io/post/thinkerbell-postmortem/</link>
+      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/thinkerbell-postmortem/</guid>
+      <description>&lt;p&gt;Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of
+the Connected Devices branch of Mozilla. While this branch has since been stopped,
+some part of Project Link lives on as &lt;a href=&#34;https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/&#34;&gt;Project Things&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far)
+was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome
+without coding. While only parts of Thinkerbell were ever implemented, they were sufficient
+to write programs such as:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Thinkerbell also had:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;semantics that ensured that scripts could continue/resume running unmonitored even when hardware
+was replaced/upgraded/moved around the house, including both the server and the sensors;&lt;/li&gt;
+&lt;li&gt;a visual syntax, rather than a text syntax;&lt;/li&gt;
+&lt;li&gt;a novel type system designed to avoid physical accidents;&lt;/li&gt;
+&lt;li&gt;a semantics based on process algebras.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but
+realistically, there is very little chance that I&amp;rsquo;ll find that time.
+So, rather than letting these ideas die in some corner of my brain, here is a post-mortem
+for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
+it a second life.&lt;/p&gt;
+
+&lt;p&gt;Note that some of the ideas exposed here were never actually implemented.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>

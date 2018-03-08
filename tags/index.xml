@@ -85,6 +85,15 @@
     </item>
     
     <item>
+      <title>Dsl</title>
+      <link>https://yoric.github.io/tags/dsl/</link>
+      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/dsl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Ios</title>
       <link>https://yoric.github.io/tags/ios/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
@@ -96,7 +105,7 @@
     <item>
       <title>Iot</title>
       <link>https://yoric.github.io/tags/iot/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/iot/</guid>
       <description></description>
@@ -211,6 +220,24 @@
     </item>
     
     <item>
+      <title>Process Algebra</title>
+      <link>https://yoric.github.io/tags/process-algebra/</link>
+      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/process-algebra/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming Language</title>
+      <link>https://yoric.github.io/tags/programming-language/</link>
+      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/programming-language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Programming Languages</title>
       <link>https://yoric.github.io/tags/programming-languages/</link>
       <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
@@ -312,7 +339,7 @@
     <item>
       <title>Types</title>
       <link>https://yoric.github.io/tags/types/</link>
-      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
+      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/types/</guid>
       <description></description>
