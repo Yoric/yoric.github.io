@@ -20,10 +20,10 @@
 One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
  Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
  or
- If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone
+ If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
  Thinkerbell also had:
  semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras.  Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
-Note that some of the ideas exposed here were never actually implemented.
+Note that some of the ideas exposed here were never actually implemented. Project Link was cancelled while Thinkerbell was still in its infancy.
 
 " />
 
@@ -36,10 +36,10 @@ Note that some of the ideas exposed here were never actually implemented.
 One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
  Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
  or
- If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone
+ If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
  Thinkerbell also had:
  semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras.  Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
-Note that some of the ideas exposed here were never actually implemented.
+Note that some of the ideas exposed here were never actually implemented. Project Link was cancelled while Thinkerbell was still in its infancy.
 
 " />
     <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
@@ -52,10 +52,10 @@ Note that some of the ideas exposed here were never actually implemented.
 One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
  Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
  or
- If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone
+ If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
  Thinkerbell also had:
  semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras.  Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
-Note that some of the ideas exposed here were never actually implemented.
+Note that some of the ideas exposed here were never actually implemented. Project Link was cancelled while Thinkerbell was still in its infancy.
 
 " />
   <meta property="og:url" content="https://yoric.github.io/post/thinkerbell-postmortem/" />
@@ -275,7 +275,7 @@ to write programs such as:</p>
 <p>or</p>
 
 <blockquote>
-<p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone</p>
+<p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
 </blockquote>
 
 <p>Thinkerbell also had:</p>
@@ -294,7 +294,8 @@ So, rather than letting these ideas die in some corner of my brain, here is a po
 for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
 it a second life.</p>
 
-<p>Note that some of the ideas exposed here were never actually implemented.</p>
+<p>Note that some of the ideas exposed here were never actually implemented. Project Link
+was cancelled while Thinkerbell was still in its infancy.</p>
 
 <p></p>
 
@@ -708,7 +709,10 @@ can simply load the information from disk, request an
 update-as-soon-as-convenient from device drivers,
 check if conditions have changed, and proceed from there.</p>
 
-<h2 id="limitations">Limitations</h2>
+<h2 id="actual-implementation-1">Actual implementation</h2>
+
+<p>Surviving upgrades of devices was implemented and worked
+pretty nicely.</p>
 
 <p>Persistence wasn&rsquo;t actually implemented in
 Thinkerbell prototypes, due to lack of time.</p>
