@@ -23,7 +23,7 @@ to write programs such as:
 
 or
 
-> If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone
+> If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
 
 Thinkerbell also had:
 
@@ -39,7 +39,8 @@ So, rather than letting these ideas die in some corner of my brain, here is a po
 for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
 it a second life.
 
-Note that some of the ideas exposed here were never actually implemented.
+Note that some of the ideas exposed here were never actually implemented. Project Link
+was cancelled while Thinkerbell was still in its infancy.
 
 <!--more-->
 
@@ -457,7 +458,10 @@ update-as-soon-as-convenient from device drivers,
 check if conditions have changed, and proceed from there.
 
 
-## Limitations
+## Actual implementation
+
+Surviving upgrades of devices was implemented and worked
+pretty nicely.
 
 Persistence wasn't actually implemented in
 Thinkerbell prototypes, due to lack of time.
