@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.36.1" />
+<meta name="generator" content="Hugo 0.48" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/binary-ast-pcc/" />
@@ -271,7 +271,8 @@ of VM implementors, it’s scary because it can change the structure of the prog
 
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;&#34;</span>));      <span style="color:#75715e">// &#34;10&#34;
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;var a&#34;</span>)); <span style="color:#75715e">// &#34;undefined&#34;
-</span><span style="color:#75715e"></span>})();</code></pre></div>
+</span><span style="color:#75715e"></span>})();
+</code></pre></div>
 <p>(seriously, don&rsquo;t use <code>eval</code>).</p>
 
 <p>Because <code>eval</code> is so powerful, making <code>eval</code> work in a JIT is very hard. Hard enough that it basically cannot optimize a function if it thinks that there may be a direct call to <code>eval</code> lurking somewhere in this function.</p>
@@ -291,7 +292,8 @@ of VM implementors, it’s scary because it can change the structure of the prog
   <span style="color:#66d9ef">function</span> eval() {
     <span style="color:#75715e">// Yes, by appending something to our source code, we have removed the `eval`.
 </span><span style="color:#75715e"></span>  }
-})();</code></pre></div>
+})();
+</code></pre></div>
 <p>or</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">(<span style="color:#66d9ef">function</span>() {
   <span style="color:#e6db74">&#34;use strict&#34;</span>; <span style="color:#75715e">// Yes, the &#34;use strict&#34; is necessary here. You can try removing it and see what happens.
@@ -307,7 +309,8 @@ of VM implementors, it’s scary because it can change the structure of the prog
     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;&#34;</span>)); <span style="color:#75715e">// 10
 </span><span style="color:#75715e"></span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">foo</span>(<span style="color:#e6db74">&#34;var a&#34;</span>)); <span style="color:#75715e">// still 10
 </span><span style="color:#75715e"></span>  })()
-})()</code></pre></div>
+})()
+</code></pre></div>
 <p>In theory, before the Parser could <em>build a proof</em> that there is no direct eval, it should check all the nooks and crannies of the function. For performance reason, Parsers cheat: they simply assume that
 anything that looks like <code>eval(...)</code> is a direct call to <code>eval</code>, even if it is actually a call to another function that happens to be called <code>eval</code>. Despite this optimization, the Parser needs to visit all the blocks and all the nested functions of a function before it can build its proof. This is slow, complex,
 and this cannot be skipped.</p>
@@ -431,12 +434,12 @@ and streaming compilation aren&rsquo;t implemented yet. In other words, we do no
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>197</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>231</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     

@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.36.1" />
+<meta name="generator" content="Hugo 0.48" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/rust-typestate/" />
@@ -253,7 +253,8 @@
 
   my_file.seek(Seek::Start); <span style="color:#75715e">// Error: we have closed `my_file`.
 </span><span style="color:#75715e"></span>  result
-}</code></pre></div>
+}
+</code></pre></div>
 <p>In this example, we have made two mistakes:</p>
 
 <ol>
@@ -300,7 +301,8 @@ for our operations on <code>MyFile</code>:</p>
     <span style="color:#75715e">// Introduce a destructor to auto-close an instance of `MyFile`
 </span><span style="color:#75715e"></span>    <span style="color:#75715e">// if we haven&#39;t closed it yet.
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">drop</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) { ... }
-}</code></pre></div>
+}
+</code></pre></div>
 <p>Let&rsquo;s rewrite our above example:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
   <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
@@ -320,7 +322,8 @@ for our operations on <code>MyFile</code>:</p>
 </span><span style="color:#75715e"></span>
   my_file.seek(Seek::Start)<span style="color:#f92672">?</span>; <span style="color:#75715e">// Error, detected by the compiler
 </span><span style="color:#75715e"></span>  result
-}</code></pre></div>
+}
+</code></pre></div>
 <p>This works even in more complex cases:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
   <span style="color:#75715e">// As above.
@@ -340,7 +343,8 @@ for our operations on <code>MyFile</code>:</p>
 
   <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
-</span><span style="color:#75715e"></span>}</code></pre></div>
+</span><span style="color:#75715e"></span>}
+</code></pre></div>
 <p>The key here is that the Rust type system enforces the fact
 that a variable may not be used after having been <strong>moved</strong>.
 In our case, <code>my_file.close()</code> moved the value, effectively
@@ -365,7 +369,8 @@ we would have been thwarted by the compiler:</p>
 
   <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
-</span><span style="color:#75715e"></span>}</code></pre></div>
+</span><span style="color:#75715e"></span>}
+</code></pre></div>
 <p>Let&rsquo;s try another way to cheat the compiler by making
 the file accessible after it has been closed:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
@@ -400,7 +405,8 @@ the file accessible after it has been closed:</p>
 
   <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
-</span><span style="color:#75715e"></span>}</code></pre></div>
+</span><span style="color:#75715e"></span>}
+</code></pre></div>
 <p>Again, we have been thwarted by the compiler. Indeed, short
 of explicitly going into <code>unsafe</code> mode, we will not be able
 to break the invariant that <code>seek</code> cannot be used after <code>close</code>.</p>
@@ -519,7 +525,8 @@ functional programmers, known as <strong>phantom types</strong>.</p>
 </span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">try_respond_to_hello_you</span>(<span style="color:#66d9ef">mut</span> self) -&gt; Result<span style="color:#f92672">&lt;</span>Sender<span style="color:#f92672">&lt;</span>SenderReadyToSendHello<span style="color:#f92672">&gt;</span>, Self<span style="color:#f92672">&gt;</span> {
         <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>    }
-}</code></pre></div>
+}
+</code></pre></div>
 <p>With this design, it is clear that the <code>Sender</code> can only follow the protocol:</p>
 
 <ul>
@@ -545,7 +552,8 @@ check that the response matched? Well, to do this, we can simply
 store the number on <code>SenderHasSentNumber</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentNumber</span> {
     number_sent: <span style="color:#66d9ef">u32</span>,
-}</code></pre></div>
+}
+</code></pre></div>
 <p>Once again, the compiler will check that the code only accesses <code>number_sent</code>
 when the sender is in state <code>SenderHasSentNumber</code>.</p>
 
@@ -583,12 +591,12 @@ and the <a href="http://munksgaard.me/papers/laumann-munksgaard-larsen.pdf">pape
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>170</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>204</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     

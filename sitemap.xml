@@ -3,23 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://yoric.github.io/post/rtb-afterlife-2/</loc>
-    <lastmod>2018-09-08T19:28:07+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/post/rtb-afterlife/</loc>
-    <lastmod>2018-09-08T19:24:40+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/post/rtb-time-adjustment/</loc>
-    <lastmod>2018-09-06T12:21:17+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/post/rtb-time-federation/</loc>
-    <lastmod>2018-09-06T11:40:04+02:00</lastmod>
+    <loc>https://yoric.github.io/post/rpg-blog/</loc>
+    <lastmod>2018-10-12T17:12:06+02:00</lastmod>
   </url>
   
   <url>
@@ -160,13 +145,19 @@
   
   <url>
     <loc>https://yoric.github.io/categories/hobbies/</loc>
-    <lastmod>2018-09-08T19:28:07+02:00</lastmod>
+    <lastmod>2018-09-06T09:30:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/</loc>
-    <lastmod>2018-09-08T19:28:07+02:00</lastmod>
+    <lastmod>2018-10-12T17:12:06+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/improv/</loc>
+    <lastmod>2018-10-12T17:12:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -177,13 +168,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/iot/</loc>
+    <loc>https://yoric.github.io/categories/iot/</loc>
     <lastmod>2018-03-08T07:26:05+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/iot/</loc>
+    <loc>https://yoric.github.io/tags/iot/</loc>
     <lastmod>2018-03-08T07:26:05+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -195,13 +186,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/javascript/</loc>
+    <loc>https://yoric.github.io/categories/javascript/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/javascript/</loc>
+    <loc>https://yoric.github.io/tags/javascript/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -219,25 +210,25 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/mozilla/</loc>
-    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://yoric.github.io/categories/mozilla/</loc>
     <lastmod>2018-03-08T07:26:05+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/newsletter/</loc>
-    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
+    <loc>https://yoric.github.io/tags/mozilla/</loc>
+    <lastmod>2018-10-12T17:12:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/newsletter/</loc>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/newsletter/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -279,13 +270,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/performance/</loc>
+    <loc>https://yoric.github.io/categories/performance/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/performance/</loc>
+    <loc>https://yoric.github.io/tags/performance/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -298,7 +289,7 @@
   
   <url>
     <loc>https://yoric.github.io/post/</loc>
-    <lastmod>2018-09-08T19:28:07+02:00</lastmod>
+    <lastmod>2018-10-12T17:12:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -315,26 +306,26 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/programming-languages/</loc>
-    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://yoric.github.io/categories/programming-languages/</loc>
     <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/project-lighthouse/</loc>
-    <lastmod>2017-01-01T23:44:19+01:00</lastmod>
+    <loc>https://yoric.github.io/tags/programming-languages/</loc>
+    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/project-lighthouse/</loc>
     <lastmod>2017-02-17T00:10:34+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/project-lighthouse/</loc>
+    <lastmod>2017-01-01T23:44:19+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -369,37 +360,37 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/ronin-time-bureaucrats/</loc>
-    <lastmod>2018-09-08T19:28:07+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://yoric.github.io/categories/ronin-time-bureaucrats/</loc>
-    <lastmod>2018-09-08T19:28:07+02:00</lastmod>
+    <lastmod>2018-09-06T09:30:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/rpg/</loc>
-    <lastmod>2018-09-08T19:28:07+02:00</lastmod>
+    <loc>https://yoric.github.io/tags/ronin-time-bureaucrats/</loc>
+    <lastmod>2018-09-06T09:30:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/rpg/</loc>
-    <lastmod>2018-09-08T19:28:07+02:00</lastmod>
+    <lastmod>2018-09-06T09:30:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/rust/</loc>
-    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
+    <loc>https://yoric.github.io/tags/rpg/</loc>
+    <lastmod>2018-10-12T17:12:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/rust/</loc>
+    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/rust/</loc>
     <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
@@ -423,20 +414,26 @@
   </url>
   
   <url>
+    <loc>https://yoric.github.io/tags/storytelling/</loc>
+    <lastmod>2018-10-12T17:12:06+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://yoric.github.io/tags/swift/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/types/</loc>
-    <lastmod>2018-03-08T07:26:05+01:00</lastmod>
+    <loc>https://yoric.github.io/categories/types/</loc>
+    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/types/</loc>
-    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
+    <loc>https://yoric.github.io/tags/types/</loc>
+    <lastmod>2018-03-08T07:26:05+01:00</lastmod>
     <priority>0</priority>
   </url>
   
