@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pcc on Il y a du thé renversé au bord de la table !</title>
+    <title>pcc on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/pcc/</link>
-    <description>Recent content in Pcc on Il y a du thé renversé au bord de la table !</description>
+    <description>Recent content in pcc on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
@@ -18,9 +18,7 @@
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
-      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;</description>
     </item>
     
   </channel>

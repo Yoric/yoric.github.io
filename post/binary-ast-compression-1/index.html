@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>The BinAST diaries - Compression, part 1</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="If you have been following the work on the JavaScript Binary AST, you probably realized that we haven&amp;rsquo;t been communicating much recently. Sorry about that, we&amp;rsquo;ve been busy iterating on it!
+In this blog entry, I&amp;rsquo;d like to talk to you about our current main focus: file compression.
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="The BinAST diaries - Compression, part 1" />
+    <meta name="twitter:description" content="If you have been following the work on the JavaScript Binary AST, you probably realized that we haven&amp;rsquo;t been communicating much recently. Sorry about that, we&amp;rsquo;ve been busy iterating on it!
+In this blog entry, I&amp;rsquo;d like to talk to you about our current main focus: file compression.
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="The BinAST diaries - Compression, part 1" />
+  <meta property="og:description" content="If you have been following the work on the JavaScript Binary AST, you probably realized that we haven&amp;rsquo;t been communicating much recently. Sorry about that, we&amp;rsquo;ve been busy iterating on it!
+In this blog entry, I&amp;rsquo;d like to talk to you about our current main focus: file compression.
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/binary-ast-compression-1/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.55.6" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/binary-ast-compression-1/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">The BinAST diaries - Compression, part 1</h1>
+      <p class="post-meta">@David Teller · Feb 28, 2019 · 7 min read</p>
+    </header>
+    <article class="post-content"><p>If you have been following the work on the JavaScript Binary AST, you probably realized that we haven&rsquo;t been communicating much recently. Sorry about that, we&rsquo;ve been busy iterating on it!</p>
+
+<p>In this blog entry, I&rsquo;d like to talk to you about our current main focus: file compression.</p>
+
+<h1 id="about-the-javascript-binary-ast">About the JavaScript Binary AST</h1>
+
+<p>The JavaScript Binary AST is a TC39 proposal for the future of JavaScript, designed by Mozilla, Facebook, Bloomberg, Cloudflare.
+Our main objective is to introduce a new way of sending JavaScript source code to make loading JS much faster, without requiring web developers to make any change in their code.</p>
+
+<h1 id="why-file-size-matters">Why file size matters</h1>
+
+<p>There are several potential bottlenecks involved in loading JS. To make a long story short:</p>
+
+<ol>
+<li>the code may be slow to download/load from disk;</li>
+<li>the code may be slow to parse;</li>
+<li>the code may be slow to compile to bytecode;</li>
+<li>the code may be slow to execute.</li>
+</ol>
+
+<p>As we have detailed in previous blog posts:</p>
+
+<ul>
+<li>point 2 is tremendousy improved by BinAST (and other proposals);</li>
+<li>point 3 is something we are working on;</li>
+<li>point 4 is besides the scope of BinAST.</li>
+</ul>
+
+<p>This leaves us with 1. To make JavaScript loading faster, we also need to make the number of bytes transmitted smaller. In other words, we need compression.</p>
+
+<h1 id="the-text-ast">The Text AST</h1>
+
+<p>Nowadays, the de facto standard for compression of JavaScript source code is Brotli. It&rsquo;s an extremely good tool,
+which provides both fast compression, fast decompression and a high compression ratio. In fact, Brotli is
+already custom-tailored to compress JavaScript.</p>
+
+<p>However, out of the box, Brotli doesn&rsquo;t compress BinAST too well.</p>
+
+<p>Consider the following JS code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">identity</span>(<span style="color:#a6e22e">x</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>;
+}
+</code></pre></div>
+<p>This representation is very concise already, and Brotli already has in its builtin dictionary words such as <code>function</code> or <code>return</code>, which make its representation even more concise. In fact, Brotli reduces this snippet to 34 bytes, and would do a much better job on a larger codebase.</p>
+
+<p>Now consider the in-memory representation (or &ldquo;AST&rdquo;) of the same code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">EagerFunctionDeclaration:
+    isAsync: <span style="color:#66d9ef">false</span>
+    isGenerator: <span style="color:#66d9ef">false</span>
+    name:
+        BindingIdentifier:
+            name: <span style="color:#e6db74">&#34;identity&#34;</span>
+    length: <span style="color:#ae81ff">1</span>
+    directives: []
+    contents:
+        FunctionOrMethodContents:
+            isThisCaptured: <span style="color:#66d9ef">false</span>
+            parameterScope:
+                AssertedParameterScope:
+                    paramNames:
+                        - AssertedParameterName:
+                            name: <span style="color:#e6db74">&#34;x&#34;</span>
+                            isCaptured: <span style="color:#66d9ef">false</span>
+                    hasDirectEval: <span style="color:#66d9ef">false</span>
+                    isSimpleParameterList: <span style="color:#66d9ef">true</span>
+            params:
+                FormalParameters:
+                    items:
+                        - BindingIdentifier:
+                            name: <span style="color:#e6db74">&#34;x&#34;</span>
+                    rest: <span style="color:#66d9ef">null</span>
+            bodyScope:
+                AssertedVarScope:
+                    declaredNames: []
+                    hasDirectEval: <span style="color:#66d9ef">false</span>
+            body:
+                - ReturnStatement:
+                    expression:
+                        IdentifierExpression:
+                            name: <span style="color:#e6db74">&#34;x&#34;</span></code></pre></div>
+<p>That is&hellip; quite a little bit longer. That&rsquo;s because we are showing here the result of two steps of transformation on the snippet above:</p>
+
+<ul>
+<li>parsing;</li>
+<li>static analysis (yes, there&rsquo;s static analysis during JavaScript startup).</li>
+</ul>
+
+<p>Since both operations are quite costly, we wish to transmit this entire data structure, or a variant thereof.
+Maybe we can apply Brotli directly?</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Initial size (b)</th>
+<th>Size after brotli (b)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text source</td>
+<td style="text-align:center">
+39
+</td>
+<td style="text-align:center">
+34
+</td>
+</tr>
+<tr>
+<td>Text AST</td>
+<td style="text-align:center">
+1,069
+</td>
+<td style="text-align:center">
+284
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>After Brotli, that&rsquo;s a 9x file size increase, which makes things much slower and expensive (in terms of electricity) to download/load from cache.</p>
+
+<p>So, this format is not acceptable.</p>
+
+<h1 id="towards-the-binary-ast">Towards the Binary AST</h1>
+
+<p>Now, the BinAST spec specifies the order of fields, so we can already simplify our representation</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">EagerFunctionDeclaration:
+    - <span style="color:#66d9ef">false</span>
+    - <span style="color:#66d9ef">false</span>
+    - BindingIdentifier:
+        <span style="color:#e6db74">&#34;identity&#34;</span>
+    - <span style="color:#ae81ff">1</span>
+    - []
+    - FunctionOrMethodContents:
+        - <span style="color:#66d9ef">false</span>
+        - AssertedParameterScope:
+            <span style="color:#e6db74">-
+</span><span style="color:#e6db74">                - AssertedParameterName:</span>
+                    <span style="color:#e6db74">&#34;x&#34;</span>
+                    <span style="color:#66d9ef">false</span>
+            - <span style="color:#66d9ef">false</span>
+            - <span style="color:#66d9ef">true</span>
+        - FormalParameters:
+            <span style="color:#e6db74">-
+</span><span style="color:#e6db74">                - BindingIdentifier:</span>
+                    <span style="color:#e6db74">&#34;x&#34;</span>
+            - <span style="color:#66d9ef">null</span>
+        - AssertedVarScope:
+            - []
+            - <span style="color:#66d9ef">false</span>
+        <span style="color:#e6db74">-
+</span><span style="color:#e6db74">            - ReturnStatement:</span>
+                IdentifierExpression:
+                    <span style="color:#e6db74">&#34;x&#34;</span></code></pre></div>
+<p>While we&rsquo;re there, let&rsquo;s replace <code>false</code> with <code>0</code> and <code>true</code> with <code>1</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">EagerFunctionDeclaration:
+    - <span style="color:#ae81ff">0</span>
+    - <span style="color:#ae81ff">0</span>
+    - BindingIdentifier:
+        <span style="color:#e6db74">&#34;identity&#34;</span>
+    - <span style="color:#ae81ff">1</span>
+    - []
+    - FunctionOrMethodContents:
+        - <span style="color:#ae81ff">0</span>
+        - AssertedParameterScope:
+            <span style="color:#e6db74">-
+</span><span style="color:#e6db74">                - AssertedParameterName:</span>
+                    <span style="color:#e6db74">&#34;x&#34;</span>
+                    <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">1</span>
+        - FormalParameters:
+            <span style="color:#e6db74">-
+</span><span style="color:#e6db74">                - BindingIdentifier:</span>
+                    <span style="color:#e6db74">&#34;x&#34;</span>
+            - <span style="color:#66d9ef">null</span>
+        - AssertedVarScope:
+            - []
+            - <span style="color:#ae81ff">0</span>
+        <span style="color:#e6db74">-
+</span><span style="color:#e6db74">            - ReturnStatement:</span>
+                IdentifierExpression:
+                    <span style="color:#e6db74">&#34;x&#34;</span></code></pre></div>
+<p>We can already see improvements:</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Initial size (b)</th>
+<th>Size after brotli (b)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text source</td>
+<td style="text-align:center">
+39
+</td>
+<td style="text-align:center">
+34
+</td>
+</tr>
+<tr>
+<td>Text AST</td>
+<td style="text-align:center">
+599
+</td>
+<td style="text-align:center">
+184
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Now, let&rsquo;s change a bit the format of lists, to prefix them with their length and avoid nesting them behind empty <code>-</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">EagerFunctionDeclaration:
+    - <span style="color:#ae81ff">0</span>
+    - <span style="color:#ae81ff">0</span>
+    - BindingIdentifier:
+        <span style="color:#e6db74">&#34;identity&#34;</span>
+    - <span style="color:#ae81ff">1</span>
+    - <span style="color:#ae81ff">0</span>
+    - FunctionOrMethodContents:
+        - <span style="color:#ae81ff">0</span>
+        - AssertedParameterScope:
+            - <span style="color:#ae81ff">1</span>
+            - AssertedParameterName:
+                <span style="color:#e6db74">&#34;x&#34;</span>
+                <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">1</span>
+        - FormalParameters:
+            - <span style="color:#ae81ff">1</span>
+            - BindingIdentifier:
+                <span style="color:#e6db74">&#34;x&#34;</span>
+            - <span style="color:#66d9ef">null</span>
+        - AssertedVarScope:
+            - <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">0</span>
+        - <span style="color:#ae81ff">1</span>
+        - ReturnStatement:
+            IdentifierExpression:
+                <span style="color:#e6db74">&#34;x&#34;</span></code></pre></div>
+<p>We now have a representation with three constructions:</p>
+
+<ul>
+<li>numbers;</li>
+<li>node names;</li>
+<li>literal strings.</li>
+</ul>
+
+<p>Let&rsquo;s see what we can do about strings. BinAST is not a minifier, so
+we keep all strings, identifiers, etc. unchanged, but we can move them
+out of the way and into a header, as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">strings:
+    concat:
+        <span style="color:#e6db74">&#34;identityx&#34;</span>
+    len:
+        - <span style="color:#ae81ff">8</span>
+        - <span style="color:#ae81ff">1</span></code></pre></div>
+<p>Field <code>concat</code> contains a single string, obtained by concatenating all individual strings
+used in the file, and we maintain a separate list of string lengths. This has several
+benefits:</p>
+
+<ul>
+<li>strings may be parsed ahead of time and/or in parallel from the rest of the file;</li>
+<li>strings only need to be validated and optimized for memory use once, regardless of the number of occurrences in the file;</li>
+<li>strings only need to appear once in the file, so the cost of repeating a string is negligible.</li>
+</ul>
+
+<p>Just as we had removed field names, let&rsquo;s get rid of <code>concat</code> and <code>len</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">strings:
+    - <span style="color:#e6db74">&#34;identityx&#34;</span>
+    - <span style="color:#ae81ff">2</span>
+    - <span style="color:#ae81ff">8</span>
+    - <span style="color:#ae81ff">1</span></code></pre></div>
+<p>This gives us the following representation:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">strings:
+    - <span style="color:#e6db74">&#34;identityx&#34;</span>
+    - <span style="color:#ae81ff">2</span>
+    - <span style="color:#ae81ff">8</span>
+    - <span style="color:#ae81ff">1</span>
+EagerFunctionDeclaration:
+    - <span style="color:#ae81ff">0</span>
+    - <span style="color:#ae81ff">0</span>
+    - BindingIdentifier:
+        <span style="color:#ae81ff">0</span>
+    - <span style="color:#ae81ff">1</span>
+    - <span style="color:#ae81ff">0</span>
+    - FunctionOrMethodContents:
+        - <span style="color:#ae81ff">0</span>
+        - AssertedParameterScope:
+            - <span style="color:#ae81ff">1</span>
+            - AssertedParameterName:
+                <span style="color:#ae81ff">1</span>
+                <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">1</span>
+        - FormalParameters:
+            - <span style="color:#ae81ff">1</span>
+            - BindingIdentifier:
+                <span style="color:#ae81ff">1</span>
+            - <span style="color:#66d9ef">null</span>
+        - AssertedVarScope:
+            - <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">0</span>
+        - <span style="color:#ae81ff">1</span>
+        - ReturnStatement:
+            IdentifierExpression:
+                <span style="color:#ae81ff">1</span></code></pre></div>
+<p>Now, let&rsquo;s take a look at these node names. We still need the node names to tell us
+<em>what</em> we&rsquo;re looking at and to deduce the number of fields and their nature.
+By using the same trick as Brotli, we can introduce the names of nodes in
+a shared dictionary and repace them with numbers in the file, obtaining the
+rather more concise</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">0</span>:
+    - <span style="color:#e6db74">&#34;identityx&#34;</span>
+    - <span style="color:#ae81ff">2</span>
+    - <span style="color:#ae81ff">8</span>
+    - <span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">0</span>:
+    - <span style="color:#ae81ff">0</span>
+    - <span style="color:#ae81ff">0</span>
+    - <span style="color:#ae81ff">1</span>:
+        <span style="color:#ae81ff">0</span>
+    - <span style="color:#ae81ff">1</span>
+    - <span style="color:#ae81ff">0</span>
+    - <span style="color:#ae81ff">2</span>:
+        - <span style="color:#ae81ff">0</span>
+        - <span style="color:#ae81ff">3</span>:
+            - <span style="color:#ae81ff">1</span>
+            - <span style="color:#ae81ff">4</span>:
+                <span style="color:#ae81ff">1</span>
+                <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">1</span>
+        - <span style="color:#ae81ff">5</span>:
+            - <span style="color:#ae81ff">1</span>
+            - <span style="color:#ae81ff">1</span>:
+                <span style="color:#ae81ff">1</span>
+            - <span style="color:#ae81ff">6</span>
+        - <span style="color:#ae81ff">7</span>:
+            - <span style="color:#ae81ff">0</span>
+            - <span style="color:#ae81ff">0</span>
+        - <span style="color:#ae81ff">1</span>
+        - <span style="color:#ae81ff">8</span>:
+            <span style="color:#ae81ff">9</span>:
+                <span style="color:#ae81ff">1</span></code></pre></div>
+<p>Also, since the parser knows the grammar, we do not need the nesting information, so we could easily rewrite this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">0</span>
+- identityx
+- <span style="color:#ae81ff">2</span>
+- <span style="color:#ae81ff">8</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">2</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">3</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">4</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">5</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">6</span>
+- <span style="color:#ae81ff">7</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">0</span>
+- <span style="color:#ae81ff">1</span>
+- <span style="color:#ae81ff">8</span>
+- <span style="color:#ae81ff">9</span>
+- <span style="color:#ae81ff">1</span></code></pre></div>
+<p>Or, in binary format:</p>
+
+<pre><code>0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x78, 0x00, 0x02, 0x08, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x01, 0x04, 0x01, 0x00, 0x00, 0x01, 0x05, 0x01, 0x01, 0x01, 0x06, 0x07, 0x00, 0x00, 0x01, 0x08, 0x09, 0x01
+</code></pre>
+
+<p>This was, indeed, the first version of our Binary AST.</p>
+
+<p>Let&rsquo;s see how it behaves:</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Initial size (b)</th>
+<th>Size after brotli (b)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text source</td>
+<td style="text-align:center">
+39
+</td>
+<td style="text-align:center">
+34
+</td>
+</tr>
+<tr>
+<td>Text AST</td>
+<td style="text-align:center">
+1,069
+</td>
+<td style="text-align:center">
+284
+</td>
+</tr>
+<tr>
+<td>Binary AST 0.1</td>
+<td style="text-align:center">
+41
+</td>
+<td style="text-align:center">
+35
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>That&rsquo;s much better!</p>
+
+<p>Also, while moving entirely to binary makes the format harder to debug, it is also much faster to parse. Indeed, loading a single byte and comparing it to a set of bytes to determine how to interpret what follows is simpler and faster than loading <code>&quot;FunctionOrMethodContents&quot;</code> and comparing it to a set of strings for the same reason.</p>
+
+<h1 id="binast-0-1-vs-the-real-world">BinAST 0.1 vs. the Real World</h1>
+
+<p>With this format, we can attempt to try and compress real-world JavaScript files using BinAST 0.1.</p>
+
+<p>Our first benchmark is <a href="https://github.com/vdjeric/fb_bench">fb_bench</a>, a large sample of minified JavaScript published by Facebook for use by developers of VMs and JavaScript code analysis tools.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Initial size (b)</th>
+<th>Size after brotli (b)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text source</td>
+<td style="text-align:center">
+87,925,828
+</td>
+<td style="text-align:center">
+12,621,287
+</td>
+</tr>
+<tr>
+<td>Binary AST 0.1</td>
+<td style="text-align:center">
+56,457,196
+</td>
+<td style="text-align:center">
+14,421,478
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>While the result is not awful, we still see a post-compression size increase of 16%. This is in part due to the
+fact that <code>fb_bench</code> is minified (BinAST 0.1 works better on non-minified code), but then, so is most of the JS on
+the web.</p>
+
+<p>In other words, we cannot simply ship files with BinAST 0.1 + Brotli. In fact,
+we have spent the best part of last year iterating through successive versions of
+BinAST to improve this result.</p>
+
+<h1 id="to-be-continued">To be continued&hellip;</h1>
+
+<p>That&rsquo;s enough code for one blog post. In the second part of this series, I&rsquo;ll be showcasing the technique we
+currently use to compress BinAST (the so-called &ldquo;Entropy format&rdquo;) and the results we currently achieve.</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>322</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2020 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

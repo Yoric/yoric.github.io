@@ -7,22 +7,85 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 23 Feb 2018 10:44:39 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jan 2020 07:23:02 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Binjs</title>
+      <title>Mozilla</title>
+      <link>https://yoric.github.io/categories/mozilla/</link>
+      <pubDate>Thu, 16 Jan 2020 07:23:02 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://yoric.github.io/categories/javascript/</link>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>binjs</title>
       <link>https://yoric.github.io/categories/binjs/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/binjs/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Hobbies</title>
+      <title>compression</title>
+      <link>https://yoric.github.io/categories/compression/</link>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/compression/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>newsletter</title>
+      <link>https://yoric.github.io/categories/newsletter/</link>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/newsletter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>performance</title>
+      <link>https://yoric.github.io/categories/performance/</link>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>research</title>
+      <link>https://yoric.github.io/categories/research/</link>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>types</title>
+      <link>https://yoric.github.io/categories/types/</link>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/types/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hobbies</title>
       <link>https://yoric.github.io/categories/hobbies/</link>
       <pubDate>Thu, 06 Sep 2018 09:30:43 +0200</pubDate>
       
@@ -31,97 +94,7 @@
     </item>
     
     <item>
-      <title>Iot</title>
-      <link>https://yoric.github.io/categories/iot/</link>
-      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/iot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Javascript</title>
-      <link>https://yoric.github.io/categories/javascript/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Meta</title>
-      <link>https://yoric.github.io/categories/meta/</link>
-      <pubDate>Sat, 18 Feb 2017 16:29:32 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/meta/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mozilla</title>
-      <link>https://yoric.github.io/categories/mozilla/</link>
-      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/mozilla/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Newsletter</title>
-      <link>https://yoric.github.io/categories/newsletter/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/newsletter/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Performance</title>
-      <link>https://yoric.github.io/categories/performance/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/performance/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Post Mortem</title>
-      <link>https://yoric.github.io/categories/post-mortem/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/post-mortem/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Programming Languages</title>
-      <link>https://yoric.github.io/categories/programming-languages/</link>
-      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/programming-languages/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Project Lighthouse</title>
-      <link>https://yoric.github.io/categories/project-lighthouse/</link>
-      <pubDate>Fri, 17 Feb 2017 00:10:34 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/project-lighthouse/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Research</title>
-      <link>https://yoric.github.io/categories/research/</link>
-      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/research/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ronin Time Bureaucrats</title>
+      <title>ronin-time-bureaucrats</title>
       <link>https://yoric.github.io/categories/ronin-time-bureaucrats/</link>
       <pubDate>Thu, 06 Sep 2018 09:30:43 +0200</pubDate>
       
@@ -130,11 +103,20 @@
     </item>
     
     <item>
-      <title>Rpg</title>
+      <title>rpg</title>
       <link>https://yoric.github.io/categories/rpg/</link>
       <pubDate>Thu, 06 Sep 2018 09:30:43 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/rpg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IoT</title>
+      <link>https://yoric.github.io/categories/iot/</link>
+      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/iot/</guid>
       <description></description>
     </item>
     
@@ -148,11 +130,38 @@
     </item>
     
     <item>
-      <title>Types</title>
-      <link>https://yoric.github.io/categories/types/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
+      <title>programming languages</title>
+      <link>https://yoric.github.io/categories/programming-languages/</link>
+      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
       
-      <guid>https://yoric.github.io/categories/types/</guid>
+      <guid>https://yoric.github.io/categories/programming-languages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>post-mortem</title>
+      <link>https://yoric.github.io/categories/post-mortem/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/post-mortem/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>meta</title>
+      <link>https://yoric.github.io/categories/meta/</link>
+      <pubDate>Sat, 18 Feb 2017 16:29:32 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/meta/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Project Lighthouse</title>
+      <link>https://yoric.github.io/categories/project-lighthouse/</link>
+      <pubDate>Fri, 17 Feb 2017 00:10:34 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/project-lighthouse/</guid>
       <description></description>
     </item>
     

@@ -18,9 +18,7 @@
       <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
       
       <guid>https://yoric.github.io/post/rust-typestate/</guid>
-      <description>&lt;p&gt;A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -7,10 +7,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 12 Oct 2018 17:12:06 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jan 2020 07:23:02 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Layoff survival guide</title>
+      <link>https://yoric.github.io/post/layoffs/</link>
+      <pubDate>Thu, 16 Jan 2020 07:23:02 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/layoffs/</guid>
+      <description>&lt;p&gt;If you&amp;rsquo;re reading these lines, you may have recently been laid off from your job. Or maybe, depending on your country and its laws, you&amp;rsquo;re waiting to know if you&amp;rsquo;re being laid off.&lt;/p&gt;
+
+&lt;p&gt;Well, I&amp;rsquo;ve been there and I&amp;rsquo;ve survived it, so, based on my experience, here are a few suggestions:&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>The BinAST diaries - Compression, part 1</title>
+      <link>https://yoric.github.io/post/binary-ast-compression-1/</link>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/binary-ast-compression-1/</guid>
+      <description>&lt;p&gt;If you have been following the work on the JavaScript Binary AST, you probably realized that we haven&amp;rsquo;t been communicating much recently. Sorry about that, we&amp;rsquo;ve been busy iterating on it!&lt;/p&gt;
+
+&lt;p&gt;In this blog entry, I&amp;rsquo;d like to talk to you about our current main focus: file compression.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>New blog: Space·Time Will Tell</title>
@@ -32,9 +54,7 @@ At the menu:
       <guid>https://yoric.github.io/post/rtb-about/</guid>
       <description>&lt;p&gt;When I&amp;rsquo;m not busy attempting to reduce the startup time and power requirements of web pages with the JavaScript Binary AST, I&amp;rsquo;m into Improv Acting and Role-Playing Games.&lt;/p&gt;
 
-&lt;p&gt;I&amp;rsquo;d like to introduce a hobby project of mine, which I have started over the summer: Ronin Time Bureaucrats – an narrative/improv Role-Playing Game of Handwavy Time Paradoxes.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;I&amp;rsquo;d like to introduce a hobby project of mine, which I have started over the summer: Ronin Time Bureaucrats – an narrative/improv Role-Playing Game of Handwavy Time Paradoxes.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -79,9 +99,7 @@ for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuf
 it a second life.&lt;/p&gt;
 
 &lt;p&gt;Note that some of the ideas exposed here were never actually implemented. Project Link
-was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -90,9 +108,7 @@ was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
-      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -101,9 +117,7 @@ was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;
       <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
       
       <guid>https://yoric.github.io/post/rust-typestate/</guid>
-      <description>&lt;p&gt;A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -170,9 +184,7 @@ a higher-level strategy pivot killed a number of projects at once.&lt;/p&gt;
 to increase the chances of surviving at least long enough to release a product.
 I&amp;rsquo;ll try to summarize and explain some of these tricks here. Hopefully, if you
 have a project, regardless of funding and medium, you may find some of this
-summary useful.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+summary useful.&lt;/p&gt;</description>
     </item>
     
     <item>

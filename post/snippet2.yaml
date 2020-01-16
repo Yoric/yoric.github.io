@@ -1,0 +1,28 @@
+EagerFunctionDeclaration:
+    - false
+    - false
+    - BindingIdentifier:
+        "identity"
+    - 1
+    - []
+    - FunctionOrMethodContents:
+        - false
+        - AssertedParameterScope:
+            -
+                - AssertedParameterName:
+                    "x"
+                    false
+            - false
+            - true
+        - FormalParameters:
+            -
+                - BindingIdentifier:
+                    "x"
+            - null
+        - AssertedVarScope:
+            - []
+            - false
+        -
+            - ReturnStatement:
+                IdentifierExpression:
+                    "x"

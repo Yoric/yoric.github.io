@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>HolyJIT: Could we write a multi-staged JIT compiler?</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content=" Credit
+While I&amp;rsquo;m the author of this blog post, 95% of the work was done by Nicolas B. Pierron.
+So far, my role in this project has largely been to play the wise old advisor, nodding and smiling mischeviously whenever Nicolas started exploring new ideas, and emitting cryptic comments in Reverse Jedi Notation.
+ A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
+In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="HolyJIT: Could we write a multi-staged JIT compiler?" />
+    <meta name="twitter:description" content=" Credit
+While I&amp;rsquo;m the author of this blog post, 95% of the work was done by Nicolas B. Pierron.
+So far, my role in this project has largely been to play the wise old advisor, nodding and smiling mischeviously whenever Nicolas started exploring new ideas, and emitting cryptic comments in Reverse Jedi Notation.
+ A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
+In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
+
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="HolyJIT: Could we write a multi-staged JIT compiler?" />
+  <meta property="og:description" content=" Credit
+While I&amp;rsquo;m the author of this blog post, 95% of the work was done by Nicolas B. Pierron.
+So far, my role in this project has largely been to play the wise old advisor, nodding and smiling mischeviously whenever Nicolas started exploring new ideas, and emitting cryptic comments in Reverse Jedi Notation.
+ A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
+In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
+
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/holyjit/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.48" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/holyjit/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">HolyJIT: Could we write a multi-staged JIT compiler?</h1>
+      <p class="post-meta">@David Teller · Mar 6, 2018 · 10 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p><strong>Credit</strong></p>
+
+<p>While I&rsquo;m the author of this blog post, 95% of the work was done by Nicolas B. Pierron.</p>
+
+<p>So far, my role in this project has largely been to play the wise old advisor,
+nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
+and emitting cryptic comments in Reverse Jedi Notation.</p>
+</blockquote>
+
+<p>A few months ago, we published a <a href="https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/">short (and mysterious) blog post</a> in which we
+mentioned HolyJIT, an early research project towards a novel approach to writing JITs.</p>
+
+<p>In this blog post, I would like to detail a bit more the ideas behind HolyJIT.</p>
+
+<p></p>
+
+<h1 id="anatomy-of-a-jit-compiler">Anatomy of a JIT compiler</h1>
+
+<p>If you&rsquo;re not already familiar with JIT compilers, I suggest you first <a href="https://en.wikipedia.org/wiki/Just-in-time_compilation">take a look
+at Wikipedia</a> before proceeding,
+because the rest of this blog post won&rsquo;t be very useful to you.</p>
+
+<p>For performance reasons, real-world JIT compilers such as SpiderMonkey, v8 or
+HotSpot often contain several implementations of the language. For instance:</p>
+
+<ul>
+<li>a pure interpreter;</li>
+<li>a naive compiler;</li>
+<li>an optimizing compiler.</li>
+</ul>
+
+<p>The pure interpreter can start running immediately, which is very useful for code that
+the program is only ever going to run once. The naive compiler will take some time to compile
+the code fed to it, but will produce faster code once it&rsquo;s done, so it is useful for code
+that is used repeatedly. Finally, the optimizing compiler will take much more time to
+compile the code, but will produce much faster code, so it is useful for performance-critical code.</p>
+
+<p>That&rsquo;s three implementations of the <em>same</em> language (sometimes more) in the <em>same</em> compiler.
+In fact, the inline cache strategy often contains a fourth implementation of large subsets
+of the the same language.</p>
+
+<p>This has two large drawbacks:</p>
+
+<ul>
+<li>if two implementations disagree on behavior, the language is broken in subtle and unpredictable
+ways, which is really bad for safety and security;</li>
+<li>any change to one implementation must be mirrored in all others, which is generally pretty tricky.</li>
+</ul>
+
+<p>Can we do better?</p>
+
+<h1 id="our-objective">Our objective</h1>
+
+<p>The objective with HolyJIT is to see if we can develop a toolbox to:</p>
+
+<ul>
+<li>write JITs in a strongly-typed programming language (in this case, Rust);</li>
+<li>have a single specification as source of the semantics of the target language, regardless of the number of components that are actually going to implement different execution/compilation strategies;</li>
+<li>share these instruments across a large variety of JIT-compiled target languages;</li>
+<li>reduce the size of the Trusted Computing Base.</li>
+</ul>
+
+<p>Some of the ideas in HolyJIT are closely related to multi-stage compilation,
+as demonstrated for instance in MetaOCaml or Template Haskell. By opposition
+to such languages, though, the target is explicitly JITs and aims to let JIT
+developers pick or build their own strategies. By opposition to MetaOCaml,
+which requires shipping a full OCaml compiler as part of the executable,
+HolyJIT will not require shipping a full Rust compiler.</p>
+
+<p>I should mention, again, that HolyJIT is early stage research. Some of what
+will be discussed in this blog post is tested, some is just ideas.</p>
+
+<p>For the rest of this post, I&rsquo;ll use <em>Host Language</em> to describe the language
+in which the JIT is implemented (here, Rust) and <em>Target Language</em> to describe the
+language which we are going to JIT-compile (for instance, JavaScript or regular expressions).</p>
+
+<h1 id="a-second-look-at-implementations">A second look at implementations</h1>
+
+<p>Consider the pure interpreter. For the sake of simplicity, we&rsquo;ll assume
+that this is an interpreter of bytecode.</p>
+
+<p>It contains:</p>
+
+<ul>
+<li>for each opcode, a specification (as source code in the host language);</li>
+<li>a representation of state (typically, a stack, an environment, etc.);</li>
+<li>a main loop, going through each opcode.</li>
+</ul>
+
+<p>Actually, assuming that the interpreter is compiled, during compilation,
+the specification is translated to a Control Flow Graph, which is itself
+translated to executable format. This executable format may be LLVM IR,
+machine language, WebAssembly, etc.</p>
+
+<p>Let&rsquo;s summarize this:</p>
+
+<ul>
+<li>specification as source code in Host Language;</li>
+<li>representation of state;</li>
+<li>main loop;</li>
+<li>translate specification to CFG;</li>
+<li>translate CFG to Executable.</li>
+</ul>
+
+<p>The exact same scheme also describes both the naive native compiler
+and the optimizing native compiler. Furthermore, since all need to
+interact in the same executable, they typically share:
+- the representation of state;
+- the main loop.</p>
+
+<p>In most JITs, the various implementations of the same language within
+a single JIT differ:
+- by having different specifications as source code;
+- by producing different CFGs (or other intermediate representation);
+- by generally translating to different executable formats (e.g. the interpreter
+    is compiled by a C++ compiler, while the executable code produced by the
+    native compilers is produced by some kind of runtime assembler).</p>
+
+<p>Now, recall that these different specifications as source code are different
+not because they implement different Target Languages but because the
+specification contains both the semantics and the strategy used to
+produce the executable.</p>
+
+<p>Let&rsquo;s see what we can do about this.</p>
+
+<h1 id="from-the-interpreter-to-the-compiler">From the interpreter to the compiler</h1>
+
+<p>Consider operation <code>+</code> in JavaScript. If we are
+building a stack machine, <a href="http://www.ecma-international.org/ecma-262/7.0/index.html#sec-addition-operator-plus">the specifications</a> can
+be translated straightforwardly as the following
+opcode <code>Op::Add</code> and specifications-as-code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
+    <span style="color:#66d9ef">let</span> rval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
+    <span style="color:#66d9ef">let</span> lprim <span style="color:#f92672">=</span> lval.to_primitive()<span style="color:#f92672">?</span>;
+    <span style="color:#66d9ef">let</span> rprim <span style="color:#f92672">=</span> rval.to_primitive()<span style="color:#f92672">?</span>;
+    <span style="color:#66d9ef">match</span> (lprim.type_(), rprim.type_()) {
+        <span style="color:#75715e">// `+` may be used for string concatenation.
+</span><span style="color:#75715e"></span>        (String, _) <span style="color:#f92672">|</span> (_, String) <span style="color:#f92672">=&gt;</span> {
+            <span style="color:#66d9ef">let</span> lstring <span style="color:#f92672">=</span> lprim.to_string()<span style="color:#f92672">?</span>;
+            <span style="color:#66d9ef">let</span> rstring <span style="color:#f92672">=</span> rprim.to_string()<span style="color:#f92672">?</span>;
+            stack.push(JSString::concat(lstring, rstring)<span style="color:#f92672">?</span>)<span style="color:#f92672">?</span>
+        }
+        <span style="color:#75715e">// `+` may be used for numeric addition.
+</span><span style="color:#75715e"></span>        _ <span style="color:#f92672">=&gt;</span> {
+            <span style="color:#66d9ef">let</span> lnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
+            <span style="color:#66d9ef">let</span> rnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
+            stack.push(JSNumber::add(lnum, rnum)<span style="color:#f92672">?</span>)<span style="color:#f92672">?</span>
+        }
+    }
+})
+</code></pre></div>
+<p>In the above code, we have used a macro <code>opcode!</code>.
+Rust macros are powerful enough to perform sophisticated
+rewriting on the AST and communicate with the rest of the
+toolchain.</p>
+
+<p>We have also used <code>?</code> to represent all exceptional cases,
+including both user-level exceptions (such as <code>Error</code>)
+and VM-level exceptions (such as out-of-memory). Rust
+makes it easy to not confuse them.</p>
+
+<p>Once we have thus specified all opcodes, as well as
+the main loop and the representation of state, we
+have a fully working interpreter. When encountering
+<code>Op::Add</code>, this interpreter will execute exactly the code above.</p>
+
+<p>Now, assuming a sufficiently flexible toolchain (such as the
+existing Rust toolchain), we can extract the CFG for each opcode
+and use it twice:</p>
+
+<ol>
+<li>convert the CFG to Executable;</li>
+<li>keep the CFG as Data.</li>
+</ol>
+
+<blockquote>
+<p><strong>Build-time tool introduced</strong> Conversion of specifications-as-source
+into CFG as Data.</p>
+</blockquote>
+
+<p>The first CFG as Executable is exactly what we&rsquo;re already
+using for our interpreter. With out-of-the-box Rust, this
+is the native executable produced by <code>rustc</code>.</p>
+
+<p>Using this CFG as Data, we can now implement the following
+program, executed at runtime:</p>
+
+<ol>
+<li>Read a chain of bytecode.</li>
+<li>Convert chain of bytecode to a vector of CFG-as-Data.</li>
+<li>Convert vector of CFG-as-Data to Executable.</li>
+</ol>
+
+<p>This, along with the main loop, is a naive native compiler.
+We have obtained this native compiler by introducing the
+following tools in our toolchain:</p>
+
+<blockquote>
+<p><strong>Runtime tool introduced</strong> Convert CFG-as-Data to Executable.</p>
+
+<p><strong>Runtime tool introduced</strong> Combine blocks of CFG-as-Data.</p>
+</blockquote>
+
+<p>These tools are entirely independent from the target language.</p>
+
+<p>In effect, <strong>we have extracted the compiler from the interpreter</strong>.</p>
+
+<p>While this result is not new (that&rsquo;s the entire point of Multi-Stage Compilation),
+the technique we have employed is, as far as we can tell, both novel and more
+flexible than alternative approaches.</p>
+
+<p>For one thing, with a single specification as source, we have <em>both</em> the
+interpreter and the compiler. This is a good thing, since we need both of
+them to produce a high-performance JIT.</p>
+
+<p>In particular, we can go further.</p>
+
+<h1 id="from-the-compiler-to-the-tracing-compiler">From the compiler to the tracing compiler</h1>
+
+<p><strong>Caveat</strong> At this stage of the project, this section is mostly hypothetical.</p>
+
+<p>Consider, again, the implementation of <code>+</code> in JavaScript.
+Let&rsquo;s say that we wish to implement a tracing JIT compiler
+as an inline cache generator.</p>
+
+<p>I assume it&rsquo;s a well-known result, but experience indicates
+that we can turn an interpreter into a
+naive tracing compiler by performing
+a simple (and automated) rewrite of the CFG.</p>
+
+<p>Let&rsquo;s inform our toolchain that we want to do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
+    <span style="color:#66d9ef">let</span> rval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
+    trace<span style="color:#f92672">!</span>{
+        <span style="color:#66d9ef">let</span> lprim <span style="color:#f92672">=</span> lval.to_primitive()<span style="color:#f92672">?</span>;
+        <span style="color:#66d9ef">let</span> rprim <span style="color:#f92672">=</span> rval.to_primitive()<span style="color:#f92672">?</span>;
+        <span style="color:#66d9ef">match</span> (lprim.type_(), rprim.type_()) {
+            <span style="color:#75715e">// `+` may be used for string concatenation.
+</span><span style="color:#75715e"></span>            (String, _) <span style="color:#f92672">|</span> (_, String) <span style="color:#f92672">=&gt;</span> {
+                <span style="color:#66d9ef">let</span> lstring <span style="color:#f92672">=</span> lprim.to_string()<span style="color:#f92672">?</span>;
+                <span style="color:#66d9ef">let</span> rstring <span style="color:#f92672">=</span> rprim.to_string()<span style="color:#f92672">?</span>;
+                stack.push(JSString::concat(lstring, rstring)<span style="color:#f92672">?</span>)
+            }
+            <span style="color:#75715e">// `+` may be used for numeric addition.
+</span><span style="color:#75715e"></span>            _ <span style="color:#f92672">=&gt;</span> {
+                <span style="color:#66d9ef">let</span> lnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
+                <span style="color:#66d9ef">let</span> rnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
+                stack.push(JSNumber::add(lnum, rnum)<span style="color:#f92672">?</span>)
+            }
+        }
+    }
+})
+</code></pre></div>
+<p>So far, HolyJIT was extracting a single CFG from the specification
+as source. Macro <code>trace!</code> instructs it to also extract a second
+CFG (we&rsquo;ll call it a <em>Tracing CFG</em>), obtained by transforming
+the <em>Interpreter CFG</em> to emit a trace of CFG-as-data.</p>
+
+<p>For this, we need three tools:</p>
+
+<blockquote>
+<p><strong>Build-time tool introduced</strong> Conversion of CFG into tracing
+CFG.</p>
+
+<p><strong>Build-time tool introduced</strong> Introducing the CFG-as-data for inline
+caching.</p>
+
+<p><strong>Runtime tool introduced</strong> Letting the CFG assemble CFG-as-data.</p>
+</blockquote>
+
+<p>This new Tracing CFG, which was, once again, extracted
+from the specification as source, may now be stored as
+CFG-as-data, and executed much as the naive compiler.</p>
+
+<p>In other words, <strong>with minimal annotations, we can extract a tracing compiler from the interpreter</strong>.</p>
+
+<h1 id="faq">FAQ</h1>
+
+<h2 id="what-about-security">What about security?</h2>
+
+<p>It is still too early to be sure. The ability to combine
+CFGs dynamically and convert them to executable is basicaly
+the same level of power as what current JITs do, so we don&rsquo;t
+expect to make a difference here.</p>
+
+<p>We hope that the ability to mostly decouple the compilation
+strategy from the target language will make it easier to
+fix security issues, though, and to experiment with new
+security strategies.</p>
+
+<h2 id="what-about-performance">What about performance?</h2>
+
+<p>Our initial experiments lead us to believe that we can end
+up with essentially the same generated code as existing JITs,
+with the bonus that we can more easily experiment with
+additional optimization strategies.</p>
+
+<h2 id="how-many-ways-do-you-need-to-translate-cfg-to-executable">How many ways do you need to translate CFG to Executable?</h2>
+
+<p>There are several possible implementation strategies. One
+possible way is to generate a portable assembly format such
+as WebAssembly. We could therefore translate CFG to WebAssembly both
+at build-time (for the interpreter) and at runtime (for
+the native compilers).</p>
+
+<p>Of course, we may decide to generate directly optimized Executables
+at build-time (for the interpreter), effectively reusing the existing
+Rust infrastructure, and a different target at runtime.</p>
+
+<h2 id="isn-t-the-cfg-just-a-new-bytecode-format">Isn&rsquo;t the CFG just a new bytecode format?</h2>
+
+<p>Somewhat, yes. Most JITs use at least one intermediate format
+between the bytecode and the executable. The CFG here is
+such a format. So, in effect, some kind of very high-level
+bytecode.</p>
+
+<h2 id="wait-what-about-actually-optimizing-the-cfg">Wait, what about actually optimizing the CFG?</h2>
+
+<p>Yes, the discussion above didn&rsquo;t mention constant
+propagation, dead code elimination, constant
+subexpression elimination, &hellip;</p>
+
+<p>Of course, they need to be part of the result. At this
+stage, there are several places at which they may be
+added, but the most reasonable seems to be while
+generating Executable from CFG. The main question
+is whether we always want to apply these
+optimizations or whether they should take place
+only in some strategies. The former would be more
+regular and easier to trust, while the latter
+would let Target Language developers further
+fine-tune their JIT strategies.</p>
+
+<h2 id="do-you-actually-need-a-bytecode-for-javascript">Do you actually need a bytecode for JavaScript?</h2>
+
+<p>Not necessarily. This seems to be the simplest way to do
+things, but it&rsquo;s not written in stone.</p>
+
+<h2 id="how-do-you-switch-from-the-interpreter-to-the-naive-compiler-to-the-optimizing-compiler">How do you switch from the interpreter to the naive compiler to the optimizing compiler?</h2>
+
+<p>Not determined yet. If we wish our toolkit to be as generic as possible,
+decision might be left in the hands of the implementor of the target language.</p>
+
+<h2 id="why-rust-and-not-x">Why Rust and not X?</h2>
+
+<p>Many other languages would work too. Rust combines the ability to
+define low-level data structures and algorithms with strong type-safety,
+no dependency on a specific garbage-collector, and a very flexible toolchain.</p>
+
+<p>Plus, we like it.</p>
+
+<h2 id="how-close-are-you-to-release">How close are you to release?</h2>
+
+<p>In a galaxy far, far away.</p>
+
+<h2 id="where-can-i-find-the-code">Where can I find the code?</h2>
+
+<p>A proof of concept is available <a href="https://github.com/nbp/holyjit">on github</a>.</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/rust"><span class="tag">Rust</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/jit"><span class="tag">Jit</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/javascript"><span class="tag">Javascript</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>273</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

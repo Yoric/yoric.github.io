@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Javascript on Il y a du thé renversé au bord de la table !</title>
+    <title>JavaScript on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/categories/javascript/</link>
-    <description>Recent content in Javascript on Il y a du thé renversé au bord de la table !</description>
+    <description>Recent content in JavaScript on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 23 Feb 2018 10:44:39 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 28 Feb 2019 10:29:03 +0200</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The BinAST diaries - Compression, part 1</title>
+      <link>https://yoric.github.io/post/binary-ast-compression-1/</link>
+      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/binary-ast-compression-1/</guid>
+      <description>&lt;p&gt;If you have been following the work on the JavaScript Binary AST, you probably realized that we haven&amp;rsquo;t been communicating much recently. Sorry about that, we&amp;rsquo;ve been busy iterating on it!&lt;/p&gt;
+
+&lt;p&gt;In this blog entry, I&amp;rsquo;d like to talk to you about our current main focus: file compression.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
@@ -18,9 +29,7 @@
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
-      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;</description>
     </item>
     
     <item>

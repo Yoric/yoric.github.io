@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 23 Feb 2018 10:44:39 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jan 2020 07:23:02 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/tags/mozilla/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Layoff survival guide</title>
+      <link>https://yoric.github.io/post/layoffs/</link>
+      <pubDate>Thu, 16 Jan 2020 07:23:02 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/layoffs/</guid>
+      <description>&lt;p&gt;If you&amp;rsquo;re reading these lines, you may have recently been laid off from your job. Or maybe, depending on your country and its laws, you&amp;rsquo;re waiting to know if you&amp;rsquo;re being laid off.&lt;/p&gt;
+
+&lt;p&gt;Well, I&amp;rsquo;ve been there and I&amp;rsquo;ve survived it, so, based on my experience, here are a few suggestions:&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
@@ -18,9 +29,7 @@
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
-      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;</description>
     </item>
     
     <item>
