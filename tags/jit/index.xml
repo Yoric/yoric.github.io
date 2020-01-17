@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Jit on Il y a du thé renversé au bord de la table !</title>
+    <title>jit on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/jit/</link>
-    <description>Recent content in Jit on Il y a du thé renversé au bord de la table !</description>
+    <description>Recent content in jit on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
@@ -21,7 +21,7 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 95% of the work was done by Nicolas B. Pierron.&lt;/p&gt;
+&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;
 
 &lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,
 nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
@@ -31,9 +31,7 @@ and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;
 &lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we
 mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;
 
-&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
     </item>
     
   </channel>

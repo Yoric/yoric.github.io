@@ -7,10 +7,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 22 Feb 2018 15:15:55 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 06 Mar 2018 07:33:25 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HolyJIT: Could we write a multi-staged JIT compiler?</title>
+      <link>https://yoric.github.io/post/holyjit/</link>
+      <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/holyjit/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;
+
+&lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,
+nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
+and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we
+mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;
+
+&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Typestates in Rust</title>

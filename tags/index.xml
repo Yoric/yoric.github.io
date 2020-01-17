@@ -105,9 +105,27 @@
     <item>
       <title>JavaScript</title>
       <link>https://yoric.github.io/tags/javascript/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
+      <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://yoric.github.io/tags/rust/</link>
+      <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jit</title>
+      <link>https://yoric.github.io/tags/jit/</link>
+      <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/jit/</guid>
       <description></description>
     </item>
     
@@ -202,15 +220,6 @@
     </item>
     
     <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>programming languages</title>
       <link>https://yoric.github.io/tags/programming-languages/</link>
       <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
@@ -234,15 +243,6 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Computer Vision</title>
-      <link>https://yoric.github.io/tags/computer-vision/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/computer-vision/</guid>
       <description></description>
     </item>
     
@@ -324,6 +324,15 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/wot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>computer vision</title>
+      <link>https://yoric.github.io/tags/computer-vision/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/computer-vision/</guid>
       <description></description>
     </item>
     
