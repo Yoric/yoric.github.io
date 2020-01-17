@@ -15,9 +15,27 @@
     <item>
       <title>Mozilla</title>
       <link>https://yoric.github.io/tags/mozilla/</link>
-      <pubDate>Thu, 16 Jan 2020 07:23:02 +0100</pubDate>
+      <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://yoric.github.io/tags/rust/</link>
+      <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>types</title>
+      <link>https://yoric.github.io/tags/types/</link>
+      <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/types/</guid>
       <description></description>
     </item>
     
@@ -94,29 +112,11 @@
     </item>
     
     <item>
-      <title>types</title>
-      <link>https://yoric.github.io/tags/types/</link>
-      <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/types/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>JavaScript</title>
       <link>https://yoric.github.io/tags/javascript/</link>
       <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/javascript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/rust/</guid>
       <description></description>
     </item>
     

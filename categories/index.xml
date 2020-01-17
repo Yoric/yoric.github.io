@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 16 Jan 2020 07:23:02 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 13:35:02 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,9 +15,27 @@
     <item>
       <title>Mozilla</title>
       <link>https://yoric.github.io/categories/mozilla/</link>
-      <pubDate>Thu, 16 Jan 2020 07:23:02 +0100</pubDate>
+      <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
       
       <guid>https://yoric.github.io/categories/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming languages</title>
+      <link>https://yoric.github.io/categories/programming-languages/</link>
+      <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/programming-languages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>research</title>
+      <link>https://yoric.github.io/categories/research/</link>
+      <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/research/</guid>
       <description></description>
     </item>
     
@@ -67,15 +85,6 @@
     </item>
     
     <item>
-      <title>research</title>
-      <link>https://yoric.github.io/categories/research/</link>
-      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/categories/research/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>types</title>
       <link>https://yoric.github.io/categories/types/</link>
       <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
@@ -117,15 +126,6 @@
       <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
       
       <guid>https://yoric.github.io/categories/iot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>programming languages</title>
-      <link>https://yoric.github.io/categories/programming-languages/</link>
-      <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/categories/programming-languages/</guid>
       <description></description>
     </item>
     

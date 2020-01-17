@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 28 Feb 2019 10:29:03 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 13:35:02 +0100</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/categories/research/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Units of Measure in Rust with Refinement Types</title>
+      <link>https://yoric.github.io/post/uom.rs/</link>
+      <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/uom.rs/</guid>
+      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for
+F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;
+
+&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>The BinAST diaries - Compression, part 1</title>
