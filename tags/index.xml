@@ -22,11 +22,20 @@
     </item>
     
     <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
+      <title>labels</title>
+      <link>https://yoric.github.io/tags/labels/</link>
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/rust/</guid>
+      <guid>https://yoric.github.io/tags/labels/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>named args</title>
+      <link>https://yoric.github.io/tags/named-args/</link>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/named-args/</guid>
       <description></description>
     </item>
     
@@ -36,6 +45,15 @@
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/programming-languages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://yoric.github.io/tags/rust/</link>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/rust/</guid>
       <description></description>
     </item>
     
@@ -121,7 +139,7 @@
     </item>
     
     <item>
-      <title>javascript</title>
+      <title>JavaScript</title>
       <link>https://yoric.github.io/tags/javascript/</link>
       <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
       

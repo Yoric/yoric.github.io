@@ -3,7 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://yoric.github.io/categories/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://yoric.github.io/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/categories/mozilla/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -26,7 +38,19 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/rust/</loc>
+    <loc>https://yoric.github.io/tags/labels/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/named-args/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/categories/programming-languages/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -38,38 +62,32 @@
   </url>
   
   <url>
+    <loc>https://yoric.github.io/categories/research/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/categories/rust/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/rust/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://yoric.github.io/tags/types/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/</loc>
-    <lastmod>2020-01-17T13:35:02+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/categories/mozilla/</loc>
-    <lastmod>2020-01-17T13:35:02+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://yoric.github.io/post/uom.rs/</loc>
     <lastmod>2020-01-17T13:35:02+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/categories/programming-languages/</loc>
-    <lastmod>2020-01-17T13:35:02+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/categories/research/</loc>
-    <lastmod>2020-01-17T13:35:02+01:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -284,12 +302,6 @@
   <url>
     <loc>https://yoric.github.io/tags/verification/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/categories/rust/</loc>
-    <lastmod>2018-03-22T10:00:55+01:00</lastmod>
     <priority>0</priority>
   </url>
   
