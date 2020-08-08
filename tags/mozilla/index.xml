@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 17 Jan 2020 13:35:02 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2020 08:46:22 +0200</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/tags/mozilla/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Possibly one step towards named arguments in Rust</title>
+      <link>https://yoric.github.io/post/rust-named-arguments/</link>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/rust-named-arguments/</guid>
+      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which
+makes some function calls much more readable and safer.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Units of Measure in Rust with Refinement Types</title>
