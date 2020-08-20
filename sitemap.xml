@@ -4,66 +4,43 @@
   
   <url>
     <loc>https://yoric.github.io/categories/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/mozilla/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/mozilla/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/post/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/xpcom/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/xul/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/add-ons/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/javascript/</loc>
-    <lastmod>2020-08-20T10:09:36+02:00</lastmod>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/post/rust-named-arguments/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/post/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/categories/rust/</loc>
+    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -98,12 +75,6 @@
   
   <url>
     <loc>https://yoric.github.io/categories/research/</loc>
-    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/categories/rust/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -255,6 +226,12 @@
   <url>
     <loc>https://yoric.github.io/post/holyjit/</loc>
     <lastmod>2018-03-06T07:33:25+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/javascript/</loc>
+    <lastmod>2018-03-06T07:33:25+01:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>

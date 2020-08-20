@@ -15,45 +15,9 @@
     <item>
       <title>Mozilla</title>
       <link>https://yoric.github.io/tags/mozilla/</link>
-      <pubDate>Thu, 20 Aug 2020 10:09:36 +0200</pubDate>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/mozilla/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>XPCOM</title>
-      <link>https://yoric.github.io/tags/xpcom/</link>
-      <pubDate>Thu, 20 Aug 2020 10:09:36 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/xpcom/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>XUL</title>
-      <link>https://yoric.github.io/tags/xul/</link>
-      <pubDate>Thu, 20 Aug 2020 10:09:36 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/xul/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>add-ons</title>
-      <link>https://yoric.github.io/tags/add-ons/</link>
-      <pubDate>Thu, 20 Aug 2020 10:09:36 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/add-ons/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>javascript</title>
-      <link>https://yoric.github.io/tags/javascript/</link>
-      <pubDate>Thu, 20 Aug 2020 10:09:36 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/javascript/</guid>
       <description></description>
     </item>
     
@@ -171,6 +135,15 @@
       <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/programming-language/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://yoric.github.io/tags/javascript/</link>
+      <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/javascript/</guid>
       <description></description>
     </item>
     
