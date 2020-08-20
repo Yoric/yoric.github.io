@@ -58,15 +58,6 @@
     </item>
     
     <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>labels</title>
       <link>https://yoric.github.io/tags/labels/</link>
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
@@ -90,6 +81,15 @@
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/programming-languages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://yoric.github.io/tags/rust/</link>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/rust/</guid>
       <description></description>
     </item>
     
@@ -292,6 +292,15 @@
     </item>
     
     <item>
+      <title>Computer Vision</title>
+      <link>https://yoric.github.io/tags/computer-vision/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/computer-vision/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Connected Devices</title>
       <link>https://yoric.github.io/tags/connected-devices/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
@@ -369,15 +378,6 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/wot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>computer vision</title>
-      <link>https://yoric.github.io/tags/computer-vision/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/computer-vision/</guid>
       <description></description>
     </item>
     

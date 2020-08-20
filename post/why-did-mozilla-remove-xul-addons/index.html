@@ -239,7 +239,7 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Why Did Mozilla Remove XUL Add-ons?</h1>
-      <p class="post-meta">@David Teller · Aug 20, 2020 · 22 min read</p>
+      <p class="post-meta">@David Teller · Aug 20, 2020 · 23 min read</p>
     </header>
     <article class="post-content"><p>During the past few days, I&rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.</p>
 
@@ -336,7 +336,7 @@ make Firefox feel faster, hopefully without having to refactor everything.</p>
 <p>Both solutions helped us ensure that we did not drop frames and that we could immediately respond when the user clicked. This meant that the user interface felt fast. The former had the advantage that it benefited from the help of the operating system, while the later required a considerable amount of measurements and fine-tuning.
 Both solutions were tricky to pull off because we suddenly were faced with concurrency issues, which are notoriously hard to debug. Both solutions were also hard on add-on developers as they require changing entire features from synchronous to asynchronous, which often meant that the entire add-on needed to be rewritten from scratch.</p>
 
-<p>For me this is memory time, as that&rsquo;s when <a href="https://www.linkedin.com/in/gozala/">Irakli</a>, <a href="http://www.amadzone.org/">Paolo</a> and <a href="https://yoric.xyz">myself</a> (am I forgetting someone?) introduced <code>Promise</code> and what is now known as <code>async function</code> in the Firefox codebase. These experiments served as testbed for later introducing these features to the web. More immediately, they made writing asynchronous code much easier, both for Firefox developers and add-on developers. Despite these improvements (and others that haven&rsquo;t quite made it to standards), writing and debugging asynchronous code remained very complicated.</p>
+<p>For me this is memory time, as that&rsquo;s when <a href="https://www.linkedin.com/in/gozala/">Irakli</a>, <a href="http://www.amadzone.org/">Paolo</a> and <a href="https://yoric.xyz">myself</a> (am I forgetting someone?) introduced <code>Promise</code> and what is now known as <code>async function</code> in the Firefox codebase. These experiments (which were in no way the only experiments around the topic) served as testbed for later introducing these features to the web. More immediately, they made writing asynchronous code much easier, both for Firefox developers and add-on developers. Despite these improvements (and others that haven&rsquo;t quite made it to standards), writing and debugging asynchronous code remained very complicated.</p>
 
 <p>So, once again, there was a new <em>maintenance tax</em> for add-on developers, one that quickly became really complicated.</p>
 
@@ -466,7 +466,13 @@ that Firefox spent being non-competitive with Chrome.</p>
 
 <p>While I realize that all the actions outlied above have had a cost for add-on developers and add-on users, it is my hope that I have convinced you that these choices made by Mozilla were necessary to preserve Firefox and keep it in the race against Chrome.</p>
 
-<p><strong>edits</strong> Added XUL addons and the ability to replace XPCOM components by add-ons in the old days.</p></article>
+<h1 id="edits">Edits</h1>
+
+<ul>
+<li>Added XUL overlays (as suggested by Robert Kaiser).</li>
+<li>Mentioned the ability to replace XPCOM components by add-ons in the old days (as suggested by glandium).</li>
+<li>Clarified that we were not the only people working on Promise, etc.</li>
+</ul></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
