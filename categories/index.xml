@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 08 Aug 2020 08:46:22 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2020 18:09:36 +0200</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,18 +15,9 @@
     <item>
       <title>Mozilla</title>
       <link>https://yoric.github.io/categories/mozilla/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      <pubDate>Thu, 20 Aug 2020 18:09:36 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/mozilla/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/categories/rust/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/categories/rust/</guid>
       <description></description>
     </item>
     
@@ -45,6 +36,15 @@
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://yoric.github.io/categories/rust/</link>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/rust/</guid>
       <description></description>
     </item>
     

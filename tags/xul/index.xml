@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 20 Aug 2020 10:09:36 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2020 18:09:36 +0200</lastBuildDate>
     
 	<atom:link href="https://yoric.github.io/tags/xul/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,7 +15,7 @@
     <item>
       <title>Why Did Mozilla Remove XUL Add-ons?</title>
       <link>https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/</link>
-      <pubDate>Thu, 20 Aug 2020 10:09:36 +0200</pubDate>
+      <pubDate>Thu, 20 Aug 2020 18:09:36 +0200</pubDate>
       
       <guid>https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/</guid>
       <description>&lt;p&gt;During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.&lt;/p&gt;
