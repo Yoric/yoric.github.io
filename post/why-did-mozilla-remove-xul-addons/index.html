@@ -239,7 +239,7 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Why Did Mozilla Remove XUL Add-ons?</h1>
-      <p class="post-meta">@David Teller · Aug 20, 2020 · 23 min read</p>
+      <p class="post-meta">@David Teller · Aug 20, 2020 · 24 min read</p>
     </header>
     <article class="post-content"><p>During the past few days, I&rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.</p>
 
@@ -397,7 +397,7 @@ Both solutions were tricky to pull off because we suddenly were faced with concu
 
 <p>If you were writing XUL-based add-ons, you quickly realized that preventing it from breaking stuff was&hellip; complicated. Several add-ons could modify the same part of the user interface, resulting in odd results. Several add-ons could accidentally inject JavaScript functions with the same name, or with the same name as an existing function, causing all sorts of breakages.</p>
 
-<p>Similarly, writing a malicious add-on was very simple. You could easily log all the keys pressed by the user, catching all their passwords, but why would you take the trouble when you could simply patch the password manager to send all the passwords to a distant website?</p>
+<p>Similarly, writing a malicious add-on was very simple. You could easily log all the keys pressed by the user, catching all their passwords, but why would you take the trouble when you could simply patch the password manager to send all the passwords to a distant website? And, to be clear, that&rsquo;s not science-fiction. While I&rsquo;m not aware of any extension that went quite that far, I know of installers for otherwise unrelated products (at least two of them market leaders that shall remain unnamed in this post) that silently installed invisible Firefox add-ons that took control of key features and compromised privacy.</p>
 
 <p>Proposals had been made to improve security, but it was very clear that, as long as we kept XUL (and XPCOM), there was nothing we could do to prevent a malicious add-on to do anything it wanted.</p>
 
@@ -477,6 +477,7 @@ that Firefox spent being worse than Chrome in terms of security and crashes.</p>
 <li>Replaced the words &ldquo;competitive with Chrome&rdquo; with &ldquo;as fast, as stable and as secure as Chrome&rdquo;.</li>
 <li>Clarified the XPCOM-side transition to Electrolysis.</li>
 <li>Clarified the fact that add-on developers were fed up with the maintenance task.</li>
+<li>Clarified that security problems did happen.</li>
 </ul></article>
     <footer class="post-footer">
       

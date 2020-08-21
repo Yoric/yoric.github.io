@@ -13,20 +13,11 @@
     
     
     <item>
-      <title>Mozilla</title>
+      <title>mozilla</title>
       <link>https://yoric.github.io/categories/mozilla/</link>
       <pubDate>Thu, 20 Aug 2020 18:09:36 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/mozilla/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/categories/rust/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/categories/rust/</guid>
       <description></description>
     </item>
     
@@ -45,6 +36,15 @@
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://yoric.github.io/categories/rust/</link>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/categories/rust/</guid>
       <description></description>
     </item>
     
