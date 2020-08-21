@@ -361,12 +361,6 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/computer-vision/</loc>
-    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://yoric.github.io/tags/connected-devices/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
@@ -421,6 +415,12 @@
   
   <url>
     <loc>https://yoric.github.io/tags/wot/</loc>
+    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/computer-vision/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
     <priority>0</priority>
   </url>
