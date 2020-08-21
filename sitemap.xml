@@ -27,12 +27,6 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/mozilla/</loc>
-    <lastmod>2020-08-20T18:09:36+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://yoric.github.io/post/</loc>
     <lastmod>2020-08-20T18:09:36+02:00</lastmod>
     <priority>0</priority>
@@ -57,6 +51,12 @@
   
   <url>
     <loc>https://yoric.github.io/tags/add-ons/</loc>
+    <lastmod>2020-08-20T18:09:36+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/mozilla/</loc>
     <lastmod>2020-08-20T18:09:36+02:00</lastmod>
     <priority>0</priority>
   </url>
