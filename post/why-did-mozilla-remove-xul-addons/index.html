@@ -338,7 +338,7 @@ Both solutions were tricky to pull off because we suddenly were faced with concu
 
 <p>For me this is memory time, as that&rsquo;s when <a href="https://www.linkedin.com/in/gozala/">Irakli</a>, <a href="http://www.amadzone.org/">Paolo</a> and <a href="https://yoric.xyz">myself</a> (am I forgetting someone?) introduced <code>Promise</code> and what is now known as <code>async function</code> in the Firefox codebase. These experiments (which were in no way the only experiments around the topic) served as testbed for later introducing these features to the web. More immediately, they made writing asynchronous code much easier, both for Firefox developers and add-on developers. Despite these improvements (and others that haven&rsquo;t quite made it to standards), writing and debugging asynchronous code remained very complicated.</p>
 
-<p>So, once again, there was a new <em>maintenance tax</em> for add-on developers, one that quickly became really complicated.</p>
+<p>So, once again, there was a new <em>maintenance tax</em> for add-on developers, one that quickly became really complicated. I believe that it is at that stage that many add-on developers started seriously complaining about this maintenance tax – or in many cases leaving the Mozilla ecosystem. And they were right. As an add-on developer, by then, I had long given up on maintening my add-ons, it was just too damn complicated.</p>
 
 <p>The situation was even worse when we moved code off the main thread, because they were typically moved to C++ threads, which are entirely separate from JavaScript threads. XPCOM components were vanishing here and there, losing extensibility power for add-on developers.</p>
 
@@ -362,6 +362,8 @@ Both solutions were tricky to pull off because we suddenly were faced with concu
 <p>However, not all processes could afford to play so nicely with add-ons. For instance, processes dedicated to protecting Firefox from the notorious crashes of the Flash plug-in didn&rsquo;t have a JavaScript virtual machine. Processes dedicated to interacting with the GPU didn&rsquo;t have a JavaScript virtual machine. All of this for (good) reasons of performance and safety – and the fact that adding a JavaScript virtual machine to these processes would have made them much more complex.</p>
 
 <p>And yet, there was no choice for Mozilla. Every day that Mozilla didn&rsquo;t ship Electrolysis was one day that Chrome was simply better in terms of architecture, safety and security. Unfortunately, Mozilla delayed Electrolysis by years, in part because of the illusion that the Firefox benchmarks were better enough that it wouldn&rsquo;t matter for a long time, in part because we decided to test-drive Electrolysis with FirefoxOS before Firefox itself, but mostly <em>because we did not want to lose all these add-ons</em>.</p>
+
+<p>When Mozilla finally commited to the transition towards Electrolysis, some add-on developers ported their add-ons – devoting considerable time to that task – but many didn&rsquo;t, either because it was impossible for their add-on or, more often, because we had lost them to the <em>addon maintenance tax</em>. And unfortunately, even the add-ons that had been ported to Electrolysis broke, one by one, for all the other reasons mentioned in this article.</p>
 
 <p>In the end, Mozilla decided to introduce WebExtensions and finally make the jump towards e10s as part of the Quantum Project. We had lost years of development that we would never recover.</p>
 
@@ -473,6 +475,8 @@ that Firefox spent being worse than Chrome in terms of security and crashes.</p>
 <li>Mentioned the ability to replace XPCOM components by add-ons in the old days (as suggested by glandium).</li>
 <li>Clarified that we were not the only people working on Promise, etc.</li>
 <li>Replaced the words &ldquo;competitive with Chrome&rdquo; with &ldquo;as fast, as stable and as secure as Chrome&rdquo;.</li>
+<li>Clarified the XPCOM-side transition to Electrolysis.</li>
+<li>Clarified the fact that add-on developers were fed up with the maintenance task.</li>
 </ul></article>
     <footer class="post-footer">
       
