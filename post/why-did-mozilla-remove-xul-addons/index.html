@@ -262,6 +262,8 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
 <li>oh, and by the way, since add-ons could do everything, they could very easily do anything to the operating system, from stealing passwords to pretending to be your bank.</li>
 </ul>
 
+<p>Note: Having read in comments that some users apparently do not care about security, let me add that being secure is a really, really important point for Mozilla and has been since the first day. Regardless of add-ons, <em>not</em> having security means that an exploit is eventually going to show up that will steal user&rsquo;s passwords and use them to steal their bank accounts – and that exploit will get sold around and will soon show up everywhere. Firefox developers fight this threat daily by all sorts of means, including code reviews, defensive programming, crash scene investigations, several types of sandboxing, static analysis, memory-safe languages, &hellip; Consequently, for Mozilla, if a feature prevents us from achieving great security, we <em>always</em> pick security over features.</p>
+
 <p>I&rsquo;ll return to these points in more details later. For the moment, suffices to say that it had been clear to Firefox developers for a long time (at least since 2010) that this situation was untenable. So Mozilla came up with a backup plan called the <em>Firefox Jetpack</em>.</p>
 
 <p>Firefox Jetpack was a very different manner of extending Firefox. It was much cleaner. It finally had a permissions mechanism (something that had been suggested even before Firefox was called Firefox and that was generally considered too hard to implement). Out of the box, add-ons could not break each other or Firefox (I seem to remember that it was still sometimes possible by exploiting the observer service, but you had to work hard at it), it made extensive use of async programming (which was great to achieve a feeling of high-performance) and thanks to the fact that it had a finite API, it could be tested, which meant that when Firefox developers broke add-ons, they knew about it immediately and could fix the breakages! That was several enormous steps forward. This came at the cost of a more limited API but in most cases, the tradeoff seemed worth it.</p>
@@ -478,6 +480,7 @@ that Firefox spent being worse than Chrome in terms of security and crashes.</p>
 <li>Clarified the XPCOM-side transition to Electrolysis.</li>
 <li>Clarified the fact that add-on developers were fed up with the maintenance task.</li>
 <li>Clarified that security problems did happen.</li>
+<li>Clarified what security is all about.</li>
 </ul></article>
     <footer class="post-footer">
       
