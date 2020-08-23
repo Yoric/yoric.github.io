@@ -16,7 +16,8 @@
 
   
   <meta name="author" content="David Teller" />
-  <meta name="description" content="During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
+  <meta name="description" content="TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.
+During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
 And then, as someone pointed out on reddit, I realized that we still haven&amp;rsquo;t taken the time to explain in-depth why we had no choice but to remove XUL-based add-ons.
 So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&amp;rsquo;d like to take this opportunity to try and give you a bit more detail.
 " />
@@ -26,7 +27,8 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ImYoric" />
     <meta name="twitter:title" content="Why Did Mozilla Remove XUL Add-ons?" />
-    <meta name="twitter:description" content="During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
+    <meta name="twitter:description" content="TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.
+During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
 And then, as someone pointed out on reddit, I realized that we still haven&amp;rsquo;t taken the time to explain in-depth why we had no choice but to remove XUL-based add-ons.
 So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&amp;rsquo;d like to take this opportunity to try and give you a bit more detail.
 " />
@@ -36,7 +38,8 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Why Did Mozilla Remove XUL Add-ons?" />
-  <meta property="og:description" content="During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
+  <meta property="og:description" content="TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.
+During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
 And then, as someone pointed out on reddit, I realized that we still haven&amp;rsquo;t taken the time to explain in-depth why we had no choice but to remove XUL-based add-ons.
 So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&amp;rsquo;d like to take this opportunity to try and give you a bit more detail.
 " />
@@ -239,9 +242,11 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Why Did Mozilla Remove XUL Add-ons?</h1>
-      <p class="post-meta">@David Teller · Aug 20, 2020 · 24 min read</p>
+      <p class="post-meta">@David Teller · Aug 20, 2020 · 25 min read</p>
     </header>
-    <article class="post-content"><p>During the past few days, I&rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.</p>
+    <article class="post-content"><p>TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.</p>
+
+<p>During the past few days, I&rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.</p>
 
 <p>And then, as someone pointed out on reddit, I realized that we still haven&rsquo;t taken the time to explain in-depth why we <em>had no choice</em> but to remove XUL-based add-ons.</p>
 
@@ -258,7 +263,7 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
 <ul>
 <li>very quickly, add-on developers realized that anything they did could break anything else in the system, including other add-ons and Firefox itself, and they often had no way to prevent this;</li>
 <li>similarly, anything Firefox developers did could break add-ons, and they often had no way to prevent this;</li>
-<li>also, some of the changes that Firefox needed to be as fast, as stable and as secure as Chrome were going to break most add-ons immediately, possibly all add-ons in the longer term;</li>
+<li>also, some of the changes that Firefox needed to be as fast, as stable and as secure as possible were going to break most add-ons immediately, possibly all add-ons in the longer term;</li>
 <li>oh, and by the way, since add-ons could do everything, they could very easily do anything to the operating system, from stealing passwords to pretending to be your bank.</li>
 </ul>
 
@@ -323,8 +328,7 @@ Instead, we introduced WebExtensions. Overall, WebExtensions had a similar objec
 
 <p>It had been clear to Mozilla for years that Firefox needed to switch to a multi-process design. In fact, there were demos of multiprocess Firefox circulating roughly when Chrome 1.0 was unveiled. The project was called Electrolysis, or e10s for short. We&rsquo;ll come back to it.</p>
 
-<p>At the time, Mozilla decided to pause e10s, which was bound to use much more memory than what many of our users had, and concentrate on a new project called Snappy (disclosure: I was one of the developers of Project Snappy). Snappy was about using the same design tricks as Chrome to
-make Firefox feel faster, hopefully without having to refactor everything.</p>
+<p>At the time, Mozilla decided to pause e10s, which was bound to use much more memory than what many of our users had, and concentrate on a new project called Snappy (disclosure: I was one of the developers of Project Snappy). Snappy was about using the same design tricks as Chrome to make Firefox feel faster, hopefully without having to refactor everything.</p>
 
 <p>The reason for which Firefox felt slower than Chrome is that we were doing pretty much everything on a single thread. When Firefox was writing a file to disk, this blocked visual refreshes, so the number of frames per second dropped. When Firefox was collecting the list of tabs to save them in case of crash, this blocked refreshes, with the same result. When Firefox was cleaning up cookies, this blocked refreshes, etc.</p>
 
@@ -481,6 +485,7 @@ that Firefox spent being worse than Chrome in terms of security and crashes.</p>
 <li>Clarified the fact that add-on developers were fed up with the maintenance task.</li>
 <li>Clarified that security problems did happen.</li>
 <li>Clarified what security is all about.</li>
+<li>Added a TL;DR.</li>
 </ul></article>
     <footer class="post-footer">
       

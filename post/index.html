@@ -236,10 +236,11 @@
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/" class="post-link">Why Did Mozilla Remove XUL Add-ons?</a></h3>
-    <p class="post-meta">@David Teller · Aug 20, 2020 · 24 min read</p>
+    <p class="post-meta">@David Teller · Aug 20, 2020 · 25 min read</p>
   </header>
   
-  <p class="post-summary">During the past few days, I’ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
+  <p class="post-summary">TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.
+During the past few days, I’ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
 And then, as someone pointed out on reddit, I realized that we still haven’t taken the time to explain in-depth why we had no choice but to remove XUL-based add-ons.
 So, if you’re ready for a dive into some of the internals of add-ons and Gecko, I’d like to take this opportunity to try and give you a bit more detail.
 </p>
