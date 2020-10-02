@@ -4,36 +4,59 @@
   
   <url>
     <loc>https://yoric.github.io/categories/</loc>
-    <lastmod>2020-08-20T18:09:36+02:00</lastmod>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/</loc>
-    <lastmod>2020-08-20T18:09:36+02:00</lastmod>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/javascript/</loc>
-    <lastmod>2020-08-20T18:09:36+02:00</lastmod>
-    <priority>0</priority>
+    <loc>https://yoric.github.io/post/moz-great-stuff/</loc>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://yoric.github.io/categories/mozilla/</loc>
-    <lastmod>2020-08-20T18:09:36+02:00</lastmod>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/tags/mozilla/</loc>
-    <lastmod>2020-08-20T18:09:36+02:00</lastmod>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://yoric.github.io/post/</loc>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/mentoring/</loc>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/categories/mozgreatstuff/</loc>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/open-source/</loc>
+    <lastmod>2020-10-02T13:44:16+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://yoric.github.io/tags/javascript/</loc>
     <lastmod>2020-08-20T18:09:36+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -512,12 +535,6 @@
   
   <url>
     <loc>https://yoric.github.io/tags/ocr/</loc>
-    <lastmod>2017-01-01T23:44:19+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://yoric.github.io/tags/open-source/</loc>
     <lastmod>2017-01-01T23:44:19+01:00</lastmod>
     <priority>0</priority>
   </url>
