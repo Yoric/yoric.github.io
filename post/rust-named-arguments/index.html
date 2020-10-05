@@ -43,7 +43,7 @@ Let&amp;rsquo;s see how hard it would be to add these in Rust.
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/rust-named-arguments/" />
@@ -248,18 +248,14 @@ Let&amp;rsquo;s see how hard it would be to add these in Rust.
     </header>
     <article class="post-content"><p>A number of programming languages offer a feature called &ldquo;Named Arguments&rdquo; or &ldquo;Labeled Arguments&rdquo;, which
 makes some function calls much more readable and safer.</p>
-
 <p>Let&rsquo;s see how hard it would be to add these in Rust.</p>
-
 <p>Consider a function such as:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">rect</span>(x: <span style="color:#66d9ef">u32</span>, width: <span style="color:#66d9ef">u32</span>, y: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>, background: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>, foreground: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>, line: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#a6e22e">Widget</span> {
  <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>}
 rect(X, Y, WIDTH, HEIGHT, LINE, None, None); <span style="color:#75715e">// Oops, I have completely confused the order of arguments.
-</span></code></pre></div>
-<p>It would be nice if we could leverage Rust&rsquo;s syntax and/or type system help us avoid confusing these arguments.
+</span></code></pre></div><p>It would be nice if we could leverage Rust&rsquo;s syntax and/or type system help us avoid confusing these arguments.
 This is a feature often called Named Arguments or Labeled Arguments, which is available in Python, OCaml, Swift, Dart, &hellip; with strong typing in some of these languages that support it.</p>
-
 <p>In Rust, one could imagine writing</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// In this example, `{( ... )}` means that we&#39;re using named arguments.
 </span><span style="color:#75715e">// Other syntaxes are possible.
@@ -268,16 +264,11 @@ This is a feature often called Named Arguments or Labeled Arguments, which is av
     <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>}
 rect{(x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, width <span style="color:#f92672">=</span> WIDTH, height <span style="color:#f92672">=</span> HEIGHT, line <span style="color:#f92672">=</span> LINE)}; <span style="color:#75715e">// Arguments are automatically reordered. Default values are automatically inserted. Above error becomes impossible.
-</span></code></pre></div>
-<p>Wouldn&rsquo;t that be more readable and safer?</p>
-
+</span></code></pre></div><p>Wouldn&rsquo;t that be more readable and safer?</p>
 <h1 id="what-this-post-is-about">What this post is about</h1>
-
 <p>This is <strong>not</strong> about syntax, only about semantics.</p>
-
 <p>I was toying with a few ideas on how to implement named arguments without breaking the existing type system. I have a few macro-based prototype implementations. It&rsquo;s way too early to turn them into a RFC, but I hope that these can serve as a basis for further conversation.</p>
-
-<p>With these prototypes, we can write <sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>:</p>
+<p>With these prototypes, we can write <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Define the function.
 </span><span style="color:#75715e"></span>define<span style="color:#f92672">!</span>(<span style="color:#66d9ef">fn</span>(rect, x: <span style="color:#66d9ef">u32</span>, width: <span style="color:#66d9ef">u32</span>, y: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>, background: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, foreground: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, line: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None) -&gt; <span style="color:#a6e22e">Widget</span> {
     <span style="color:#75715e">// ...
@@ -319,15 +310,11 @@ rect{(x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=<
     .height(HEIGHT)
     .line(LINE)
     .call();
-</code></pre></div>
-<p>A bit more verbose but much safer, right?</p>
 
+</code></pre></div><p>A bit more verbose but much safer, right?</p>
 <p>At the time of this writing, the prototype only support module-level <code>fn</code> declarations, not functions within <code>impl</code> or <code>trait</code> or closures. I don&rsquo;t think that there&rsquo;s any strong blocker for either, I just haven&rsquo;t attempted implementing these yet. These are left as future works.</p>
-
 <h1 id="the-general-idea">The general idea</h1>
-
 <p>The general idea is that macro <code>define!</code> creates a type-level final state machines that behaves as follows:</p>
-
 <ul>
 <li>the state is the set of named arguments that have already been passed;</li>
 <li>the initial state is <em>{}</em> (the empty set);</li>
@@ -337,41 +324,31 @@ by a function <code>S::a(Self, T) -&gt; S2</code>, where <em>S2 = S ∪ {a}</em>
 <li>when a state <em>S</em> is accepting, we materialize this with a function <code>S::call()</code> that
 calls our original function.</li>
 </ul>
-
 <p>For the moment, all this is implemented by generating one <code>struct</code> type per state <em>S</em> and storing all of them
 within a semi-hidden module.</p>
-
 <p>Macro <code>call!</code> just chains calls to these functions <code>S::a(...)</code>. The type system catches when we&rsquo;re attempting
 to use the same argument twice (because the method doesn&rsquo;t exist) or when we&rsquo;re missing one argument (because
 method <code>call()</code> doesn&rsquo;t exist).</p>
-
 <h1 id="early-conclusions">Early conclusions</h1>
-
 <p>This is still an early prototype but I believe that it demonstrates satisfyingly that we can extend Rust with named arguments,
 at least in simple cases, without modifying either the type system or the semantics of the language in depth.</p>
-
 <p>It feels like we could extend the Rust type system to improve error messages (when we use the same argument twice or forget one argument) and likely compile-time performance of this use case without it having it cascade in too many places.</p>
-
 <h1 id="future-works">Future works</h1>
-
 <p>As mentioned previously, the current prototype only works for module-level function declarations. Making it work for <code>impl</code>-level functions and <code>trait</code>-level functions should be possible but will require a little more effort to store the type-level finite
 state machine.</p>
-
 <h1 id="links-and-credits">Links and credits</h1>
-
 <ul>
-<li>An early prototype is available <a href="https://github.com/Yoric/named-args.rs/">on github</a> <sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>.</li>
+<li>An early prototype is available <a href="https://github.com/Yoric/named-args.rs/">on github</a> <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</li>
 <li>This prototype is based on the (great!) crate <a href="https://crates.io/crates/typed-builder">typed-builder</a> by Chris Morgan and IdanArye. They did all the heavy lifting :)</li>
 </ul>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">Disclaimer: The syntax in the latest prototype is actually slightly more verbose than the snippet at the start of this blog entry. Real-life complications have prevented me from finishing the prototype in which we adopt this cleaner syntax but as far as I can tell, there doesn&rsquo;t seem to be any Rust-level blockers.
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>Disclaimer: The syntax in the latest prototype is actually slightly more verbose than the snippet at the start of this blog entry. Real-life complications have prevented me from finishing the prototype in which we adopt this cleaner syntax but as far as I can tell, there doesn&rsquo;t seem to be any Rust-level blockers. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div></article>
+</section></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
@@ -415,6 +392,28 @@ state machine.</p>
       
       
         
+        
+          Legacy comment system.
+          <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
       
     

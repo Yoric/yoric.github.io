@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>types on Il y a du thé renversé au bord de la table !</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 08 Aug 2020 08:46:22 +0200</lastBuildDate>
-    
-	<atom:link href="https://yoric.github.io/tags/types/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 08 Aug 2020 08:46:22 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/types/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Possibly one step towards named arguments in Rust</title>
       <link>https://yoric.github.io/post/rust-named-arguments/</link>
@@ -20,7 +16,6 @@
       <guid>https://yoric.github.io/post/rust-named-arguments/</guid>
       <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which
 makes some function calls much more readable and safer.&lt;/p&gt;
-
 &lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
     </item>
     
@@ -32,7 +27,6 @@ makes some function calls much more readable and safer.&lt;/p&gt;
       <guid>https://yoric.github.io/post/uom.rs/</guid>
       <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for
 F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;
-
 &lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
     </item>
     
@@ -45,24 +39,18 @@ F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which 
       <description>&lt;p&gt;Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of
 the Connected Devices branch of Mozilla. While this branch has since been stopped,
 some part of Project Link lives on as &lt;a href=&#34;https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/&#34;&gt;Project Things&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far)
 was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome
 without coding. While only parts of Thinkerbell were ever implemented, they were sufficient
 to write programs such as:&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;or&lt;/p&gt;
-
 &lt;blockquote&gt;
 &lt;p&gt;If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;Thinkerbell also had:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;semantics that ensured that scripts could continue/resume running unmonitored even when hardware
 was replaced/upgraded/moved around the house, including both the server and the sensors;&lt;/li&gt;
@@ -70,13 +58,11 @@ was replaced/upgraded/moved around the house, including both the server and the 
 &lt;li&gt;a novel type system designed to avoid physical accidents;&lt;/li&gt;
 &lt;li&gt;a semantics based on process algebras.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but
 realistically, there is very little chance that I&amp;rsquo;ll find that time.
 So, rather than letting these ideas die in some corner of my brain, here is a post-mortem
 for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
 it a second life.&lt;/p&gt;
-
 &lt;p&gt;Note that some of the ideas exposed here were never actually implemented. Project Link
 was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;</description>
     </item>

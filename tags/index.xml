@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Il y a du thé renversé au bord de la table !</title>
@@ -7,17 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 18 Feb 2017 16:29:32 +0100</lastBuildDate>
-    
-	<atom:link href="https://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Sat, 18 Feb 2017 16:29:32 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>comments</title>
+      <link>https://yoric.github.io/tags/comments/</link>
+      <pubDate>Mon, 05 Oct 2020 11:58:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/comments/</guid>
+      <description></description>
+    </item>
     
     <item>
-      <title>Mozilla</title>
-      <link>https://yoric.github.io/tags/mozilla/</link>
-      <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
+      <title>privacy</title>
+      <link>https://yoric.github.io/tags/privacy/</link>
+      <pubDate>Mon, 05 Oct 2020 11:58:22 +0200</pubDate>
       
-      <guid>https://yoric.github.io/tags/mozilla/</guid>
+      <guid>https://yoric.github.io/tags/privacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>site</title>
+      <link>https://yoric.github.io/tags/site/</link>
+      <pubDate>Mon, 05 Oct 2020 11:58:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/site/</guid>
       <description></description>
     </item>
     
@@ -31,11 +45,29 @@
     </item>
     
     <item>
-      <title>open-source</title>
+      <title>Mozilla</title>
+      <link>https://yoric.github.io/tags/mozilla/</link>
+      <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Open-source</title>
       <link>https://yoric.github.io/tags/open-source/</link>
       <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/open-source/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>add-ons</title>
+      <link>https://yoric.github.io/tags/add-ons/</link>
+      <pubDate>Thu, 20 Aug 2020 18:09:36 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/add-ons/</guid>
       <description></description>
     </item>
     
@@ -67,24 +99,6 @@
     </item>
     
     <item>
-      <title>add-ons</title>
-      <link>https://yoric.github.io/tags/add-ons/</link>
-      <pubDate>Thu, 20 Aug 2020 18:09:36 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/add-ons/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>labels</title>
       <link>https://yoric.github.io/tags/labels/</link>
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
@@ -108,6 +122,15 @@
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/programming-languages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://yoric.github.io/tags/rust/</link>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/rust/</guid>
       <description></description>
     </item>
     
@@ -202,24 +225,6 @@
     </item>
     
     <item>
-      <title>Shift</title>
-      <link>https://yoric.github.io/tags/shift/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/shift/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SpiderMonkey</title>
-      <link>https://yoric.github.io/tags/spidermonkey/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/spidermonkey/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>ast</title>
       <link>https://yoric.github.io/tags/ast/</link>
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
@@ -283,6 +288,24 @@
     </item>
     
     <item>
+      <title>Shift</title>
+      <link>https://yoric.github.io/tags/shift/</link>
+      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/shift/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SpiderMonkey</title>
+      <link>https://yoric.github.io/tags/spidermonkey/</link>
+      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/spidermonkey/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>verification</title>
       <link>https://yoric.github.io/tags/verification/</link>
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
@@ -310,6 +333,15 @@
     </item>
     
     <item>
+      <title>Computer Vision</title>
+      <link>https://yoric.github.io/tags/computer-vision/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/computer-vision/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Connected Devices</title>
       <link>https://yoric.github.io/tags/connected-devices/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
@@ -328,6 +360,24 @@
     </item>
     
     <item>
+      <title>iOS</title>
+      <link>https://yoric.github.io/tags/ios/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/ios/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>iPhone</title>
+      <link>https://yoric.github.io/tags/iphone/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/iphone/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Obj-C</title>
       <link>https://yoric.github.io/tags/obj-c/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
@@ -342,6 +392,15 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/opencv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>prototype</title>
+      <link>https://yoric.github.io/tags/prototype/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/prototype/</guid>
       <description></description>
     </item>
     
@@ -382,51 +441,6 @@
     </item>
     
     <item>
-      <title>WoT</title>
-      <link>https://yoric.github.io/tags/wot/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/wot/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>computer vision</title>
-      <link>https://yoric.github.io/tags/computer-vision/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/computer-vision/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>iOS</title>
-      <link>https://yoric.github.io/tags/ios/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/ios/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>iPhone</title>
-      <link>https://yoric.github.io/tags/iphone/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/iphone/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>prototype</title>
-      <link>https://yoric.github.io/tags/prototype/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/prototype/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>vision-impaired</title>
       <link>https://yoric.github.io/tags/vision-impaired/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
@@ -441,6 +455,15 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/wearable/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>WoT</title>
+      <link>https://yoric.github.io/tags/wot/</link>
+      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/wot/</guid>
       <description></description>
     </item>
     

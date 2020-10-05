@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rust on Il y a du thé renversé au bord de la table !</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 08 Aug 2020 08:46:22 +0200</lastBuildDate>
-    
-	<atom:link href="https://yoric.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 08 Aug 2020 08:46:22 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Possibly one step towards named arguments in Rust</title>
       <link>https://yoric.github.io/post/rust-named-arguments/</link>
@@ -20,7 +16,6 @@
       <guid>https://yoric.github.io/post/rust-named-arguments/</guid>
       <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which
 makes some function calls much more readable and safer.&lt;/p&gt;
-
 &lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
     </item>
     
@@ -32,7 +27,6 @@ makes some function calls much more readable and safer.&lt;/p&gt;
       <guid>https://yoric.github.io/post/uom.rs/</guid>
       <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for
 F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;
-
 &lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
     </item>
     
@@ -44,17 +38,13 @@ F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which 
       <guid>https://yoric.github.io/post/holyjit/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;
-
 &lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,
 nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
 and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we
 mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;
-
 &lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
     </item>
     

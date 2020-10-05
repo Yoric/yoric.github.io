@@ -61,7 +61,7 @@ Note that some of the ideas exposed here were never actually implemented. Projec
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/thinkerbell-postmortem/" />
@@ -267,24 +267,18 @@ Note that some of the ideas exposed here were never actually implemented. Projec
     <article class="post-content"><p>Two years ago, I was working on a research project called &ldquo;Project Link&rdquo; as part of
 the Connected Devices branch of Mozilla. While this branch has since been stopped,
 some part of Project Link lives on as <a href="https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/">Project Things</a>.</p>
-
 <p>One of the parts of Project Link that hasn&rsquo;t made it to Project Things (so far)
 was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome
 without coding. While only parts of Thinkerbell were ever implemented, they were sufficient
 to write programs such as:</p>
-
 <blockquote>
 <p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
 </blockquote>
-
 <p>or</p>
-
 <blockquote>
 <p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
 </blockquote>
-
 <p>Thinkerbell also had:</p>
-
 <ul>
 <li>semantics that ensured that scripts could continue/resume running unmonitored even when hardware
 was replaced/upgraded/moved around the house, including both the server and the sensors;</li>
@@ -292,57 +286,41 @@ was replaced/upgraded/moved around the house, including both the server and the 
 <li>a novel type system designed to avoid physical accidents;</li>
 <li>a semantics based on process algebras.</li>
 </ul>
-
 <p>Ideally, I&rsquo;d like to take the time to write a research paper on Thinkerbell, but
 realistically, there is very little chance that I&rsquo;ll find that time.
 So, rather than letting these ideas die in some corner of my brain, here is a post-mortem
 for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
 it a second life.</p>
-
 <p>Note that some of the ideas exposed here were never actually implemented. Project Link
 was cancelled while Thinkerbell was still in its infancy.</p>
-
 <h1 id="scripts">Scripts</h1>
-
 <p>Let us consider the kind of scripts we wanted to write:</p>
-
 <blockquote>
 <p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
 </blockquote>
-
 <p>or</p>
-
 <blockquote>
 <p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
 </blockquote>
-
 <p>or</p>
-
 <blockquote>
 <p>When the motion detector of the living room hasn&rsquo;t noticed motion for 30 seconds, turn off all the lights in the living room.</p>
 </blockquote>
-
 <p>or</p>
-
 <blockquote>
 <p>If the entry door is locked and the motion detector notices motion in the living room, if I have a camera in the living room, send an picture to my SmartPhone.</p>
 </blockquote>
-
 <p>All these scripts were meant to be executed on a server hosted inside the home (for both privacy
 and reliability reasons). The server itself would also run (mostly trusted) device drivers that
 would let scripts access connected devices such as lightbulbs, water faucets, fridges, &hellip; These
 same device drivers also provided access to remote applications, through a mechanism of authorizations
 and tunneling that has been ported to Project Things (and wasn&rsquo;t part of Thinkerbell itself).</p>
-
 <h2 id="text-syntax">Text syntax</h2>
-
 <p>We never attempted to design a human-readable text syntax, as Thinkerbell was designed for
 visual programming. Indeed, we implemented a visual interface for programming without
 writing, although what we had was for demonstration purposes and was much more limited
 thank Thinkerbell itself.</p>
-
 <p>So, anything below is actually the JSON syntax designed to serve as back-end for the UX.</p>
-
 <blockquote>
 <p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
 </blockquote>
@@ -436,9 +414,7 @@ thank Thinkerbell itself.</p>
         }
     ]
 }
-</code></pre></div>
-<p>Similarly,</p>
-
+</code></pre></div><p>Similarly,</p>
 <blockquote>
 <p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
 </blockquote>
@@ -492,9 +468,7 @@ thank Thinkerbell itself.</p>
         }
     ]
 }
-</code></pre></div>
-<p>If you factor in the fact that:</p>
-
+</code></pre></div><p>If you factor in the fact that:</p>
 <ul>
 <li>the scripts will continue working when we change the motion detector (including changing
 the brand of that motion detector), or the other devices;</li>
@@ -502,15 +476,12 @@ the brand of that motion detector), or the other devices;</li>
 <li>these scripts are easy to run in a power-efficient and bandwidth-efficient manner
 (assuming well-behaved device drivers).</li>
 </ul>
-
 <p>these scripts are actually impressively concise for what they&rsquo;re doing. Also,
 recall that most IoT applications these days are written with Turing-complete
 programming languages, often with the highly dynamic but nearly impossible
 to verify JavaScript language. By opposition, these tiny scripts could be
 easily mechanically verified.</p>
-
 <p>Let&rsquo;s look at a more sophisticated example before proceeding:</p>
-
 <blockquote>
 <p>If the entry door is locked and the motion detector notices motion in the living room, if I have a camera in the living room, send an picture to my SmartPhone.</p>
 </blockquote>
@@ -602,27 +573,21 @@ easily mechanically verified.</p>
         }
     ]
 }
-</code></pre></div>
-<h1 id="features-and-types">Features and types</h1>
-
+</code></pre></div><h1 id="features-and-types">Features and types</h1>
 <p>The first prototype of Thinkerbell didn&rsquo;t really have specific types,
 just the usual number/boolean/string/&hellip; . We quickly
 realized that this was a bad idea.</p>
-
 <p>In your future SmartHome, everything is controllable by scripts and APIs.
 This means that your lights, your water tap and your oven all can be turned
 on/off, your heater, your oven, your fridge and your blowtorch (why not?)
 all have a temperature setting &ndash; and that confusing them can flood or
 burn your house, killing you and your loved ones along the way.</p>
-
 <p>Let me stress this: <strong>in the SmartHome, types can be the difference between life and death</strong>.</p>
-
 <p>We followed the example of <a href="https://www.semanticscholar.org/paper/Types-for-Units-of-Measure%3A-Theory-and-Practice-Kennedy/10652afefe9d6470e44f0d70cec80207eb243291">F#&rsquo;s unit-of-measure</a> and introduced types
 for temperatures and other physical measurements, On/Off
 instead of simple booleans, etc. This was not sufficient
 to solve the problem, because setting your freezer to
 bath temperature is still a pretty bad idea.</p>
-
 <p>Our solution was to differentiate <em>everything</em>. As can seen
 above in the sample, we have values <code>light/on</code>, <code>light/off</code>,
 <code>light/toggle</code>. These values are distinct from <code>oven/on</code>,
@@ -630,7 +595,6 @@ above in the sample, we have values <code>light/on</code>, <code>light/off</code
 type of freezer temperature and a different type of water
 temperature. And, of course, temperatures and other physical
 measurements had units-of-measure.</p>
-
 <p>For instance, a device driver for freezers would register
 (in pseudo syntax – this was done by an API):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">{
@@ -645,26 +609,19 @@ measurements had units-of-measure.</p>
         ]
     }
 }
-</code></pre></div>
-<p>where predefined type <code>core/temperature</code> could itself handle ºC/ºF
+</code></pre></div><p>where predefined type <code>core/temperature</code> could itself handle ºC/ºF
 conversion.</p>
-
 <p>Two device drivers for freezers would conflict if they both
 defined a feature <code>freezer/set-temperature</code> with a
 structurally different type.</p>
-
 <p>Once we have such definitions, implementing a type system for
 this simple language is not complicated.</p>
-
 <h2 id="actual-implementation">Actual implementation</h2>
-
 <p>In the prototype implementation of Thinkerbell, types
 were verified dynamically, during the execution of a script.</p>
-
 <p>The real reason for this was that we operated under strict
 deadlines and simply didn&rsquo;t have time to implement static
 type checking, during the installation of a script.</p>
-
 <p>There was also a fundamental issue that we would have needed
 to resolve. Indeed, Thinkerbell supported dynamically removing
 device drivers, which could unregister features/types dynamically.
@@ -673,28 +630,22 @@ Worse, device drivers could then be re-added, with incompatible
 feature/types definitions. We would have needed to specify a
 semantics for the effect on previously-well-typed and
 previously-ill-typed scripts.</p>
-
 <h1 id="surviving-earthquakes-kind-of">Surviving earthquakes, kind of</h1>
-
 <p>One of the key ideas behind Project Link is that the server needs
 to live in the house of a end-user, who may have very little
 technical knowledge, and it will live through famine and war.</p>
-
 <p>Well, more precisely, a server would be unplugged because the
 user would need to plug in the vacuum cleaner, or while it was moved
 between rooms, and it would be rebooted during firmware
 upgrades. All of this needed to happen unmonitored.</p>
-
 <p>On the other side, old connected lightbulbs were bound to be
 replaced by newer connected lightbulbs, cameras bought from
 one company were bound to be replaced by cameras bought from
 another company and scripts needed to continue working,
 unmonitored.</p>
-
 <p>So, we designed Thinkerbell and its lower-level API (one
 can think of this API as the Thinkerbell VM) to
 handle as much of this as possible.</p>
-
 <p>We have seen above how Thinkerbell scripts (and its lower-level
 API) access devices by their properties (features and tags),
 rather than by unique identifiers. Features are exposed
@@ -704,7 +655,6 @@ it. This mechanism was designed specifically to
 handle the problem of replacing devices by other devices,
 possibly from incompatible vendor, without having to alter
 their scripts (either Thinkerbell-level or remote scripts).</p>
-
 <p>Now, the problem of server reboots is made easy to solve
 by the simplicity of Thinkerbell scripts and the mechanism
 of device drivers. Since Thinkerbell knows exactly which
@@ -715,48 +665,36 @@ If Thinkerbell discovers it has rebooted, it
 can simply load the information from disk, request an
 update-as-soon-as-convenient from device drivers,
 check if conditions have changed, and proceed from there.</p>
-
 <h2 id="actual-implementation-1">Actual implementation</h2>
-
 <p>Surviving upgrades of devices was implemented and worked
 pretty nicely.</p>
-
 <p>Persistence wasn&rsquo;t actually implemented in
 Thinkerbell prototypes, due to lack of time.</p>
-
 <p>The persistence mechanism discussed above doesn&rsquo;t handle the
 case in which Thinkerbell is interrupted while executing
 after conditions have become true. While several semantics
 can be designed and implemented, we did not have the time
 to consider and experiment on the topic.</p>
-
 <h1 id="process-algebra-aka-formalizing-it">Process algebra (aka formalizing it)</h1>
-
 <p>The language was never fully formalized, largely because of the
 deadline pressure mentioned above, and then because Project
 Link pivoted suddenly.</p>
-
 <p>However, the design of the language was made with the sketch
 of a process algebra in mind. This clearly helped minimize the
 language and design the type system. Also, the idea was to
 eventually extend the language to:</p>
-
 <ul>
 <li>let scripts dynamically add or remove scripts;</li>
 <li>let scripts put themselves on temporary pause, e.g. to avoid spamming the user with messages;</li>
 <li>define pseudo-device drivers combining several tasks.</li>
 </ul>
-
 <p>For all of this, having
 a formal basis of the language would have
 helped ensure that we knew what we were doing, in
 terms of (non-)interference between scripts and device
 drivers, infinite loops, etc.</p>
-
 <p>Plus, it was fun to have.</p>
-
 <p>Semi-formally, the syntax for the process algebra looked like:</p>
-
 <pre><code>// Rules
 R, R' ::= 0
        |  R|R'       // Two parallel rules
@@ -789,15 +727,10 @@ V, V' ::= x // Variable
        | { key_1: V, key_2: V', ... } // Structured message
        | string
        | number
-</code></pre>
-
-<p>I never got around to writing a formal semantics for this
+</code></pre><p>I never got around to writing a formal semantics for this
 process algebra, but I suspect that it would be pretty easy.</p>
-
 <h1 id="what-now">What now?</h1>
-
 <p>Well, this is the end of this post-mortem/brain dump.</p>
-
 <p>I hope I have convinced you that Thinkerbell was pretty cool and some of the ideas
 deserve a second life. If you&rsquo;re interested in doing so, have fun!</p></article>
     <footer class="post-footer">

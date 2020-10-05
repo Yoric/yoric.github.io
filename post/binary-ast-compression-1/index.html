@@ -43,7 +43,7 @@ In this blog entry, I&amp;rsquo;d like to talk to you about our current main foc
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/binary-ast-compression-1/" />
@@ -247,358 +247,275 @@ In this blog entry, I&amp;rsquo;d like to talk to you about our current main foc
       <p class="post-meta">@David Teller · Feb 28, 2019 · 7 min read</p>
     </header>
     <article class="post-content"><p>If you have been following the work on the JavaScript Binary AST, you probably realized that we haven&rsquo;t been communicating much recently. Sorry about that, we&rsquo;ve been busy iterating on it!</p>
-
 <p>In this blog entry, I&rsquo;d like to talk to you about our current main focus: file compression.</p>
-
 <h1 id="about-the-javascript-binary-ast">About the JavaScript Binary AST</h1>
-
 <p>The JavaScript Binary AST is a TC39 proposal for the future of JavaScript, designed by Mozilla, Facebook, Bloomberg, Cloudflare.
 Our main objective is to introduce a new way of sending JavaScript source code to make loading JS much faster, without requiring web developers to make any change in their code.</p>
-
 <h1 id="why-file-size-matters">Why file size matters</h1>
-
 <p>There are several potential bottlenecks involved in loading JS. To make a long story short:</p>
-
 <ol>
 <li>the code may be slow to download/load from disk;</li>
 <li>the code may be slow to parse;</li>
 <li>the code may be slow to compile to bytecode;</li>
 <li>the code may be slow to execute.</li>
 </ol>
-
 <p>As we have detailed in previous blog posts:</p>
-
 <ul>
 <li>point 2 is tremendousy improved by BinAST (and other proposals);</li>
 <li>point 3 is something we are working on;</li>
 <li>point 4 is besides the scope of BinAST.</li>
 </ul>
-
 <p>This leaves us with 1. To make JavaScript loading faster, we also need to make the number of bytes transmitted smaller. In other words, we need compression.</p>
-
 <h1 id="the-text-ast">The Text AST</h1>
-
 <p>Nowadays, the de facto standard for compression of JavaScript source code is Brotli. It&rsquo;s an extremely good tool,
 which provides both fast compression, fast decompression and a high compression ratio. In fact, Brotli is
 already custom-tailored to compress JavaScript.</p>
-
 <p>However, out of the box, Brotli doesn&rsquo;t compress BinAST too well.</p>
-
 <p>Consider the following JS code:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">identity</span>(<span style="color:#a6e22e">x</span>) {
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>;
 }
-</code></pre></div>
-<p>This representation is very concise already, and Brotli already has in its builtin dictionary words such as <code>function</code> or <code>return</code>, which make its representation even more concise. In fact, Brotli reduces this snippet to 34 bytes, and would do a much better job on a larger codebase.</p>
-
+</code></pre></div><p>This representation is very concise already, and Brotli already has in its builtin dictionary words such as <code>function</code> or <code>return</code>, which make its representation even more concise. In fact, Brotli reduces this snippet to 34 bytes, and would do a much better job on a larger codebase.</p>
 <p>Now consider the in-memory representation (or &ldquo;AST&rdquo;) of the same code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">EagerFunctionDeclaration:
-    isAsync: <span style="color:#66d9ef">false</span>
-    isGenerator: <span style="color:#66d9ef">false</span>
-    name:
-        BindingIdentifier:
-            name: <span style="color:#e6db74">&#34;identity&#34;</span>
-    length: <span style="color:#ae81ff">1</span>
-    directives: []
-    contents:
-        FunctionOrMethodContents:
-            isThisCaptured: <span style="color:#66d9ef">false</span>
-            parameterScope:
-                AssertedParameterScope:
-                    paramNames:
-                        - AssertedParameterName:
-                            name: <span style="color:#e6db74">&#34;x&#34;</span>
-                            isCaptured: <span style="color:#66d9ef">false</span>
-                    hasDirectEval: <span style="color:#66d9ef">false</span>
-                    isSimpleParameterList: <span style="color:#66d9ef">true</span>
-            params:
-                FormalParameters:
-                    items:
-                        - BindingIdentifier:
-                            name: <span style="color:#e6db74">&#34;x&#34;</span>
-                    rest: <span style="color:#66d9ef">null</span>
-            bodyScope:
-                AssertedVarScope:
-                    declaredNames: []
-                    hasDirectEval: <span style="color:#66d9ef">false</span>
-            body:
-                - ReturnStatement:
-                    expression:
-                        IdentifierExpression:
-                            name: <span style="color:#e6db74">&#34;x&#34;</span></code></pre></div>
-<p>That is&hellip; quite a little bit longer. That&rsquo;s because we are showing here the result of two steps of transformation on the snippet above:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">EagerFunctionDeclaration</span>:
+    <span style="color:#f92672">isAsync</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">isGenerator</span>: <span style="color:#66d9ef">false</span>
+    <span style="color:#f92672">name</span>:
+        <span style="color:#f92672">BindingIdentifier</span>:
+            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;identity&#34;</span>
+    <span style="color:#f92672">length</span>: <span style="color:#ae81ff">1</span>
+    <span style="color:#f92672">directives</span>: []
+    <span style="color:#f92672">contents</span>:
+        <span style="color:#f92672">FunctionOrMethodContents</span>:
+            <span style="color:#f92672">isThisCaptured</span>: <span style="color:#66d9ef">false</span>
+            <span style="color:#f92672">parameterScope</span>:
+                <span style="color:#f92672">AssertedParameterScope</span>:
+                    <span style="color:#f92672">paramNames</span>:
+                        - <span style="color:#f92672">AssertedParameterName</span>:
+                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
+                            <span style="color:#f92672">isCaptured</span>: <span style="color:#66d9ef">false</span>
+                    <span style="color:#f92672">hasDirectEval</span>: <span style="color:#66d9ef">false</span>
+                    <span style="color:#f92672">isSimpleParameterList</span>: <span style="color:#66d9ef">true</span>
+            <span style="color:#f92672">params</span>:
+                <span style="color:#f92672">FormalParameters</span>:
+                    <span style="color:#f92672">items</span>:
+                        - <span style="color:#f92672">BindingIdentifier</span>:
+                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
+                    <span style="color:#f92672">rest</span>: <span style="color:#66d9ef">null</span>
+            <span style="color:#f92672">bodyScope</span>:
+                <span style="color:#f92672">AssertedVarScope</span>:
+                    <span style="color:#f92672">declaredNames</span>: []
+                    <span style="color:#f92672">hasDirectEval</span>: <span style="color:#66d9ef">false</span>
+            <span style="color:#f92672">body</span>:
+                - <span style="color:#f92672">ReturnStatement</span>:
+                    <span style="color:#f92672">expression</span>:
+                        <span style="color:#f92672">IdentifierExpression</span>:
+                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
 
+</code></pre></div><p>That is&hellip; quite a little bit longer. That&rsquo;s because we are showing here the result of two steps of transformation on the snippet above:</p>
 <ul>
 <li>parsing;</li>
 <li>static analysis (yes, there&rsquo;s static analysis during JavaScript startup).</li>
 </ul>
-
 <p>Since both operations are quite costly, we wish to transmit this entire data structure, or a variant thereof.
 Maybe we can apply Brotli directly?</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Initial size (b)</th>
-<th>Size after brotli (b)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Text source</td>
-<td style="text-align:center">
-39
-</td>
-<td style="text-align:center">
-34
-</td>
-</tr>
-<tr>
-<td>Text AST</td>
-<td style="text-align:center">
-1,069
-</td>
-<td style="text-align:center">
-284
-</td>
-</tr>
-</tbody>
-</table>
-
+<!-- raw HTML omitted -->
 <p>After Brotli, that&rsquo;s a 9x file size increase, which makes things much slower and expensive (in terms of electricity) to download/load from cache.</p>
-
 <p>So, this format is not acceptable.</p>
-
 <h1 id="towards-the-binary-ast">Towards the Binary AST</h1>
-
 <p>Now, the BinAST spec specifies the order of fields, so we can already simplify our representation</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">EagerFunctionDeclaration:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">EagerFunctionDeclaration</span>:
     - <span style="color:#66d9ef">false</span>
     - <span style="color:#66d9ef">false</span>
-    - BindingIdentifier:
+    - <span style="color:#f92672">BindingIdentifier</span>:
         <span style="color:#e6db74">&#34;identity&#34;</span>
     - <span style="color:#ae81ff">1</span>
     - []
-    - FunctionOrMethodContents:
+    - <span style="color:#f92672">FunctionOrMethodContents</span>:
         - <span style="color:#66d9ef">false</span>
-        - AssertedParameterScope:
-            <span style="color:#e6db74">-
-</span><span style="color:#e6db74">                - AssertedParameterName:</span>
+        - <span style="color:#f92672">AssertedParameterScope</span>:
+            -
+                - <span style="color:#f92672">AssertedParameterName</span>:
                     <span style="color:#e6db74">&#34;x&#34;</span>
                     <span style="color:#66d9ef">false</span>
             - <span style="color:#66d9ef">false</span>
             - <span style="color:#66d9ef">true</span>
-        - FormalParameters:
-            <span style="color:#e6db74">-
-</span><span style="color:#e6db74">                - BindingIdentifier:</span>
+        - <span style="color:#f92672">FormalParameters</span>:
+            -
+                - <span style="color:#f92672">BindingIdentifier</span>:
                     <span style="color:#e6db74">&#34;x&#34;</span>
             - <span style="color:#66d9ef">null</span>
-        - AssertedVarScope:
+        - <span style="color:#f92672">AssertedVarScope</span>:
             - []
             - <span style="color:#66d9ef">false</span>
-        <span style="color:#e6db74">-
-</span><span style="color:#e6db74">            - ReturnStatement:</span>
-                IdentifierExpression:
-                    <span style="color:#e6db74">&#34;x&#34;</span></code></pre></div>
-<p>While we&rsquo;re there, let&rsquo;s replace <code>false</code> with <code>0</code> and <code>true</code> with <code>1</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">EagerFunctionDeclaration:
+        -
+            - <span style="color:#f92672">ReturnStatement</span>:
+                <span style="color:#f92672">IdentifierExpression</span>:
+                    <span style="color:#e6db74">&#34;x&#34;</span>
+</code></pre></div><p>While we&rsquo;re there, let&rsquo;s replace <code>false</code> with <code>0</code> and <code>true</code> with <code>1</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">EagerFunctionDeclaration</span>:
     - <span style="color:#ae81ff">0</span>
     - <span style="color:#ae81ff">0</span>
-    - BindingIdentifier:
+    - <span style="color:#f92672">BindingIdentifier</span>:
         <span style="color:#e6db74">&#34;identity&#34;</span>
     - <span style="color:#ae81ff">1</span>
     - []
-    - FunctionOrMethodContents:
+    - <span style="color:#f92672">FunctionOrMethodContents</span>:
         - <span style="color:#ae81ff">0</span>
-        - AssertedParameterScope:
-            <span style="color:#e6db74">-
-</span><span style="color:#e6db74">                - AssertedParameterName:</span>
+        - <span style="color:#f92672">AssertedParameterScope</span>:
+            -
+                - <span style="color:#f92672">AssertedParameterName</span>:
                     <span style="color:#e6db74">&#34;x&#34;</span>
                     <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">1</span>
-        - FormalParameters:
-            <span style="color:#e6db74">-
-</span><span style="color:#e6db74">                - BindingIdentifier:</span>
+        - <span style="color:#f92672">FormalParameters</span>:
+            -
+                - <span style="color:#f92672">BindingIdentifier</span>:
                     <span style="color:#e6db74">&#34;x&#34;</span>
             - <span style="color:#66d9ef">null</span>
-        - AssertedVarScope:
+        - <span style="color:#f92672">AssertedVarScope</span>:
             - []
             - <span style="color:#ae81ff">0</span>
-        <span style="color:#e6db74">-
-</span><span style="color:#e6db74">            - ReturnStatement:</span>
-                IdentifierExpression:
-                    <span style="color:#e6db74">&#34;x&#34;</span></code></pre></div>
-<p>We can already see improvements:</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Initial size (b)</th>
-<th>Size after brotli (b)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Text source</td>
-<td style="text-align:center">
-39
-</td>
-<td style="text-align:center">
-34
-</td>
-</tr>
-<tr>
-<td>Text AST</td>
-<td style="text-align:center">
-599
-</td>
-<td style="text-align:center">
-184
-</td>
-</tr>
-</tbody>
-</table>
-
+        -
+            - <span style="color:#f92672">ReturnStatement</span>:
+                <span style="color:#f92672">IdentifierExpression</span>:
+                    <span style="color:#e6db74">&#34;x&#34;</span>
+</code></pre></div><p>We can already see improvements:</p>
+<!-- raw HTML omitted -->
 <p>Now, let&rsquo;s change a bit the format of lists, to prefix them with their length and avoid nesting them behind empty <code>-</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">EagerFunctionDeclaration:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">EagerFunctionDeclaration</span>:
     - <span style="color:#ae81ff">0</span>
     - <span style="color:#ae81ff">0</span>
-    - BindingIdentifier:
+    - <span style="color:#f92672">BindingIdentifier</span>:
         <span style="color:#e6db74">&#34;identity&#34;</span>
     - <span style="color:#ae81ff">1</span>
     - <span style="color:#ae81ff">0</span>
-    - FunctionOrMethodContents:
+    - <span style="color:#f92672">FunctionOrMethodContents</span>:
         - <span style="color:#ae81ff">0</span>
-        - AssertedParameterScope:
+        - <span style="color:#f92672">AssertedParameterScope</span>:
             - <span style="color:#ae81ff">1</span>
-            - AssertedParameterName:
+            - <span style="color:#f92672">AssertedParameterName</span>:
                 <span style="color:#e6db74">&#34;x&#34;</span>
                 <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">1</span>
-        - FormalParameters:
+        - <span style="color:#f92672">FormalParameters</span>:
             - <span style="color:#ae81ff">1</span>
-            - BindingIdentifier:
+            - <span style="color:#f92672">BindingIdentifier</span>:
                 <span style="color:#e6db74">&#34;x&#34;</span>
             - <span style="color:#66d9ef">null</span>
-        - AssertedVarScope:
+        - <span style="color:#f92672">AssertedVarScope</span>:
             - <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">0</span>
         - <span style="color:#ae81ff">1</span>
-        - ReturnStatement:
-            IdentifierExpression:
-                <span style="color:#e6db74">&#34;x&#34;</span></code></pre></div>
-<p>We now have a representation with three constructions:</p>
-
+        - <span style="color:#f92672">ReturnStatement</span>:
+            <span style="color:#f92672">IdentifierExpression</span>:
+                <span style="color:#e6db74">&#34;x&#34;</span>
+</code></pre></div><p>We now have a representation with three constructions:</p>
 <ul>
 <li>numbers;</li>
 <li>node names;</li>
 <li>literal strings.</li>
 </ul>
-
 <p>Let&rsquo;s see what we can do about strings. BinAST is not a minifier, so
 we keep all strings, identifiers, etc. unchanged, but we can move them
 out of the way and into a header, as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">strings:
-    concat:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">strings</span>:
+    <span style="color:#f92672">concat</span>:
         <span style="color:#e6db74">&#34;identityx&#34;</span>
-    len:
+    <span style="color:#f92672">len</span>:
         - <span style="color:#ae81ff">8</span>
-        - <span style="color:#ae81ff">1</span></code></pre></div>
-<p>Field <code>concat</code> contains a single string, obtained by concatenating all individual strings
+        - <span style="color:#ae81ff">1</span>
+</code></pre></div><p>Field <code>concat</code> contains a single string, obtained by concatenating all individual strings
 used in the file, and we maintain a separate list of string lengths. This has several
 benefits:</p>
-
 <ul>
 <li>strings may be parsed ahead of time and/or in parallel from the rest of the file;</li>
 <li>strings only need to be validated and optimized for memory use once, regardless of the number of occurrences in the file;</li>
 <li>strings only need to appear once in the file, so the cost of repeating a string is negligible.</li>
 </ul>
-
 <p>Just as we had removed field names, let&rsquo;s get rid of <code>concat</code> and <code>len</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">strings:
-    - <span style="color:#e6db74">&#34;identityx&#34;</span>
-    - <span style="color:#ae81ff">2</span>
-    - <span style="color:#ae81ff">8</span>
-    - <span style="color:#ae81ff">1</span></code></pre></div>
-<p>This gives us the following representation:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">strings:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">strings</span>:
     - <span style="color:#e6db74">&#34;identityx&#34;</span>
     - <span style="color:#ae81ff">2</span>
     - <span style="color:#ae81ff">8</span>
     - <span style="color:#ae81ff">1</span>
-EagerFunctionDeclaration:
+</code></pre></div><p>This gives us the following representation:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">strings</span>:
+    - <span style="color:#e6db74">&#34;identityx&#34;</span>
+    - <span style="color:#ae81ff">2</span>
+    - <span style="color:#ae81ff">8</span>
+    - <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">EagerFunctionDeclaration</span>:
     - <span style="color:#ae81ff">0</span>
     - <span style="color:#ae81ff">0</span>
-    - BindingIdentifier:
+    - <span style="color:#f92672">BindingIdentifier</span>:
         <span style="color:#ae81ff">0</span>
     - <span style="color:#ae81ff">1</span>
     - <span style="color:#ae81ff">0</span>
-    - FunctionOrMethodContents:
+    - <span style="color:#f92672">FunctionOrMethodContents</span>:
         - <span style="color:#ae81ff">0</span>
-        - AssertedParameterScope:
+        - <span style="color:#f92672">AssertedParameterScope</span>:
             - <span style="color:#ae81ff">1</span>
-            - AssertedParameterName:
+            - <span style="color:#f92672">AssertedParameterName</span>:
                 <span style="color:#ae81ff">1</span>
                 <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">1</span>
-        - FormalParameters:
+        - <span style="color:#f92672">FormalParameters</span>:
             - <span style="color:#ae81ff">1</span>
-            - BindingIdentifier:
+            - <span style="color:#f92672">BindingIdentifier</span>:
                 <span style="color:#ae81ff">1</span>
             - <span style="color:#66d9ef">null</span>
-        - AssertedVarScope:
+        - <span style="color:#f92672">AssertedVarScope</span>:
             - <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">0</span>
         - <span style="color:#ae81ff">1</span>
-        - ReturnStatement:
-            IdentifierExpression:
-                <span style="color:#ae81ff">1</span></code></pre></div>
-<p>Now, let&rsquo;s take a look at these node names. We still need the node names to tell us
+        - <span style="color:#f92672">ReturnStatement</span>:
+            <span style="color:#f92672">IdentifierExpression</span>:
+                <span style="color:#ae81ff">1</span>
+</code></pre></div><p>Now, let&rsquo;s take a look at these node names. We still need the node names to tell us
 <em>what</em> we&rsquo;re looking at and to deduce the number of fields and their nature.
 By using the same trick as Brotli, we can introduce the names of nodes in
 a shared dictionary and repace them with numbers in the file, obtaining the
 rather more concise</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">0</span>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">0</span>:
     - <span style="color:#e6db74">&#34;identityx&#34;</span>
     - <span style="color:#ae81ff">2</span>
     - <span style="color:#ae81ff">8</span>
     - <span style="color:#ae81ff">1</span>
-<span style="color:#ae81ff">0</span>:
+<span style="color:#f92672">0</span>:
     - <span style="color:#ae81ff">0</span>
     - <span style="color:#ae81ff">0</span>
-    - <span style="color:#ae81ff">1</span>:
+    - <span style="color:#f92672">1</span>:
         <span style="color:#ae81ff">0</span>
     - <span style="color:#ae81ff">1</span>
     - <span style="color:#ae81ff">0</span>
-    - <span style="color:#ae81ff">2</span>:
+    - <span style="color:#f92672">2</span>:
         - <span style="color:#ae81ff">0</span>
-        - <span style="color:#ae81ff">3</span>:
+        - <span style="color:#f92672">3</span>:
             - <span style="color:#ae81ff">1</span>
-            - <span style="color:#ae81ff">4</span>:
+            - <span style="color:#f92672">4</span>:
                 <span style="color:#ae81ff">1</span>
                 <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">1</span>
-        - <span style="color:#ae81ff">5</span>:
+        - <span style="color:#f92672">5</span>:
             - <span style="color:#ae81ff">1</span>
-            - <span style="color:#ae81ff">1</span>:
+            - <span style="color:#f92672">1</span>:
                 <span style="color:#ae81ff">1</span>
             - <span style="color:#ae81ff">6</span>
-        - <span style="color:#ae81ff">7</span>:
+        - <span style="color:#f92672">7</span>:
             - <span style="color:#ae81ff">0</span>
             - <span style="color:#ae81ff">0</span>
         - <span style="color:#ae81ff">1</span>
-        - <span style="color:#ae81ff">8</span>:
-            <span style="color:#ae81ff">9</span>:
-                <span style="color:#ae81ff">1</span></code></pre></div>
-<p>Also, since the parser knows the grammar, we do not need the nesting information, so we could easily rewrite this:</p>
+        - <span style="color:#f92672">8</span>:
+            <span style="color:#f92672">9</span>:
+                <span style="color:#ae81ff">1</span>
+</code></pre></div><p>Also, since the parser knows the grammar, we do not need the nesting information, so we could easily rewrite this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">0</span>
-- identityx
+- <span style="color:#ae81ff">identityx</span>
 - <span style="color:#ae81ff">2</span>
 - <span style="color:#ae81ff">8</span>
 - <span style="color:#ae81ff">1</span>
@@ -629,105 +546,25 @@ rather more concise</p>
 - <span style="color:#ae81ff">1</span>
 - <span style="color:#ae81ff">8</span>
 - <span style="color:#ae81ff">9</span>
-- <span style="color:#ae81ff">1</span></code></pre></div>
-<p>Or, in binary format:</p>
-
+- <span style="color:#ae81ff">1</span>
+</code></pre></div><p>Or, in binary format:</p>
 <pre><code>0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x78, 0x00, 0x02, 0x08, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x01, 0x04, 0x01, 0x00, 0x00, 0x01, 0x05, 0x01, 0x01, 0x01, 0x06, 0x07, 0x00, 0x00, 0x01, 0x08, 0x09, 0x01
-</code></pre>
-
-<p>This was, indeed, the first version of our Binary AST.</p>
-
+</code></pre><p>This was, indeed, the first version of our Binary AST.</p>
 <p>Let&rsquo;s see how it behaves:</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Initial size (b)</th>
-<th>Size after brotli (b)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Text source</td>
-<td style="text-align:center">
-39
-</td>
-<td style="text-align:center">
-34
-</td>
-</tr>
-<tr>
-<td>Text AST</td>
-<td style="text-align:center">
-1,069
-</td>
-<td style="text-align:center">
-284
-</td>
-</tr>
-<tr>
-<td>Binary AST 0.1</td>
-<td style="text-align:center">
-41
-</td>
-<td style="text-align:center">
-35
-</td>
-</tr>
-</tbody>
-</table>
-
+<!-- raw HTML omitted -->
 <p>That&rsquo;s much better!</p>
-
 <p>Also, while moving entirely to binary makes the format harder to debug, it is also much faster to parse. Indeed, loading a single byte and comparing it to a set of bytes to determine how to interpret what follows is simpler and faster than loading <code>&quot;FunctionOrMethodContents&quot;</code> and comparing it to a set of strings for the same reason.</p>
-
-<h1 id="binast-0-1-vs-the-real-world">BinAST 0.1 vs. the Real World</h1>
-
+<h1 id="binast-01-vs-the-real-world">BinAST 0.1 vs. the Real World</h1>
 <p>With this format, we can attempt to try and compress real-world JavaScript files using BinAST 0.1.</p>
-
 <p>Our first benchmark is <a href="https://github.com/vdjeric/fb_bench">fb_bench</a>, a large sample of minified JavaScript published by Facebook for use by developers of VMs and JavaScript code analysis tools.</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Initial size (b)</th>
-<th>Size after brotli (b)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Text source</td>
-<td style="text-align:center">
-87,925,828
-</td>
-<td style="text-align:center">
-12,621,287
-</td>
-</tr>
-<tr>
-<td>Binary AST 0.1</td>
-<td style="text-align:center">
-56,457,196
-</td>
-<td style="text-align:center">
-14,421,478
-</td>
-</tr>
-</tbody>
-</table>
-
+<!-- raw HTML omitted -->
 <p>While the result is not awful, we still see a post-compression size increase of 16%. This is in part due to the
 fact that <code>fb_bench</code> is minified (BinAST 0.1 works better on non-minified code), but then, so is most of the JS on
 the web.</p>
-
 <p>In other words, we cannot simply ship files with BinAST 0.1 + Brotli. In fact,
 we have spent the best part of last year iterating through successive versions of
 BinAST to improve this result.</p>
-
 <h1 id="to-be-continued">To be continued&hellip;</h1>
-
 <p>That&rsquo;s enough code for one blog post. In the second part of this series, I&rsquo;ll be showcasing the technique we
 currently use to compress BinAST (the so-called &ldquo;Entropy format&rdquo;) and the results we currently achieve.</p></article>
     <footer class="post-footer">

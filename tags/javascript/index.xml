@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JavaScript on Il y a du thé renversé au bord de la table !</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 20 Aug 2020 18:09:36 +0200</lastBuildDate>
-    
-	<atom:link href="https://yoric.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 20 Aug 2020 18:09:36 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Why Did Mozilla Remove XUL Add-ons?</title>
       <link>https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/</link>
@@ -19,11 +15,8 @@
       
       <guid>https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/</guid>
       <description>&lt;p&gt;TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.&lt;/p&gt;
-
 &lt;p&gt;During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.&lt;/p&gt;
-
 &lt;p&gt;And then, as someone pointed out on reddit, I realized that we still haven&amp;rsquo;t taken the time to explain in-depth why we &lt;em&gt;had no choice&lt;/em&gt; but to remove XUL-based add-ons.&lt;/p&gt;
-
 &lt;p&gt;So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&amp;rsquo;d like to take this opportunity to try and give you a bit more detail.&lt;/p&gt;</description>
     </item>
     
@@ -35,17 +28,13 @@
       <guid>https://yoric.github.io/post/holyjit/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;
-
 &lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;
-
 &lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,
 nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
 and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we
 mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;
-
 &lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
     </item>
     
@@ -64,7 +53,7 @@ mentioned HolyJIT, an early research project towards a novel approach to writing
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</guid>
-      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
+      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;quot; - Mike Haertel, creator of GNU Grep.
 Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
 It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype.</description>
     </item>

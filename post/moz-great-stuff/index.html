@@ -43,7 +43,7 @@ At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsq
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/moz-great-stuff/" />
@@ -247,46 +247,29 @@ At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsq
       <p class="post-meta">@David Teller · Oct 2, 2020 · 4 min read</p>
     </header>
     <article class="post-content"><p>2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.</p>
-
 <p>At its core, Mozilla is a community of open-source enthusiasts. When you&rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult
 That&rsquo;s where <strong>Mentored Bugs</strong> come in.</p>
-
 <p>Mentored Bugs are a mechanism that serves:</p>
-
 <ul>
 <li>to introduce a new contributor to open-source in general and Mozilla projects in particular (typically Firefox, but this could just as well be any of our websites, or our data pipeline, etc.);</li>
 <li>to lead that new contributor up to the point they have landed their first contribution (typically code, but this could just as well be anything else, from images to translations, etc.);</li>
 <li>to get the new contributor discussing with a seasoned developer and the rest of the community;</li>
 <li>but also to offload seasoned developers from a number of tasks they do not have time to handle themselves.</li>
 </ul>
-
 <p>So, how does this work?</p>
-
 <p>Let&rsquo;s consider Alice and Bob. Alice is a seasoned Firefox developer and will be our Mentor for this story. Bob is a new contributor who wishes to write some code in Firefox, but doesn&rsquo;t know where to start yet. At this stage, they don&rsquo;t know each other..</p>
-
 <p>Like most full-time Firefox developers, Alice is currently working on a gazillion issues concurrently. She&rsquo;s fixing back-end bugs, adding new front-end features and someone mentions that in her current (imaginary) project about:lizards, a simple CSS change could make this new feature much more readable. That&rsquo;s great! But that&rsquo;s also low priority for Alice, because most of what she&rsquo;s working on is stuff that other developers are waiting for. At this stage, Alice opens an issue on bugzilla (Mozilla&rsquo;s issue tracker), write downs
 what needs to be done and promptly forget this low-priority task among hundreds of other low-priority tasks.</p>
-
 <p>Or, in two clicks, she can turn this issue into a <em>Mentored Bug</em> (note that, at Mozilla, we call every change a &ldquo;bug&rdquo;, whether it&rsquo;s something that needs to be fixed, or an improvement, or a contract that needs to be signed, etc.).</p>
-
 <p>Enters Bob. Bob is curious about Firefox, has a little time, wishes to contribute some CSS, and has learnt that Mozilla has interesting tasks on <a href="https://codetribute.mozilla.org/">Codetribute</a>. So Bob goes to Codetribute, clicks on &ldquo;I know CSS&rdquo; and finds a list of open Mentored Bugs. Browsing a bit randomly, Bob picks a random entry in the list and leaves a message for the Mentor saying &ldquo;Hey, I want to work on this Mentored Bug!&rdquo;</p>
-
 <p>The system has successfully introduced Alice and Bob.</p>
-
 <p>Typically, at this stage, Alice says &ldquo;Hello&rdquo; to Bob and invites him to join <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org">Mozilla&rsquo;s <code>#introduction</code> chatroom</a> to discuss how to get started on the Mentored Bug. Bob can now ask general questions on #introduction and get an immediate response not only from Alice but also from other people who are currently connected. Members of #introduction typically help Bob get started with downloading the source code and building Firefox, etc. and help Bob find out where to ask questions. Meanwhile, Alice answers questions that are specific to the bug, either on Bugzilla or on #introduction.</p>
-
 <p>And&hellip; that&rsquo;s it!</p>
-
 <p>It has taken two clicks from Alice to turn the task into a Mentored Bug, two clicks from Bob to find a Mentored Bug on Codetribute and they are now started. Alice and Bob are now working together until Bob has successfully provided a patch that resolves the issue.</p>
-
 <p>For bonus points, Mentored Bugs can be labeled &ldquo;Good first bug&rdquo; or &ldquo;Good later bug&rdquo;, to further indicate their audience.</p>
-
 <p>There are, of course, cases in which the cooperation doesn&rsquo;t work. Maybe the task is more complicated than what Alice or Bob thought, or maybe Bob turns out to not have as much time at hand as he expected. But in general, this system works extremely well.</p>
-
 <p>I have personally stopped counting how many new contributors I have mentored at Mozilla when I reached the count of 100 Mentored Bugs resolved, and that was about 5 years ago. Some of the contributors came back for more contributions, some moved on to other projects, some disappeared from my radar knowing a little bit more about open-source. And I know of a few who were hired by Mozilla :)</p>
-
 <p>So, a round of applause to <a href="https://www.linkedin.com/in/joshuadmatthews/">Josh Matthews</a>, who came up with the system of Mentored Bugs back in 2011!</p>
-
 <p>By now, Codetribute works with github issue trackers as well as with Bugzilla, and can certainly be extended to other systems.</p></article>
     <footer class="post-footer">
       

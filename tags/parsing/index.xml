@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>parsing on Il y a du thé renversé au bord de la table !</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 23 Feb 2018 10:44:39 +0100</lastBuildDate>
-    
-	<atom:link href="https://yoric.github.io/tags/parsing/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 23 Feb 2018 10:44:39 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/parsing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
       <link>https://yoric.github.io/post/binary-ast-pcc/</link>
@@ -27,7 +23,7 @@
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</guid>
-      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
+      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;quot; - Mike Haertel, creator of GNU Grep.
 Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
 It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype.</description>
     </item>

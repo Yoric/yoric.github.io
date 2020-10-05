@@ -40,7 +40,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/rust-typestate/" />
@@ -244,9 +244,7 @@
       <p class="post-meta">@David Teller · Feb 22, 2018 · 9 min read</p>
     </header>
     <article class="post-content"><p>A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.</p>
-
-<h1 id="wait-what-s-a-typestate">Wait, what’s a typestate?</h1>
-
+<h1 id="wait-whats-a-typestate">Wait, what’s a typestate?</h1>
 <p>Consider an object representing a file – let’s call that data structure a <code>MyFile</code>. Before a <code>MyFile</code> is opened, it cannot be read. Once a <code>MyFile</code> is closed, it cannot be read. In between, the file can be read. Typestates are a mechanism to let the type-checker check that you’re not making the following mistakes:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; String {
   <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::new(path);
@@ -257,32 +255,25 @@
   my_file.seek(Seek::Start); <span style="color:#75715e">// Error: we have closed `my_file`.
 </span><span style="color:#75715e"></span>  result
 }
-</code></pre></div>
-<p>In this example, we have made two mistakes:</p>
-
+</code></pre></div><p>In this example, we have made two mistakes:</p>
 <ol>
 <li>we have read a file that may not have been opened;</li>
 <li>we have seeked in a file that was already closed.</li>
 </ol>
-
 <p>In most programming languages, we can easily design the API
 of <code>MyFile</code> to ensure that the first error is impossible,
 simply by throwing an exception when the file fails to open.
 Some standard libraries and frameworks decide to not follow
 this principle for the sake of flexibility, but the capability
 exists in the language itself.</p>
-
 <p>The second error, however, is much harder to catch. Most
 programming languages support the necessary features to
 make this error hard, typically by closing the file upon
 destruction or at the end of a higher-order function call,
 but the only non-academic language that I know of that
 can actually entirely prevent that error is Rust.</p>
-
 <h1 id="trivial-typestates-in-rust">Trivial typestates in Rust</h1>
-
 <p>How do we do this in Rust?</p>
-
 <p>Well, the simplest way to do it is to introduce sane types
 for our operations on <code>MyFile</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">impl</span> MyFile {
@@ -305,8 +296,7 @@ for our operations on <code>MyFile</code>:</p>
 </span><span style="color:#75715e"></span>    <span style="color:#75715e">// if we haven&#39;t closed it yet.
 </span><span style="color:#75715e"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">drop</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) { ... }
 }
-</code></pre></div>
-<p>Let&rsquo;s rewrite our above example:</p>
+</code></pre></div><p>Let&rsquo;s rewrite our above example:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
   <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
   <span style="color:#75715e">// Note the `?` above. It&#39;s a simple operator that asks
@@ -326,8 +316,7 @@ for our operations on <code>MyFile</code>:</p>
   my_file.seek(Seek::Start)<span style="color:#f92672">?</span>; <span style="color:#75715e">// Error, detected by the compiler
 </span><span style="color:#75715e"></span>  result
 }
-</code></pre></div>
-<p>This works even in more complex cases:</p>
+</code></pre></div><p>This works even in more complex cases:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
   <span style="color:#75715e">// As above.
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
@@ -347,12 +336,10 @@ for our operations on <code>MyFile</code>:</p>
   <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
 </span><span style="color:#75715e"></span>}
-</code></pre></div>
-<p>The key here is that the Rust type system enforces the fact
+</code></pre></div><p>The key here is that the Rust type system enforces the fact
 that a variable may not be used after having been <strong>moved</strong>.
 In our case, <code>my_file.close()</code> moved the value, effectively
 consuming it.</p>
-
 <p>Even if we had attempted to hide the variable somewhere
 else, and reuse it after the call to <code>my_file.close()</code>,
 we would have been thwarted by the compiler:</p>
@@ -373,8 +360,7 @@ we would have been thwarted by the compiler:</p>
   <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
 </span><span style="color:#75715e"></span>}
-</code></pre></div>
-<p>Let&rsquo;s try another way to cheat the compiler by making
+</code></pre></div><p>Let&rsquo;s try another way to cheat the compiler by making
 the file accessible after it has been closed:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
   <span style="color:#66d9ef">let</span> my_shared_file <span style="color:#f92672">=</span> Rc::new(RefCell::new(MyFile::open(path)<span style="color:#f92672">?</span>));
@@ -409,23 +395,17 @@ the file accessible after it has been closed:</p>
   <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
 </span><span style="color:#75715e"></span>}
-</code></pre></div>
-<p>Again, we have been thwarted by the compiler. Indeed, short
+</code></pre></div><p>Again, we have been thwarted by the compiler. Indeed, short
 of explicitly going into <code>unsafe</code> mode, we will not be able
 to break the invariant that <code>seek</code> cannot be used after <code>close</code>.</p>
-
 <p>This example demonstrated the first brick of type states in
 Rust: the <strong>typed move operation</strong>. So far, so good. But we are
 only dealing with a trivial case, in which files only have two
 states: <strong>opened</strong> and <strong>closed</strong>.</p>
-
 <p>Let&rsquo;s see if we can handle more complex cases.</p>
-
 <h1 id="complex-typestates">Complex typestates</h1>
-
 <p>Instead of files, let us now consider the following (and admittedly pretty dumb)
 network protocol:</p>
-
 <ol>
 <li>Sender sends message &ldquo;HELLO&rdquo;.</li>
 <li>Receiver receives message &ldquo;HELLO&rdquo;, responds with message &ldquo;HELLO, YOU&rdquo;.</li>
@@ -435,18 +415,16 @@ network protocol:</p>
 <li>Receiver receives &ldquo;BYE&rdquo; from sender, responds &ldquo;BYE, YOU&rdquo;.</li>
 <li>Return to 1.</li>
 </ol>
-
 <p>Any other message is ignored.</p>
-
 <p>We can design our <code>Sender</code> (and similarly, <code>Receiver</code>) to
 ensure that operations proceed in the right order. For
 the moment, we don&rsquo;t care about identifying the
 correspondant or the number.</p>
-
 <p>For this purpose, we&rsquo;ll combine the <strong>typed moves</strong>
 with another technique, well known to strongly-typed
 functional programmers, known as <strong>phantom types</strong>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// A series of 0-sized types representing
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">
+<span style="color:#75715e">// A series of 0-sized types representing
 </span><span style="color:#75715e">// the state of the sender. The value
 </span><span style="color:#75715e">// is not important, only the type
 </span><span style="color:#75715e">// (hence the name &#34;phantom type&#34;).
@@ -529,26 +507,19 @@ functional programmers, known as <strong>phantom types</strong>.</p>
         <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>    }
 }
-</code></pre></div>
-<p>With this design, it is clear that the <code>Sender</code> can only follow the protocol:</p>
-
+</code></pre></div><p>With this design, it is clear that the <code>Sender</code> can only follow the protocol:</p>
 <ul>
 <li>from step 1 (<code>SenderReadyToSendHello</code>, it may only go to step 3);</li>
 <li>from step 3 (<code>SenderHasSentHello</code>, it may only stay in step 3 or go to step 5);</li>
 <li>from step 5 (<code>SenderHasSentNumber</code>, it may only stay in step 5 or go back to step 1).</li>
 </ul>
-
 <p>Any attempt to detract from the protocol will be blocked by the type system.</p>
-
 <p>If you ever need to work with network protocols, device drivers,
 industrial devices with specific safety instructions or OpenGL/DirectX/anything
 else that requires you to perform complex interactions with the hardware,
 you&rsquo;ll probably be happy to have such guarantees!</p>
-
 <p>Welcome to the world of type states.</p>
-
 <h1 id="quick-note-beyond-type-states">Quick note: beyond type states</h1>
-
 <p>By the way, to continue on our network example,
 what if we wanted to, say, store the number sent by the <code>Server</code> to
 check that the response matched? Well, to do this, we can simply
@@ -556,27 +527,21 @@ store the number on <code>SenderHasSentNumber</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentNumber</span> {
     number_sent: <span style="color:#66d9ef">u32</span>,
 }
-</code></pre></div>
-<p>Once again, the compiler will check that the code only accesses <code>number_sent</code>
+</code></pre></div><p>Once again, the compiler will check that the code only accesses <code>number_sent</code>
 when the sender is in state <code>SenderHasSentNumber</code>.</p>
-
 <p>We will lose a (tiny) amount of performance, we the compiler won&rsquo;t be able to
 optimize the transformation of the <code>Sender</code> between identical representations,
 but that&rsquo;s generally worth it.</p>
-
 <h1 id="closing-words">Closing words</h1>
-
 <p>I hope that this quick demonstration has convinced you that the power of Rust
 <strong>typed move</strong>, combined with <strong>phantom types</strong>,
 is a great tool to ensure the safety of your code. It is used
 all around the Rust standard libraries and many well-designed third-party
 libraries.</p>
-
 <p>For the moment, I am not aware of any other programming language with typed
 move semantics (note: C++ has <em>untyped</em> move semantics), but I imagine that
 other languages will eventually imitate Rust if this feature proves to be
 well-liked. I, for one, couldn&rsquo;t do without :)</p>
-
 <p><strong>edit</strong> As remarked by Thomas Bracht Laumann Jespersen, a variant of
 this method can also be used to encode session types in Rust. I&rsquo;ll
 let you look at the <a href="https://github.com/Munksgaard/session-types">library</a>
@@ -618,6 +583,28 @@ and the <a href="http://munksgaard.me/papers/laumann-munksgaard-larsen.pdf">pape
       
       
         
+        
+          Legacy comment system.
+          <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
       
     

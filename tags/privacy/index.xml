@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>privacy on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/tags/privacy/</link>
+    <description>Recent content in privacy on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Mon, 05 Oct 2020 11:58:22 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Switching to Gitalk</title>
+      <link>https://yoric.github.io/post/switching-to-gitalk/</link>
+      <pubDate>Mon, 05 Oct 2020 11:58:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/switching-to-gitalk/</guid>
+      <description>Until now, this blog has been using Disqus as a comment mechanism.
+While it is very useful, I&amp;rsquo;m trying to switch to a less invasive (and I believe more privacy-safe): gitalk.
+I&amp;rsquo;ve left Disqus on in the pages on which users had already left comments. For other pages, Disqus is now deactivated.</description>
+    </item>
+    
+  </channel>
+</rss>

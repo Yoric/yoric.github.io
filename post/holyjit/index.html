@@ -52,7 +52,7 @@ In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
 
 
 
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.75.1" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/holyjit/" />
@@ -257,99 +257,73 @@ In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
     </header>
     <article class="post-content"><blockquote>
 <p><strong>Credit</strong></p>
-
 <p>While I&rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.</p>
-
 <p>So far, my role in this project has largely been to play the wise old advisor,
 nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
 and emitting cryptic comments in Reverse Jedi Notation.</p>
 </blockquote>
-
 <p>A few months ago, we published a <a href="https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/">short (and mysterious) blog post</a> in which we
 mentioned HolyJIT, an early research project towards a novel approach to writing JITs.</p>
-
 <p>In this blog post, I would like to detail a bit more the ideas behind HolyJIT.</p>
-
 <h1 id="anatomy-of-a-jit-compiler">Anatomy of a JIT compiler</h1>
-
 <p>If you&rsquo;re not already familiar with JIT compilers, I suggest you first <a href="https://en.wikipedia.org/wiki/Just-in-time_compilation">take a look
 at Wikipedia</a> before proceeding,
 because the rest of this blog post won&rsquo;t be very useful to you.</p>
-
 <p>For performance reasons, real-world JIT compilers such as SpiderMonkey, v8 or
 HotSpot often contain several implementations of the language. For instance:</p>
-
 <ul>
 <li>a pure interpreter;</li>
 <li>a naive compiler;</li>
 <li>an optimizing compiler.</li>
 </ul>
-
 <p>The pure interpreter can start running immediately, which is very useful for code that
 the program is only ever going to run once. The naive compiler will take some time to compile
 the code fed to it, but will produce faster code once it&rsquo;s done, so it is useful for code
 that is used repeatedly. Finally, the optimizing compiler will take much more time to
 compile the code, but will produce much faster code, so it is useful for performance-critical code.</p>
-
 <p>That&rsquo;s three implementations of the <em>same</em> language (sometimes more) in the <em>same</em> compiler.
 In fact, the inline cache strategy often contains a fourth implementation of large subsets
 of the the same language.</p>
-
 <p>This has two large drawbacks:</p>
-
 <ul>
 <li>if two implementations disagree on behavior, the language is broken in subtle and unpredictable
 ways, which is really bad for safety and security;</li>
 <li>any change to one implementation must be mirrored in all others, which is generally pretty tricky.</li>
 </ul>
-
 <p>Can we do better?</p>
-
 <h1 id="our-objective">Our objective</h1>
-
 <p>The objective with HolyJIT is to see if we can develop a toolbox to:</p>
-
 <ul>
 <li>write JITs in a strongly-typed programming language (in this case, Rust);</li>
 <li>have a single specification as source of the semantics of the target language, regardless of the number of components that are actually going to implement different execution/compilation strategies;</li>
 <li>share these instruments across a large variety of JIT-compiled target languages;</li>
 <li>reduce the size of the Trusted Computing Base.</li>
 </ul>
-
 <p>Some of the ideas in HolyJIT are closely related to multi-stage compilation,
 as demonstrated for instance in MetaOCaml or Template Haskell. By opposition
 to such languages, though, the target is explicitly JITs and aims to let JIT
 developers pick or build their own strategies. By opposition to MetaOCaml,
 which requires shipping a full OCaml compiler as part of the executable,
 HolyJIT will not require shipping a full Rust compiler.</p>
-
 <p>I should mention, again, that HolyJIT is early stage research. Some of what
 will be discussed in this blog post is tested, some is just ideas.</p>
-
 <p>For the rest of this post, I&rsquo;ll use <em>Host Language</em> to describe the language
 in which the JIT is implemented (here, Rust) and <em>Target Language</em> to describe the
 language which we are going to JIT-compile (for instance, JavaScript or regular expressions).</p>
-
 <h1 id="a-second-look-at-implementations">A second look at implementations</h1>
-
 <p>Consider the pure interpreter. For the sake of simplicity, we&rsquo;ll assume
 that this is an interpreter of bytecode.</p>
-
 <p>It contains:</p>
-
 <ul>
 <li>for each opcode, a specification (as source code in the host language);</li>
 <li>a representation of state (typically, a stack, an environment, etc.);</li>
 <li>a main loop, going through each opcode.</li>
 </ul>
-
 <p>Actually, assuming that the interpreter is compiled, during compilation,
 the specification is translated to a Control Flow Graph, which is itself
 translated to executable format. This executable format may be LLVM IR,
 machine language, WebAssembly, etc.</p>
-
 <p>Let&rsquo;s summarize this:</p>
-
 <ul>
 <li>specification as source code in Host Language;</li>
 <li>representation of state;</li>
@@ -357,30 +331,28 @@ machine language, WebAssembly, etc.</p>
 <li>translate specification to CFG;</li>
 <li>translate CFG to Executable.</li>
 </ul>
-
 <p>The exact same scheme also describes both the naive native compiler
 and the optimizing native compiler. Furthermore, since all need to
-interact in the same executable, they typically share:
-- the representation of state;
-- the main loop.</p>
-
+interact in the same executable, they typically share:</p>
+<ul>
+<li>the representation of state;</li>
+<li>the main loop.</li>
+</ul>
 <p>In most JITs, the various implementations of the same language within
-a single JIT differ:
-- by having different specifications as source code;
-- by producing different CFGs (or other intermediate representation);
-- by generally translating to different executable formats (e.g. the interpreter
-    is compiled by a C++ compiler, while the executable code produced by the
-    native compilers is produced by some kind of runtime assembler).</p>
-
+a single JIT differ:</p>
+<ul>
+<li>by having different specifications as source code;</li>
+<li>by producing different CFGs (or other intermediate representation);</li>
+<li>by generally translating to different executable formats (e.g. the interpreter
+is compiled by a C++ compiler, while the executable code produced by the
+native compilers is produced by some kind of runtime assembler).</li>
+</ul>
 <p>Now, recall that these different specifications as source code are different
 not because they implement different Target Languages but because the
 specification contains both the semantics and the strategy used to
 produce the executable.</p>
-
 <p>Let&rsquo;s see what we can do about this.</p>
-
 <h1 id="from-the-interpreter-to-the-compiler">From the interpreter to the compiler</h1>
-
 <p>Consider operation <code>+</code> in JavaScript. If we are
 building a stack machine, <a href="http://www.ecma-international.org/ecma-262/7.0/index.html#sec-addition-operator-plus">the specifications</a> can
 be translated straightforwardly as the following
@@ -405,86 +377,66 @@ opcode <code>Op::Add</code> and specifications-as-code:</p>
         }
     }
 })
-</code></pre></div>
-<p>In the above code, we have used a macro <code>opcode!</code>.
+</code></pre></div><p>In the above code, we have used a macro <code>opcode!</code>.
 Rust macros are powerful enough to perform sophisticated
 rewriting on the AST and communicate with the rest of the
 toolchain.</p>
-
 <p>We have also used <code>?</code> to represent all exceptional cases,
 including both user-level exceptions (such as <code>Error</code>)
 and VM-level exceptions (such as out-of-memory). Rust
 makes it easy to not confuse them.</p>
-
 <p>Once we have thus specified all opcodes, as well as
 the main loop and the representation of state, we
 have a fully working interpreter. When encountering
 <code>Op::Add</code>, this interpreter will execute exactly the code above.</p>
-
 <p>Now, assuming a sufficiently flexible toolchain (such as the
 existing Rust toolchain), we can extract the CFG for each opcode
 and use it twice:</p>
-
 <ol>
 <li>convert the CFG to Executable;</li>
 <li>keep the CFG as Data.</li>
 </ol>
-
 <blockquote>
 <p><strong>Build-time tool introduced</strong> Conversion of specifications-as-source
 into CFG as Data.</p>
 </blockquote>
-
 <p>The first CFG as Executable is exactly what we&rsquo;re already
 using for our interpreter. With out-of-the-box Rust, this
 is the native executable produced by <code>rustc</code>.</p>
-
 <p>Using this CFG as Data, we can now implement the following
 program, executed at runtime:</p>
-
 <ol>
 <li>Read a chain of bytecode.</li>
 <li>Convert chain of bytecode to a vector of CFG-as-Data.</li>
 <li>Convert vector of CFG-as-Data to Executable.</li>
 </ol>
-
 <p>This, along with the main loop, is a naive native compiler.
 We have obtained this native compiler by introducing the
 following tools in our toolchain:</p>
-
 <blockquote>
 <p><strong>Runtime tool introduced</strong> Convert CFG-as-Data to Executable.</p>
-
+</blockquote>
+<blockquote>
 <p><strong>Runtime tool introduced</strong> Combine blocks of CFG-as-Data.</p>
 </blockquote>
-
 <p>These tools are entirely independent from the target language.</p>
-
 <p>In effect, <strong>we have extracted the compiler from the interpreter</strong>.</p>
-
 <p>While this result is not new (that&rsquo;s pretty much the point of Multi-Stage Compilation),
 the technique we have employed is, as far as we can tell, both novel and more
 flexible than alternative approaches.</p>
-
 <p>For one thing, with a single specification as source, we have <em>both</em> the
 interpreter and the compiler. This is a good thing, since we need both of
 them to produce a high-performance JIT.</p>
-
 <p>In particular, we can go further.</p>
-
 <h1 id="from-the-compiler-to-the-tracing-compiler">From the compiler to the tracing compiler</h1>
-
 <p><strong>Caveat</strong> At this stage of the project, this section is mostly hypothetical.</p>
-
 <p>Consider, again, the implementation of <code>+</code> in JavaScript.
 Let&rsquo;s say that we wish to implement a tracing JIT compiler
 as an inline cache generator.</p>
-
 <p>I assume it&rsquo;s a well-known result, but experience indicates
 that we can turn an interpreter into a
 naive tracing compiler by performing
 a simple (and automated) rewrite of the CFG.</p>
-
 <p>Let&rsquo;s inform our toolchain that we want to do this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
     <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
@@ -508,76 +460,59 @@ a simple (and automated) rewrite of the CFG.</p>
         }
     }
 })
-</code></pre></div>
-<p>So far, HolyJIT was extracting a single CFG from the specification
+</code></pre></div><p>So far, HolyJIT was extracting a single CFG from the specification
 as source. Macro <code>trace!</code> instructs it to also extract a second
 CFG (we&rsquo;ll call it a <em>Tracing CFG</em>), obtained by transforming
 the <em>Interpreter CFG</em> to emit a trace of CFG-as-data.</p>
-
 <p>For this, we need three tools:</p>
-
 <blockquote>
 <p><strong>Build-time tool introduced</strong> Conversion of CFG into tracing
 CFG.</p>
-
+</blockquote>
+<blockquote>
 <p><strong>Build-time tool introduced</strong> Introducing the CFG-as-data for inline
 caching.</p>
-
+</blockquote>
+<blockquote>
 <p><strong>Runtime tool introduced</strong> Letting the CFG assemble CFG-as-data.</p>
 </blockquote>
-
 <p>This new Tracing CFG, which was, once again, extracted
 from the specification as source, may now be stored as
 CFG-as-data, and executed much as the naive compiler.</p>
-
 <p>In other words, <strong>with minimal annotations, we can extract a tracing compiler from the interpreter</strong>.</p>
-
 <h1 id="faq">FAQ</h1>
-
 <h2 id="what-about-security">What about security?</h2>
-
 <p>It is still too early to be sure. The ability to combine
 CFGs dynamically and convert them to executable is basicaly
 the same level of power as what current JITs do, so we don&rsquo;t
 expect to make a difference here.</p>
-
 <p>We hope that the ability to mostly decouple the compilation
 strategy from the target language will make it easier to
 fix security issues, though, and to experiment with new
 security strategies.</p>
-
 <h2 id="what-about-performance">What about performance?</h2>
-
 <p>Our initial experiments lead us to believe that we can end
 up with essentially the same generated code as existing JITs,
 with the bonus that we can more easily experiment with
 additional optimization strategies.</p>
-
 <h2 id="how-many-ways-do-you-need-to-translate-cfg-to-executable">How many ways do you need to translate CFG to Executable?</h2>
-
 <p>There are several possible implementation strategies. One
 possible way is to generate a portable assembly format such
 as WebAssembly. We could therefore translate CFG to WebAssembly both
 at build-time (for the interpreter) and at runtime (for
 the native compilers).</p>
-
 <p>Of course, we may decide to generate directly optimized Executables
 at build-time (for the interpreter), effectively reusing the existing
 Rust infrastructure, and a different target at runtime.</p>
-
-<h2 id="isn-t-the-cfg-just-a-new-bytecode-format">Isn&rsquo;t the CFG just a new bytecode format?</h2>
-
+<h2 id="isnt-the-cfg-just-a-new-bytecode-format">Isn&rsquo;t the CFG just a new bytecode format?</h2>
 <p>Somewhat, yes. Most JITs use at least one intermediate format
 between the bytecode and the executable. The CFG here is
 such a format. So, in effect, some kind of very high-level
 bytecode.</p>
-
 <h2 id="wait-what-about-actually-optimizing-the-cfg">Wait, what about actually optimizing the CFG?</h2>
-
 <p>Yes, the discussion above didn&rsquo;t mention constant
 propagation, dead code elimination, constant
 subexpression elimination, &hellip;</p>
-
 <p>Of course, they need to be part of the result. At this
 stage, there are several places at which they may be
 added, but the most reasonable seems to be while
@@ -588,31 +523,20 @@ only in some strategies. The former would be more
 regular and easier to trust, while the latter
 would let Target Language developers further
 fine-tune their JIT strategies.</p>
-
 <h2 id="do-you-actually-need-a-bytecode-for-javascript">Do you actually need a bytecode for JavaScript?</h2>
-
 <p>Not necessarily. This seems to be the simplest way to do
 things, but it&rsquo;s not written in stone.</p>
-
 <h2 id="how-do-you-switch-from-the-interpreter-to-the-naive-compiler-to-the-optimizing-compiler">How do you switch from the interpreter to the naive compiler to the optimizing compiler?</h2>
-
 <p>Not determined yet. If we wish our toolkit to be as generic as possible,
 decision might be left in the hands of the implementor of the target language.</p>
-
 <h2 id="why-rust-and-not-x">Why Rust and not X?</h2>
-
 <p>Many other languages would work too. Rust combines the ability to
 define low-level data structures and algorithms with strong type-safety,
 no dependency on a specific garbage-collector, and a very flexible toolchain.</p>
-
 <p>Plus, we like it.</p>
-
 <h2 id="how-close-are-you-to-release">How close are you to release?</h2>
-
 <p>In a galaxy far, far away.</p>
-
 <h2 id="where-can-i-find-the-code">Where can I find the code?</h2>
-
 <p>A proof of concept is available <a href="https://github.com/nbp/holyjit">on github</a>.</p></article>
     <footer class="post-footer">
       

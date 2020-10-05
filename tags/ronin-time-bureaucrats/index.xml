@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ronin-time-bureaucrats on Il y a du thé renversé au bord de la table !</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 06 Sep 2018 09:30:43 +0200</lastBuildDate>
-    
-	<atom:link href="https://yoric.github.io/tags/ronin-time-bureaucrats/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 06 Sep 2018 09:30:43 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/ronin-time-bureaucrats/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>And now, for something completely different: Ronin Time Bureaucrats</title>
       <link>https://yoric.github.io/post/rtb-about/</link>
@@ -19,7 +15,6 @@
       
       <guid>https://yoric.github.io/post/rtb-about/</guid>
       <description>&lt;p&gt;When I&amp;rsquo;m not busy attempting to reduce the startup time and power requirements of web pages with the JavaScript Binary AST, I&amp;rsquo;m into Improv Acting and Role-Playing Games.&lt;/p&gt;
-
 &lt;p&gt;I&amp;rsquo;d like to introduce a hobby project of mine, which I have started over the summer: Ronin Time Bureaucrats – an narrative/improv Role-Playing Game of Handwavy Time Paradoxes.&lt;/p&gt;</description>
     </item>
     
