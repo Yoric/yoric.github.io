@@ -13,20 +13,20 @@
     
     
     <item>
+      <title>Mozilla</title>
+      <link>https://yoric.github.io/tags/mozilla/</link>
+      <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>mentoring</title>
       <link>https://yoric.github.io/tags/mentoring/</link>
       <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/mentoring/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mozilla</title>
-      <link>https://yoric.github.io/tags/mozilla/</link>
-      <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/mozilla/</guid>
       <description></description>
     </item>
     
@@ -76,6 +76,15 @@
     </item>
     
     <item>
+      <title>Rust</title>
+      <link>https://yoric.github.io/tags/rust/</link>
+      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>labels</title>
       <link>https://yoric.github.io/tags/labels/</link>
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
@@ -99,15 +108,6 @@
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/programming-languages/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/rust/</guid>
       <description></description>
     </item>
     
