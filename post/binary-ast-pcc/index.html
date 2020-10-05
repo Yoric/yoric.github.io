@@ -84,8 +84,10 @@
 
 
 
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 
 
@@ -435,22 +437,25 @@ and streaming compilation aren&rsquo;t implemented yet. In other words, we do no
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>954</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>955</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       
-      <div id="gitmentComments"></div>
+      
+      <div id="gitalk-container"></div>
       <script>
-      const gitment = new Gitment({
-        owner: 'Yoric',
-        repo: 'yoric.github.io',
-        oauth: {
-          client_id: 'be349d0bd8338cd1aa1d',
-          client_secret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
-        },
-      })
-      gitment.render('gitmentComments')
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: '9582473152931b961c4fe79c09baa16a',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
       </script>
       
       

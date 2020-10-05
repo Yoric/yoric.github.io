@@ -87,8 +87,10 @@ I&amp;rsquo;d like to introduce a hobby project of mine, which I have started ov
 
 
 
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 
 
@@ -285,17 +287,20 @@ I&amp;rsquo;d like to introduce a hobby project of mine, which I have started ov
     </footer>
     
       
-      <div id="gitmentComments"></div>
+      
+      <div id="gitalk-container"></div>
       <script>
-      const gitment = new Gitment({
-        owner: 'Yoric',
-        repo: 'yoric.github.io',
-        oauth: {
-          client_id: 'be349d0bd8338cd1aa1d',
-          client_secret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
-        },
-      })
-      gitment.render('gitmentComments')
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: '5404972cfe0ba7fc42fd91926f9f83d8',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
       </script>
       
       

@@ -93,8 +93,10 @@ Still, working on it, we managed to learn or come up with a few tricks to increa
 
 
 
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
 
 
 
@@ -419,17 +421,20 @@ are interested you should find it easy to read more on the general idea.</p></ar
     </footer>
     
       
-      <div id="gitmentComments"></div>
+      
+      <div id="gitalk-container"></div>
       <script>
-      const gitment = new Gitment({
-        owner: 'Yoric',
-        repo: 'yoric.github.io',
-        oauth: {
-          client_id: 'be349d0bd8338cd1aa1d',
-          client_secret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
-        },
-      })
-      gitment.render('gitmentComments')
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: 'ee05fb431e53dc70b4fa4ce30427a3ac',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
       </script>
       
       

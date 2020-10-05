@@ -38,13 +38,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/mozilla/</loc>
+    <loc>https://yoric.github.io/tags/mozilla/</loc>
     <lastmod>2020-10-02T13:44:16+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/mozilla/</loc>
+    <loc>https://yoric.github.io/categories/mozilla/</loc>
     <lastmod>2020-10-02T13:44:16+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -102,13 +102,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/programming-languages/</loc>
+    <loc>https://yoric.github.io/tags/programming-languages/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/programming-languages/</loc>
+    <loc>https://yoric.github.io/categories/programming-languages/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -120,13 +120,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/rust/</loc>
+    <loc>https://yoric.github.io/tags/rust/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/rust/</loc>
+    <loc>https://yoric.github.io/categories/rust/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -223,13 +223,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/ronin-time-bureaucrats/</loc>
+    <loc>https://yoric.github.io/tags/ronin-time-bureaucrats/</loc>
     <lastmod>2018-09-06T09:30:43+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/ronin-time-bureaucrats/</loc>
+    <loc>https://yoric.github.io/categories/ronin-time-bureaucrats/</loc>
     <lastmod>2018-09-06T09:30:43+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -247,13 +247,13 @@
   </url>
   
   <url>
-    <loc>https://yoric.github.io/categories/iot/</loc>
+    <loc>https://yoric.github.io/tags/iot/</loc>
     <lastmod>2018-03-08T07:26:05+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://yoric.github.io/tags/iot/</loc>
+    <loc>https://yoric.github.io/categories/iot/</loc>
     <lastmod>2018-03-08T07:26:05+01:00</lastmod>
     <priority>0</priority>
   </url>
