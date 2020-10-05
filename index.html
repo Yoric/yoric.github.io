@@ -110,8 +110,7 @@
       
     </div>
     
-    
-  <header class="site-header">
+     <header class="site-header">
   <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
   
   <h1 class="title">Il y a du thé renversé au bord de la table !</h1>
@@ -227,30 +226,166 @@
   </nav>
 </header>
 
-  <section class="main post-list">
-    <header class="list-header offscreen">
-      <h2 class="list-label">All Posts</h2>
-    </header>
-    
-    
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://yoric.github.io/post/" class="post-link">Posts</a></h3>
-    <p class="post-meta">@David Teller · Oct 5, 2020 · 0 min read</p>
+<section class="main post-list">
+  <header class="list-header offscreen">
+    <h2 class="list-label">All Posts</h2>
   </header>
   
-  <p class="post-summary"></p>
+  
+   <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/switching-to-gitalk/" class="post-link">Switching to Gitalk</a></h3>
+    <p class="post-meta">@David Teller · Oct 5, 2020 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Until now, this blog has been using Disqus as a comment mechanism.
+While it is very useful, I’m trying to switch to a less invasive (and I believe more privacy-safe): gitalk.
+I’ve left Disqus on in the pages on which users had already left comments. For other pages, Disqus is now deactivated.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://yoric.github.io/post/">Read More →</a>
+    <a class="read-more" href="https://yoric.github.io/post/switching-to-gitalk/">Read More →</a>
   </footer>
 </article>
-
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/moz-great-stuff/" class="post-link">Mentored Bugs - mozGreatPractices, part 1</a></h3>
+    <p class="post-meta">@David Teller · Oct 2, 2020 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary">2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.
+At its core, Mozilla is a community of open-source enthusiasts. When you’re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult That’s where Mentored Bugs come in.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/moz-great-stuff/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/" class="post-link">Why Did Mozilla Remove XUL Add-ons?</a></h3>
+    <p class="post-meta">@David Teller · Aug 20, 2020 · 25 min read</p>
+  </header>
+  
+  <p class="post-summary">TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.
+During the past few days, I’ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.
+And then, as someone pointed out on reddit, I realized that we still haven’t taken the time to explain in-depth why we had no choice but to remove XUL-based add-ons.
+So, if you’re ready for a dive into some of the internals of add-ons and Gecko, I’d like to take this opportunity to try and give you a bit more detail.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/rust-named-arguments/" class="post-link">Possibly one step towards named arguments in Rust</a></h3>
+    <p class="post-meta">@David Teller &lt;D.O.Teller@gmail.com&gt; · Aug 8, 2020 · 5 min read</p>
+  </header>
+  
+  <p class="post-summary">A number of programming languages offer a feature called “Named Arguments” or “Labeled Arguments”, which makes some function calls much more readable and safer.
+Let’s see how hard it would be to add these in Rust.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/rust-named-arguments/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/uom.rs/" class="post-link">Units of Measure in Rust with Refinement Types</a></h3>
+    <p class="post-meta">@David Teller · Jan 17, 2020 · 8 min read</p>
+  </header>
+  
+  <p class="post-summary">Years ago, Andrew Kennedy published a foundational paper about a type checker for units of measure, and later implemented it for F#. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.
+I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/uom.rs/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/layoffs/" class="post-link">Layoff survival guide</a></h3>
+    <p class="post-meta">@David Teller · Jan 16, 2020 · 6 min read</p>
+  </header>
+  
+  <p class="post-summary">If you’re reading these lines, you may have recently been laid off from your job. Or maybe, depending on your country and its laws, you’re waiting to know if you’re being laid off.
+Well, I’ve been there and I’ve survived it, so, based on my experience, here are a few suggestions:
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/layoffs/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/binary-ast-compression-1/" class="post-link">The BinAST diaries - Compression, part 1</a></h3>
+    <p class="post-meta">@David Teller · Feb 28, 2019 · 7 min read</p>
+  </header>
+  
+  <p class="post-summary">If you have been following the work on the JavaScript Binary AST, you probably realized that we haven’t been communicating much recently. Sorry about that, we’ve been busy iterating on it!
+In this blog entry, I’d like to talk to you about our current main focus: file compression.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/binary-ast-compression-1/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/rpg-blog/" class="post-link">New blog: Space·Time Will Tell</a></h3>
+    <p class="post-meta">@David Teller · Oct 12, 2018 · 1 min read</p>
+  </header>
+  
+    <img class="post-cover" src="https://yoric.github.io/img/logo.png" alt="New blog: Space·Time Will Tell">
+  
+  <p class="post-summary">I have decided to keep this blog for professional use and move everything related to storytelling, role-playing games or improv acting to a new location.
+Without further ado, let me introduce Space·Time Will Tell!
+At the menu:
+ a comic book tutorial for Fate RPG! using Tarot-like cards for storytelling! several elevator pitches for stories I haven’t had the time to write! the Space·Time Deck! the Ronin Time Bureaucrats! adventure and excitement!</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/rpg-blog/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/rtb-about/" class="post-link">And now, for something completely different: Ronin Time Bureaucrats</a></h3>
+    <p class="post-meta">@David Teller · Sep 6, 2018 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">When I’m not busy attempting to reduce the startup time and power requirements of web pages with the JavaScript Binary AST, I’m into Improv Acting and Role-Playing Games.
+I’d like to introduce a hobby project of mine, which I have started over the summer: Ronin Time Bureaucrats – an narrative/improv Role-Playing Game of Handwavy Time Paradoxes.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/rtb-about/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/thinkerbell-postmortem/" class="post-link">Thinkerbell Postmortem/Brain dump</a></h3>
+    <p class="post-meta">@David Teller · Mar 8, 2018 · 14 min read</p>
+  </header>
+  
+  <p class="post-summary">Two years ago, I was working on a research project called “Project Link” as part of the Connected Devices branch of Mozilla. While this branch has since been stopped, some part of Project Link lives on as Project Things.
+One of the parts of Project Link that hasn’t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
+ Whenever I press any button labelled “light” in the living room, toggle all the lights in the living room.
+ or
+ If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
+ Thinkerbell also had:
+ semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras.  Ideally, I’d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I’ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
+Note that some of the ideas exposed here were never actually implemented. Project Link was cancelled while Thinkerbell was still in its infancy.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/thinkerbell-postmortem/">Read More →</a>
+  </footer>
+</article>
+ 
+   
+  <footer class="list-footer">
+    <nav class="pagination">
+      <h3 class="offscreen">Pagination</h3>
+       
+      <a class="pagination-next" href="https://yoric.github.io/page/2/">Older Posts →</a>
       
-    
-    
-  </section>
-  <footer class="site-footer">
+    </nav>
+  </footer>
+  
+</section>
+<footer class="site-footer">
   <p>© 2017-2020 Il y a du thé renversé au bord de la table !</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
@@ -261,7 +396,6 @@
 <script src="https://yoric.github.io/js/bundle.js"></script>
 
 
-
-
+ 
   </body>
 </html>
