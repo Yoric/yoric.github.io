@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>Mentored Bugs - mozGreatPractices, part 1</title>
+  <title>about:Mozilla&#39;s Mentored Bugs - and how it could work for your project</title>
 
   
   
@@ -17,25 +17,28 @@
   
   <meta name="author" content="David Teller" />
   <meta name="description" content="2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.
-At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult That&amp;rsquo;s where Mentored Bugs come in.
+At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.
+This is where Mentored Bugs come in.
 " />
 
   
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="Mentored Bugs - mozGreatPractices, part 1" />
+    <meta name="twitter:title" content="about:Mozilla&#39;s Mentored Bugs - and how it could work for your project" />
     <meta name="twitter:description" content="2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.
-At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult That&amp;rsquo;s where Mentored Bugs come in.
+At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.
+This is where Mentored Bugs come in.
 " />
     <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
   
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Mentored Bugs - mozGreatPractices, part 1" />
+  <meta property="og:title" content="about:Mozilla&#39;s Mentored Bugs - and how it could work for your project" />
   <meta property="og:description" content="2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.
-At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult That&amp;rsquo;s where Mentored Bugs come in.
+At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.
+This is where Mentored Bugs come in.
 " />
   <meta property="og:url" content="https://yoric.github.io/post/moz-great-stuff/" />
   <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
@@ -243,12 +246,12 @@ At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsq
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">Mentored Bugs - mozGreatPractices, part 1</h1>
-      <p class="post-meta">@David Teller · Oct 2, 2020 · 4 min read</p>
+      <h1 class="post-title">about:Mozilla&#39;s Mentored Bugs - and how it could work for your project</h1>
+      <p class="post-meta">@David Teller · Oct 2, 2020 · 5 min read</p>
     </header>
     <article class="post-content"><p>2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.</p>
-<p>At its core, Mozilla is a community of open-source enthusiasts. When you&rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult
-That&rsquo;s where <strong>Mentored Bugs</strong> come in.</p>
+<p>At its core, Mozilla is a community of open-source enthusiasts. When you&rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.</p>
+<p>This is where <strong>Mentored Bugs</strong> come in.</p>
 <p>Mentored Bugs are a mechanism that serves:</p>
 <ul>
 <li>to introduce a new contributor to open-source in general and Mozilla projects in particular (typically Firefox, but this could just as well be any of our websites, or our data pipeline, etc.);</li>
@@ -258,8 +261,7 @@ That&rsquo;s where <strong>Mentored Bugs</strong> come in.</p>
 </ul>
 <p>So, how does this work?</p>
 <p>Let&rsquo;s consider Alice and Bob. Alice is a seasoned Firefox developer and will be our Mentor for this story. Bob is a new contributor who wishes to write some code in Firefox, but doesn&rsquo;t know where to start yet. At this stage, they don&rsquo;t know each other..</p>
-<p>Like most full-time Firefox developers, Alice is currently working on a gazillion issues concurrently. She&rsquo;s fixing back-end bugs, adding new front-end features and someone mentions that in her current (imaginary) project about:lizards, a simple CSS change could make this new feature much more readable. That&rsquo;s great! But that&rsquo;s also low priority for Alice, because most of what she&rsquo;s working on is stuff that other developers are waiting for. At this stage, Alice opens an issue on bugzilla (Mozilla&rsquo;s issue tracker), write downs
-what needs to be done and promptly forget this low-priority task among hundreds of other low-priority tasks.</p>
+<p>Like most full-time Firefox developers, Alice is currently working on a gazillion issues concurrently. She&rsquo;s fixing back-end bugs, adding new front-end features and someone mentions that in her current (imaginary) project about:lizards, a simple CSS change could make this new feature much more readable. That&rsquo;s great! But that&rsquo;s also low priority for Alice, because most of what she&rsquo;s working on is stuff that other developers are waiting for. At this stage, Alice opens an issue on bugzilla (Mozilla&rsquo;s issue tracker – this would also work with github issues), write downs what needs to be done and promptly forget this low-priority task among hundreds of other low-priority tasks.</p>
 <p>Or, in two clicks, she can turn this issue into a <em>Mentored Bug</em> (note that, at Mozilla, we call every change a &ldquo;bug&rdquo;, whether it&rsquo;s something that needs to be fixed, or an improvement, or a contract that needs to be signed, etc.).</p>
 <p>Enters Bob. Bob is curious about Firefox, has a little time, wishes to contribute some CSS, and has learnt that Mozilla has interesting tasks on <a href="https://codetribute.mozilla.org/">Codetribute</a>. So Bob goes to Codetribute, clicks on &ldquo;I know CSS&rdquo; and finds a list of open Mentored Bugs. Browsing a bit randomly, Bob picks a random entry in the list and leaves a message for the Mentor saying &ldquo;Hey, I want to work on this Mentored Bug!&rdquo;</p>
 <p>The system has successfully introduced Alice and Bob.</p>
@@ -269,8 +271,8 @@ what needs to be done and promptly forget this low-priority task among hundreds 
 <p>For bonus points, Mentored Bugs can be labeled &ldquo;Good first bug&rdquo; or &ldquo;Good later bug&rdquo;, to further indicate their audience.</p>
 <p>There are, of course, cases in which the cooperation doesn&rsquo;t work. Maybe the task is more complicated than what Alice or Bob thought, or maybe Bob turns out to not have as much time at hand as he expected. But in general, this system works extremely well.</p>
 <p>I have personally stopped counting how many new contributors I have mentored at Mozilla when I reached the count of 100 Mentored Bugs resolved, and that was about 5 years ago. Some of the contributors came back for more contributions, some moved on to other projects, some disappeared from my radar knowing a little bit more about open-source. And I know of a few who were hired by Mozilla :)</p>
-<p>So, a round of applause to <a href="https://www.linkedin.com/in/joshuadmatthews/">Josh Matthews</a>, who came up with the system of Mentored Bugs back in 2011!</p>
-<p>By now, Codetribute works with github issue trackers as well as with Bugzilla, and can certainly be extended to other systems.</p></article>
+<p>I hope I have convinced you that Mentored Bugs would be a great addition to most open-source projects. They cost basically nothing, they help both external contributors and internal contributors and are a great opportunity for both of them to learn and network. Now, this doesn&rsquo;t have to stop there. I believe that even proprietary projects could benefit from (internal) mentored bugs, used to onboard new organization members and people who move across teams.</p>
+<p>So, a round of applause to <a href="https://www.linkedin.com/in/joshuadmatthews/">Josh Matthews</a>, who came up with the system of Mentored Bugs back in 2011!</p></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
@@ -280,6 +282,8 @@ what needs to be done and promptly forget this low-priority task among hundreds 
           <li><a href="https://yoric.github.io/tags/mentoring"><span class="tag">Mentoring</span></a></li>
         
           <li><a href="https://yoric.github.io/tags/open-source"><span class="tag">Open-Source</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/mozgreatstuff"><span class="tag">MozGreatStuff</span></a></li>
         
       </ul>
       

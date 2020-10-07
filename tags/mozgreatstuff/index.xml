@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>open-source on Il y a du thé renversé au bord de la table !</title>
-    <link>https://yoric.github.io/tags/open-source/</link>
-    <description>Recent content in open-source on Il y a du thé renversé au bord de la table !</description>
+    <title>mozGreatStuff on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/tags/mozgreatstuff/</link>
+    <description>Recent content in mozGreatStuff on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Tue, 06 Oct 2020 11:06:16 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Oct 2020 11:06:16 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/mozgreatstuff/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>about:Mozilla&#39;s #introduction channel - and how it could work for your project</title>
       <link>https://yoric.github.io/post/about-introduction/</link>
@@ -27,18 +27,6 @@
       <description>&lt;p&gt;2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.&lt;/p&gt;
 &lt;p&gt;At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.&lt;/p&gt;
 &lt;p&gt;This is where &lt;strong&gt;Mentored Bugs&lt;/strong&gt; come in.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Extracting text from images is not easy (who would have guessed?)</title>
-      <link>https://yoric.github.io/post/extracting-text-from-images/</link>
-      <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/post/extracting-text-from-images/</guid>
-      <description>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
-From there, we started a number of experiments. I figured out it was time to braindump some of them.
-Our problem Consider the following example:
-How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.</description>
     </item>
     
   </channel>

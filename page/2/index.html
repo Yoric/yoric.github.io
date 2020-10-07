@@ -234,6 +234,25 @@
   
    <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://yoric.github.io/post/thinkerbell-postmortem/" class="post-link">Thinkerbell Postmortem/Brain dump</a></h3>
+    <p class="post-meta">@David Teller · Mar 8, 2018 · 14 min read</p>
+  </header>
+  
+  <p class="post-summary">Two years ago, I was working on a research project called “Project Link” as part of the Connected Devices branch of Mozilla. While this branch has since been stopped, some part of Project Link lives on as Project Things.
+One of the parts of Project Link that hasn’t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
+ Whenever I press any button labelled “light” in the living room, toggle all the lights in the living room.
+ or
+ If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
+ Thinkerbell also had:
+ semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras.  Ideally, I’d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I’ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
+Note that some of the ideas exposed here were never actually implemented. Project Link was cancelled while Thinkerbell was still in its infancy.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://yoric.github.io/post/thinkerbell-postmortem/">Read More →</a>
+  </footer>
+</article>
+  <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://yoric.github.io/post/holyjit/" class="post-link">HolyJIT: Could we write a multi-staged JIT compiler?</a></h3>
     <p class="post-meta">@David Teller · Mar 6, 2018 · 10 min read</p>
   </header>
@@ -345,20 +364,6 @@ Still, working on it, we managed to learn or come up with a few tricks to increa
   <p class="post-summary">While Hubpress is a cool project, I had no idea of what it could be doing with my password, so I have migrated to Hugo.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://yoric.github.io/post/migration-2/">Read More →</a>
-  </footer>
-</article>
-  <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://yoric.github.io/post/extracting-text-from-images/" class="post-link">Extracting text from images is not easy (who would have guessed?)</a></h3>
-    <p class="post-meta">@David Teller · Jan 1, 2017 · 7 min read</p>
-  </header>
-  
-  <p class="post-summary">At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
-From there, we started a number of experiments. I figured out it was time to braindump some of them.
-Our problem Consider the following example:
-How do we get from this beautiful picture of Mozilla’s Paris office to the text “PRIDE and PREJUDICE”, “Jane Austen”, “Great Books”, “Great Prices”, “$9.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://yoric.github.io/post/extracting-text-from-images/">Read More →</a>
   </footer>
 </article>
  
