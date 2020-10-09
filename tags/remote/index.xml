@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>mozGreatStuff on Il y a du thé renversé au bord de la table !</title>
-    <link>https://yoric.github.io/tags/mozgreatstuff/</link>
-    <description>Recent content in mozGreatStuff on Il y a du thé renversé au bord de la table !</description>
+    <title>remote on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/tags/remote/</link>
+    <description>Recent content in remote on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 08 Oct 2020 12:15:16 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/mozgreatstuff/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Oct 2020 12:15:16 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/remote/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>about:Mozilla&#39;s blockers and needinfos</title>
       <link>https://yoric.github.io/post/about-blockers/</link>
@@ -26,17 +26,6 @@
       <guid>https://yoric.github.io/post/about-introduction/</guid>
       <description>&lt;p&gt;Let&amp;rsquo;s continue &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;this series&lt;/a&gt; on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.&lt;/p&gt;
 &lt;p&gt;This time, let&amp;rsquo;s talk about &lt;a href=&#34;https://chat.mozilla.org/#/room/#introduction:mozilla.org&#34;&gt;Mozilla&amp;rsquo;s &lt;code&gt;#introduction&lt;/code&gt; chatroom&lt;/a&gt;.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>about:Mozilla&#39;s Mentored Bugs - and how it could work for your project</title>
-      <link>https://yoric.github.io/post/moz-great-stuff/</link>
-      <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/post/moz-great-stuff/</guid>
-      <description>&lt;p&gt;2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.&lt;/p&gt;
-&lt;p&gt;At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.&lt;/p&gt;
-&lt;p&gt;This is where &lt;strong&gt;Mentored Bugs&lt;/strong&gt; come in.&lt;/p&gt;</description>
     </item>
     
   </channel>
