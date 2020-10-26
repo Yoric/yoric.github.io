@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>yoric.steps.next()</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.
+The creators of the Matrix protocol have recently published the most promising plan I have seen. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.
+I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at Mozilla, I&amp;rsquo;ll be moving to Element, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="yoric.steps.next()" />
+    <meta name="twitter:description" content="The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.
+The creators of the Matrix protocol have recently published the most promising plan I have seen. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.
+I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at Mozilla, I&amp;rsquo;ll be moving to Element, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="yoric.steps.next()" />
+  <meta property="og:description" content="The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.
+The creators of the Matrix protocol have recently published the most promising plan I have seen. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.
+I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at Mozilla, I&amp;rsquo;ll be moving to Element, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/yoric-step-next/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.75.1" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/yoric-step-next/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">yoric.steps.next()</h1>
+      <p class="post-meta">@David Teller · Oct 26, 2020 · 3 min read</p>
+    </header>
+    <article class="post-content"><p>The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.</p>
+<p>The creators of the Matrix protocol have recently published <a href="https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors">the most promising plan I have seen</a>. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.</p>
+<p>I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at <a href="https://mozilla.org">Mozilla</a>, I&rsquo;ll be moving to <a href="https://element.io">Element</a>, where I&rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.</p>
+<h1 id="9-years-already">9 years already!</h1>
+<p>I&rsquo;d like to <del>brag</del> reminisce about all the great people I&rsquo;ve met at and around Mozilla, all the great stuff I&rsquo;ve learnt from them and all the great projects I&rsquo;ve worked on, but I don&rsquo;t want to make this a 20 pages long read, so, I&rsquo;ll leave it as a great &ldquo;<em>thank you</em>&rdquo; to Mozillians, past, present and future!</p>
+<p>You all make the web a better place.</p>
+<p>To paraphrase <a href="https://davidwalsh.name/leaving-mozilla">David Walsh</a>: &ldquo;I&rsquo;m not sad, I&rsquo;m proud of all of us. You did it! We did it! We all f*cking did it! Now let&rsquo;s do it again!&rdquo;</p>
+<h1 id="wait-im-not-dead">Wait, I&rsquo;m not dead!</h1>
+<p>I&rsquo;ve been a card-carrying member of the Mozilla community since 2003, I&rsquo;m not going to vanish overnight!</p>
+<p>I&rsquo;m going to reduce my activities a lot but I&rsquo;m planning to stick around quite a bit longer. You&rsquo;ll still be able to find me on <a href="https://chat.mozilla.org">https://chat.mozilla.org</a>, lurking around <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a>, #mozfr and certainly a few other places.</p>
+<p>I will also keep my bugzilla account open, although I&rsquo;ll certainly monitor it less frequently.</p>
+<p>And once we&rsquo;re finally past covid, I hope to see some of you around FOSDEM, MozFests, Rust Meetups, etc.</p>
+<h1 id="orphan-code">Orphan code</h1>
+<p>That being said, I believe that I am leaving behind the following projects without any natural owner:</p>
+<ul>
+<li><del>OS.File and OS.Path</del> (thanks, @barret);</li>
+<li><del>AsyncShutdown</del> (thanks, @mak and @Gijs);</li>
+<li>The Shutdown Terminator;</li>
+<li>PromiseWorker;</li>
+<li><del>Maybe async testing</del> (thanks, @ahal);</li>
+<li>Maybe some Talos Tests I wrote a while ago.</li>
+</ul>
+<p>I think that&rsquo;s all. I hope that&rsquo;s all. I believe that all the other projects I&rsquo;ve worked on have still at least one stakeholder working at Mozilla in a capacity in which they can either take over or designate a helpless victim to take over for me.</p>
+<p>So&hellip; it might be great if a few willing devs were to step forward and take <del>the blame</del> charge of these components! I&rsquo;ll do my best to answer any question they might have.</p>
+<h1 id="goodbye">Goodbye!</h1>
+<p>See you soon and keep rocking the free web!</p>
+<p>My coordinates:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">myNickname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">@</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">myNickname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.xyz`</span> <span style="color:#75715e">// e-mail
+</span><span style="color:#75715e"></span><span style="color:#e6db74">`@</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">myNickname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">:matrix.org`</span>       <span style="color:#75715e">// Matrix
+</span></code></pre></div></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/open-source"><span class="tag">Open-Source</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/meta"><span class="tag">Meta</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: '2a694e171a5e238eae51944c76e40ebb',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+      
+      
+        
+        
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2020 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

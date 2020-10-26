@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 08 Oct 2020 12:15:16 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Oct 2020 16:33:46 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>yoric.steps.next()</title>
+      <link>https://yoric.github.io/post/yoric-step-next/</link>
+      <pubDate>Mon, 26 Oct 2020 16:33:46 +0200</pubDate>
+      
+      <guid>https://yoric.github.io/post/yoric-step-next/</guid>
+      <description>&lt;p&gt;The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.&lt;/p&gt;
+&lt;p&gt;The creators of the Matrix protocol have recently published &lt;a href=&#34;https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors&#34;&gt;the most promising plan I have seen&lt;/a&gt;. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.&lt;/p&gt;
+&lt;p&gt;I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at &lt;a href=&#34;https://mozilla.org&#34;&gt;Mozilla&lt;/a&gt;, I&amp;rsquo;ll be moving to &lt;a href=&#34;https://element.io&#34;&gt;Element&lt;/a&gt;, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>about:Mozilla&#39;s blockers and needinfos</title>
       <link>https://yoric.github.io/post/about-blockers/</link>
