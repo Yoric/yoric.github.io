@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Effects in Rust</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="About types and effects In most strongly-typed programming languages, the type of a function or method will let you find out what type of arguments (including this / self) it needs, whether it can mutate them and what sort of return value it can produce. By looking at the type of a function, you can easily determine whether it can be applied in a given context, whether it will produce the type of result, and whether you need to copy arguments before calling them.
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="Effects in Rust" />
+    <meta name="twitter:description" content="About types and effects In most strongly-typed programming languages, the type of a function or method will let you find out what type of arguments (including this / self) it needs, whether it can mutate them and what sort of return value it can produce. By looking at the type of a function, you can easily determine whether it can be applied in a given context, whether it will produce the type of result, and whether you need to copy arguments before calling them.
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Effects in Rust" />
+  <meta property="og:description" content="About types and effects In most strongly-typed programming languages, the type of a function or method will let you find out what type of arguments (including this / self) it needs, whether it can mutate them and what sort of return value it can produce. By looking at the type of a function, you can easily determine whether it can be applied in a given context, whether it will produce the type of result, and whether you need to copy arguments before calling them.
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/rust-effects/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.108.0" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/rust-effects/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Effects in Rust</h1>
+      <p class="post-meta">@David Teller · Jan 27, 2020 · 10 min read</p>
+    </header>
+    <article class="post-content"><h1 id="about-types-and-effects">About types and effects</h1>
+<p>In most strongly-typed programming languages, the type of a function or method will let you find out what type of arguments (including <code>this</code> / <code>self</code>) it needs, whether it can mutate them and what sort of return value it can produce. By looking at the type of a function, you can easily determine whether it can be applied in a given context, whether it will produce the type of result, and whether you need to copy arguments before calling them.</p>
+<p>For instance, in Rust, we have (slightly simplified)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> File {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">create</span>(path: <span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>File<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In other words, <code>File::create</code> converts a <code>Path</code> into a <code>Result&lt;File&gt;</code>.</p>
+<p>In some languages, function types also carry <em>effects</em>, which can be used to determine <em>what</em> the function is doing. A function that has no <em>effect</em> is purely computational, while a function that accesses the filesystem (or the network) will be marked by an effect such as <code>IO</code>.</p>
+<p>In pseudo-Rust, we could write</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> File {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">create</span>(path: <span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>File<span style="color:#f92672">&gt;</span> with Effect: <span style="color:#a6e22e">IO</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In other words, <code>File::create</code> converts a <code>Path</code> into a <code>Result&lt;File&gt;</code> <em>with effect <code>IO</code></em>. Consequently, any function that calls <code>File::create</code> will also carry effect <code>IO</code>. Presumably, function <code>main()</code> itself will carry effect <code>IO</code> but most of the code called by <code>main()</code> doesn&rsquo;t require use of the file system and will consequently not carry this effect.</p>
+<p>An immmediate application of effects is safety check. A function that doesn&rsquo;t have
+the <code>IO</code> effect is guaranteed to not have access to the file system. This also simplifies testing, as we don&rsquo;t need to mock I/O to test any such access. Experience from languages
+such as Haskell (which encodes effects with Monads) suggests that this encourages writing
+code that neatly decouples I/O from computation, which is a nice side-effect.</p>
+<p>Effects can easily go beyond <code>IO</code>. For instance, Java offers an effect called <code>throws</code>,
+which serves to track error-handling. Rust offers <code>unsafe</code>, which serves to track
+type-unsafe code. In a framework dedicated to embedded or system
+programming, one could very well have an effect <code>DynAlloc</code> whenever we need dynamic
+memory allocation or an effect <code>Logging</code> to mark code that can only be executed once
+logging is activated or an effect <code>Rnd</code> to mark code that relies upon random-number
+generation. Server-oriented frameworks could offer effects <code>Database</code>, <code>Registered</code>
+(for code that needs to ru nonly when the user is registered), etc. Multi-tiered
+languages/frammeworks/toolchains such as Opa or Ur/Web could offer effects <code>Client</code>
+(for code that needs to run on the client) and <code>Server</code> (for code that needs to run
+on the server). A compiler implementation could use effects to distinguish code that
+can only run after type-checking, code that needs to run during preprocessing, or
+during optimizations, etc.</p>
+<p>In all such languages or frameworks, we need a primitive to <em>enter</em> the effect. In
+languages such as Haskell, for instance, the main function automatically
+enters <code>IO</code>, which gives it the ability to call <code>IO</code>-labelled expressions –
+in safe Haskell, this is the only way to enter <code>IO</code>. In Java,
+<code>try { ... } catch {IOException ...}</code> will enter effect <code>IOException</code>, giving the
+block the ability to call code that is labelled with <code>throws IOException</code>. In Rust,
+unsafe code may only code from unsafe code or blocks explicitly marked
+as <code>unsafe</code>. Similarly, in our example, a framework offering a capability
+<code>DynAlloc</code> would need a function <code>enter_dynalloc</code> wrapping all the code that
+needs access to <code>DynAlloc</code>. Use of this function needs to be audited carefully
+(possibly linted), for instance to ensure that this method is only ever used a
+single time, from within <code>main()</code>.</p>
+<p>Note that effects can also be more specific labels. For instance, instead of <code>IO</code>, we could
+have effects <code>IO&lt;Read&gt;</code> and <code>IO&lt;Write&gt;</code> that grant distinct rights for reading and writing.
+In a previous life, I wrote <a href="https://dutherenverseauborddelatable.wordpress.com/2008/06/03/extrapol-part-1-from-c-to-effects/">a static analyzer for C</a> that used effects and dependent types
+to try and determine which individual files or directories could be affected by
+code. While it was, by definition of C, neither sound nor complete, it served to
+demonstrate the potential of effects for fine-grained security.</p>
+<h1 id="encoding-effects-in-various-languages">Encoding effects in various languages</h1>
+<p>There are a few languages that offer types and effects. Java has support for a specific effect <code>throws</code>.
+Languages such as <a href="https://www.idris-lang.org/">Idris</a>, <a href="https://github.com/koka-lang/koka">Koka</a> or <a href="https://github.com/ocaml-multicore/ocaml-multicore">OCaml Multicore</a> have a type system that lets users define their own effects and combine them.</p>
+<p>In languages such as Haskell, effects are encoded as monads. For instance, the equivalent of <code>File::create</code> would look like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#a6e22e">createFile</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">FilePath</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">File</span>
+</span></span></code></pre></div><p>this is code that may only be executed within the <code>IO</code> Monad. What this encoding does, essentially,
+is require all <code>IO</code> functions to return closures that will only be executed once we enter the <code>IO</code>
+effect (note that the <code>IO</code> monad in Haskell is actually about much more than I/O, but we don&rsquo;t
+need to know the details for the current post). This system works very well in code that only
+requires a single effect but doesn&rsquo;t scale
+very comfortably to code that needs to juggle with several effects at once, a problem that quickly
+becomes manifest in programs that need sophisticated error-handling. Also, in most languages, the
+creation of closures has a cost in terms of memory and execution time.</p>
+<p>I believe that such an encoding would also work in OCaml, Scala and Kotlin (assuming that you do
+not use the standard libraries). I admit that I haven&rsquo;t checked, but I also suspect that, even
+with a customized standard library, such an encoding would not be possible in Java or C#, due
+to limitations of closures. In either case, this encoding through monads has deep consequences
+on the order of evaluation of code, which is an intended side-effect in Haskell, but may very
+well not be what people expect in other languages.</p>
+<p>It <em>might</em> be possible to port this encoding to Rust (again, if we do not use the standard
+library), at the cost of heap-allocating just about everything, but this is very much
+contrary to the spirit of the programming language.</p>
+<p>So what could we do in Rust to enforce effects?</p>
+<h1 id="encoding-effects-in-rust">Encoding effects in Rust</h1>
+<p>Let us look at the problem differently. In our above examples, <code>IO</code> is a form of <em>capability</em>.
+In Rust, capabilities are typically passed simply as arguments:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">mod</span> io {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Guarantee that only module `io` can implement `IO`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">trait</span> Private {}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">trait</span> IO: <span style="color:#a6e22e">Private</span> { }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Enter capability IO.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">with_capability</span><span style="color:#f92672">&lt;</span>F, T<span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>) -&gt; <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">where</span> F: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">dyn</span> IO -&gt; <span style="color:#a6e22e">T</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> io::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> File {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">create</span>(io: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">dyn</span> IO, path: <span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>File<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    with_capability(<span style="color:#f92672">|</span>io<span style="color:#f92672">|</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> file <span style="color:#f92672">=</span> File::create(<span style="color:#e6db74">&#34;/tmp/test&#34;</span>)<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Ok()
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>(we use <code>&amp;dyn IO</code> – that&rsquo;s not the only way to do it)</p>
+<p>And&hellip; that&rsquo;s it. Only code that has access to the <code>IO</code> capability
+can execute <code>File::create</code>. As previously, uses of <code>with_capability</code>
+need to be audited. For instance, we can trivially write a linter
+to ensure that <code>io::with_capability</code> is only ever called from
+<code>main()</code>.</p>
+<p>We can even go further and split <code>IO&lt;Read&gt;</code> from <code>IO&lt;Write&gt;</code> as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">mod</span> io {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">/// A private trait.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#66d9ef">trait</span> Private {}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">PrivateStruct</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">/// Phantom traits.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">trait</span> Read: <span style="color:#a6e22e">Private</span> {}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">trait</span> Write: <span style="color:#a6e22e">Private</span> {}
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">/// IO capability.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">trait</span> IO<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>: <span style="color:#a6e22e">Private</span> {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">/// A read/write capability. It may
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#e6db74">/// only be constructed (on the stack)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#e6db74">/// by function `with_capability`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">RWCapability</span>(PrivateStruct);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">impl</span> Private <span style="color:#66d9ef">for</span> RWCapability {}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">impl</span> Read <span style="color:#66d9ef">for</span> RWCapability {}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">impl</span> Write <span style="color:#66d9ef">for</span> RWCapability {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">/// Enter capability IO.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#e6db74">/// Callback `f` is called with both `Read` and `Write` capabilities.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#e6db74">/// It can decide to distribute only capability `Read` or only capability
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#e6db74">/// `Write` to functions that it calls.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>        <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">with_capability</span><span style="color:#f92672">&lt;</span>F, T<span style="color:#f92672">&gt;</span>(f: <span style="color:#a6e22e">F</span>) -&gt; <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">where</span> F: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">dyn</span> IO<span style="color:#f92672">&lt;</span>RWcapability<span style="color:#f92672">&gt;</span> -&gt; <span style="color:#a6e22e">T</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">use</span> io::<span style="color:#f92672">*</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> File {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Read a file. Requires capability `IO&lt;Read&gt;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(io: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">dyn</span> IO<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, path: <span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">where</span> T: <span style="color:#a6e22e">Read</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Create a file. Requires capability `IO&lt;Write&gt;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">create</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(io: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">dyn</span> IO<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, path: <span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>File<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">where</span> T: <span style="color:#a6e22e">Write</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// Copy a file. Requires capability `IO&lt;Read + Write&gt;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">copy</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(io: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">dyn</span> IO<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>, from: <span style="color:#a6e22e">Path</span>, to: <span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>()<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">where</span> T: <span style="color:#a6e22e">Read</span> <span style="color:#f92672">+</span> Write;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Not only does this solution work, but we don&rsquo;t even need to change our return values.
+We can still use Rust&rsquo;s <code>std::io::Result</code> and <code>?</code> or, if we prefer, any other return
+value we wish. If we add several effects, we can even mix them in a single call,
+something that is much harder to do with the monadic encoding.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_and_log</span>(io: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">dyn</span> IO, log: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">dyn</span> Log, path: <span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>If the solution is so simple and powerful, surely, there must be a catch. Why can&rsquo;t
+we do the same in Haskell, OCaml or Java?</p>
+<p>Well, let&rsquo;s try it in Java:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> io<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IO</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Read</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Write</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RWCapability</span> <span style="color:#66d9ef">implements</span> Read<span style="color:#f92672">,</span> Write <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Package-private constructor.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    RWCapability<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Some code that requires a `IO` to execute.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IOHandler</span><span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// A callback called with both `Read` and `Write` capabilities.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// This callback may decide to only distribute `IO&lt;Read&gt;` or `IO&lt;Write&gt;`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// capabilities.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    U <span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>IO<span style="color:#f92672">&lt;</span>RWCapability<span style="color:#f92672">&gt;)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">IOManager</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Enter capability IO.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Callback `handler.run` is called with both `Read` and `Write` capabilities.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;</span> U <span style="color:#a6e22e">withCapability</span><span style="color:#f92672">(</span>IOHandler<span style="color:#f92672">&lt;</span>U<span style="color:#f92672">&gt;</span> handler<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> file<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>use io<span style="color:#f92672">::*;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">File</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Read<span style="color:#f92672">&gt;</span> String <span style="color:#a6e22e">read</span><span style="color:#f92672">(</span>io<span style="color:#f92672">:</span> IO<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;,</span> path<span style="color:#f92672">:</span> Path<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Write<span style="color:#f92672">&gt;</span> String <span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>io<span style="color:#f92672">:</span> IO<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;,</span> path<span style="color:#f92672">:</span> Path<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#f92672">&lt;</span>T <span style="color:#66d9ef">extends</span> Read <span style="color:#f92672">&amp;</span> Write<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">void</span> copy<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;(</span>io<span style="color:#f92672">:</span> IO<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;,</span> from<span style="color:#f92672">:</span> Path<span style="color:#f92672">,</span> to<span style="color:#f92672">:</span> Path<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>So far, so good. The only limitation at this point is that we need to hardcode
+the <code>throws IOException</code>, but that&rsquo;s Java-specific. We wouldn&rsquo;t have this specific
+limitation in C#, Haskell or OCaml, for instance.</p>
+<p>However, with this API, we can easily <em>steal</em> the <code>IO</code> capability:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MaliciousIOHandler</span> <span style="color:#66d9ef">implements</span> IOHandler<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">(</span>IO<span style="color:#f92672">&lt;</span>RWCapability<span style="color:#f92672">&gt;</span> io<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>stolenIO <span style="color:#f92672">=</span> io<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    IO<span style="color:#f92672">&lt;</span>RWCapability<span style="color:#f92672">&gt;</span> stolenIO<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Suddenly, the IO capability has escaped and may be used by any other part of the code
+without accessing <code>withCapability</code>. We have lost any safety guarantee. This specific
+example is a bit forced, but such escapes situation arise very naturally once we start
+attaching lambdas to events or thread dispatches, possibly escaping from the domain
+in which they are allowed to run operations. While this may not cause the application
+to be broken, well, we have just broken the definition of effects.</p>
+<p>Even in Haskell, if effects were encoded as passing arguments, they could escape easily,
+simply by returning them and using them past their inteded scope.</p>
+<p>Now, in Rust, this is made impossible by the borrow-checker.</p>
+<p>Let&rsquo;s try and steal a capability:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"></code></pre></div><p>That&rsquo;s because Rust has ownership/borrow semantics that these other languages do not have.
+Languages such as OCaml or Java let the user define mutable global variables/static fields
+that would let code store the <code>IO</code> capability and reuse it covertly from code that should
+not have access to it. Even in Haskell, the <code>IO</code> capability could escape as a return value
+and be reused somewhere illicit.</p>
+<p>Let&rsquo;s attempt to do this in Rust:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"></code></pre></div><p>In any language with mutability, including OCaml, Java, C# &amp; co.,</p>
+<p>Let&rsquo;s port our code above to OCaml:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#f92672">mod</span> <span style="color:#a6e22e">IO</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">sig</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">(* The IO capability *)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span> t
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">mod</span> <span style="color:#a6e22e">File</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">sig</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">(* The type of files *)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> t<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> create<span style="color:#f92672">:</span> IO.t <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">Path</span> <span style="color:#f92672">-&gt;</span> File.t <span style="color:#a6e22e">Result</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><h1 id="effects-for-mocking">Effects for mocking</h1>
+<p>Cut out summary from your post content here.</p>
+<p>The remaining content of your post.</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://yoric.github.io/tags/rust"><span class="tag">Rust</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/types"><span class="tag">Types</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1054</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: '819275650ef4f21f9ef6fab1baa54ad3',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+      
+      
+        
+        
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2022 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

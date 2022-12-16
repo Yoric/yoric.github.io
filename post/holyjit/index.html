@@ -19,7 +19,7 @@
   <meta name="description" content=" Credit
 While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.
 So far, my role in this project has largely been to play the wise old advisor, nodding and smiling mischeviously whenever Nicolas started exploring new ideas, and emitting cryptic comments in Reverse Jedi Notation.
- A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
+A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
 In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
 " />
 
@@ -31,7 +31,7 @@ In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
     <meta name="twitter:description" content=" Credit
 While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.
 So far, my role in this project has largely been to play the wise old advisor, nodding and smiling mischeviously whenever Nicolas started exploring new ideas, and emitting cryptic comments in Reverse Jedi Notation.
- A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
+A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
 In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
 " />
     <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
@@ -43,7 +43,7 @@ In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
   <meta property="og:description" content=" Credit
 While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.
 So far, my role in this project has largely been to play the wise old advisor, nodding and smiling mischeviously whenever Nicolas started exploring new ideas, and emitting cryptic comments in Reverse Jedi Notation.
- A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
+A few months ago, we published a short (and mysterious) blog post in which we mentioned HolyJIT, an early research project towards a novel approach to writing JITs.
 In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
 " />
   <meta property="og:url" content="https://yoric.github.io/post/holyjit/" />
@@ -52,7 +52,7 @@ In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
 
 
 
-<meta name="generator" content="Hugo 0.75.1" />
+<meta name="generator" content="Hugo 0.108.0" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/holyjit/" />
@@ -357,27 +357,27 @@ produce the executable.</p>
 building a stack machine, <a href="http://www.ecma-international.org/ecma-262/7.0/index.html#sec-addition-operator-plus">the specifications</a> can
 be translated straightforwardly as the following
 opcode <code>Op::Add</code> and specifications-as-code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
-    <span style="color:#66d9ef">let</span> rval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
-    <span style="color:#66d9ef">let</span> lprim <span style="color:#f92672">=</span> lval.to_primitive()<span style="color:#f92672">?</span>;
-    <span style="color:#66d9ef">let</span> rprim <span style="color:#f92672">=</span> rval.to_primitive()<span style="color:#f92672">?</span>;
-    <span style="color:#66d9ef">match</span> (lprim.type_(), rprim.type_()) {
-        <span style="color:#75715e">// `+` may be used for string concatenation.
-</span><span style="color:#75715e"></span>        (String, _) <span style="color:#f92672">|</span> (_, String) <span style="color:#f92672">=&gt;</span> {
-            <span style="color:#66d9ef">let</span> lstring <span style="color:#f92672">=</span> lprim.to_string()<span style="color:#f92672">?</span>;
-            <span style="color:#66d9ef">let</span> rstring <span style="color:#f92672">=</span> rprim.to_string()<span style="color:#f92672">?</span>;
-            stack.push(JSString::concat(lstring, rstring)<span style="color:#f92672">?</span>)<span style="color:#f92672">?</span>
-        }
-        <span style="color:#75715e">// `+` may be used for numeric addition.
-</span><span style="color:#75715e"></span>        _ <span style="color:#f92672">=&gt;</span> {
-            <span style="color:#66d9ef">let</span> lnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
-            <span style="color:#66d9ef">let</span> rnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
-            stack.push(JSNumber::add(lnum, rnum)<span style="color:#f92672">?</span>)<span style="color:#f92672">?</span>
-        }
-    }
-})
-</code></pre></div><p>In the above code, we have used a macro <code>opcode!</code>.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> rval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> lprim <span style="color:#f92672">=</span> lval.to_primitive()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> rprim <span style="color:#f92672">=</span> rval.to_primitive()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">match</span> (lprim.type_(), rprim.type_()) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// `+` may be used for string concatenation.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        (String, _) <span style="color:#f92672">|</span> (_, String) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> lstring <span style="color:#f92672">=</span> lprim.to_string()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> rstring <span style="color:#f92672">=</span> rprim.to_string()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>            stack.push(JSString::concat(lstring, rstring)<span style="color:#f92672">?</span>)<span style="color:#f92672">?</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// `+` may be used for numeric addition.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        _ <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> lnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> rnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>            stack.push(JSNumber::add(lnum, rnum)<span style="color:#f92672">?</span>)<span style="color:#f92672">?</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>In the above code, we have used a macro <code>opcode!</code>.
 Rust macros are powerful enough to perform sophisticated
 rewriting on the AST and communicate with the rest of the
 toolchain.</p>
@@ -438,29 +438,29 @@ that we can turn an interpreter into a
 naive tracing compiler by performing
 a simple (and automated) rewrite of the CFG.</p>
 <p>Let&rsquo;s inform our toolchain that we want to do this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
-    <span style="color:#66d9ef">let</span> rval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
-    trace<span style="color:#f92672">!</span>{
-        <span style="color:#66d9ef">let</span> lprim <span style="color:#f92672">=</span> lval.to_primitive()<span style="color:#f92672">?</span>;
-        <span style="color:#66d9ef">let</span> rprim <span style="color:#f92672">=</span> rval.to_primitive()<span style="color:#f92672">?</span>;
-        <span style="color:#66d9ef">match</span> (lprim.type_(), rprim.type_()) {
-            <span style="color:#75715e">// `+` may be used for string concatenation.
-</span><span style="color:#75715e"></span>            (String, _) <span style="color:#f92672">|</span> (_, String) <span style="color:#f92672">=&gt;</span> {
-                <span style="color:#66d9ef">let</span> lstring <span style="color:#f92672">=</span> lprim.to_string()<span style="color:#f92672">?</span>;
-                <span style="color:#66d9ef">let</span> rstring <span style="color:#f92672">=</span> rprim.to_string()<span style="color:#f92672">?</span>;
-                stack.push(JSString::concat(lstring, rstring)<span style="color:#f92672">?</span>)
-            }
-            <span style="color:#75715e">// `+` may be used for numeric addition.
-</span><span style="color:#75715e"></span>            _ <span style="color:#f92672">=&gt;</span> {
-                <span style="color:#66d9ef">let</span> lnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
-                <span style="color:#66d9ef">let</span> rnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
-                stack.push(JSNumber::add(lnum, rnum)<span style="color:#f92672">?</span>)
-            }
-        }
-    }
-})
-</code></pre></div><p>So far, HolyJIT was extracting a single CFG from the specification
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> rval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>    trace<span style="color:#f92672">!</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> lprim <span style="color:#f92672">=</span> lval.to_primitive()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> rprim <span style="color:#f92672">=</span> rval.to_primitive()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">match</span> (lprim.type_(), rprim.type_()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// `+` may be used for string concatenation.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            (String, _) <span style="color:#f92672">|</span> (_, String) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> lstring <span style="color:#f92672">=</span> lprim.to_string()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> rstring <span style="color:#f92672">=</span> rprim.to_string()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>                stack.push(JSString::concat(lstring, rstring)<span style="color:#f92672">?</span>)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// `+` may be used for numeric addition.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            _ <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> lnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> rnum <span style="color:#f92672">=</span> lprim.to_number()<span style="color:#f92672">?</span>;
+</span></span><span style="display:flex;"><span>                stack.push(JSNumber::add(lnum, rnum)<span style="color:#f92672">?</span>)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>So far, HolyJIT was extracting a single CFG from the specification
 as source. Macro <code>trace!</code> instructs it to also extract a second
 CFG (we&rsquo;ll call it a <em>Tracing CFG</em>), obtained by transforming
 the <em>Interpreter CFG</em> to emit a trace of CFG-as-data.</p>
@@ -553,7 +553,7 @@ no dependency on a specific garbage-collector, and a very flexible toolchain.</p
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>969</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1746</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -582,7 +582,7 @@ no dependency on a specific garbage-collector, and a very flexible toolchain.</p
     
   </section>
   <footer class="site-footer">
-  <p>© 2017-2020 Il y a du thé renversé au bord de la table !</p>
+  <p>© 2017-2022 Il y a du thé renversé au bord de la table !</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>

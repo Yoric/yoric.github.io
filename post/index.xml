@@ -7,7 +7,26 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 26 Oct 2020 16:33:46 +0200</lastBuildDate><atom:link href="https://yoric.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Dec 2022 07:43:54 +0100</lastBuildDate><atom:link href="https://yoric.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Moderated Federated Networks might actually be what we need - part 1</title>
+      <link>https://yoric.github.io/post/federated-moderation-is-hard/</link>
+      <pubDate>Thu, 15 Dec 2022 07:43:54 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/federated-moderation-is-hard/</guid>
+      <description>&lt;p&gt;Among the many &lt;em&gt;interesting&lt;/em&gt; moments of this ending year 2022, we have had the chance of
+seeing the Twitter/Musk experiment unfold. I won&amp;rsquo;t spend time rehashing the many twists
+of this experiment, just a moment to offer the best wishes to all who work or worked at
+Twitter, in particular those being offered as scapegoats for the many sins of the C-suit,
+both past and present.&lt;/p&gt;
+&lt;p&gt;What I&amp;rsquo;m going to spend time on is moderation. If we listen to the official discourse, this
+entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid
+experiment, the number of users on Federated Networks such as Matrix and Mastodon has never
+been so high. And Twitter, both past and present, has been a permanent demonstration that
+moderation is hard. So&amp;hellip; what does it change to moderate a Federated Network?&lt;/p&gt;
+&lt;p&gt;Spoiler alert: it&amp;rsquo;s harder, but not impossible.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>yoric.steps.next()</title>
       <link>https://yoric.github.io/post/yoric-step-next/</link>
@@ -96,26 +115,6 @@ F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which 
     </item>
     
     <item>
-      <title>Layoff survival guide</title>
-      <link>https://yoric.github.io/post/layoffs/</link>
-      <pubDate>Thu, 16 Jan 2020 07:23:02 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/post/layoffs/</guid>
-      <description>&lt;p&gt;If you&amp;rsquo;re reading these lines, you may have recently been laid off from your job. Or maybe, depending on your country and its laws, you&amp;rsquo;re waiting to know if you&amp;rsquo;re being laid off.&lt;/p&gt;
-&lt;p&gt;Well, I&amp;rsquo;ve been there and I&amp;rsquo;ve survived it, so, based on my experience, here are a few suggestions:&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>The BinAST diaries - Compression, part 1</title>
-      <link>https://yoric.github.io/post/binary-ast-compression-1/</link>
-      <pubDate>Thu, 28 Feb 2019 10:29:03 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/post/binary-ast-compression-1/</guid>
-      <description>&lt;p&gt;If you have been following the work on the JavaScript Binary AST, you probably realized that we haven&amp;rsquo;t been communicating much recently. Sorry about that, we&amp;rsquo;ve been busy iterating on it!&lt;/p&gt;
-&lt;p&gt;In this blog entry, I&amp;rsquo;d like to talk to you about our current main focus: file compression.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>New blog: Space·Time Will Tell</title>
       <link>https://yoric.github.io/post/rpg-blog/</link>
       <pubDate>Fri, 12 Oct 2018 17:12:06 +0200</pubDate>
@@ -124,7 +123,7 @@ F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which 
       <description>I have decided to keep this blog for professional use and move everything related to storytelling, role-playing games or improv acting to a new location.
 Without further ado, let me introduce Space·Time Will Tell!
 At the menu:
- a comic book tutorial for Fate RPG! using Tarot-like cards for storytelling! several elevator pitches for stories I haven&amp;rsquo;t had the time to write! the Space·Time Deck! the Ronin Time Bureaucrats! adventure and excitement!</description>
+a comic book tutorial for Fate RPG! using Tarot-like cards for storytelling! several elevator pitches for stories I haven&amp;rsquo;t had the time to write! the Space·Time Deck! the Ronin Time Bureaucrats! adventure and excitement!</description>
     </item>
     
     <item>
@@ -216,7 +215,7 @@ mentioned HolyJIT, an early research project towards a novel approach to writing
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
       
       <guid>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</guid>
-      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;quot; - Mike Haertel, creator of GNU Grep.
+      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
 Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
 It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype.</description>
     </item>

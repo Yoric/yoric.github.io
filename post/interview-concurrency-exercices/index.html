@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Interview Concurrency Exercices</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="I&amp;rsquo;ve recently gone through a number of job interviews. As a warmup, I&amp;rsquo;ve attempted to find exercices in concurrency and I was a bit disappointed by what I&amp;rsquo;ve found. So here are a few, from the top of my head. I&amp;rsquo;ll add more as I think of them.
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="Interview Concurrency Exercices" />
+    <meta name="twitter:description" content="I&amp;rsquo;ve recently gone through a number of job interviews. As a warmup, I&amp;rsquo;ve attempted to find exercices in concurrency and I was a bit disappointed by what I&amp;rsquo;ve found. So here are a few, from the top of my head. I&amp;rsquo;ll add more as I think of them.
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/cover.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Interview Concurrency Exercices" />
+  <meta property="og:description" content="I&amp;rsquo;ve recently gone through a number of job interviews. As a warmup, I&amp;rsquo;ve attempted to find exercices in concurrency and I was a bit disappointed by what I&amp;rsquo;ve found. So here are a few, from the top of my head. I&amp;rsquo;ll add more as I think of them.
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/interview-concurrency-exercices/" />
+  <meta property="og:image" content="https://yoric.github.io/img/cover.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.108.0" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/interview-concurrency-exercices/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Interview Concurrency Exercices</h1>
+      <p class="post-meta">@David Teller · Oct 11, 2020 · 3 min read</p>
+    </header>
+    <article class="post-content"><p>I&rsquo;ve recently gone through a number of job interviews. As a warmup, I&rsquo;ve attempted to find exercices in concurrency and I was a bit disappointed by what I&rsquo;ve found. So here are a few, from the top of my head. I&rsquo;ll add more as I think of them.</p>
+<h1 id="general">General</h1>
+<ul>
+<li>
+<p>What kind of concurrency primitives does <!-- raw HTML omitted --> offer or recommend (either in the language or the standard library)? Tell me about why these primitives and not others? What are the tradeoffs of these primitives?</p>
+</li>
+<li>
+<p>When would you pick fibers (aka coroutines aka async functions) / threads / processes? What are the tradeoffs of each paradigm?</p>
+</li>
+<li>
+<p>What are atomics? Why do load and store atomic operations take as parameter an ordering? When would you use atomics rather than mutexes?</p>
+</li>
+</ul>
+<h1 id="threads">Threads</h1>
+<ul>
+<li>
+<p>Consider an array-like structure of length N, where N is very large. The array contains unordered values. Write some code to search for a value V in this structure with T threads. What are the tradeoffs? How will you optimize T for the fastest search?</p>
+</li>
+<li>
+<p>Design and implement a thread pool. How could you tweak it to work well with long, non-blocking, I/O.</p>
+</li>
+<li>
+<p>Consider a function <code>foo</code>. This function is unreliable, insofar as it sometimes freezes. Design a mechanism to call <code>foo</code> and retry as often as needed to make sure that the call has succeeded. You will need to make additional hypotheses on <code>foo</code>.</p>
+</li>
+<li>
+<p>How would you go about implementing a thread-safe memory allocator?</p>
+</li>
+<li>
+<p>How would you go about implementing thread-safe reference-counting?</p>
+</li>
+<li>
+<p>Consider a multi-threaded application with a main thread and any number of worker threads. Consider a data structure <code>Foo</code>. This data structure is reference-counted but the destructor is designed in such a way that it can only be safely executed in the main thread. Consider a case in which worker threads need to manipulate instances of <code>Foo</code>. How can you organize or refactor your code to ensure that the destructor is only ever executed on the main thread?</p>
+</li>
+<li>
+<p>Consider a function <code>foo</code>. This function is slow and blocking, so we wish to write a wrapper <code>foo_coalesced</code> that coalesces calls to <code>foo</code>: if we call <code>foo_coalesced</code> and nobody is currently calling <code>foo_coalesced</code>, call <code>foo</code> and return the result but if we call <code>foo_coalesced</code> and another call to <code>foo_coalesced</code> is in progress, merge the calls (don&rsquo;t call <code>foo</code> again) and return the result of the other call to <code>foo_coalesced</code>. In which circumstances will your mechanism break? How can you avoid this breakage?</p>
+</li>
+</ul>
+<h1 id="processes">Processes</h1>
+<ul>
+<li>
+<p>Design a mechanism for inter-process communication. Is message ordering guaranteed?</p>
+</li>
+<li>
+<p>Design a mechanism for broadcasting messages from one process to a group of processes. Is message sordering guaranteed?</p>
+</li>
+<li>
+<p>Consider a parent process and several children processes. Each of the children has a main loop and may be idle or processing an event/message sent either by the parent or by the OS. We want to design our system for resiliency, so we need to take into account the possibility that a child may be buggy and may freeze while handling an event/message. Design a mechanism that will let the parent determine when one child is frozen, so that it can be killed and relaunched. What are the tradeoffs you made while designing this mechanism?</p>
+</li>
+</ul></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://yoric.github.io/tags/taga"><span class="tag">TagA</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/tagb"><span class="tag">TagB</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>796</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: 'e7a082c7ae8be2c2f211d02339eb8aa4',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+      
+      
+        
+        
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2022 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

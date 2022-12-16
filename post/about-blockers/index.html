@@ -43,7 +43,7 @@ Today, let&amp;rsquo;s talk about what you can do when your work is blocked.
 
 
 
-<meta name="generator" content="Hugo 0.75.1" />
+<meta name="generator" content="Hugo 0.108.0" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/about-blockers/" />
@@ -252,7 +252,7 @@ Today, let&amp;rsquo;s talk about what you can do when your work is blocked.
 <p>And that&rsquo;s ok. All that is a normal part of the day for a developer. That&rsquo;s the reason for which I currently have 8 copies of Mozilla&rsquo;s main repositories, opened in 8 terminals and 8 editors, so that I can quickly switch between 8 bugs as they are unblocked. Plus one editor for blogging, of course.</p>
 <p>But the question is: when are these bugs unblocked?</p>
 <p>In many organizations, that&rsquo;s where product managers are needed, or sometimes tech leads, and where they need to maintain copious amounts of notes. At Mozilla, while we do have product managers and tech leads, we assume that they have better things to do than tracking such dependencies. So we use Bugzilla.</p>
-<p>When bug A is blocked by bug B, I can, in two clicks, from either bug A or bug B, set B as <code>blocking A</code>. This shows up on both the page of bug A and the page of bug B. The developers working on both bug A and bug B receive a message informing them that bug B is blocked by bug A. When a look at a bug, you can see the blockers, the blockers' blockers, etc. Eventually, someone will finish working on B and close it, lifting the blocker. This shows up on both pages and in the tree of dependencies and the developers working on bug A are notified that their blocker is lifted. <em>Et voilà</em>!</p>
+<p>When bug A is blocked by bug B, I can, in two clicks, from either bug A or bug B, set B as <code>blocking A</code>. This shows up on both the page of bug A and the page of bug B. The developers working on both bug A and bug B receive a message informing them that bug B is blocked by bug A. When a look at a bug, you can see the blockers, the blockers&rsquo; blockers, etc. Eventually, someone will finish working on B and close it, lifting the blocker. This shows up on both pages and in the tree of dependencies and the developers working on bug A are notified that their blocker is lifted. <em>Et voilà</em>!</p>
 <p>Similarly, when bug A is blocked because there&rsquo;s a missing piece of data from developer Charlie, in two clicks, I can mark the bug as <code>needinfo Charlie</code>. This shows up on the page of bug A and Charlie receives an email with the question that needs to be answered. Once Charlie has responded, the needinfo is lifted. Once again, this shows up on the page and the developers working on bug A are notified. <em>Et revoilà</em>!</p>
 <p>Here&rsquo;s an example of what it looks like for a bug I&rsquo;m currently working on:
 <img src="https://yoric.github.io/img/about-processes-dependencies.png" alt="Tree of dependencies for about:processes. I can now work on visualizing workers!"></p>
@@ -279,7 +279,7 @@ Today, let&amp;rsquo;s talk about what you can do when your work is blocked.
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>799</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -308,7 +308,7 @@ Today, let&amp;rsquo;s talk about what you can do when your work is blocked.
     
   </section>
   <footer class="site-footer">
-  <p>© 2017-2020 Il y a du thé renversé au bord de la table !</p>
+  <p>© 2017-2022 Il y a du thé renversé au bord de la table !</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>

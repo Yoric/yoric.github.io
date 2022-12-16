@@ -43,7 +43,7 @@ Let&amp;rsquo;s see how hard it would be to add these in Rust.
 
 
 
-<meta name="generator" content="Hugo 0.75.1" />
+<meta name="generator" content="Hugo 0.108.0" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/rust-named-arguments/" />
@@ -250,68 +250,67 @@ Let&amp;rsquo;s see how hard it would be to add these in Rust.
 makes some function calls much more readable and safer.</p>
 <p>Let&rsquo;s see how hard it would be to add these in Rust.</p>
 <p>Consider a function such as:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">rect</span>(x: <span style="color:#66d9ef">u32</span>, width: <span style="color:#66d9ef">u32</span>, y: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>, background: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>, foreground: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>, line: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#a6e22e">Widget</span> {
- <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>}
-rect(X, Y, WIDTH, HEIGHT, LINE, None, None); <span style="color:#75715e">// Oops, I have completely confused the order of arguments.
-</span></code></pre></div><p>It would be nice if we could leverage Rust&rsquo;s syntax and/or type system help us avoid confusing these arguments.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">rect</span>(x: <span style="color:#66d9ef">u32</span>, width: <span style="color:#66d9ef">u32</span>, y: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>, background: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>, foreground: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>, line: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span>) -&gt; <span style="color:#a6e22e">Widget</span> {
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>rect(X, Y, WIDTH, HEIGHT, LINE, None, None); <span style="color:#75715e">// Oops, I have completely confused the order of arguments.
+</span></span></span></code></pre></div><p>It would be nice if we could leverage Rust&rsquo;s syntax and/or type system help us avoid confusing these arguments.
 This is a feature often called Named Arguments or Labeled Arguments, which is available in Python, OCaml, Swift, Dart, &hellip; with strong typing in some of these languages that support it.</p>
 <p>In Rust, one could imagine writing</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// In this example, `{( ... )}` means that we&#39;re using named arguments.
-</span><span style="color:#75715e">// Other syntaxes are possible.
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">rect</span>{(x: <span style="color:#66d9ef">u32</span>, width: <span style="color:#66d9ef">u32</span>, y: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>, background: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, foreground: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, line: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None)} -&gt; <span style="color:#a6e22e">Widget</span>
-{
-    <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>}
-rect{(x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, width <span style="color:#f92672">=</span> WIDTH, height <span style="color:#f92672">=</span> HEIGHT, line <span style="color:#f92672">=</span> LINE)}; <span style="color:#75715e">// Arguments are automatically reordered. Default values are automatically inserted. Above error becomes impossible.
-</span></code></pre></div><p>Wouldn&rsquo;t that be more readable and safer?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// In this example, `{( ... )}` means that we&#39;re using named arguments.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Other syntaxes are possible.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">rect</span>{(x: <span style="color:#66d9ef">u32</span>, width: <span style="color:#66d9ef">u32</span>, y: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>, background: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, foreground: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, line: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None)} -&gt; <span style="color:#a6e22e">Widget</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>rect{(x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, width <span style="color:#f92672">=</span> WIDTH, height <span style="color:#f92672">=</span> HEIGHT, line <span style="color:#f92672">=</span> LINE)}; <span style="color:#75715e">// Arguments are automatically reordered. Default values are automatically inserted. Above error becomes impossible.
+</span></span></span></code></pre></div><p>Wouldn&rsquo;t that be more readable and safer?</p>
 <h1 id="what-this-post-is-about">What this post is about</h1>
 <p>This is <strong>not</strong> about syntax, only about semantics.</p>
 <p>I was toying with a few ideas on how to implement named arguments without breaking the existing type system. I have a few macro-based prototype implementations. It&rsquo;s way too early to turn them into a RFC, but I hope that these can serve as a basis for further conversation.</p>
 <p>With these prototypes, we can write <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Define the function.
-</span><span style="color:#75715e"></span>define<span style="color:#f92672">!</span>(<span style="color:#66d9ef">fn</span>(rect, x: <span style="color:#66d9ef">u32</span>, width: <span style="color:#66d9ef">u32</span>, y: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>, background: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, foreground: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, line: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None) -&gt; <span style="color:#a6e22e">Widget</span> {
-    <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>})
-
-<span style="color:#75715e">// Call the function, macro-style.
-</span><span style="color:#75715e">// Arguments are re-ordered as needed and optional arguments are replaced with their default value if needed.
-</span><span style="color:#75715e"></span>call<span style="color:#f92672">!</span>(rect, x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, width <span style="color:#f92672">=</span> WIDTH, height <span style="color:#f92672">=</span> HEIGHT, line <span style="color:#f92672">=</span> LINE);
-
-<span style="color:#75715e">// Or, equivalently, builder-style.
-</span><span style="color:#75715e"></span>rect::setup()
-    .x(X)
-    .y(Y)
-    .width(WIDTH)
-    .height(HEIGHT)
-    .line(LINE)
-    .call();
-
-<span style="color:#75715e">// On the other hand, the following fails to type-check, because we&#39;ve forgotten
-</span><span style="color:#75715e">// required argument `height`.
-</span><span style="color:#75715e"></span>call<span style="color:#f92672">!</span>(rect, x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, width <span style="color:#f92672">=</span> WIDTH, line <span style="color:#f92672">=</span> LINE);
-<span style="color:#75715e">// ... or equivalently
-</span><span style="color:#75715e"></span>rect::setup()
-    .x(X)
-    .y(Y)
-    .width(WIDTH)
-    .line(LINE)
-    .call();
-
-<span style="color:#75715e">// And the following fails to type-check because we&#39;ve used the same argument
-</span><span style="color:#75715e">// twice:
-</span><span style="color:#75715e"></span>call<span style="color:#f92672">!</span>(rect, x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, x <span style="color:#f92672">=</span> X, width <span style="color:#f92672">=</span> WIDTH, height <span style="color:#f92672">=</span> HEIGHT, line <span style="color:#f92672">=</span> LINE);
-<span style="color:#75715e">// ... or equivalently
-</span><span style="color:#75715e"></span>rect::setup()
-    .x(X)
-    .y(Y)
-    .x(X)
-    .width(WIDTH)
-    .height(HEIGHT)
-    .line(LINE)
-    .call();
-
-</code></pre></div><p>A bit more verbose but much safer, right?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">// Define the function.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>define<span style="color:#f92672">!</span>(<span style="color:#66d9ef">fn</span>(rect, x: <span style="color:#66d9ef">u32</span>, width: <span style="color:#66d9ef">u32</span>, y: <span style="color:#66d9ef">u32</span>, height: <span style="color:#66d9ef">u32</span>, background: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, foreground: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None, line: Option<span style="color:#f92672">&lt;</span>Color<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> None) -&gt; <span style="color:#a6e22e">Widget</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Call the function, macro-style.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Arguments are re-ordered as needed and optional arguments are replaced with their default value if needed.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>call<span style="color:#f92672">!</span>(rect, x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, width <span style="color:#f92672">=</span> WIDTH, height <span style="color:#f92672">=</span> HEIGHT, line <span style="color:#f92672">=</span> LINE);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Or, equivalently, builder-style.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>rect::setup()
+</span></span><span style="display:flex;"><span>    .x(X)
+</span></span><span style="display:flex;"><span>    .y(Y)
+</span></span><span style="display:flex;"><span>    .width(WIDTH)
+</span></span><span style="display:flex;"><span>    .height(HEIGHT)
+</span></span><span style="display:flex;"><span>    .line(LINE)
+</span></span><span style="display:flex;"><span>    .call();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// On the other hand, the following fails to type-check, because we&#39;ve forgotten
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// required argument `height`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>call<span style="color:#f92672">!</span>(rect, x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, width <span style="color:#f92672">=</span> WIDTH, line <span style="color:#f92672">=</span> LINE);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ... or equivalently
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>rect::setup()
+</span></span><span style="display:flex;"><span>    .x(X)
+</span></span><span style="display:flex;"><span>    .y(Y)
+</span></span><span style="display:flex;"><span>    .width(WIDTH)
+</span></span><span style="display:flex;"><span>    .line(LINE)
+</span></span><span style="display:flex;"><span>    .call();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// And the following fails to type-check because we&#39;ve used the same argument
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// twice:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>call<span style="color:#f92672">!</span>(rect, x <span style="color:#f92672">=</span> X, y <span style="color:#f92672">=</span> Y, x <span style="color:#f92672">=</span> X, width <span style="color:#f92672">=</span> WIDTH, height <span style="color:#f92672">=</span> HEIGHT, line <span style="color:#f92672">=</span> LINE);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ... or equivalently
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>rect::setup()
+</span></span><span style="display:flex;"><span>    .x(X)
+</span></span><span style="display:flex;"><span>    .y(Y)
+</span></span><span style="display:flex;"><span>    .x(X)
+</span></span><span style="display:flex;"><span>    .width(WIDTH)
+</span></span><span style="display:flex;"><span>    .height(HEIGHT)
+</span></span><span style="display:flex;"><span>    .line(LINE)
+</span></span><span style="display:flex;"><span>    .call();
+</span></span></code></pre></div><p>A bit more verbose but much safer, right?</p>
 <p>At the time of this writing, the prototype only support module-level <code>fn</code> declarations, not functions within <code>impl</code> or <code>trait</code> or closures. I don&rsquo;t think that there&rsquo;s any strong blocker for either, I just haven&rsquo;t attempted implementing these yet. These are left as future works.</p>
 <h1 id="the-general-idea">The general idea</h1>
 <p>The general idea is that macro <code>define!</code> creates a type-level final state machines that behaves as follows:</p>
@@ -338,17 +337,17 @@ at least in simple cases, without modifying either the type system or the semant
 state machine.</p>
 <h1 id="links-and-credits">Links and credits</h1>
 <ul>
-<li>An early prototype is available <a href="https://github.com/Yoric/named-args.rs/">on github</a> <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</li>
+<li>An early prototype is available <a href="https://github.com/Yoric/named-args.rs/">on github</a> <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</li>
 <li>This prototype is based on the (great!) crate <a href="https://crates.io/crates/typed-builder">typed-builder</a> by Chris Morgan and IdanArye. They did all the heavy lifting :)</li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p>Disclaimer: The syntax in the latest prototype is actually slightly more verbose than the snippet at the start of this blog entry. Real-life complications have prevented me from finishing the prototype in which we adopt this cleaner syntax but as far as I can tell, there doesn&rsquo;t seem to be any Rust-level blockers. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p>Disclaimer: The syntax in the latest prototype is actually slightly more verbose than the snippet at the start of this blog entry. Real-life complications have prevented me from finishing the prototype in which we adopt this cleaner syntax but as far as I can tell, there doesn&rsquo;t seem to be any Rust-level blockers.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section></article>
+</div></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
@@ -368,7 +367,7 @@ state machine.</p>
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>860</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -396,7 +395,7 @@ state machine.</p>
           Legacy comment system.
           <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -419,7 +418,7 @@ state machine.</p>
     
   </section>
   <footer class="site-footer">
-  <p>© 2017-2020 Il y a du thé renversé au bord de la table !</p>
+  <p>© 2017-2022 Il y a du thé renversé au bord de la table !</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>

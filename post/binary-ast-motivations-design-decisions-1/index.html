@@ -16,7 +16,7 @@
 
   
   <meta name="author" content="Kannan Vijayan, Mike Hoye" />
-  <meta name="description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;quot; - Mike Haertel, creator of GNU Grep.
+  <meta name="description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
 Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
 It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype." />
 
@@ -25,7 +25,7 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@ImYoric" />
     <meta name="twitter:title" content="Binary AST - Motivations and Design Decisions - Part 1" />
-    <meta name="twitter:description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;quot; - Mike Haertel, creator of GNU Grep.
+    <meta name="twitter:description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
 Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
 It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype." />
     <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
@@ -34,7 +34,7 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Binary AST - Motivations and Design Decisions - Part 1" />
-  <meta property="og:description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;quot; - Mike Haertel, creator of GNU Grep.
+  <meta property="og:description" content="&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
 Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
 It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype." />
   <meta property="og:url" content="https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/" />
@@ -43,7 +43,7 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
 
 
 
-<meta name="generator" content="Hugo 0.75.1" />
+<meta name="generator" content="Hugo 0.108.0" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/" />
@@ -246,7 +246,7 @@ It has recently cleared Stage 1 of the TC39 standards process, and while the fin
       <h1 class="post-title">Binary AST - Motivations and Design Decisions - Part 1</h1>
       <p class="post-meta">@Kannan Vijayan, Mike Hoye · Sep 7, 2017 · 14 min read</p>
     </header>
-    <article class="post-content"><p><em>&ldquo;The key to making programs fast is to make them do practically nothing.&quot;</em>
+    <article class="post-content"><p><em>&ldquo;The key to making programs fast is to make them do practically nothing.&rdquo;</em>
 - <a href="https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html">Mike Haertel, creator of GNU Grep</a>.</p>
 <p>Binary AST - &ldquo;Binary Abstract Syntax Tree&rdquo; - is Mozilla&rsquo;s proposal for specifying
 a binary-encoded syntax for JS with the intent of allowing browsers and other
@@ -277,7 +277,7 @@ numbers on lower end or older hardware are a lot worse. We have an opportunity t
 make a real, tangible improvement in this space, and with that in mind our initial
 goal was to design a source format that allows for extremely fast parsing.</p>
 <p>First, we should understand why JS parsing is currently so tedious. The <em>&ldquo;What if we
-just made the parser faster?&quot;</em> section in David&rsquo;s article details a number
+just made the parser faster?&rdquo;</em> section in David&rsquo;s article details a number
 of reasons, but there&rsquo;s a fundamental, unavoidable issue underpinning all of them:</p>
 <p><em>Parsing is slow because the parser has to look at and process every byte
 of the source it loads, regardless of whether that code is about to run
@@ -450,15 +450,15 @@ formats.  There are two major reasons:</p>
 <p>Parsing structure out of text is expensive.  For example, the integer
 <code>126</code> would be represented as three characters in a text format.  The
 pseudo-assembly code to parse integers in text would look something like:</p>
-<pre><code>  mov r0, 0                 # initialize result r0 to 0
+<pre tabindex="0"><code>  mov r0, 0                 # initialize result r0 to 0
 loop:
   load *srcPtr, r1          # load next character.
-  cmp r1, '0'               # 
-  iflt end                  # break out if char &lt; '0'
-  cmp r1, '9'               #
-  iflt end                  # break out if char &gt; '9'
+  cmp r1, &#39;0&#39;               # 
+  iflt end                  # break out if char &lt; &#39;0&#39;
+  cmp r1, &#39;9&#39;               #
+  iflt end                  # break out if char &gt; &#39;9&#39;
   mul r0, 10                # scale r0 up by 10 [EXPENSIVE]
-  sub r1, '0'               # map '0'=&gt;0, '1'=&gt;1, etc.
+  sub r1, &#39;0&#39;               # map &#39;0&#39;=&gt;0, &#39;1&#39;=&gt;1, etc.
   add r0, r1                # add the digit to the result
   add srcPtr, 1             # increment text position.
   goto loop
@@ -472,11 +472,11 @@ This is encoded by using 7 bits in each byte to encode the number, with one
 bit indicating whether more bytes follow.  An encoding of &lsquo;126&rsquo; in varuint
 format might be <code>126|0x80 == 0xfe</code> in binary.  Some pseudo-assembly to parse
 this might be:</p>
-<pre><code>  mov r0, 0                 # initialize result r0 to 0
+<pre tabindex="0"><code>  mov r0, 0                 # initialize result r0 to 0
 loop:
   load *srcPtr, r1          # load next byte
   tstbit r1, 0x80           # test stop bit.
-  ifnz last                 # branch to &quot;last&quot; if stop bit = 1
+  ifnz last                 # branch to &#34;last&#34; if stop bit = 1
   shl r0, 7                 # |
   or r0, r1                 # | add the byte to the result
   add srcPtr, 1             # increment text position.
@@ -492,7 +492,7 @@ arithmetic operations, a single branch, a single load, and a move.</p>
 serve to demonstrate the basic point.  If we compare the kinds and number
 of instructions executed for parsing the former vs latter, we see the
 following:</p>
-<pre><code>Instruction Type    Text Format     Binary Format
+<pre tabindex="0"><code>Instruction Type    Text Format     Binary Format
 -------------------------------------------------
 Fast Arithmetic         15               5
 Multiplies              3                0
@@ -549,7 +549,7 @@ a much more machine-friendly structuring of information.</p>
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1148</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1925</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -577,7 +577,7 @@ a much more machine-friendly structuring of information.</p>
           Legacy comment system.
           <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -600,7 +600,7 @@ a much more machine-friendly structuring of information.</p>
     
   </section>
   <footer class="site-footer">
-  <p>© 2017-2020 Il y a du thé renversé au bord de la table !</p>
+  <p>© 2017-2022 Il y a du thé renversé au bord de la table !</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>

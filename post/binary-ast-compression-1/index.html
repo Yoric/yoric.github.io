@@ -43,7 +43,7 @@ In this blog entry, I&amp;rsquo;d like to talk to you about our current main foc
 
 
 
-<meta name="generator" content="Hugo 0.75.1" />
+<meta name="generator" content="Hugo 0.108.0" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/binary-ast-compression-1/" />
@@ -272,47 +272,46 @@ which provides both fast compression, fast decompression and a high compression 
 already custom-tailored to compress JavaScript.</p>
 <p>However, out of the box, Brotli doesn&rsquo;t compress BinAST too well.</p>
 <p>Consider the following JS code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">identity</span>(<span style="color:#a6e22e">x</span>) {
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>;
-}
-</code></pre></div><p>This representation is very concise already, and Brotli already has in its builtin dictionary words such as <code>function</code> or <code>return</code>, which make its representation even more concise. In fact, Brotli reduces this snippet to 34 bytes, and would do a much better job on a larger codebase.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">identity</span>(<span style="color:#a6e22e">x</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This representation is very concise already, and Brotli already has in its builtin dictionary words such as <code>function</code> or <code>return</code>, which make its representation even more concise. In fact, Brotli reduces this snippet to 34 bytes, and would do a much better job on a larger codebase.</p>
 <p>Now consider the in-memory representation (or &ldquo;AST&rdquo;) of the same code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">EagerFunctionDeclaration</span>:
-    <span style="color:#f92672">isAsync</span>: <span style="color:#66d9ef">false</span>
-    <span style="color:#f92672">isGenerator</span>: <span style="color:#66d9ef">false</span>
-    <span style="color:#f92672">name</span>:
-        <span style="color:#f92672">BindingIdentifier</span>:
-            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;identity&#34;</span>
-    <span style="color:#f92672">length</span>: <span style="color:#ae81ff">1</span>
-    <span style="color:#f92672">directives</span>: []
-    <span style="color:#f92672">contents</span>:
-        <span style="color:#f92672">FunctionOrMethodContents</span>:
-            <span style="color:#f92672">isThisCaptured</span>: <span style="color:#66d9ef">false</span>
-            <span style="color:#f92672">parameterScope</span>:
-                <span style="color:#f92672">AssertedParameterScope</span>:
-                    <span style="color:#f92672">paramNames</span>:
-                        - <span style="color:#f92672">AssertedParameterName</span>:
-                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
-                            <span style="color:#f92672">isCaptured</span>: <span style="color:#66d9ef">false</span>
-                    <span style="color:#f92672">hasDirectEval</span>: <span style="color:#66d9ef">false</span>
-                    <span style="color:#f92672">isSimpleParameterList</span>: <span style="color:#66d9ef">true</span>
-            <span style="color:#f92672">params</span>:
-                <span style="color:#f92672">FormalParameters</span>:
-                    <span style="color:#f92672">items</span>:
-                        - <span style="color:#f92672">BindingIdentifier</span>:
-                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
-                    <span style="color:#f92672">rest</span>: <span style="color:#66d9ef">null</span>
-            <span style="color:#f92672">bodyScope</span>:
-                <span style="color:#f92672">AssertedVarScope</span>:
-                    <span style="color:#f92672">declaredNames</span>: []
-                    <span style="color:#f92672">hasDirectEval</span>: <span style="color:#66d9ef">false</span>
-            <span style="color:#f92672">body</span>:
-                - <span style="color:#f92672">ReturnStatement</span>:
-                    <span style="color:#f92672">expression</span>:
-                        <span style="color:#f92672">IdentifierExpression</span>:
-                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
-
-</code></pre></div><p>That is&hellip; quite a little bit longer. That&rsquo;s because we are showing here the result of two steps of transformation on the snippet above:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">EagerFunctionDeclaration</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">isAsync</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">isGenerator</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;identity&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">length</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">directives</span>: []
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">contents</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">FunctionOrMethodContents</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">isThisCaptured</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">parameterScope</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">AssertedParameterScope</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">paramNames</span>:
+</span></span><span style="display:flex;"><span>                        - <span style="color:#f92672">AssertedParameterName</span>:
+</span></span><span style="display:flex;"><span>                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#f92672">isCaptured</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">hasDirectEval</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">isSimpleParameterList</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">params</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">FormalParameters</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">items</span>:
+</span></span><span style="display:flex;"><span>                        - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">rest</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">bodyScope</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">AssertedVarScope</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">declaredNames</span>: []
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">hasDirectEval</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">body</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">ReturnStatement</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">expression</span>:
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">IdentifierExpression</span>:
+</span></span><span style="display:flex;"><span>                            <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span></code></pre></div><p>That is&hellip; quite a little bit longer. That&rsquo;s because we are showing here the result of two steps of transformation on the snippet above:</p>
 <ul>
 <li>parsing;</li>
 <li>static analysis (yes, there&rsquo;s static analysis during JavaScript startup).</li>
@@ -324,95 +323,95 @@ Maybe we can apply Brotli directly?</p>
 <p>So, this format is not acceptable.</p>
 <h1 id="towards-the-binary-ast">Towards the Binary AST</h1>
 <p>Now, the BinAST spec specifies the order of fields, so we can already simplify our representation</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">EagerFunctionDeclaration</span>:
-    - <span style="color:#66d9ef">false</span>
-    - <span style="color:#66d9ef">false</span>
-    - <span style="color:#f92672">BindingIdentifier</span>:
-        <span style="color:#e6db74">&#34;identity&#34;</span>
-    - <span style="color:#ae81ff">1</span>
-    - []
-    - <span style="color:#f92672">FunctionOrMethodContents</span>:
-        - <span style="color:#66d9ef">false</span>
-        - <span style="color:#f92672">AssertedParameterScope</span>:
-            -
-                - <span style="color:#f92672">AssertedParameterName</span>:
-                    <span style="color:#e6db74">&#34;x&#34;</span>
-                    <span style="color:#66d9ef">false</span>
-            - <span style="color:#66d9ef">false</span>
-            - <span style="color:#66d9ef">true</span>
-        - <span style="color:#f92672">FormalParameters</span>:
-            -
-                - <span style="color:#f92672">BindingIdentifier</span>:
-                    <span style="color:#e6db74">&#34;x&#34;</span>
-            - <span style="color:#66d9ef">null</span>
-        - <span style="color:#f92672">AssertedVarScope</span>:
-            - []
-            - <span style="color:#66d9ef">false</span>
-        -
-            - <span style="color:#f92672">ReturnStatement</span>:
-                <span style="color:#f92672">IdentifierExpression</span>:
-                    <span style="color:#e6db74">&#34;x&#34;</span>
-</code></pre></div><p>While we&rsquo;re there, let&rsquo;s replace <code>false</code> with <code>0</code> and <code>true</code> with <code>1</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">EagerFunctionDeclaration</span>:
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#f92672">BindingIdentifier</span>:
-        <span style="color:#e6db74">&#34;identity&#34;</span>
-    - <span style="color:#ae81ff">1</span>
-    - []
-    - <span style="color:#f92672">FunctionOrMethodContents</span>:
-        - <span style="color:#ae81ff">0</span>
-        - <span style="color:#f92672">AssertedParameterScope</span>:
-            -
-                - <span style="color:#f92672">AssertedParameterName</span>:
-                    <span style="color:#e6db74">&#34;x&#34;</span>
-                    <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">1</span>
-        - <span style="color:#f92672">FormalParameters</span>:
-            -
-                - <span style="color:#f92672">BindingIdentifier</span>:
-                    <span style="color:#e6db74">&#34;x&#34;</span>
-            - <span style="color:#66d9ef">null</span>
-        - <span style="color:#f92672">AssertedVarScope</span>:
-            - []
-            - <span style="color:#ae81ff">0</span>
-        -
-            - <span style="color:#f92672">ReturnStatement</span>:
-                <span style="color:#f92672">IdentifierExpression</span>:
-                    <span style="color:#e6db74">&#34;x&#34;</span>
-</code></pre></div><p>We can already see improvements:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">EagerFunctionDeclaration</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;identity&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    - []
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">FunctionOrMethodContents</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AssertedParameterScope</span>:
+</span></span><span style="display:flex;"><span>            -
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">AssertedParameterName</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">FormalParameters</span>:
+</span></span><span style="display:flex;"><span>            -
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AssertedVarScope</span>:
+</span></span><span style="display:flex;"><span>            - []
+</span></span><span style="display:flex;"><span>            - <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        -
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">ReturnStatement</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">IdentifierExpression</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span></code></pre></div><p>While we&rsquo;re there, let&rsquo;s replace <code>false</code> with <code>0</code> and <code>true</code> with <code>1</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">EagerFunctionDeclaration</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;identity&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    - []
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">FunctionOrMethodContents</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AssertedParameterScope</span>:
+</span></span><span style="display:flex;"><span>            -
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">AssertedParameterName</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">FormalParameters</span>:
+</span></span><span style="display:flex;"><span>            -
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AssertedVarScope</span>:
+</span></span><span style="display:flex;"><span>            - []
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        -
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">ReturnStatement</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">IdentifierExpression</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span></code></pre></div><p>We can already see improvements:</p>
 <!-- raw HTML omitted -->
 <p>Now, let&rsquo;s change a bit the format of lists, to prefix them with their length and avoid nesting them behind empty <code>-</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">EagerFunctionDeclaration</span>:
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#f92672">BindingIdentifier</span>:
-        <span style="color:#e6db74">&#34;identity&#34;</span>
-    - <span style="color:#ae81ff">1</span>
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#f92672">FunctionOrMethodContents</span>:
-        - <span style="color:#ae81ff">0</span>
-        - <span style="color:#f92672">AssertedParameterScope</span>:
-            - <span style="color:#ae81ff">1</span>
-            - <span style="color:#f92672">AssertedParameterName</span>:
-                <span style="color:#e6db74">&#34;x&#34;</span>
-                <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">1</span>
-        - <span style="color:#f92672">FormalParameters</span>:
-            - <span style="color:#ae81ff">1</span>
-            - <span style="color:#f92672">BindingIdentifier</span>:
-                <span style="color:#e6db74">&#34;x&#34;</span>
-            - <span style="color:#66d9ef">null</span>
-        - <span style="color:#f92672">AssertedVarScope</span>:
-            - <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">0</span>
-        - <span style="color:#ae81ff">1</span>
-        - <span style="color:#f92672">ReturnStatement</span>:
-            <span style="color:#f92672">IdentifierExpression</span>:
-                <span style="color:#e6db74">&#34;x&#34;</span>
-</code></pre></div><p>We now have a representation with three constructions:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">EagerFunctionDeclaration</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;identity&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">FunctionOrMethodContents</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AssertedParameterScope</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">AssertedParameterName</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">FormalParameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AssertedVarScope</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">ReturnStatement</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">IdentifierExpression</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;x&#34;</span>
+</span></span></code></pre></div><p>We now have a representation with three constructions:</p>
 <ul>
 <li>numbers;</li>
 <li>node names;</li>
@@ -421,13 +420,13 @@ Maybe we can apply Brotli directly?</p>
 <p>Let&rsquo;s see what we can do about strings. BinAST is not a minifier, so
 we keep all strings, identifiers, etc. unchanged, but we can move them
 out of the way and into a header, as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">strings</span>:
-    <span style="color:#f92672">concat</span>:
-        <span style="color:#e6db74">&#34;identityx&#34;</span>
-    <span style="color:#f92672">len</span>:
-        - <span style="color:#ae81ff">8</span>
-        - <span style="color:#ae81ff">1</span>
-</code></pre></div><p>Field <code>concat</code> contains a single string, obtained by concatenating all individual strings
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">strings</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">concat</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;identityx&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">len</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Field <code>concat</code> contains a single string, obtained by concatenating all individual strings
 used in the file, and we maintain a separate list of string lengths. This has several
 benefits:</p>
 <ul>
@@ -436,119 +435,119 @@ benefits:</p>
 <li>strings only need to appear once in the file, so the cost of repeating a string is negligible.</li>
 </ul>
 <p>Just as we had removed field names, let&rsquo;s get rid of <code>concat</code> and <code>len</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">strings</span>:
-    - <span style="color:#e6db74">&#34;identityx&#34;</span>
-    - <span style="color:#ae81ff">2</span>
-    - <span style="color:#ae81ff">8</span>
-    - <span style="color:#ae81ff">1</span>
-</code></pre></div><p>This gives us the following representation:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">strings</span>:
-    - <span style="color:#e6db74">&#34;identityx&#34;</span>
-    - <span style="color:#ae81ff">2</span>
-    - <span style="color:#ae81ff">8</span>
-    - <span style="color:#ae81ff">1</span>
-<span style="color:#f92672">EagerFunctionDeclaration</span>:
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#f92672">BindingIdentifier</span>:
-        <span style="color:#ae81ff">0</span>
-    - <span style="color:#ae81ff">1</span>
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#f92672">FunctionOrMethodContents</span>:
-        - <span style="color:#ae81ff">0</span>
-        - <span style="color:#f92672">AssertedParameterScope</span>:
-            - <span style="color:#ae81ff">1</span>
-            - <span style="color:#f92672">AssertedParameterName</span>:
-                <span style="color:#ae81ff">1</span>
-                <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">1</span>
-        - <span style="color:#f92672">FormalParameters</span>:
-            - <span style="color:#ae81ff">1</span>
-            - <span style="color:#f92672">BindingIdentifier</span>:
-                <span style="color:#ae81ff">1</span>
-            - <span style="color:#66d9ef">null</span>
-        - <span style="color:#f92672">AssertedVarScope</span>:
-            - <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">0</span>
-        - <span style="color:#ae81ff">1</span>
-        - <span style="color:#f92672">ReturnStatement</span>:
-            <span style="color:#f92672">IdentifierExpression</span>:
-                <span style="color:#ae81ff">1</span>
-</code></pre></div><p>Now, let&rsquo;s take a look at these node names. We still need the node names to tell us
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">strings</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;identityx&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>This gives us the following representation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">strings</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;identityx&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">EagerFunctionDeclaration</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">FunctionOrMethodContents</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AssertedParameterScope</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">AssertedParameterName</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">FormalParameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">BindingIdentifier</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">AssertedVarScope</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">ReturnStatement</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">IdentifierExpression</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Now, let&rsquo;s take a look at these node names. We still need the node names to tell us
 <em>what</em> we&rsquo;re looking at and to deduce the number of fields and their nature.
 By using the same trick as Brotli, we can introduce the names of nodes in
 a shared dictionary and repace them with numbers in the file, obtaining the
 rather more concise</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">0</span>:
-    - <span style="color:#e6db74">&#34;identityx&#34;</span>
-    - <span style="color:#ae81ff">2</span>
-    - <span style="color:#ae81ff">8</span>
-    - <span style="color:#ae81ff">1</span>
-<span style="color:#f92672">0</span>:
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#f92672">1</span>:
-        <span style="color:#ae81ff">0</span>
-    - <span style="color:#ae81ff">1</span>
-    - <span style="color:#ae81ff">0</span>
-    - <span style="color:#f92672">2</span>:
-        - <span style="color:#ae81ff">0</span>
-        - <span style="color:#f92672">3</span>:
-            - <span style="color:#ae81ff">1</span>
-            - <span style="color:#f92672">4</span>:
-                <span style="color:#ae81ff">1</span>
-                <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">1</span>
-        - <span style="color:#f92672">5</span>:
-            - <span style="color:#ae81ff">1</span>
-            - <span style="color:#f92672">1</span>:
-                <span style="color:#ae81ff">1</span>
-            - <span style="color:#ae81ff">6</span>
-        - <span style="color:#f92672">7</span>:
-            - <span style="color:#ae81ff">0</span>
-            - <span style="color:#ae81ff">0</span>
-        - <span style="color:#ae81ff">1</span>
-        - <span style="color:#f92672">8</span>:
-            <span style="color:#f92672">9</span>:
-                <span style="color:#ae81ff">1</span>
-</code></pre></div><p>Also, since the parser knows the grammar, we do not need the nesting information, so we could easily rewrite this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">identityx</span>
-- <span style="color:#ae81ff">2</span>
-- <span style="color:#ae81ff">8</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">2</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">3</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">4</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">5</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">6</span>
-- <span style="color:#ae81ff">7</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">0</span>
-- <span style="color:#ae81ff">1</span>
-- <span style="color:#ae81ff">8</span>
-- <span style="color:#ae81ff">9</span>
-- <span style="color:#ae81ff">1</span>
-</code></pre></div><p>Or, in binary format:</p>
-<pre><code>0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x78, 0x00, 0x02, 0x08, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x01, 0x04, 0x01, 0x00, 0x00, 0x01, 0x05, 0x01, 0x01, 0x01, 0x06, 0x07, 0x00, 0x00, 0x01, 0x08, 0x09, 0x01
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">0</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;identityx&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">0</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">2</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">3</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">4</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">5</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">1</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">7</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">8</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">9</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Also, since the parser knows the grammar, we do not need the nesting information, so we could easily rewrite this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">identityx</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">6</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>Or, in binary format:</p>
+<pre tabindex="0"><code>0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x78, 0x00, 0x02, 0x08, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x02, 0x00, 0x03, 0x01, 0x04, 0x01, 0x00, 0x00, 0x01, 0x05, 0x01, 0x01, 0x01, 0x06, 0x07, 0x00, 0x00, 0x01, 0x08, 0x09, 0x01
 </code></pre><p>This was, indeed, the first version of our Binary AST.</p>
 <p>Let&rsquo;s see how it behaves:</p>
 <!-- raw HTML omitted -->
@@ -574,7 +573,7 @@ currently use to compress BinAST (the so-called &ldquo;Entropy format&rdquo;) an
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>610</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1385</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -603,7 +602,7 @@ currently use to compress BinAST (the so-called &ldquo;Entropy format&rdquo;) an
     
   </section>
   <footer class="site-footer">
-  <p>© 2017-2020 Il y a du thé renversé au bord de la table !</p>
+  <p>© 2017-2022 Il y a du thé renversé au bord de la table !</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
