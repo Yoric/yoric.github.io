@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://yoric.github.io/post/safety-and-security/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/c&#43;&#43;/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/post/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/programming/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/programming-languages/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/rust/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/safety/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/security/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/static-analysis/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/type-systems/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/types/</loc>
+    <lastmod>2023-02-03T08:54:25+01:00</lastmod>
+  </url><url>
     <loc>https://yoric.github.io/tags/bluesky/</loc>
     <lastmod>2022-12-15T07:43:54+01:00</lastmod>
   </url><url>
@@ -15,9 +51,6 @@
     <lastmod>2022-12-15T07:43:54+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/federation/</loc>
-    <lastmod>2022-12-15T07:43:54+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/</loc>
     <lastmod>2022-12-15T07:43:54+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/matrix/</loc>
@@ -36,9 +69,6 @@
     <lastmod>2022-12-15T07:43:54+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/p2p/</loc>
-    <lastmod>2022-12-15T07:43:54+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/post/</loc>
     <lastmod>2022-12-15T07:43:54+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/twitter/</loc>
@@ -122,9 +152,6 @@
     <loc>https://yoric.github.io/post/rust-named-arguments/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
   </url><url>
-    <loc>https://yoric.github.io/tags/programming-languages/</loc>
-    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
-  </url><url>
     <loc>https://yoric.github.io/categories/programming-languages/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
   </url><url>
@@ -132,12 +159,6 @@
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/categories/rust/</loc>
-    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/rust/</loc>
-    <lastmod>2020-08-08T08:46:22+02:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/types/</loc>
     <lastmod>2020-08-08T08:46:22+02:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/post/uom.rs/</loc>
@@ -227,9 +248,6 @@
     <loc>https://yoric.github.io/categories/performance/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
   </url><url>
-    <loc>https://yoric.github.io/tags/safety/</loc>
-    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
-  </url><url>
     <loc>https://yoric.github.io/tags/shift/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
   </url><url>
@@ -256,9 +274,6 @@
   </url><url>
     <loc>https://yoric.github.io/post/binary-ast-newsletter-1/</loc>
     <lastmod>2017-08-03T23:31:43+02:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/computer-vision/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>

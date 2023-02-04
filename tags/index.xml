@@ -9,6 +9,87 @@
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sat, 18 Feb 2017 16:29:32 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>C&#43;&#43;</title>
+      <link>https://yoric.github.io/tags/c&#43;&#43;/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://yoric.github.io/tags/programming/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming languages</title>
+      <link>https://yoric.github.io/tags/programming-languages/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/programming-languages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rust</title>
+      <link>https://yoric.github.io/tags/rust/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>safety</title>
+      <link>https://yoric.github.io/tags/safety/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/safety/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>https://yoric.github.io/tags/security/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>static analysis</title>
+      <link>https://yoric.github.io/tags/static-analysis/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/static-analysis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>type systems</title>
+      <link>https://yoric.github.io/tags/type-systems/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/type-systems/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>types</title>
+      <link>https://yoric.github.io/tags/types/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/types/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>bluesky</title>
       <link>https://yoric.github.io/tags/bluesky/</link>
       <pubDate>Thu, 15 Dec 2022 07:43:54 +0100</pubDate>
@@ -243,33 +324,6 @@
     </item>
     
     <item>
-      <title>programming languages</title>
-      <link>https://yoric.github.io/tags/programming-languages/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/programming-languages/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/rust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>types</title>
-      <link>https://yoric.github.io/tags/types/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/types/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>improv</title>
       <link>https://yoric.github.io/tags/improv/</link>
       <pubDate>Fri, 12 Oct 2018 17:12:06 +0200</pubDate>
@@ -405,15 +459,6 @@
     </item>
     
     <item>
-      <title>safety</title>
-      <link>https://yoric.github.io/tags/safety/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/safety/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Shift</title>
       <link>https://yoric.github.io/tags/shift/</link>
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
@@ -446,15 +491,6 @@
       <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/babel/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>C&#43;&#43;</title>
-      <link>https://yoric.github.io/tags/c&#43;&#43;/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     
