@@ -273,7 +273,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>Usually, invariants are easy to spot: they are often called &ldquo;documentation&rdquo;, &ldquo;comments&rdquo; or &ldquo;names&rdquo;. If you can&rsquo;t spot any invariants in code, assume that they are broken. For instance, and while this is not often something that you&rsquo;ll find in litterature, I personally consider Python&rsquo;s syntax and keyword arguments safety tools.</p>
 <p>We can even decide to let degenerate the definition of safety to:</p>
 <blockquote>
-<p>Safety (handwavy): The programmer understands what their code does.</p>
+<p>Safety (handwavy): The code works <em>and</em> the programmer understands why. No, for real, not just guessing.</p>
 </blockquote>
 <p>Safety is definitely <em>related</em> to security. However, here is a program that has full security and no safety:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">not_main</span>() { <span style="color:#75715e">// Oops, typo. This should have been `main()`.
