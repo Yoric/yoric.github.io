@@ -7,22 +7,58 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 26 Oct 2020 16:33:46 +0200</lastBuildDate><atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Feb 2023 08:54:25 +0100</lastBuildDate><atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mozilla</title>
+      <link>https://yoric.github.io/categories/mozilla/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://yoric.github.io/categories/programming/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>research</title>
+      <link>https://yoric.github.io/categories/research/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
+      <link>https://yoric.github.io/categories/rust/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>safety</title>
+      <link>https://yoric.github.io/categories/safety/</link>
+      <pubDate>Fri, 03 Feb 2023 08:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/categories/safety/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>meta</title>
       <link>https://yoric.github.io/categories/meta/</link>
       <pubDate>Mon, 26 Oct 2020 16:33:46 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/meta/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mozilla</title>
-      <link>https://yoric.github.io/categories/mozilla/</link>
-      <pubDate>Mon, 26 Oct 2020 16:33:46 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/categories/mozilla/</guid>
       <description></description>
     </item>
     
@@ -41,24 +77,6 @@
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
       
       <guid>https://yoric.github.io/categories/programming-languages/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>research</title>
-      <link>https://yoric.github.io/categories/research/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/categories/research/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rust</title>
-      <link>https://yoric.github.io/categories/rust/</link>
-      <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/categories/rust/</guid>
       <description></description>
     </item>
     
