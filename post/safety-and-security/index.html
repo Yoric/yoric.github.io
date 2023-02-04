@@ -244,7 +244,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">About Safety, Security and yes, C&#43;&#43; and Rust</h1>
-      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 27 min read</p>
+      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 28 min read</p>
     </header>
     <article class="post-content"><p>Recent publications by <a href="https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf">Consumer Reports</a> and the <a href="https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF">NSA</a> have launched countless conversations in development circles about <em>safety</em> and its benefits.</p>
 <p>In these conversations, I&rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&rsquo;s clarify a few things.</p>
@@ -553,6 +553,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
 <p>Exactly as in C.</p>
 <h2 id="rust">Rust</h2>
+<p>Caveat: after much back and forth and rewriting, I decided to include the full Rust language (including <code>unsafe</code> in Rust) while I didn&rsquo;t hold C# to the same level of scrutiny (as I arbitrarily removed <code>unsafe</code> in C#, to make it comparable with Java, Scala and F#).</p>
 <h3 id="can-we-break-write-safety-in-the-language-6">Can we break write-safety in the language?</h3>
 <ul>
 <li>If code calls native code that breaks write-safety, it will break write-safety. This requires the keyword <code>unsafe</code>.</li>
@@ -638,7 +639,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>(*) I know that both Google and Mozilla are doing this. I&rsquo;m guessing that Microsoft and Apple are, too.</p>
 <p>(**) Probably not in all applications.</p>
 <p>(***) Recall that Chromium team was initially a Firefox development team.</p>
-<p>Is there a conclusion that we can draw? The signs suggest that despite taking inhuman levels of precautions to avoid specifically memory corruptions, these teams fail repeatedly at this specific task. This is a problem of both safety and security. As a member of the PL (and formerly FM) community, my first reflex is to blame the tools involved. To prove that C and/or C++ are to blame, however, one would of course need the opportunity to compare against similar programs, used quite as much in the wild, but written with different programming languages. As far as I know, such a study is currently impossible because there is no code that fulfills all these criteria, so this is un(dis)provable. However, it is clear that <em>if you are using C or C++ for anything security-critical, you are assuming that you can beat both Google, Microsoft, Apple and Mozilla at this game, despite all the assets mentioned above</em>. You are a brave person.</p>
+<p>Is there a conclusion that we can draw? The signs suggest that despite taking inhuman levels of precautions to avoid specifically memory corruptions, these teams fail repeatedly at this specific task. This is a problem of both safety and security. As a member of the PL (and formerly FM) community, my first reflex is to blame the tools involved. To prove that C and/or C++ are to blame, however, one would of course need the opportunity to compare against similar programs, used quite as much in the wild, but written with different programming languages. As far as I know, such a study is currently impossible because there is no code that fulfills all these criteria, so this is un(dis)provable. However, it is clear that <em>if you are using C or C++ for anything security-critical, you are abandoning lots of tools designed to help you achieve memory-safe code and assuming that you can beat both Google, Microsoft, Apple and Mozilla at this game, despite all the assets mentioned above</em>. You are a brave person.</p>
 <p>There has also been <a href="https://cacm.acm.org/magazines/2017/10/221326-a-large-scale-study-of-programming-languages-and-code-quality-in-github/fulltext">at least one attempt</a> to study the safety of a programming language by looking at the number of bug fixes commits vs. non bug fixes commits. Bugs are typically safety violations, whether they are security issues or not, so this feels like a valid way to indirectly measure whether there is any unsafety correlated to the use of a language.</p>
 <p>Let me copy their results:</p>
 <p><img src="https://dl.acm.org/cms/attachment/29401a57-a1f3-4b5e-9c64-3dd1637963bd/t6.jpg" alt="From worst to best, C++, TypeScript tied to Obj-C, C, PHP, Python, CoffeeScript, JavaScript, Erlang, C#, Java, Perl, Go, Ruby, Scala, Haskell, Clojure"></p>
