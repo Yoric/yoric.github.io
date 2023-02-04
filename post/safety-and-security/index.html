@@ -356,7 +356,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>data race safety;</li>
 <li>thread safety.</li>
 </ul>
-<p>There is definitely more to safety than these four kinds of safety. Documentation and clarity of intent/implementation are parts of safety. Assertions/contracts are part of safety (although one could argue that they are part of type safety). There are also such things as resource safety, etc. But they are all beyond the scope of this discussion.</p>
+<p>There is definitely more to safety than these four kinds of safety. Documentation and clarity of intent/implementation are parts of safety. Assertions/contracts are part of safety (although one could argue that they are part of type safety). Many applications also need to take into account user safety, which is not part of software safety. There are also such things as resource safety, etc. But they are all beyond the scope of this discussion.</p>
 <p>Let&rsquo;s try and provide a quick and handwavy definition for these kinds of safety:</p>
 <blockquote>
 <p>Memory safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). If your code reads from a memory address believing that it&rsquo;s reading something with type T, then it&rsquo;s actually reading from something with type T (or a subtype thereof). If your code writes to a memory address believing that it&rsquo;s writing something with type T, then it&rsquo;s actually writing on top of something with type T (or a supertype thereof, including <code>undefined</code>).</p>
@@ -670,6 +670,8 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
           <li><a href="https://yoric.github.io/tags/rust"><span class="tag">Rust</span></a></li>
         
           <li><a href="https://yoric.github.io/tags/c&#43;&#43;"><span class="tag">C&#43;&#43;</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
         
       </ul>
       
