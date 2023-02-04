@@ -331,7 +331,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <blockquote>
 <p>Safe language (handwavy): A language which helps the developer write safe code (handwavy).</p>
 </blockquote>
-<p>Given that PL and FM researchers still toil hard to try and achieve a perfectly safe language, calling a language &ldquo;safe&rdquo; is something of a stretch. No, sadly, <code>$(YOUR FAVORITE LANGUAGE)</code> is not safe (handwavy). It may feature some very important safety properties (we&rsquo;ll discuss these later), but it&rsquo;s not absolutely safe. It can, however, be safer than another language <em>for some subset of specs</em> and/or (handwavy) <em>for some developers</em>. Yes, since our handwavy definition for safety implies a developer, of course, some languages are going to be safer for some developers and less safe for others. And of course how much experience you have in a language very much influences how safe this language is for you. This is why very safe code (e.g the Linux or BSD kernel) has been written in C, a language that features very few tools to aid with safety. This is also why the Linux kernel is opening itself to Rust – because finding developers who can write C with this level of safety is really hard, while kernel maintainers believe that finding developers who can write Rust code with this level of safety is easier, thanks to better safety-oriented tooling.</p>
+<p>Given that PL and FM researchers still toil hard to try and achieve a perfectly safe language, calling a language &ldquo;safe&rdquo; is something of a stretch. No, sadly, <code>$(YOUR FAVORITE LANGUAGE)</code> is not safe (handwavy). It may feature some very important safety properties (we&rsquo;ll discuss these later), but it&rsquo;s not absolutely safe. It can, however, be safer than another language <em>for some subset of specs</em> and/or (handwavy) <em>for some developers</em>. Yes, since our handwavy definition for safety implies a developer, of course, some languages are going to be safer for some developers and less safe for others. And of course how much experience you have in a language very much influences how safe this language is for you. This is why quite safe code (e.g the Linux or BSD kernel) has been written in C, a language that features very few tools to aid with safety. This is also why the Linux kernel is opening itself to Rust – because finding developers who can write C with this level of safety is really hard, while kernel maintainers believe that finding developers who can write Rust code with this level of safety is easier, thanks to better safety-oriented tooling.</p>
 <p>And while we&rsquo;re at it, let&rsquo;s try and come up with a definition for a secure programming langauge:</p>
 <blockquote>
 <p>Secure language (with respect to a threat model): A language which helps the developer write secure code (with respect to a threat model).</p>
@@ -415,7 +415,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>There are still higher-level manners of breaking write-safety (see below e.g. Python) but you have to work hard at implementing them, so they won&rsquo;t happen out of the box.</li>
 </ul>
 <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I have heard claims that this is the case. Unfortunately, I have not found this subset written down anywhere. I have read both CERT&rsquo;s guidelines and Bjarne Stroustrup&rsquo;s guidelines and they are very far from being sufficient. Given my experience as a C++ developer, I believe that it is theoretically possible, by restricting the C++ language <em>a lot</em>, but that there would be so much pushback from the C++ community that this tool or spec would not be used in practice.</p>
+<p>I have heard claims that this is the case. Unfortunately, I have not found this subset written down anywhere. I have read both CERT&rsquo;s guidelines and Bjarne Stroustrup&rsquo;s guidelines and they are very far from being sufficient. Given how flexible the C++ language is and my experience as a C++ developer, I believe that it is theoretically possible, by restricting the C++ language <em>a lot</em>, e.g. by using C++ largely as a functional programming language. I suspect that there would be so much pushback from the C++ community that this tool or spec would not be used in practice.</p>
 <p>Model-checking tools can probably help ensure write-safety of a specific piece of code.</p>
 <h3 id="can-we-break-read-safety-in-the-language-1">Can we break read-safety in the language?</h3>
 <p>Yes, the remarks regarding write-safety also apply here.</p>
@@ -424,7 +424,8 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h3 id="can-we-break-thread-safety-in-the-language-1">Can we break thread-safety in the language?</h3>
 <p>Yes, exactly as in C.</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Just as hard as in C.</p>
+<p>I believe that with the appropriate libraries, one could implement a concurrent but safe sublanguage for C++, for instance by imitating Sklml-style concurrency. However, I suspect that very few programmers would use this, as this would considerably restrict C++, a language that many use specifically because it can do everything.</p>
+<p>Without such a library and discipline, just as hard as in C.</p>
 <h2 id="python">Python</h2>
 <h3 id="can-we-break-write-safety-in-the-language-2">Can we break write-safety in the language?</h3>
 <ul>
@@ -455,9 +456,9 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>The remarks regarding write-safety also apply here.</p>
 <p>Python&rsquo;s keyword arguments can help accidentally passing a <code>BrokenString</code> instead of a <code>WTFString</code>.</p>
 <h3 id="can-we-break-thread-safety-in-the-language-2">Can we break thread-safety in the language?</h3>
-<p>Yes, exactly as in C.</p>
+<p>Yes, exactly as in C. The GIL protects from breaking refcounting, but nothing else.</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Just as hard as in C.</p>
+<p>For Python developers willing to program without <code>async</code>/<code>await</code> and without control on threads, it should be possible to write a concurrent functional-programming framework, something similar e.g. to Sklml. Such a framework would allow the developers to perform concurrent computations without breaking thread-safety.</p>
 <h2 id="javascript">JavaScript</h2>
 <h3 id="can-we-break-write-safety-in-the-language-3">Can we break write-safety in the language?</h3>
 <ul>
@@ -486,7 +487,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h3 id="can-we-break-thread-safety-in-the-language-3">Can we break thread-safety in the language?</h3>
 <p>Yes, either with the scheduling of <code>Promise</code> (which form logical threads) or with that of Workers (which are backed by OS threads or processes).</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-3">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Just as hard as in C. Possibly a bit harder since there are at least two forms of threads.</p>
+<p>As in Python.</p>
 <h2 id="typescript">TypeScript</h2>
 <h3 id="can-we-break-write-safety-in-the-language-4">Can we break write-safety in the language?</h3>
 <p>Yes, exactly as in JavaScript.</p>
@@ -550,9 +551,9 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>Also, there are model-checking tools for some of these languages, which may help.</li>
 </ul>
 <h3 id="can-we-break-thread-safety-in-the-language-5">Can we break thread-safety in the language?</h3>
-<p>Yes, exactly as in C.</p>
+<p>Yes, exactly as in C or C++.</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Exactly as in C.</p>
+<p>As in C++, adopting a concurrent functional programming approach would work. This has been demonstrated for OCaml with Camlp3l or Skelml.</p>
 <h2 id="rust">Rust</h2>
 <h3 id="can-we-break-write-safety-in-the-language-6">Can we break write-safety in the language?</h3>
 <ul>
@@ -595,7 +596,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>avoid thread joins;</li>
 <li>avoid message-passing channels.</li>
 </ul>
-<p>This severely restricts our ability to write concurrent code, but doesn&rsquo;t suppress it, as scoped threads remain usable.</p>
+<p>This severely restricts our ability to write concurrent code, but doesn&rsquo;t suppress it, as scoped threads remain usable. Additionally, this would be easy to enforce with a Clippy lint. As it turns out, this is pretty much a form of functional concurrent programming.</p>
 <p>There may be larger subsets that are safe.</p>
 <h2 id="other-languages">Other languages?</h2>
 <p>I&rsquo;d love to add Ada, Circle, Go, Haskell, Idris, Zig and others. But I think that this post is long enough, isn&rsquo;t it?</p>
