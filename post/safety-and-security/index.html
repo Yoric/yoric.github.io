@@ -256,7 +256,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 </blockquote>
 <p>As most applications do not have a formal threat model, we&rsquo;ll let this degenerate to the more handwavy:</p>
 <blockquote>
-<p>Security (handwavy): An attacker cannot make your code do somethings it should not do.</p>
+<p>Security (handwavy): An attacker cannot make your code do something it should not do.</p>
 </blockquote>
 <p>Similarly, safety is something that has meaning only within a <em>specification</em>:</p>
 <blockquote>
@@ -270,7 +270,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <blockquote>
 <p>Invariant: Something the programmer believes of the code.</p>
 </blockquote>
-<p>Usually, invariants are easy to spot: they are often called &ldquo;documentation&rdquo;, &ldquo;comments&rdquo; or &ldquo;names&rdquo;. If you can&rsquo;t spot any invariants in code, assume that they are broken. For instance, and while this is not often something that you&rsquo;ll find in litterature, I personally consider Python&rsquo;s syntax and keyword arguments safety tools.</p>
+<p>Usually, invariants are easy to spot: they are often called &ldquo;documentation&rdquo;, &ldquo;comments&rdquo; or &ldquo;names&rdquo;. If you can&rsquo;t spot any invariants in the code, assume that they are broken. For instance, and while this is not often something that you&rsquo;ll find in literature, I personally consider Python&rsquo;s syntax and keyword arguments safety tools.</p>
 <p>We can even decide to let degenerate the definition of safety to:</p>
 <blockquote>
 <p>Safety (handwavy): The code works <em>and</em> the programmer understands why. No, for real, not just guessing.</p>
@@ -279,7 +279,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">not_main</span>() { <span style="color:#75715e">// Oops, typo. This should have been `main()`.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Do many useful things.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>Since we&rsquo;re not doing anything, we&rsquo;re (presumbaly) not behaving according to specifications. However, since we&rsquo;re not doing anything either, we&rsquo;re (presumably) not doing anything we shouldn&rsquo;t do.</p>
+</span></span></code></pre></div><p>Since we&rsquo;re not doing anything, we&rsquo;re (presumably) not behaving according to specifications. However, since we&rsquo;re not doing anything either, we&rsquo;re (presumably) not doing anything we shouldn&rsquo;t do.</p>
 <p>And here is a program that has full safety and no security:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>    disclose_user_password();
@@ -296,7 +296,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>type inference (as featured to some extent in pretty much all statically typed languages nowadays);</li>
 <li>literate programming (as featured to some extent in pretty much all languages nowadays);</li>
 <li>model checking (as featured for instance in the Ada ecosystem and in Microsoft&rsquo;s driver SDK);</li>
-<li>contracts (as featured in Ada, Eiffel and, to a small extent, in all languages with assertions);</li>
+<li>contracts (as featured in Ada, Eiffel, and, to a small extent, in all languages with assertions);</li>
 <li>sandboxed execution models (with the advent of WASM, pretty much all languages in existence can now benefit from it, even if it&rsquo;s not necessarily the default mode);</li>
 <li>memory-safe execution;</li>
 <li>memory models;</li>
@@ -326,21 +326,21 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h1 id="programming-languages">Programming languages</h1>
 <p>Oh, programming languages? Yes, programming languages. Because the reports I&rsquo;ve linked to above all talk of <em>safe programming languages</em>. For some definition of safe. So what is a <em>safe programming language</em>? Well, let&rsquo;s try and come up with a definition:</p>
 <blockquote>
-<p>Safe language (with respect to a specification/invariants): A language which helps the developer write safe code (with respect to a specification/invariants).</p>
+<p>Safe language (with respect to a specification/invariants): A language that helps the developer write safe code (with respect to a specification/invariants).</p>
 </blockquote>
 <blockquote>
-<p>Safe language (handwavy): A language which helps the developer write safe code (handwavy).</p>
+<p>Safe language (handwavy): A language that helps the developer write safe code (handwavy).</p>
 </blockquote>
-<p>Given that PL and FM researchers still toil hard to try and achieve a perfectly safe language, calling a language &ldquo;safe&rdquo; is something of a stretch. No, sadly, <code>$(YOUR FAVORITE LANGUAGE)</code> is not safe (handwavy). It may feature some very important safety properties (we&rsquo;ll discuss these later), but it&rsquo;s not absolutely safe. It can, however, be safer than another language <em>for some subset of specs</em> and/or (handwavy) <em>for some developers</em>. Yes, since our handwavy definition for safety implies a developer, of course, some languages are going to be safer for some developers and less safe for others. And of course how much experience you have in a language very much influences how safe this language is for you. This is why very safe code (e.g the Linux or BSD kernel) has been written in C, a language that features very few tools to aid with safety. This is also why the Linux kernel is opening itself to Rust – because finding developers who can write C with this level of safety is really hard, while kernel maintainers believe that finding developers who can write Rust code with this level of safety is easier, thanks to better safety-oriented tooling.</p>
-<p>And while we&rsquo;re at it, let&rsquo;s try and come up with a definition for a secure programming langauge:</p>
+<p>Given that PL and FM researchers still toil hard to try and achieve a perfectly safe language, calling a language &ldquo;safe&rdquo; is something of a stretch. No, sadly, <code>$(YOUR FAVORITE LANGUAGE)</code> is not safe (handwavy). It may feature some very important safety properties (we&rsquo;ll discuss these later), but it&rsquo;s not absolutely safe. It can, however, be safer than another language <em>for some subset of specs</em> and/or (handwavy) <em>for some developers</em>. Yes, since our handwavy definition of safety implies a developer, of course, some languages are going to be safer for some developers and less safe for others. And of course how much experience you have in a language very much influences how safe this language is for you. This is why very safe code (e.g the Linux or BSD kernel) has been written in C, a language that features very few tools to aid with safety. This is also why the Linux kernel is opening itself to Rust – because finding developers who can write C with this level of safety is really hard, while kernel maintainers believe that finding developers who can write Rust code with this level of safety is easier, thanks to better safety-oriented tooling.</p>
+<p>And while we&rsquo;re at it, let&rsquo;s try and come up with a definition for a secure programming language:</p>
 <blockquote>
-<p>Secure language (with respect to a threat model): A language which helps the developer write secure code (with respect to a threat model).</p>
+<p>Secure language (with respect to a threat model): A language that helps the developer write secure code (with respect to a threat model).</p>
 </blockquote>
 <blockquote>
-<p>Secure language (handwavy): A language which helps the developer write secure code (handwavy).</p>
+<p>Secure language (handwavy): A language that helps the developer write secure code (handwavy).</p>
 </blockquote>
 <p>One of the many conversations spawned by the above reports was within the <code>/r/cpp</code> community. Two themes returned regularly &ldquo;These reports are not focusing on recent versions of C++&rdquo; and &ldquo;I&rsquo;m writing safe/secure code in C++ all day long, <code>$(LANGUAGE X)</code> won&rsquo;t help me&rdquo;, where <code>$(LANGUAGE X)</code> often rhymed with &ldquo;Trust&rdquo;.</p>
-<p>I can&rsquo;t judge on the first argument. Most of my knowledge of C++ I gained either before joining Mozilla or while working for 9 years on the codebase of Firefox. While this codebase has been modernized quite a few times, its roots are deeply entrenched in legacy C++ – and even legacy C – dating back to times where many of the features that modern C++ developers take for granted were not implemented or not properly implemented by compilers. In fact, these past few weeks, I have been trying to brush up on my C++ by finding examples of shiny, pure, modern C++. I haven&rsquo;t found any yet, but if any reader knows of a good codebase I could look at, please don&rsquo;t hesitate to drop me a line!</p>
+<p>I can&rsquo;t judge on the first argument. Most of my knowledge of C++ I gained either before joining Mozilla or while working for 9 years on the codebase of Firefox. While this codebase has been modernized quite a few times, its roots are deeply entrenched in legacy C++ – and even legacy C – dating back to times when many of the features that modern C++ developers take for granted were not implemented or not properly implemented by compilers. In fact, these past few weeks, I have been trying to brush up on my C++ by finding examples of shiny, pure, modern C++. I haven&rsquo;t found any yet, but if any reader knows of a good codebase I could look at, please don&rsquo;t hesitate to drop me a line!</p>
 <p>What about the second argument? The answer is absolutely &ldquo;yes&rdquo;. You can definitely write safe and secure code in C++, at least for some threat models and some specifications. This is also true for <code>$(YOUR FAVORITE LANGUAGE)</code>, of course.</p>
 <p>This doesn&rsquo;t make <code>$(YOUR FAVORITE LANGUAGE)</code> (or <code>$(LANGUAGE X)</code>) a safe language, or a secure language, for <em>all</em> specs/threat models.</p>
 <p>Let me emphasize this.</p>
@@ -372,7 +372,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>Type safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). Every invariant for every type in memory holds for the entire duration of the program.</p>
 </blockquote>
 <p>Note that type safety is not the same thing as having static type checks. You can very well have static type checks that are insufficient to guarantee type safety and a dynamic type system that enforces type safety.</p>
-<p>Now, if you squint hard (or if you rewrite this post five times in an attempt to simplify it), you can see that memory safety, data race safety and type safety can be rewritten as the following, which I find simpler and easier to reason with:</p>
+<p>Now, if you squint hard (or if you rewrite this post five times in an attempt to simplify it), you can see that memory safety, data race safety, and type safety can be rewritten as the following, which I find simpler and easier to reason with:</p>
 <blockquote>
 <p>Memory safety (within a set of types and invariants) A piece of code is memory safe if it is both write safe and read safe with respect to these invariants.</p>
 </blockquote>
@@ -397,15 +397,15 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h3 id="can-we-break-write-safety-in-the-language">Can we break write-safety in the language?</h3>
 <p>Yes, trivially. C doesn&rsquo;t have any form of <code>private</code> fields, so nothing can prevent you from just writing into a <code>WTFString</code> and making it invalid. That&rsquo;s in addition to <code>union</code>, casts, raw pointers, pointer arithmetics, etc.</p>
 <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code. If you have ever used model-checking on C code, please feel free to drop me a line.</p>
+<p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help with a specific piece of code. If you have ever used model-checking on C code, please feel free to drop me a line.</p>
 <h3 id="can-we-break-read-safety-in-the-language">Can we break read-safety in the language?</h3>
-<p>Yes, trivially. Any <code>union</code>, cast, raw pointer access, etc. can let you read a <code>BrokenString</code> while believing that it&rsquo;s a <code>WTFString</code>. Macro shennanigans can have the same effect, by renaming <code>BrokenString</code> into <code>WTFString</code>.</p>
+<p>Yes, trivially. Any <code>union</code>, cast, raw pointer access, etc. can let you read a <code>BrokenString</code> while believing that it&rsquo;s a <code>WTFString</code>. Macro shenanigans can have the same effect, by renaming <code>BrokenString</code> into <code>WTFString</code>.</p>
 <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
+<p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help with a specific piece of code.</p>
 <h3 id="can-we-break-thread-safety-in-the-language">Can we break thread-safety in the language?</h3>
 <p>Yes, writing a deadlock or a livelock is trivial.</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I do not feel that it is possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
+<p>I do not feel that it is possible in the general case. Model-checking tools (e.g. TLA+) can help with a specific piece of code.</p>
 <h2 id="c-1">C++</h2>
 <h3 id="can-we-break-write-safety-in-the-language-1">Can we break write-safety in the language?</h3>
 <ul>
@@ -447,13 +447,13 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>I don&rsquo;t know of any model-checking tool for Python.</p>
 <h3 id="can-we-break-read-safety-in-the-language-2">Can we break read-safety in the language?</h3>
 <ul>
-<li>In theory, any code can verify at API boundaries that data that is passed is a real instance of <code>WTFString</code> and not something that has the same duck type. However, doing this is against the general guidelines of duck typing. Consequently, in idiomatic code, any <code>BrokenString</code> can be passed instead of a <code>WTFString</code>, breaking invariants.</li>
+<li>In theory, any code can verify at API boundaries that the data that is passed is a real instance of <code>WTFString</code> and not something that has the same duck type. However, doing this is against the general guidelines of duck typing. Consequently, in idiomatic code, any <code>BrokenString</code> can be passed instead of a <code>WTFString</code>, breaking invariants.</li>
 <li>If your data is not atomic, you can have read/write race conditions between threads despite the GIL.</li>
 <li>Python does not have writes to arbitrary memory locations, so there is that.</li>
 </ul>
 <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
 <p>The remarks regarding write-safety also apply here.</p>
-<p>Python&rsquo;s keyword arguments can help accidentally passing a <code>BrokenString</code> instead of a <code>WTFString</code>.</p>
+<p>Python&rsquo;s keyword arguments can help accidentally pass a <code>BrokenString</code> instead of a <code>WTFString</code>.</p>
 <h3 id="can-we-break-thread-safety-in-the-language-2">Can we break thread-safety in the language?</h3>
 <p>Yes, exactly as in C.</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
@@ -479,7 +479,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h3 id="can-we-break-read-safety-in-the-language-3">Can we break read-safety in the language?</h3>
 <ul>
 <li>JS code cannot read from arbitrary memory addresses.</li>
-<li>In theory, any code can verify at API boundaries that data that is passed is a real instance of <code>WTFString</code> and not something that has the same duck type. However, outside of native code and the odd <code>Array.isArray</code>, I almost never see this in JS code. Consequently, in idiomatic code, any <code>BrokenString</code> can be passed instead of a <code>WTFString</code>, breaking invariants.</li>
+<li>In theory, any code can verify at API boundaries that the data that is passed is a real instance of <code>WTFString</code> and not something that has the same duck type. However, outside of native code and the odd <code>Array.isArray</code>, I almost never see this in JS code. Consequently, in idiomatic code, any <code>BrokenString</code> can be passed instead of a <code>WTFString</code>, breaking invariants.</li>
 </ul>
 <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-3">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
 <p>My intuition tells me that it wouldn&rsquo;t be difficult. Just enforce dynamic type checks at boundaries. A TypeScript compiler could be customized to inject this.</p>
@@ -494,11 +494,11 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>Exactly as in JavaScript.</p>
 <h3 id="can-we-break-read-safety-in-the-language-4">Can we break read-safety in the language?</h3>
 <ul>
-<li>Normally, TypeScript&rsquo;s type system makes sure that you cannot pass a <code>BrokenString</code> where a <code>WTFString</code> is expected. However, by default, much of the type system is deactivated. Even at highest settings, all it takes is <code>as any</code> to cast a <code>BrokenString</code> into a <code>WTFString</code>.</li>
+<li>Normally, TypeScript&rsquo;s type system makes sure that you cannot pass a <code>BrokenString</code> where a <code>WTFString</code> is expected. However, by default, much of the type system is deactivated. Even at the highest settings, all it takes is <code>as any</code> to cast a <code>BrokenString</code> into a <code>WTFString</code>.</li>
 <li>For the rest, exactly as JavaScript.</li>
 </ul>
 <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-4">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I haven&rsquo;t checked in details but this feels fairly easy:</p>
+<p>I haven&rsquo;t checked in detail but this feels fairly easy:</p>
 <ul>
 <li>Set TypeScript to its highest settings.</li>
 <li>It shouldn&rsquo;t be too hard to prevent <code>as any</code> in TypeScript.</li>
@@ -523,7 +523,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>I suspect that this is possible although tricky:</p>
 <ul>
 <li>
-<p>Restrict native calls to vetted code. May be difficut to enforce through dependencies.</p>
+<p>Restrict native calls to vetted code. It may be difficult to enforce through dependencies.</p>
 </li>
 <li>
 <p>Adopt a policy that prevents callbacks, <code>await</code>, etc. while modifying a value. As in JavaScript, difficult to enforce.</p>
@@ -606,7 +606,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>In particular, I wouldn&rsquo;t be surprised if Ada, Haskell or Idris were better at safety than Rust.</p>
 <h1 id="what-about-statistics">What about statistics?</h1>
 <p>Oh, right, I forgot something. Researchers have attempted to draw statistics about language safety and security.</p>
-<p>Apparently, there is somewhere a list of <a href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVEs</a> classified by programming language. I will admit that I have been to lazy to look for it seriously. I expect that C and C++ are somewhere at the head of the list but that by itself doesn&rsquo;t actually mean anything, since Linux (C), BSD (C), Chromium (C++), Firefox (C++) and a few others are both highly monitored by their communities (including the part of the NSA that helps with protection) and targeted by attackers. As ChatGPT grows in use, I expect that Python will rise in the ranks, but that also won&rsquo;t mean anything, for the same reasons.</p>
+<p>Apparently, there is somewhere a list of <a href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVEs</a> classified by programming language. I will admit that I have been too lazy to look for it seriously. I expect that C and C++ are somewhere at the head of the list but that by itself doesn&rsquo;t actually mean anything, since Linux (C), BSD (C), Chromium (C++), Firefox (C++), and a few others are both highly monitored by their communities (including the part of the NSA that helps with protection) and targeted by attackers. As ChatGPT grows in use, I expect that Python will rise in the ranks, but that also won&rsquo;t mean anything, for the same reasons.</p>
 <p>Now, Microsoft has also published a <a href="https://raw.githubusercontent.com/microsoft/MSRC-Security-Research/master/presentations/2019_02_BlueHatIL/2019_01%20-%20BlueHatIL%20-%20Trends%2C%20challenge%2C%20and%20shifts%20in%20software%20vulnerability%20mitigation.pdf">summary</a> of vulnerabilities fixed in their products. This is, again, heavily biased, because Microsoft develops almost everything in C++. However, Microsoft&rsquo;s conclusion is that ~70% of the vulnerabilities are due to memory corruptions, which these days are prevented by default by every language other than C and C++. Apparently, the statistics are similar in <a href="https://www.chromium.org/Home/chromium-security/memory-safety/">Chromium</a> and in <a href="https://langui.sh/2021/12/13/apple-memory-safety/">Apple products</a>.</p>
 <p>To emphasize</p>
 <blockquote>
@@ -614,7 +614,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 </blockquote>
 <p>As a reminder, these are developments that involve:</p>
 <ul>
-<li>C++ developers hired by Microsoft, Google and Apple, companies with a high bar during recruitment;</li>
+<li>C++ developers hired by Microsoft, Google, and Apple, companies with a high bar during recruitment;</li>
 <li>some of whom are members of the C++ standardization committee;</li>
 <li>writing code that they know is security-critical;</li>
 <li>applying the secure programming guidelines published by various authorities, including Bjarne Stroustrup;</li>
@@ -635,18 +635,18 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>with data-driven investigation mechanisms;</li>
 <li>25+ years of accumulated experience (***).</li>
 </ul>
-<p>(*) I know that both Google and Mozilla are doing this. I&rsquo;m guessing that Microsoft and Apple are, too.</p>
+<p>(*) I know that both Google, and Mozilla are doing this. I&rsquo;m guessing that Microsoft and Apple are, too.</p>
 <p>(**) Probably not in all applications.</p>
 <p>(***) Recall that Chromium team was initially a Firefox development team.</p>
 <p>Is there a conclusion that we can draw? The signs suggest that despite taking inhuman levels of precautions to avoid specifically memory corruptions, these teams fail repeatedly at this specific task. This is a problem of both safety and security. As a member of the PL (and formerly FM) community, my first reflex is to blame the tools involved. To prove that C and/or C++ are to blame, however, one would of course need the opportunity to compare against similar programs, used quite as much in the wild, but written with different programming languages. As far as I know, such a study is currently impossible because there is no code that fulfills all these criteria, so this is un(dis)provable. However, it is clear that <em>if you are using C or C++ for anything security-critical, you are abandoning lots of tools designed to help you achieve memory-safe code and assuming that you can beat both Google, Microsoft, Apple and Mozilla at this game, despite all the assets mentioned above</em>. You are a brave person.</p>
 <p>There has also been <a href="https://cacm.acm.org/magazines/2017/10/221326-a-large-scale-study-of-programming-languages-and-code-quality-in-github/fulltext">at least one attempt</a> to study the safety of a programming language by looking at the number of bug fixes commits vs. non bug fixes commits. Bugs are typically safety violations, whether they are security issues or not, so this feels like a valid way to indirectly measure whether there is any unsafety correlated to the use of a language.</p>
 <p>Let me copy their results:</p>
 <p><img src="https://dl.acm.org/cms/attachment/29401a57-a1f3-4b5e-9c64-3dd1637963bd/t6.jpg" alt="From worst to best, C++, TypeScript tied to Obj-C, C, PHP, Python, CoffeeScript, JavaScript, Erlang, C#, Java, Perl, Go, Ruby, Scala, Haskell, Clojure"></p>
-<p>Note that this study dates back to 2017. Rust was too young to be in the list. Since Rust and Scala have pretty close safety guarantees, I would imagine that Rust would feature somewhere close to Scala in that table, but that&rsquo;s just a hunch from my part. One possible conclusion is that C++, TypeScript, Objective-C, C, PHP, Python code available in the wild seems to contain many bugs. Or it could mean that the developers in these languages just <em>fix</em> more bugs. Or are better at labelling what they&rsquo;re doing as bugfixes. It&rsquo;s really hard to be certain.</p>
+<p>Note that this study dates back to 2017. Rust was too young to be in the list. Since Rust and Scala have pretty close safety guarantees, I would imagine that Rust would feature somewhere close to Scala in that table, but that&rsquo;s just a hunch from my part. One possible conclusion is that C++, TypeScript, Objective-C, C, PHP, and Python code available in the wild seems to contain many bugs. Or it could mean that the developers in these languages just <em>fix</em> more bugs. Or are better at labeling what they&rsquo;re doing as bugfixes. It&rsquo;s really hard to be certain.</p>
 <p>There may be something to conclude from the fact that Python lies among the &ldquo;worse than average languages&rdquo; while Ruby which is somewhat similar lies among the &ldquo;better than average languages&rdquo;, but it would take someone smarter than me to figure out what.</p>
 <h1 id="so-what">So what?</h1>
 <p>What what? Oh, do you want me to tell you to use Rust?</p>
-<p>Use whichever language makes sense for your goal, specs and threat model. There are many use cases in which <em>I</em> will be using Rust if I have a choice. But I&rsquo;ll happily use a different tool if it appropriate.</p>
+<p>Use whichever language makes sense for your goal, specs, and threat model. There are many use cases in which <em>I</em> will be using Rust if I have a choice. But I&rsquo;ll happily use a different tool if it is appropriate.</p>
 <p>I just hope that this post can help you a bit navigate the constraints and vocabulary of safety and security. And please, please, do not use this for trolling. We&rsquo;re all in this together, attempting to improve the safety and security of our code. We all have things to learn from each other and each other&rsquo;s tools.</p>
 <p>Also, if you feel that I&rsquo;ve made a mistake and misrepresented <code>$(YOUR FAVORITE LANGUAGE)</code>, feel free to drop me a line!</p></article>
     <footer class="post-footer">
@@ -676,7 +676,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License, please give source if you wish to quote or reproduce.
       </p>
     </footer>
     
