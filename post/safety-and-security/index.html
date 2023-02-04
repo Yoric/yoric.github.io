@@ -509,7 +509,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>Exactly as in JavaScript.</p>
 <h2 id="ruby">Ruby</h2>
 <p>I&rsquo;m not very familiar with Ruby. It is my understanding that the situation is exactly as in JavaScript.</p>
-<h2 id="java-c-without-unsafe-scala-f">Java, C# without <code>unsafe</code>, Scala, F#</h2>
+<h2 id="java-c-without-unsafe-scala-f-ocaml">Java, C# without <code>unsafe</code>, Scala, F#, OCaml</h2>
 <h3 id="can-we-break-write-safety-in-the-language-5">Can we break write-safety in the language?</h3>
 <ul>
 <li>If code calls native code that breaks write-safety, it will break write-safety.</li>
@@ -553,7 +553,6 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
 <p>Exactly as in C.</p>
 <h2 id="rust">Rust</h2>
-<p>Caveat: after much back and forth and rewriting, I decided to include the full Rust language (including <code>unsafe</code> in Rust) while I didn&rsquo;t hold C# to the same level of scrutiny (as I arbitrarily removed <code>unsafe</code> in C#, to make it comparable with Java, Scala and F#).</p>
 <h3 id="can-we-break-write-safety-in-the-language-6">Can we break write-safety in the language?</h3>
 <ul>
 <li>If code calls native code that breaks write-safety, it will break write-safety. This requires the keyword <code>unsafe</code>.</li>
@@ -563,19 +562,12 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>Out of the box, Rust does not support side-effects on the data, which avoids the callback nightmare of JavaScript. Entering <code>unsafe</code> mode allows it and is strongly discouraged.</li>
 </ul>
 <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
+<p>Option 1: Don&rsquo;t use <code>unsafe</code>. Most of the code I have seen or written in Rust doesn&rsquo;t use <code>unsafe</code>, it&rsquo;s not particularly constraining.</p>
+<p>Option 2: If you absolutely must use <code>unsafe</code>, make sure that it does not break write-safety, as recommended by the official documentation.
+- No, really, review them again. Re-read the Rustonomicon. Have them reviewed by a second and a third person. Ideally, they can even suggest a way to remove that use of <code>unsafe</code>.</p>
+<p>In either case, restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
 <ul>
-<li>
-<p>Review every use of <code>unsafe</code> to ensure that it does not break write-safety. This is strongly encouraged by the recommendations.</p>
-<ul>
-<li>No, really, review them again. Re-read the Rustonomicon. Have them reviewed by a second and a third person. Ideally, they can even suggest a way to remove that use of <code>unsafe</code>.</li>
-</ul>
-</li>
-<li>
-<p>Restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
-</li>
-<li>
-<p>There are also several model-checkers for Rust.</p>
-</li>
+<li>There are also several model-checkers for Rust.</li>
 </ul>
 <h3 id="can-we-break-read-safety-in-the-language-6">Can we break read-safety in the language?</h3>
 <ul>
@@ -585,30 +577,32 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>Out of the box, Rust does not support arbitrary casts. Entering <code>unsafe</code> mode allows it and is strongly discouraged.</li>
 </ul>
 <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
+<p>Option 1: Don&rsquo;t use <code>unsafe</code>. Really. The only times I&rsquo;ve had to use <code>unsafe</code> in production code was when writing a new kind of Mutex and I had a proof at hand that it didn&rsquo;t break any invariant.</p>
+<p>Option 2: If you absolutely must use <code>unsafe</code>, review every site to ensure that it does not break write-safety. This is strongly encouraged by the recommendations.
+- Then review them some more. Add assertions around them. Try to eliminate them.</p>
+<p>In either case, restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
 <ul>
-<li>
-<p>Review every use of <code>unsafe</code> to ensure that it does not break write-safety. This is strongly encouraged by the recommendations.</p>
-<ul>
-<li>Review them some more. Add assertions around them. Try to eliminate them.</li>
-</ul>
-</li>
-<li>
-<p>Restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
-</li>
-<li>
-<p>There are also several model-checkers for Rust.</p>
-</li>
+<li>There are also several model-checkers for Rust.</li>
 </ul>
 <h3 id="can-we-break-thread-safety-in-the-language-6">Can we break thread-safety in the language?</h3>
-<p>Yes, exactly as in C.</p>
+<p>Yes. It&rsquo;s not as bad as in C, because <code>Sync</code> and <code>Send</code> will reject many breakages, but it remains possible to create deadlocks or livelocks, either with OS threads or with Futures.</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Exactly as in C.</p>
+<p>Formal methods are very good at detecting deadlocks, livelocks or any other reliance on scheduling, but I don&rsquo;t know that anyone has every tried to attempt this with Rust.</p>
+<p>I have not checked but my hunch is that the following policy would be sufficient:</p>
+<ul>
+<li>avoid any kind of Mutexes &amp; co (semaphores, condition variables, read-write locks, thread partings, &hellip;);</li>
+<li>avoid thread joins;</li>
+<li>avoid message-passing channels.</li>
+</ul>
+<p>This severely restricts our ability to write concurrent code, but doesn&rsquo;t suppress it, as scoped threads remain usable.</p>
+<p>There may be larger subsets that are safe.</p>
 <h2 id="other-languages">Other languages?</h2>
-<p>I&rsquo;d love to add Ada, Zig, OCaml, Haskell, Idris, Circle and others. But I think that this post is long enough, isn&rsquo;t it?</p>
+<p>I&rsquo;d love to add Ada, Circle, Go, Haskell, Idris, Zig and others. But I think that this post is long enough, isn&rsquo;t it?</p>
 <h1 id="so-whats-the-safest-language-whats-the-most-secure-language">So, what&rsquo;s the safest language? What&rsquo;s the most secure language?</h1>
 <p>As expressed above, this depends on your spec or invariants and on your threat model. There is no absolute answer.</p>
 <h1 id="but-rust-is-the-safest-right">But Rust is the safest, right?</h1>
 <p>Out of the box, Rust provides a pretty good baseline level. But in practice, any evaluation needs to take into account your spec or invariants and your threat model. So it&rsquo;s entirely possible that other languages will behave better against some specs and thread models.</p>
+<p>In particular, I wouldn&rsquo;t be surprised if Ada, Haskell or Idris were better at safety than Rust.</p>
 <h1 id="what-about-statistics">What about statistics?</h1>
 <p>Oh, right, I forgot something. Researchers have attempted to draw statistics about language safety and security.</p>
 <p>Apparently, there is somewhere a list of <a href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVEs</a> classified by programming language. I will admit that I have been to lazy to look for it seriously. I expect that C and C++ are somewhere at the head of the list but that by itself doesn&rsquo;t actually mean anything, since Linux (C), BSD (C), Chromium (C++), Firefox (C++) and a few others are both highly monitored by their communities (including the part of the NSA that helps with protection) and targeted by attackers. As ChatGPT grows in use, I expect that Python will rise in the ranks, but that also won&rsquo;t mean anything, for the same reasons.</p>
