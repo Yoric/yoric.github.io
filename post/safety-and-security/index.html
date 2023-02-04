@@ -244,7 +244,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">About Safety, Security and yes, C&#43;&#43; and Rust</h1>
-      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 28 min read</p>
+      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 29 min read</p>
     </header>
     <article class="post-content"><p>Recent publications by <a href="https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf">Consumer Reports</a> and the <a href="https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF">NSA</a> have launched countless conversations in development circles about <em>safety</em> and its benefits.</p>
 <p>In these conversations, I&rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&rsquo;s clarify a few things.</p>
@@ -289,6 +289,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <blockquote>
 <p>Benefit of safety: If a program is perfectly safe (wrt a spec or invariants), you can guarantee security (wrt a threat model) by analyzing the spec (or invariants).</p>
 </blockquote>
+<p>In particular, <em>some</em> safety properties, when broken, often open security <em>vulnerabilities</em>. More on this later.</p>
 <p>Achieving perfectly safe code has been a long-standing goal of both the programming language community and the formal methods community. This goal has not been reached yet. I suspect that it never will. But that is ok, because while pursuing this objective (or subsets thereof), the PL and FM communities have given us a number of extremely valuable tools, including:</p>
 <ul>
 <li>strong, static type systems – some of them formally proven to be sound;</li>
@@ -607,6 +608,10 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>Oh, right, I forgot something. Researchers have attempted to draw statistics about language safety and security.</p>
 <p>Apparently, there is somewhere a list of <a href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVEs</a> classified by programming language. I will admit that I have been to lazy to look for it seriously. I expect that C and C++ are somewhere at the head of the list but that by itself doesn&rsquo;t actually mean anything, since Linux (C), BSD (C), Chromium (C++), Firefox (C++) and a few others are both highly monitored by their communities (including the part of the NSA that helps with protection) and targeted by attackers. As ChatGPT grows in use, I expect that Python will rise in the ranks, but that also won&rsquo;t mean anything, for the same reasons.</p>
 <p>Now, Microsoft has also published a <a href="https://raw.githubusercontent.com/microsoft/MSRC-Security-Research/master/presentations/2019_02_BlueHatIL/2019_01%20-%20BlueHatIL%20-%20Trends%2C%20challenge%2C%20and%20shifts%20in%20software%20vulnerability%20mitigation.pdf">summary</a> of vulnerabilities fixed in their products. This is, again, heavily biased, because Microsoft develops almost everything in C++. However, Microsoft&rsquo;s conclusion is that ~70% of the vulnerabilities are due to memory corruptions, which these days are prevented by default by every language other than C and C++. Apparently, the statistics are similar in <a href="https://www.chromium.org/Home/chromium-security/memory-safety/">Chromium</a> and in <a href="https://langui.sh/2021/12/13/apple-memory-safety/">Apple products</a>.</p>
+<p>To emphasize</p>
+<blockquote>
+<p>More than 70% of security vulnerabilities spotted by Microsoft, Google and Apple are due to breaking write safety using mechanisms that are available out of the box only in C and C++.</p>
+</blockquote>
 <p>As a reminder, these are developments that involve:</p>
 <ul>
 <li>C++ developers hired by Microsoft, Google and Apple, companies with a high bar during recruitment;</li>
