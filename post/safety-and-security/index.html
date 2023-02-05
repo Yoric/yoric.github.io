@@ -244,7 +244,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">About Safety, Security and yes, C&#43;&#43; and Rust</h1>
-      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 32 min read</p>
+      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 33 min read</p>
     </header>
     <article class="post-content"><p>Recent publications by <a href="https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf">Consumer Reports</a> and the <a href="https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF">NSA</a> have launched countless conversations in development circles about <em>safety</em> and its benefits.</p>
 <p>In these conversations, I&rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&rsquo;s clarify a few things.</p>
@@ -374,6 +374,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <blockquote>
 <p>Type safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). Every invariant for every type in memory holds for the entire duration of the program.</p>
 </blockquote>
+<p>Note to fellow members of the Formal Methods community: if you manage to fit in two-three lines a definition of Subject Reduction that works for C++, I&rsquo;m interested.</p>
 <p>Note that type safety is not the same thing as having static type checks. You can very well have static type checks that are insufficient to guarantee type safety and a dynamic type system that enforces type safety.</p>
 <p>Now, if you squint hard (or if you rewrite this post five times in an attempt to simplify it), you can see that memory safety, data race safety and type safety can be rewritten as the following, which I find simpler and easier to reason with:</p>
 <blockquote>
@@ -433,7 +434,9 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>There is a folk theorem within the C++ community that there exists a safe subset of C++. I have read both CERT&rsquo;s guidelines and Bjarne Stroustrup&rsquo;s guidelines and they very clearly are not this subset. If this subset is written anywhere, I would be very interested in reading it.</p>
 <p>That being said, let&rsquo;s see if we can come with a subset:</p>
 <ul>
+<li>don&rsquo;t use C in C++;</li>
 <li>use a version of the stdlib that panics whenever you read or write out of bounds, whenever you attempt to dereference an iterator that has been invalidated or that is accidentally out of bounds;</li>
+<li>use smart pointers everywhere;</li>
 <li>to avoid the race conditions and any other mechanism that can interrupt your code while you&rsquo;re in the middle of updating a <code>WTFString</code>, adopt a side-effects-free programming style (aka functional programming), optionally concurrent/distributed;</li>
 <li>audit your dependencies.</li>
 </ul>
@@ -443,7 +446,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>How do you make sure that you are using this style?</li>
 <li>Would developers use this style?</li>
 </ol>
-<p>To answer 1.: I believe that it would be possible to write a linter that checks you&rsquo;re writing in a functional programming style. Not easy – writing linters for C++ is never easy, but possible. Auditing the stdlib to make sure that it always panics&hellip; well, the stdlib is a huge piece of code but it can be rewritten.</p>
+<p>To answer 1.: I believe that it would be possible to write a linter. Not easy – writing linters for C++ is never easy – but possible. Auditing the stdlib to make sure that it always panics&hellip; well, the stdlib is a huge piece of code but it can be rewritten. It is my understanding that there are efforts to port the stdlib to CHERI-enabled hardware. For platforms that support CHERI, this might provide essentially what I&rsquo;m speaking of. It is my understanding that we&rsquo;re still at least 5 years away from being able to actually test this, though.</p>
 <p>To answer 2.: I my experience writing C++ and being part of the C++ community, I believe that there are two categories of C++ users. Those that write High Frequency Trading code and everybody else.</p>
 <ul>
 <li>I know of several HFT firms that write their code in Haskell or OCaml or F#, which strongly suggests that HFT is fully compatible with functional programming. In fact, I suspect that some variants of this C++ style are <em>already</em> being used to reduce risks. Not everywhere. Not full applications. But still, used.</li>
