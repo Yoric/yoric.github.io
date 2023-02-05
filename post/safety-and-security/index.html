@@ -244,7 +244,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">About Safety, Security and yes, C&#43;&#43; and Rust</h1>
-      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 30 min read</p>
+      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 31 min read</p>
     </header>
     <article class="post-content"><p>Recent publications by <a href="https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf">Consumer Reports</a> and the <a href="https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF">NSA</a> have launched countless conversations in development circles about <em>safety</em> and its benefits.</p>
 <p>In these conversations, I&rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&rsquo;s clarify a few things.</p>
@@ -333,7 +333,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <blockquote>
 <p>Safe language (handwavy): A language which helps the developer write safe code (handwavy).</p>
 </blockquote>
-<p>Given that PL and FM researchers still toil hard to try and achieve a perfectly safe language, calling a language &ldquo;safe&rdquo; is something of a stretch. No, sadly, <code>$(YOUR FAVORITE LANGUAGE)</code> is not safe (handwavy). It may feature some very important safety properties (we&rsquo;ll discuss these later), but it&rsquo;s not absolutely safe. It can, however, be safer than another language <em>for some subset of specs</em> and/or (handwavy) <em>for some developers</em>. Yes, since our handwavy definition for safety implies a developer, of course, some languages are going to be safer for some developers and less safe for others. And of course how much experience you have in a language very much influences how safe this language is for you. This is why quite safe code (e.g the Linux or BSD kernel) has been written in C, a language that features very few tools to aid with safety. This is also why the Linux kernel is opening itself to Rust – because finding developers who can write C with this level of safety is really hard, while kernel maintainers believe that finding developers who can write Rust code with this level of safety is easier, thanks to better safety-oriented tooling.</p>
+<p>Given that PL and FM researchers still toil hard to try and achieve a perfectly safe language, calling a language &ldquo;safe&rdquo; is something of a stretch. No, sadly, <code>$(YOUR FAVORITE LANGUAGE)</code> is not safe (handwavy). It may feature some very important safety properties (we&rsquo;ll discuss these later), but it&rsquo;s not absolutely safe. It can, however, be safer than another language <em>for some subset of specs</em> and/or (handwavy) <em>for some developers</em>. Yes, since our handwavy definition for safety implies a developer, of course, some languages are going to be safer for some developers and less safe for others. And of course how much experience you have in a language very much influences how safe this language is for you. This is why quite safe code (e.g sqlite) has been written in C, a language that features very few tools to aid with safety. This is also why the Linux kernel is opening itself to Rust – because finding developers who can write C with this level of safety is really hard, while kernel maintainers believe that finding developers who can write Rust code with this level of safety is easier, thanks to better safety-oriented tooling.</p>
 <p>And while we&rsquo;re at it, let&rsquo;s try and come up with a definition for a secure programming langauge:</p>
 <blockquote>
 <p>Secure language (with respect to a threat model): A language which helps the developer write secure code (with respect to a threat model).</p>
@@ -397,11 +397,21 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>Are you ready for a tentative taxonomy of languages? I&rsquo;ll do my best to be objective, but I am a human being, with limited knowledge and unlimited bias, so I can be writing things that are false or misleading. If you feel that&rsquo;s the case, don&rsquo;t hesitate to get in touch.</p>
 <h2 id="c">C</h2>
 <h3 id="can-we-break-write-safety-in-the-language">Can we break write-safety in the language?</h3>
-<p>Yes, trivially. C doesn&rsquo;t have any form of <code>private</code> fields, so nothing can prevent you from just writing into a <code>WTFString</code> and making it invalid. That&rsquo;s in addition to <code>union</code>, casts, raw pointers, pointer arithmetics, etc.</p>
+<p>Yes, trivially:</p>
+<ul>
+<li>C doesn&rsquo;t have any form of <code>private</code> fields, so nothing can prevent you from just writing into a <code>WTFString</code> and making it invalid.</li>
+<li>C has <code>union</code>, casts, raw pointers, pointer arithmetics, race conditions, etc. that can all accidentally overwrite part of a <code>WTFString</code>.</li>
+<li>And of course, as in other languages, write-safety in C code can be broken by a dependency (which is typically more C code).</li>
+</ul>
 <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
 <p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code. If you have ever used model-checking on C code, please feel free to drop me a line.</p>
 <h3 id="can-we-break-read-safety-in-the-language">Can we break read-safety in the language?</h3>
-<p>Yes, trivially. Any <code>union</code>, cast, raw pointer access, etc. can let you read a <code>BrokenString</code> while believing that it&rsquo;s a <code>WTFString</code>. Macro shennanigans can have the same effect, by renaming <code>BrokenString</code> into <code>WTFString</code>.</p>
+<p>Yes, trivially.</p>
+<ul>
+<li>Any <code>union</code>, cast, raw pointer access, etc. can let you read a <code>BrokenString</code> while believing that it&rsquo;s a <code>WTFString</code>.</li>
+<li>Macro shennanigans can have the same effect, by renaming <code>BrokenString</code> into <code>WTFString</code>.</li>
+<li>As usual, dependencies.</li>
+</ul>
 <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
 <p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
 <h3 id="can-we-break-thread-safety-in-the-language">Can we break thread-safety in the language?</h3>
@@ -414,6 +424,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>C++ has <code>private</code> fields, so it is harder to break write-safety on purpose than in C.</li>
 <li>You can trivially break write-safety by using the features of the C subset of C++. Safe coding guidelines very much discourage this.</li>
 <li>If we abstain from using the C subset and restrict ourselves to C++ modules, it is still trivial, by misusing <code>operator[]</code> or iterators or data race conditions.</li>
+<li>As with other languages, write safety can be broken by dependencies.</li>
 <li>There are still higher-level manners of breaking write-safety (see below e.g. Python) but you have to work hard at implementing them, so they won&rsquo;t happen out of the box.</li>
 </ul>
 <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
@@ -462,7 +473,7 @@ all of Python&rsquo;s batteries. I suspect that most Python developers would be 
 rejecting duck-typing in favor of <code>isinstance</code>. Unfortunately, this collides violently
 with the concept of idiomatic Python, so I suspect that such a subset would not be used.</p>
 <h3 id="can-we-break-thread-safety-in-the-language-2">Can we break thread-safety in the language?</h3>
-<p>Yes, exactly as in C. The GIL protects from breaking refcounting, but nothing else.</p>
+<p>Yes, exactly as in C. The GIL protects refcounting, but nothing else.</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
 <p>Once again, adopting a (concurrent) functional programming style could help, something
 similar to Sklml for instance.</p>
@@ -599,10 +610,10 @@ tools for some of these languages, which may help.</p>
 <p>As expressed above, this depends on your spec or invariants and on your threat model. There is no absolute answer.</p>
 <h1 id="but-rust-is-the-safest-right">But Rust is the safest, right?</h1>
 <p>Out of the box, Rust provides a pretty good baseline level. But in practice, any evaluation needs to take into account your spec or invariants and your threat model. So it&rsquo;s entirely possible that other languages will behave better against some specs and thread models.</p>
-<p>In particular, I wouldn&rsquo;t be surprised if Ada, Haskell or Idris were better at safety than Rust.</p>
+<p>In particular, I wouldn&rsquo;t be surprised if Ada, Haskell or Idris provided an even better baseline at safety than Rust.</p>
 <h1 id="what-about-statistics">What about statistics?</h1>
 <p>Oh, right, I forgot something. Researchers have attempted to draw statistics about language safety and security.</p>
-<p>Apparently, there is somewhere a list of <a href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVEs</a> classified by programming language. I will admit that I have been to lazy to look for it seriously. I expect that C and C++ are somewhere at the head of the list but that by itself doesn&rsquo;t actually mean anything, since Linux (C), BSD (C), Chromium (C++), Firefox (C++) and a few others are both highly monitored by their communities (including the part of the NSA that helps with protection) and targeted by attackers. As ChatGPT grows in use, I expect that Python will rise in the ranks, but that also won&rsquo;t mean anything, for the same reasons.</p>
+<p>Apparently, there is somewhere a list of <a href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVEs</a> classified by programming language. I will admit that I have been to lazy to look for it seriously. I expect that C and C++ are somewhere at the head of the list but that by itself doesn&rsquo;t actually mean anything, since Linux (C), BSD (C), MySQL (C), Sqlite (C), Postgres (C), Chromium (C++), Firefox (C++) and a few others are both highly monitored by their communities (including the part of the NSA that helps with protection) and targeted by attackers. As ChatGPT grows in use, I expect that Python will rise in the ranks, but that also won&rsquo;t mean anything conclusive, for the same reasons.</p>
 <p>Now, Microsoft has also published a <a href="https://raw.githubusercontent.com/microsoft/MSRC-Security-Research/master/presentations/2019_02_BlueHatIL/2019_01%20-%20BlueHatIL%20-%20Trends%2C%20challenge%2C%20and%20shifts%20in%20software%20vulnerability%20mitigation.pdf">summary</a> of vulnerabilities fixed in their products. This is, again, heavily biased, because Microsoft develops almost everything in C++. However, Microsoft&rsquo;s conclusion is that ~70% of the vulnerabilities are due to memory corruptions, which these days are prevented by default by every language other than C and C++. Apparently, the statistics are similar in <a href="https://www.chromium.org/Home/chromium-security/memory-safety/">Chromium</a> and in <a href="https://langui.sh/2021/12/13/apple-memory-safety/">Apple products</a>.</p>
 <p>To emphasize</p>
 <blockquote>
@@ -635,16 +646,17 @@ tools for some of these languages, which may help.</p>
 <p>(**) Probably not in all applications.</p>
 <p>(***) Recall that Chromium team was initially a Firefox development team.</p>
 <p>Is there a conclusion that we can draw? The signs suggest that despite taking inhuman levels of precautions to avoid specifically memory corruptions, these teams fail repeatedly at this specific task. This is a problem of both safety and security. As a member of the PL (and formerly FM) community, my first reflex is to blame the tools involved. To prove that C and/or C++ are to blame, however, one would of course need the opportunity to compare against similar programs, used quite as much in the wild, but written with different programming languages. As far as I know, such a study is currently impossible because there is no code that fulfills all these criteria, so this is un(dis)provable. However, it is clear that <em>if you are using C or C++ for anything security-critical, you are abandoning lots of tools designed to help you achieve memory-safe code and assuming that you can beat both Google, Microsoft, Apple and Mozilla at this game, despite all the assets mentioned above</em>. You are a brave person.</p>
-<p>There has also been <a href="https://cacm.acm.org/magazines/2017/10/221326-a-large-scale-study-of-programming-languages-and-code-quality-in-github/fulltext">at least one attempt</a> to study the safety of a programming language by looking at the number of bug fixes commits vs. non bug fixes commits. Bugs are typically safety violations, whether they are security issues or not, so this feels like a valid way to indirectly measure whether there is any unsafety correlated to the use of a language.</p>
+<p>There has also been <a href="https://cacm.acm.org/magazines/2017/10/221326-a-large-scale-study-of-programming-languages-and-code-quality-in-github/fulltext">at least one attempt</a> to study the safety of a programming language by looking at the number of bug fixes commits vs. non bug fixes commits. Bugs are typically safety violations, whether they are security issues or not. Intuitively, this feels like a valid way to indirectly measure whether there is any unsafety correlated to the use of a language.</p>
 <p>Let me copy their results:</p>
 <p><img src="https://dl.acm.org/cms/attachment/29401a57-a1f3-4b5e-9c64-3dd1637963bd/t6.jpg" alt="From worst to best, C++, TypeScript tied to Obj-C, C, PHP, Python, CoffeeScript, JavaScript, Erlang, C#, Java, Perl, Go, Ruby, Scala, Haskell, Clojure"></p>
-<p>Note that this study dates back to 2017. Rust was too young to be in the list. Since Rust and Scala have pretty close safety guarantees, I would imagine that Rust would feature somewhere close to Scala in that table, but that&rsquo;s just a hunch from my part. One possible conclusion is that C++, TypeScript, Objective-C, C, PHP, Python code available in the wild seems to contain many bugs. Or it could mean that the developers in these languages just <em>fix</em> more bugs. Or are better at labelling what they&rsquo;re doing as bugfixes. It&rsquo;s really hard to be certain.</p>
+<p>Note that this study dates back to 2017. Rust was too young to be in the list. Since Rust and Scala have pretty close safety guarantees, I would imagine that Rust would feature somewhere close to Scala in that table, but that&rsquo;s just a hunch from my part. One possible conclusion is that C++, TypeScript, Objective-C, C, PHP, Python code available in the wild seems to contain many bugs. Or it could mean that the developers in these languages just <em>fix</em> more bugs. Or are better at labelling what they&rsquo;re doing as bugfixes. Or that their software has more users, which causes more bugs to be found. It&rsquo;s really hard to be certain.</p>
 <p>There may be something to conclude from the fact that Python lies among the &ldquo;worse than average languages&rdquo; while Ruby which is somewhat similar lies among the &ldquo;better than average languages&rdquo;, but it would take someone smarter than me to figure out what.</p>
 <h1 id="so-what">So what?</h1>
 <p>What what? Oh, do you want me to tell you to use Rust?</p>
 <p>Use whichever language makes sense for your goal, specs and threat model. There are many use cases in which <em>I</em> will be using Rust if I have a choice. But I&rsquo;ll happily use a different tool if it feels appropriate.</p>
 <p>I just hope that this post can help you a bit navigate the constraints and vocabulary of safety and security. And please, please, do not use this for trolling. We&rsquo;re all in this together, attempting to improve the safety and security of our code. We all have things to learn from each other and each other&rsquo;s tools.</p>
-<p>Also, if you feel that I&rsquo;ve made a mistake and misrepresented <code>$(YOUR FAVORITE LANGUAGE)</code>, feel free to drop me a line!</p></article>
+<p>Also, if you feel that I&rsquo;ve made a mistake and misrepresented <code>$(YOUR FAVORITE LANGUAGE)</code>, feel free to drop me a line!</p>
+<p><strong>edit</strong> Lots of feedback, thanks! I keep updating this post.</p></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
