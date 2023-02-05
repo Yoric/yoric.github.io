@@ -244,7 +244,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">About Safety, Security and yes, C&#43;&#43; and Rust</h1>
-      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 31 min read</p>
+      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 32 min read</p>
     </header>
     <article class="post-content"><p>Recent publications by <a href="https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf">Consumer Reports</a> and the <a href="https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF">NSA</a> have launched countless conversations in development circles about <em>safety</em> and its benefits.</p>
 <p>In these conversations, I&rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&rsquo;s clarify a few things.</p>
@@ -342,7 +342,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <p>Secure language (handwavy): A language which helps the developer write secure code (handwavy).</p>
 </blockquote>
 <p>One of the many conversations spawned by the above reports was within the <code>/r/cpp</code> community. Two themes returned regularly &ldquo;These reports are not focusing on recent versions of C++&rdquo; and &ldquo;I&rsquo;m writing safe/secure code in C++ all day long, <code>$(LANGUAGE X)</code> won&rsquo;t help me&rdquo;, where <code>$(LANGUAGE X)</code> often rhymed with &ldquo;Trust&rdquo;.</p>
-<p>I can&rsquo;t judge on the first argument. Most of my knowledge of C++ I gained either before joining Mozilla or while working for 9 years on the codebase of Firefox. While this codebase has been modernized quite a few times, its roots are deeply entrenched in legacy C++ – and even legacy C – dating back to times where many of the features that modern C++ developers take for granted were not implemented or not properly implemented by compilers. In fact, these past few weeks, I have been trying to brush up on my C++ by finding examples of shiny, pure, modern C++. I haven&rsquo;t found any yet, but if any reader knows of a good codebase I could look at, please don&rsquo;t hesitate to drop me a line!</p>
+<p>I can&rsquo;t judge on the first argument. Most of my knowledge of C++ I gained either before joining Mozilla or while working for 9 years on the codebase of Firefox. While this codebase has been modernized quite a few times, its roots are deeply entrenched in legacy C++ – and even legacy C – dating back to times where many of the features that modern C++ developers take for granted were not implemented or not properly implemented by compilers. In fact, these past few weeks, I have been trying to brush up on my C++ by finding examples of shiny, pure, modern and of course safe C++. I haven&rsquo;t found any yet, but if any reader knows of a good codebase I could look at, please don&rsquo;t hesitate to drop me a line!</p>
 <p>What about the second argument? The answer is absolutely &ldquo;yes&rdquo;. You can definitely write safe and secure code in C++, at least for some threat models and some specifications. This is also true for <code>$(YOUR FAVORITE LANGUAGE)</code>, of course.</p>
 <p>This doesn&rsquo;t make <code>$(YOUR FAVORITE LANGUAGE)</code> (or <code>$(LANGUAGE X)</code>) a safe language, or a secure language, for <em>all</em> specs/threat models.</p>
 <p>Let me emphasize this.</p>
@@ -359,8 +359,8 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>data race safety;</li>
 <li>thread safety.</li>
 </ul>
-<p>There is definitely more to safety than these four kinds of safety. Documentation and clarity of intent/implementation are parts of safety. Assertions/contracts are part of safety (although one could argue that they are part of type safety). Many applications also need to take into account user safety, which is not part of software safety. There are also such things as resource safety, etc. But they are all beyond the scope of this discussion.</p>
-<p>Let&rsquo;s try and provide a quick and handwavy definition for these kinds of safety:</p>
+<p>There is definitely more to safety than these four kinds of safety. Documentation and clarity of intent/implementation are parts of safety. Assertions/contracts are part of safety (although one could argue that they are already part of type safety). Many applications also need to take into account user safety, which is not part of software safety. There are also various notions of resource safety, etc. But they are all beyond the scope of this discussion.</p>
+<p>Let&rsquo;s try and provide a quick and fairly handwavy definition for these kinds of safety:</p>
 <blockquote>
 <p>Memory safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). If your code reads from a memory address believing that it&rsquo;s reading something with type T, then it&rsquo;s actually reading from something with type T (or a subtype thereof). If your code writes to a memory address believing that it&rsquo;s writing something with type T, then it&rsquo;s actually writing on top of something with type T (or a supertype thereof, including <code>undefined</code>).</p>
 </blockquote>
@@ -370,6 +370,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <blockquote>
 <p>Thread safety: There is no scheduling that can break an invariant.</p>
 </blockquote>
+<p>Thread safety includes deadlocks, livelocks and data race safety.</p>
 <blockquote>
 <p>Type safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). Every invariant for every type in memory holds for the entire duration of the program.</p>
 </blockquote>
@@ -415,7 +416,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
 <p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
 <h3 id="can-we-break-thread-safety-in-the-language">Can we break thread-safety in the language?</h3>
-<p>Yes, writing a deadlock or a livelock is trivial.</p>
+<p>Yes, writing a deadlock, a livelock or a data race condition is trivial.</p>
 <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
 <p>I do not feel that it is possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
 <h2 id="c-1">C++</h2>
@@ -425,11 +426,30 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>You can trivially break write-safety by using the features of the C subset of C++. Safe coding guidelines very much discourage this.</li>
 <li>If we abstain from using the C subset and restrict ourselves to C++ modules, it is still trivial, by misusing <code>operator[]</code> or iterators or data race conditions.</li>
 <li>As with other languages, write safety can be broken by dependencies.</li>
-<li>There are still higher-level manners of breaking write-safety (see below e.g. Python) but you have to work hard at implementing them, so they won&rsquo;t happen out of the box.</li>
+<li>There are still higher-level manners of breaking write-safety with callbacks or coroutines, by letting some external code interrupt your code during a modification. The callbacks are not really idiomatic but some frameworks such as Qt use them all over the place and iirc the observer pattern is being discussed for inclusion in the stdlib.</li>
+<li>There are often ways to break safety by abusing aliasing, but I cannot see one from the top of my head.</li>
 </ul>
 <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I have heard claims that this is the case. Unfortunately, I have not found this subset written down anywhere. I have read both CERT&rsquo;s guidelines and Bjarne Stroustrup&rsquo;s guidelines and they are very far from being sufficient. Given how flexible the C++ language is and my experience as a C++ developer, I believe that it is theoretically possible, by restricting the C++ language <em>a lot</em>, e.g. by using C++ largely as a functional programming language. I suspect that there would be so much pushback from the C++ community that this tool or spec would not be used in practice.</p>
-<p>Model-checking tools can probably help ensure write-safety of a specific piece of code.</p>
+<p>There is a folk theorem within the C++ community that there exists a safe subset of C++. I have read both CERT&rsquo;s guidelines and Bjarne Stroustrup&rsquo;s guidelines and they very clearly are not this subset. If this subset is written anywhere, I would be very interested in reading it.</p>
+<p>That being said, let&rsquo;s see if we can come with a subset:</p>
+<ul>
+<li>use a version of the stdlib that panics whenever you read or write out of bounds, whenever you attempt to dereference an iterator that has been invalidated or that is accidentally out of bounds;</li>
+<li>to avoid the race conditions and any other mechanism that can interrupt your code while you&rsquo;re in the middle of updating a <code>WTFString</code>, adopt a side-effects-free programming style (aka functional programming), optionally concurrent/distributed;</li>
+<li>audit your dependencies.</li>
+</ul>
+<p>This feels reasonably write-safe. There may of course exist larger subsets, this one just happens to be something that fits within three lines.</p>
+<p>Of course, at this stage, two questions arise:</p>
+<ol>
+<li>How do you make sure that you are using this style?</li>
+<li>Would developers use this style?</li>
+</ol>
+<p>To answer 1.: I believe that it would be possible to write a linter that checks you&rsquo;re writing in a functional programming style. Not easy – writing linters for C++ is never easy, but possible. Auditing the stdlib to make sure that it always panics&hellip; well, the stdlib is a huge piece of code but it can be rewritten.</p>
+<p>To answer 2.: I my experience writing C++ and being part of the C++ community, I believe that there are two categories of C++ users. Those that write High Frequency Trading code and everybody else.</p>
+<ul>
+<li>I know of several HFT firms that write their code in Haskell or OCaml or F#, which strongly suggests that HFT is fully compatible with functional programming. In fact, I suspect that some variants of this C++ style are <em>already</em> being used to reduce risks. Not everywhere. Not full applications. But still, used.</li>
+<li>For the rest of us, who need to deal with different constraints, I suspect that this style would not get much traction, as it forces developers to abandon one of the greatest strengths (and weaknesses) of C++: its ability to mix every single paradigm under the sun.</li>
+</ul>
+<p>Other than using this subset, model-checking tools can probably help ensure write-safety of a specific piece of code.</p>
 <h3 id="can-we-break-read-safety-in-the-language-1">Can we break read-safety in the language?</h3>
 <p>Yes, the remarks regarding write-safety also apply here.</p>
 <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
@@ -576,7 +596,7 @@ tools for some of these languages, which may help.</p>
 <p>Option 2: If you absolutely must use <code>unsafe</code>, make sure that it does not break write-safety, as recommended by the official documentation.
 - No, really, review them again. Re-read the Rustonomicon. Have them reviewed by a second and a third person. Ideally, they can even suggest a way to remove that use of <code>unsafe</code>.</p>
 <p>In either case, restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
-<p>And that&rsquo;s it. No need to switch to functional programming.</p>
+<p>And&hellip; that&rsquo;s it? From our list, despite having a strong functional programming core, Rust is the only language that has a clear write-safe subset that does not require developers to switch to functional programming.</p>
 <p>Alternatively, there are also several model-checkers for Rust.</p>
 <h3 id="can-we-break-read-safety-in-the-language-6">Can we break read-safety in the language?</h3>
 <ul>
@@ -599,7 +619,6 @@ tools for some of these languages, which may help.</p>
 <p>I have not checked but my hunch is that the following policy would be sufficient:</p>
 <ul>
 <li>avoid any kind of Mutexes &amp; co (semaphores, condition variables, read-write locks, thread partings, &hellip;);</li>
-<li>avoid thread joins;</li>
 <li>avoid message-passing channels.</li>
 </ul>
 <p>This severely restricts our ability to write concurrent code, but doesn&rsquo;t suppress it, as scoped threads remain usable. Additionally, this would be easy to enforce with a Clippy lint. As it turns out, this is pretty much a form of functional concurrent programming.</p>
