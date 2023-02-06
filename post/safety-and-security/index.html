@@ -244,7 +244,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">About Safety, Security and yes, C&#43;&#43; and Rust</h1>
-      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 33 min read</p>
+      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 34 min read</p>
     </header>
     <article class="post-content"><p>Recent publications by <a href="https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf">Consumer Reports</a> and the <a href="https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF">NSA</a> have launched countless conversations in development circles about <em>safety</em> and its benefits.</p>
 <p>In these conversations, I&rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&rsquo;s clarify a few things.</p>
@@ -370,12 +370,12 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <blockquote>
 <p>Thread safety: There is no scheduling that can break an invariant.</p>
 </blockquote>
-<p>Thread safety includes deadlocks, livelocks and data race safety.</p>
+<p>Thread safety includes deadlocks, livelocks and data race safety, but they are not limited to these. If you are familiar with chaos testing, you will probably be able to quote from memory many examples in which scheduling breaks your code, without deadlock, livelock or data race.</p>
 <blockquote>
 <p>Type safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). Every invariant for every type in memory holds for the entire duration of the program.</p>
 </blockquote>
-<p>Note to fellow members of the Formal Methods community: if you manage to fit in two-three lines a definition of Subject Reduction that works for C++, I&rsquo;m interested.</p>
-<p>Note that type safety is not the same thing as having static type checks. You can very well have static type checks that are insufficient to guarantee type safety and a dynamic type system that enforces type safety.</p>
+<p>Readers familiar with Formal Methods will immediately notice that this definition is lacking both the words &ldquo;Soundness&rdquo; and &ldquo;Subject Reduction&rdquo;. I promise I tried to include them in this post, but both of them require concepts that don&rsquo;t really map well to most industrial languages (operational semantics and some kind of stuck state), so I&rsquo;ve progressively rephrased these definitions into something that both makes more sense in the context without needing an entire research paper&rsquo;s worth of definition per language. Type safety as I define it is not strictly equivalent to traditional mathematical definitions of type safety, but I feel that this definition works much better with industrial languages. If you can come up with a better definition, feel free to drop me a line!</p>
+<p>Note that, with this definition (or the usual mathematical one), type safety is <em>not</em> the same thing as having static type checks. You can very well have static type checks that are insufficient to guarantee type safety or a dynamic type system that enforces type safety.</p>
 <p>Now, if you squint hard (or if you rewrite this post five times in an attempt to simplify it), you can see that memory safety, data race safety and type safety can be rewritten as the following, which I find simpler and easier to reason with:</p>
 <blockquote>
 <p>Memory safety (within a set of types and invariants) A piece of code is memory safe if it is both write safe and read safe with respect to these invariants.</p>
@@ -401,6 +401,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <h3 id="can-we-break-write-safety-in-the-language">Can we break write-safety in the language?</h3>
 <p>Yes, trivially:</p>
 <ul>
+<li>C doesn&rsquo;t have any kind of private fields, but that can be encoded fairly easily so no breakage from here.</li>
 <li>C has <code>union</code>, casts, raw pointers, pointer arithmetics, race conditions, etc. that can all accidentally overwrite part of a <code>WTFString</code>.</li>
 <li>And of course, as in other languages, write-safety in C code can be broken by a dependency (which is typically more C code).</li>
 </ul>
