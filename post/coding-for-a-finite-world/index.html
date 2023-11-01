@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Coding for a Finite World</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)
+We&amp;rsquo;re the tech industry. We have ideas. We have ideas all the time. And we&amp;rsquo;re used to turn our ideas into applications.
+So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have so many ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.
+Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.
+Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!
+Also, the world is burning.
+Perhaps it&amp;rsquo;s time we revisited how we do things?
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="Coding for a Finite World" />
+    <meta name="twitter:description" content="(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)
+We&amp;rsquo;re the tech industry. We have ideas. We have ideas all the time. And we&amp;rsquo;re used to turn our ideas into applications.
+So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have so many ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.
+Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.
+Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!
+Also, the world is burning.
+Perhaps it&amp;rsquo;s time we revisited how we do things?
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Coding for a Finite World" />
+  <meta property="og:description" content="(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)
+We&amp;rsquo;re the tech industry. We have ideas. We have ideas all the time. And we&amp;rsquo;re used to turn our ideas into applications.
+So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have so many ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.
+Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.
+Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!
+Also, the world is burning.
+Perhaps it&amp;rsquo;s time we revisited how we do things?
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/coding-for-a-finite-world/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/coding-for-a-finite-world/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Coding for a Finite World</h1>
+      <p class="post-meta">@David Teller · Nov 1, 2023 · 15 min read</p>
+    </header>
+    <article class="post-content"><p>(This is meant to be the first entry of a series which will cover individual points more in depth. We&rsquo;ll see how that goes.)</p>
+<p>We&rsquo;re the tech industry. We have ideas. We have ideas <em>all the time</em>. And we&rsquo;re used to turn our ideas into applications.</p>
+<p>So, how does it go&hellip; here&rsquo;s the back-end component&hellip; here&rsquo;s the front-end component. We&rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have <em>so many</em> ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&rsquo;s use ChatGPT and Copilot, we&rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&hellip; we&rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &rsquo;em? For the front-end, we&rsquo;ll write a website, and for mobile, Electron.</p>
+<p>Oh, wait a second, we need to make money and to fidelize our users! Let me see&hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&hellip; alright, we should be good.</p>
+<p>Three&hellip; two&hellip; one&hellip; and we have shipped v1!</p>
+<p>Also, the world is burning.</p>
+<p>Perhaps it&rsquo;s time we revisited how we do things?</p>
+<h1 id="the-infinite-world-model">The Infinite World Model</h1>
+<p>For the past ~30 years, the software industry has progressively optimized itself for an infinite world. An ever-increasing number of customers. Ever-increasing CPU and GPU power. Ever-increasing bandwidth. Ever-increasing Cloud power. Unlimited energy. For open-source projects, unlimited untapped contributors. For everyone else, unlimited VC money. Also, governments that either do not care, do not want to harm economic growth, or do not understand.</p>
+<p>That&rsquo;s the <strong>Infinite World Model</strong> and, truly, we owe it to a combination of 19th century Colonialism (unlimited raw materials and labour) and the Industrial Revolution (unlimited raw power and progress).</p>
+<p>In this Infinite World, the main imperative is to be able to seize the opportunity:</p>
+<ul>
+<li>be first on the market;</li>
+<li>look good;</li>
+<li>be ready to scale when the clients come;</li>
+<li>do <em>whatever you can</em> to keep your clients.</li>
+</ul>
+<p>For most companies, these factors trump everything else. They trump hardware costs. They trump maintenance costs. They trump bandwidth cost. They trump battery usage. They trump security. They trump accessibility. They trump privacy. They trump democracy. They may very well trump local or international law. And they definitely trump both ethics and technical debt. While we&rsquo;ve been complaining about the result, <em>we</em> have spent the last 30+ years teaching developers (and product managers, and CEOs) to ignore all these. After all, <a href="https://en.wikipedia.org/wiki/Worse_is_better">Worse is Better</a>, right?</p>
+<p>And once the VC money comes, or the users come, there will be time to fix things. But of course, you have probably experienced it: once money comes, there will be time to add new features. Fixing things can wait until it becomes an emergency, or forever.</p>
+<p>If you pay attention to actualities, you may realize that this world might not be around much longer. For one thing, we&rsquo;re in an Energy Crisis and a Climate Crisis that has a direct or indirect impact on both industry and consumers. A Logistics Crisis. A few Addiction Crises. A worrying Consolidation of Power among few unreliable Tech Giants. There&rsquo;s a strong risk of crisis on multiple raw materials and components. There&rsquo;s also that Trade War that isn&rsquo;t in the news anymore but never actually stopped. When I was at Mozilla, we started seeing the end of these unlimited open-source contributors. CPU performance per core has largely stalled since 2010. Did I mention that we&rsquo;re in a Financial Crisis and that VC money has rather dried up for startups that do not have &ldquo;AI&rdquo; in their pitch? Also, we have Democratic Crises but governments look like they are finally moving on tech, for better and for worse. Oh, and of course we might have stepped into World War III without quite realizing. That&rsquo;s bound to disrupt things quite a bit, in fun and interesting ways.</p>
+<p>We can bet that things will get better. And for all we know, it might. I, for one, am not confident.</p>
+<p>So I&rsquo;m going to assume that the model that worked for the 19th century aren&rsquo;t necessarily fit for our time.</p>
+<h1 id="towards-a-finite-world-model">Towards a Finite World Model</h1>
+<p>How do we build for a <strong>Finite World</strong>?</p>
+<p>Let&rsquo;s perform a quick Risk analysis:</p>
+<ul>
+<li>Our Environment can crumble
+<ul>
+<li>Expect that the price of energy will keep increasing, for both you, for your cloud provider and your users.</li>
+<li>Expect that hardware will stop growing more powerful both for you, for your cloud provider and your users.</li>
+<li>Expect that both your users or you may need to move because of a drought, or a flood, or a storm, or forest fires, or famine.</li>
+<li>Expect that your data centers may need to move or shutdown for the same reasons.</li>
+</ul>
+</li>
+<li>Our Globalization can crumble
+<ul>
+<li>Expect that hardware will get more expensive and possibly hard to find, both for you, for your cloud provider and for your users.</li>
+<li>Expect that your cloud or API provider may become your competitor or may align with local or foreign interests hostile to you, your community or that of your users.</li>
+<li>Expect that your goods, physical or digital, can have difficulties reaching your consumer due to legal or financial barriers.</li>
+<li>Expect that you will have less money to build your product or keep your company afloat.</li>
+</ul>
+</li>
+<li>Our Societies can crumble
+<ul>
+<li>Expect that your nation might not remain a democracy much longer.</li>
+<li>Expect that your nation might not accept you, or some of your colleagues, or some of your users much longer.</li>
+<li>Expect the same in the various nations of your clients.</li>
+<li>Expect that your users or your colleagues can be addicted, either to a narcotic or to an application.</li>
+<li>Expect that scientific research or education may not be funded anymore.</li>
+<li>Expect that violence, possibly war, can hit your nation within its borders.</li>
+<li>Expect that AI and further automation will take people&rsquo;s jobs, forcing them to change careers more often, with longer periods of unemployment/retraining.</li>
+<li>Expect that extorsion criminals, private spies and nation states will be interested in any data you retain.</li>
+<li>Expect more pandemics, fewer antibiotics and, generally, worse health.</li>
+</ul>
+</li>
+</ul>
+<p>That&rsquo;s&hellip; actually much bleaker than what I intended to write when I started working on this blog entry. Our Finite World sounds like a paranoid dystopia, doesn&rsquo;t it? In fact, it looks like the entire Cyberpunk genre, minus flying cars. As usual when dealing with Risk, we&rsquo;ll hope that none of this will happen but plan ahead in case it does.</p>
+<p>Since we&rsquo;re talking Risk, let&rsquo;s give our Threat a name. Let&rsquo;s call it the Zerg. We live in a Finite World. Energy, disk space, food, attention, democracy, public health, society or peace are all finite resources. And we have the Zerg. Anything that eats away at our Finite World without giving us something at least as valuable in return, getting us closer to exhausting, bombing or coughing our way back to the stone age, is a Zerg.</p>
+<p>Our mission is now to fight the Zerg, as aggressively as we need.</p>
+<p>We&rsquo;re the tech industry. We might not be able to solve climate, or energy, or food, but we have power. Power to do inadvertent harm, certainly. But power to do some good, too.</p>
+<h1 id="designing-for-a-finite-world">Designing for a Finite World</h1>
+<p>I&rsquo;m not going to pretend that everybody can fight the Zerg. In particular, if you live in an authoritarian state and if your only choice is to comply with the boss&rsquo; order or starve or be deported, your hands might be tied too hard to do anything from this side. Note that you might still have a choice as a consumer, which is better than having no power, and I suggest you consider the best way to use that choice.</p>
+<p>From this point, I&rsquo;m going to assume that you have influence beyond being a consumer. Perhaps you are a developer, or a researcher, a decision-maker, or an advocate, or an entrepreneur. Let&rsquo;s explore a few ways to use that influence and design against the Zerg.</p>
+<h2 id="designing-for-finite-needs">Designing for Finite Needs</h2>
+<p>Alright, let&rsquo;s start with a hard one.</p>
+<p>You have an idea. It&rsquo;s going to make a great start-up. It&rsquo;s going to make you rich.</p>
+<p>Congratulations. Please consider dropping it. No, seriously.</p>
+<p>We&rsquo;re talking about a Finite World. I know, I&rsquo;ve been in start-ups and the ecosystem is exhilarating, is makes us feel smarter, in control of our life, possibly in permanent burnout, but we&rsquo;re learning and achieving so much, plus we have a chance to strike rich! But the start-up ecosystem is designed as a permanent Zerg Rush. We&rsquo;ll have to give it up, eventually. It&rsquo;s time to start saying goodbye.</p>
+<p>This goes double if your idea is based on another Zerg, such as <em>blockchains</em> or <em>generative AI</em> or <em>social networks</em> or <em>adware</em> or <em>viral marketing</em> or <em>AAA video games</em> or <em>anything that requires addiction to sustain a business</em>. Yes, some of these are insanely cool things. But by design, they require exponential amounts of resources to evolve, which makes them Zergs.</p>
+<p>This does not mean that you should abandon research projects or art projects or hobbies. But it does mean that you should strongly consider <em>not scaling them up</em>. Sorry, I meant not Zerging them up.</p>
+<h2 id="designing-for-finite-funds">Designing for Finite Funds</h2>
+<p>There are a few, rare, ideas that do need to scale. They are going to do so much good that they are going to outweigh the Zerg factor. If you have one, cherish it, feed it, grow it, fight for it, make it real.</p>
+<p>But whatever you do, do <em>not</em> take VC money. If you are familiar with VC investors, you know that the system is designed to burn your hands with money into consuming as many resources as it takes to go big or go bust. In other words, to turn you into a Zerg. Perhaps some day, VC will evolve into something new and that fits our Finite World, but we&rsquo;re not there yet, and no amount of &ldquo;green&rdquo; in the name or description of your VC will be sufficient to change that.</p>
+<p>Alternatives exist. Bootstrapping. Open-source. Working with universities or non-profits. Self-funding the effort as a side job. None of these alternatives is as well-oiled as the VC money pipeline. They take time and effort. They can fail. Still, they remain better than the alternative.</p>
+<h2 id="designing-for-finite-performance">Designing for Finite Performance</h2>
+<p>Expensive energy and hardware means that we need to stop considering performance as &ldquo;we&rsquo;ll throw in more cloud resources&rdquo; or &ldquo;we&rsquo;ll run on more recent user hardware&rdquo; and return to considering performance as &ldquo;we&rsquo;ll need to use high-performance languages/libraries&rdquo; and &ldquo;we&rsquo;ll spend more time benchmarking&rdquo;. This is true both on the front-end, on the back-end and on the wire. And since you don&rsquo;t have VC money to spend on cloud resources, you&rsquo;ll need to do this quite early.</p>
+<ul>
+<li>Audit your programming language. If you are writing in Python, PHP, Ruby or server-side JavaScript, you are optimizing for quick prototypes, at the expense of performance, which means that you will need to throw in more cloud resources to scale. Consider faster languages (e.g. Rust is typically 10x-30x faster than Python, but also Go, Java/Scala or C#/F#).</li>
+<li>Audit your model. If you are writing in microservices, you are optimizing for throwing in more cloud resources, at the expense of CPU and network performance, as well as developer velocity. Consider monolithic services or distributed agents (e.g. Elixir can run millions of agents per node).</li>
+<li>Audit your protocols. If you are using HTTP and/or Kafka, you are using for communication within your system a protocol designed to show users with documentation. Consider faster protocols (e.g. Zenoh typicaly runs 30x faster than Kafka and is much more memory efficient).</li>
+<li>Audit your web front-end. If you are shipping tens of megabytes of JavaScript (even lazily), you are overconsuming both your bandwidth and the battery of your users.</li>
+<li>Audit your mobile/desktop front-end. If you are shipping Electron, you are shipping 50Mb-150Mb to your users (also, to your CI) for features that are already present on their machines. Consider Tauri or Neutralino, which offer a similar experience, but only consume 600kb (Tauri) - 2Mb (Neutralino) of disk space, and way less RAM than Electron. Alternatively, if your code is CPU-intensive, consider shipping native applications.</li>
+<li>Audit your features. Some of your features may consume considerable energy, either server-side or client-side. If your front-end is polling the back-end permanently for updates, you may consider moving to websockets, or throttling the polls. If your video game requires a recent GPU, you are encouraging users to buy a new card, or a new phone, or a new laptop, and quite possibly throw away the old one. Consider designing your game for lower-end architectures, even if it means sacrificing looks or adopting a retro style.</li>
+</ul>
+<p>In other words, to fight the Zerg, reconsider common wisdom and benchmark aggressively every component of your architecture.</p>
+<p>I am <em>not</em> going to suggest you give up on using the Cloud, because it is not clear to me that alternatives are better with respect to the Zerg. If you have insights on the topic, please get in touch.</p>
+<h2 id="designing-for-finite-data">Designing for Finite Data</h2>
+<p>Expensive disk space, fragile democracies, hostile communities, stricter laws and higher chances of being hacked mean that we need to stop considering storage as both free and without consequence.</p>
+<p>Again, let&rsquo;s start with the hard one:</p>
+<ul>
+<li>Audit your data for legality. Your data might not be legal anymore.</li>
+<li>Audit your data for risks. Assume that the worst political or criminal figure in your country gets hold of it, and that they have gained dictatorial power, or perhaps that the worst political figure of the worst country imaginable gets hold of it, and they&rsquo;re going to use it to wage war.</li>
+<li>Not just the data you&rsquo;re storing, also the data you&rsquo;re sending to third parties, including your cloud provider.</li>
+</ul>
+<p>Let me stress this, because, in a Finite World, you might be endangering people&rsquo;s lives with your data. If you cannot run your business without endangering people&rsquo;s lives, please consider pivoting.</p>
+<p>Now, we can proceed with the usual Zergs:</p>
+<ul>
+<li>Audit your data for content savings. Consider what you can (or must, for legal compliance) safely erase.</li>
+<li>Audit your storage for structural saving. For instance, if you are using a document-oriented database because it makes prototyping easier, consider moving to either a relational or a column-oriented database, which are typically moch more efficient with disk space.</li>
+</ul>
+<p>In other words, as much as you can, benchmark your Zergs into harmlessness.</p>
+<p>Similarly, I am not going to suggest leaving your data off the Cloud, as I do not have a clear alternative to suggest. But do not hesitate to investigate.</p>
+<h2 id="design-for-finite-brainpower">Design for finite Brainpower</h2>
+<p>Everything is expensive. Your API provider might be your competitor and might price you out any day now. Working and hiring across borders has gotten more complicated. Science and tech education might be under-funded and lacking. Achieving performance takes time. You might be struggling to hire developers. You will need to work with less.</p>
+<p>This might be counter-intuitive, but it means that you need to take time and invest it into using technologies that work for you in the long run.</p>
+<ul>
+<li>Invest in Open-Source. Most companies consume open-source but few are part of the ecosystem, contributing back and having each other&rsquo;s back. By being a good actor and contributing back, you help grow the reliability of your own technology, you gain the ability to expand it in directions that are important to you and, just as importantly, you gain opportunities to hire and you grow the skills that can help you diversify and pivot.</li>
+<li>Invest in Maintenance. Besides open-source, pick technologies that are optimized to let small teams perform refactorings and reconfigurations. In terms of programming languages, this is another reason to avoid PHP, Python or JavaScript, which are optimized for writing prototypes, and to consider TypeScript, Rust, Java/Scala or C#/F#.</li>
+<li>Invest in Knowledge. You will need to work with colleagues who do not have training. This means that rather than assuming that your new colleagues can just get started as soon as you have handed out work, you will need a form of mentorship. My experience of mentorship suggests that it grows the skillset of both the mentor and the mentoree, so it is a good investment.</li>
+<li>Invest in Teaching Organizations. Consider working alongside universities or other teaching organizations, including non-profits. Much as working with open-source, this will grow your team&rsquo;s skills, help you recruit from possibly untapped pools and be good for publicity and the community.</li>
+</ul>
+<p>Again, this might be counter-intuitive, but I would also suggest against using ChatGPT, Copilot or any other AI assistant. For one thing, each request to ChatGPT or Copilot has a <a href="https://www.sciencedirect.com/science/article/pii/S2542435123003653#fig1">steep energy cost</a>. For another, experience suggests that junior developers (and other professions) use the results without understanding it, which in turn hurts both the Maintenance and Knowledge objectives above.</p>
+<h2 id="fighting-back-the-zerg">Fighting back the Zerg</h2>
+<p>So far, everything we&rsquo;ve discussed was about slowing down the Zerg. And if we, as an industry, only succeed at massively slowing down the Zerg we&rsquo;ve been mass-producing for 30 years, that will already be a victory to celebrate.</p>
+<p>I want to believe that we can go further. I&rsquo;m not going to pretend I know how. But maybe you do.</p>
+<ul>
+<li>Audit your surroundings. Consider if there is anything you can do to help heal your community from intolerance and violence, from addiction, from despair, from health issues, from authoritarian tendencies. Your contribution does not need to be technological.</li>
+</ul>
+<h1 id="what-now">What now?</h1>
+<p>I hope that this post can inspire some in the tech industry to take arms against the Zerg. I know that <em>I</em> am going to use this and push for better Zerg fighting at work.</p>
+<p>Undoubtedly, I have missed many ideas, many possibilities. Undoubtedly, I have been naive about many things, too. But we need to start somewhere.</p>
+<p>I&rsquo;m planning to revisit some points of this post and dive into more details. After all, I&rsquo;m supposed to be an expert in safety, performance and open-source, it&rsquo;s time to put that knowledge to good use, isn&rsquo;t it?</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://yoric.github.io/tags/compiler"><span class="tag">Compiler</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/javascript"><span class="tag">Javascript</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/jit"><span class="tag">Jit</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/python"><span class="tag">Python</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/rust"><span class="tag">Rust</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/open-source"><span class="tag">Open-Source</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/programming"><span class="tag">Programming</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/programming-languages"><span class="tag">Programming Languages</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/performance"><span class="tag">Performance</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/prototype"><span class="tag">Prototype</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/energy"><span class="tag">Energy</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/green"><span class="tag">Green</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/finite-world"><span class="tag">Finite World</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: '06cfdb2b69122f3f83c02caf3eb1b209',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+      
+      
+        
+        
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

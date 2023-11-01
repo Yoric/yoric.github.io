@@ -7,7 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate><atom:link href="https://yoric.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Nov 2023 15:51:13 +0100</lastBuildDate><atom:link href="https://yoric.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Coding for a Finite World</title>
+      <link>https://yoric.github.io/post/coding-for-a-finite-world/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/coding-for-a-finite-world/</guid>
+      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;
+&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;
+&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;
+&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;
+&lt;p&gt;Also, the world is burning.&lt;/p&gt;
+&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
       <link>https://yoric.github.io/post/safety-and-security/</link>

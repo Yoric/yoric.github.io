@@ -2,6 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://yoric.github.io/post/coding-for-a-finite-world/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/compiler/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/energy/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/finite-world/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/green/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/javascript/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/jit/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/mozilla/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/open-source/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/performance/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/post/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/programming/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/programming-languages/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/prototype/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/python/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/rust/</loc>
+    <lastmod>2023-11-01T15:51:13+01:00</lastmod>
+  </url><url>
     <loc>https://yoric.github.io/post/safety-and-security/</loc>
     <lastmod>2023-02-03T21:54:25+01:00</lastmod>
   </url><url>
@@ -11,34 +62,16 @@
     <loc>https://yoric.github.io/categories/</loc>
     <lastmod>2023-02-03T21:54:25+01:00</lastmod>
   </url><url>
-    <loc>https://yoric.github.io/</loc>
-    <lastmod>2023-02-03T21:54:25+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/mozilla/</loc>
-    <lastmod>2023-02-03T21:54:25+01:00</lastmod>
-  </url><url>
     <loc>https://yoric.github.io/categories/mozilla/</loc>
     <lastmod>2023-02-03T21:54:25+01:00</lastmod>
   </url><url>
-    <loc>https://yoric.github.io/post/</loc>
-    <lastmod>2023-02-03T21:54:25+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/programming/</loc>
-    <lastmod>2023-02-03T21:54:25+01:00</lastmod>
-  </url><url>
     <loc>https://yoric.github.io/categories/programming/</loc>
-    <lastmod>2023-02-03T21:54:25+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/programming-languages/</loc>
     <lastmod>2023-02-03T21:54:25+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/categories/research/</loc>
     <lastmod>2023-02-03T21:54:25+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/categories/rust/</loc>
-    <lastmod>2023-02-03T21:54:25+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/rust/</loc>
     <lastmod>2023-02-03T21:54:25+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/safety/</loc>
@@ -84,9 +117,6 @@
     <lastmod>2022-12-15T07:43:54+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/musk/</loc>
-    <lastmod>2022-12-15T07:43:54+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/open-source/</loc>
     <lastmod>2022-12-15T07:43:54+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/p2p/</loc>
@@ -141,9 +171,6 @@
     <lastmod>2020-10-02T13:44:16+02:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/add-ons/</loc>
-    <lastmod>2020-08-20T18:09:36+02:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/javascript/</loc>
     <lastmod>2020-08-20T18:09:36+02:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/</loc>
@@ -218,16 +245,10 @@
     <loc>https://yoric.github.io/post/holyjit/</loc>
     <lastmod>2018-03-06T07:33:25+01:00</lastmod>
   </url><url>
-    <loc>https://yoric.github.io/tags/jit/</loc>
-    <lastmod>2018-03-06T07:33:25+01:00</lastmod>
-  </url><url>
     <loc>https://yoric.github.io/tags/ast/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/categories/binjs/</loc>
-    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/compiler/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/categories/javascript/</loc>
@@ -246,9 +267,6 @@
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/pcc/</loc>
-    <lastmod>2018-02-23T10:44:39+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/performance/</loc>
     <lastmod>2018-02-23T10:44:39+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/categories/performance/</loc>
@@ -306,12 +324,6 @@
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/post/post-mortem-lighthouse/</loc>
-    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/prototype/</loc>
-    <lastmod>2017-02-20T10:44:33+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/python/</loc>
     <lastmod>2017-02-20T10:44:33+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/raspberry-pi/</loc>

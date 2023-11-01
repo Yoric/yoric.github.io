@@ -9,27 +9,90 @@
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sat, 18 Feb 2017 16:29:32 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>C&#43;&#43;</title>
-      <link>https://yoric.github.io/tags/c&#43;&#43;/</link>
-      <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
+      <title>compiler</title>
+      <link>https://yoric.github.io/tags/compiler/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
       
-      <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
+      <guid>https://yoric.github.io/tags/compiler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>energy</title>
+      <link>https://yoric.github.io/tags/energy/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/energy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>finite world</title>
+      <link>https://yoric.github.io/tags/finite-world/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/finite-world/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>green</title>
+      <link>https://yoric.github.io/tags/green/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/green/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://yoric.github.io/tags/javascript/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jit</title>
+      <link>https://yoric.github.io/tags/jit/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/jit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mozilla</title>
       <link>https://yoric.github.io/tags/mozilla/</link>
-      <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/mozilla/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>open-source</title>
+      <link>https://yoric.github.io/tags/open-source/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/open-source/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>performance</title>
+      <link>https://yoric.github.io/tags/performance/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>programming</title>
       <link>https://yoric.github.io/tags/programming/</link>
-      <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/programming/</guid>
       <description></description>
@@ -38,18 +101,45 @@
     <item>
       <title>programming languages</title>
       <link>https://yoric.github.io/tags/programming-languages/</link>
-      <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/programming-languages/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Rust</title>
+      <title>prototype</title>
+      <link>https://yoric.github.io/tags/prototype/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/prototype/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://yoric.github.io/tags/python/</link>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rust</title>
       <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
+      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://yoric.github.io/tags/c&#43;&#43;/</link>
+      <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     
@@ -171,15 +261,6 @@
     </item>
     
     <item>
-      <title>open-source</title>
-      <link>https://yoric.github.io/tags/open-source/</link>
-      <pubDate>Thu, 15 Dec 2022 07:43:54 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/open-source/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>p2p</title>
       <link>https://yoric.github.io/tags/p2p/</link>
       <pubDate>Thu, 15 Dec 2022 07:43:54 +0100</pubDate>
@@ -275,15 +356,6 @@
       <pubDate>Thu, 20 Aug 2020 18:09:36 +0200</pubDate>
       
       <guid>https://yoric.github.io/tags/add-ons/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>JavaScript</title>
-      <link>https://yoric.github.io/tags/javascript/</link>
-      <pubDate>Thu, 20 Aug 2020 18:09:36 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/tags/javascript/</guid>
       <description></description>
     </item>
     
@@ -396,29 +468,11 @@
     </item>
     
     <item>
-      <title>jit</title>
-      <link>https://yoric.github.io/tags/jit/</link>
-      <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/jit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>ast</title>
       <link>https://yoric.github.io/tags/ast/</link>
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/ast/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>compiler</title>
-      <link>https://yoric.github.io/tags/compiler/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/compiler/</guid>
       <description></description>
     </item>
     
@@ -446,15 +500,6 @@
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/pcc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>performance</title>
-      <link>https://yoric.github.io/tags/performance/</link>
-      <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/performance/</guid>
       <description></description>
     </item>
     
@@ -554,24 +599,6 @@
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/opencv/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>prototype</title>
-      <link>https://yoric.github.io/tags/prototype/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/prototype/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://yoric.github.io/tags/python/</link>
-      <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/python/</guid>
       <description></description>
     </item>
     

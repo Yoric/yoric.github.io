@@ -52,7 +52,7 @@ In this blog post, I would like to detail a bit more the ideas behind HolyJIT.
 
 
 
-<meta name="generator" content="Hugo 0.108.0" />
+<meta name="generator" content="Hugo 0.119.0" />
 
 
 <link rel="canonical" href="https://yoric.github.io/post/holyjit/" />
@@ -357,7 +357,7 @@ produce the executable.</p>
 building a stack machine, <a href="http://www.ecma-international.org/ecma-262/7.0/index.html#sec-addition-operator-plus">the specifications</a> can
 be translated straightforwardly as the following
 opcode <code>Op::Add</code> and specifications-as-code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>opcode!(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> rval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> lprim <span style="color:#f92672">=</span> lval.to_primitive()<span style="color:#f92672">?</span>;
@@ -438,10 +438,10 @@ that we can turn an interpreter into a
 naive tracing compiler by performing
 a simple (and automated) rewrite of the CFG.</p>
 <p>Let&rsquo;s inform our toolchain that we want to do this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>opcode<span style="color:#f92672">!</span>(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>opcode!(stack, Op::Add <span style="color:#f92672">=&gt;</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> lval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> rval <span style="color:#f92672">=</span> stack.pop()<span style="color:#f92672">?</span>;
-</span></span><span style="display:flex;"><span>    trace<span style="color:#f92672">!</span>{
+</span></span><span style="display:flex;"><span>    trace!{
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> lprim <span style="color:#f92672">=</span> lval.to_primitive()<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> rprim <span style="color:#f92672">=</span> rval.to_primitive()<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">match</span> (lprim.type_(), rprim.type_()) {
@@ -553,7 +553,7 @@ no dependency on a specific garbage-collector, and a very flexible toolchain.</p
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1801</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2066</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
