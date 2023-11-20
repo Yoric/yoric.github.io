@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Announcing Project Building Firefox@home</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="Problem statement Project Folding@Home uses the spare CPU &amp;amp; GPU capabilities of a million users to simulate protein folding, something that can be useful to understand diseases and fight them.
+Now, these days, Folding@Home has more users than it has server capacity to distribute and collect samples. This is where project BuildFirefox@Home comes in!
+Project BuildFirefox@Home attempts to solve a pain point that many of our individual contributors encounter: building Firefox is slow." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="Announcing Project Building Firefox@home" />
+    <meta name="twitter:description" content="Problem statement Project Folding@Home uses the spare CPU &amp;amp; GPU capabilities of a million users to simulate protein folding, something that can be useful to understand diseases and fight them.
+Now, these days, Folding@Home has more users than it has server capacity to distribute and collect samples. This is where project BuildFirefox@Home comes in!
+Project BuildFirefox@Home attempts to solve a pain point that many of our individual contributors encounter: building Firefox is slow." />
+    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Announcing Project Building Firefox@home" />
+  <meta property="og:description" content="Problem statement Project Folding@Home uses the spare CPU &amp;amp; GPU capabilities of a million users to simulate protein folding, something that can be useful to understand diseases and fight them.
+Now, these days, Folding@Home has more users than it has server capacity to distribute and collect samples. This is where project BuildFirefox@Home comes in!
+Project BuildFirefox@Home attempts to solve a pain point that many of our individual contributors encounter: building Firefox is slow." />
+  <meta property="og:url" content="https://yoric.github.io/post/building-firefox@home/" />
+  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/building-firefox@home/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Announcing Project Building Firefox@home</h1>
+      <p class="post-meta">@David Teller · Apr 1, 2020 · 2 min read</p>
+    </header>
+    <article class="post-content"><h1 id="problem-statement">Problem statement</h1>
+<p>Project <a href="foldingathome.org">Folding@Home</a> uses the spare CPU &amp; GPU capabilities of a million users to simulate protein folding, something that can be useful to understand diseases and fight them.</p>
+<p>Now, these days, Folding@Home has more users than it has server capacity to distribute and collect samples. This is where project BuildFirefox@Home comes in!</p>
+<p>Project BuildFirefox@Home attempts to solve a pain point that many of our individual contributors encounter: building Firefox is slow. To do this, we just need to use the unused computational power of Folding@Home users.</p>
+<h1 id="outline">Outline</h1>
+<ol>
+<li>Mozilla joins the Folding@Home consortium.</li>
+<li>Mozilla offers server capacity to the Folding@Home consortium.</li>
+<li>Whenever a Firefox contributor attempts to build Firefox, their computer actually transpiles the build into a set of protein foldings. This is a simple problem of biological computing, which is left as an exercise to the reader. The contributor&rsquo;s computer becomes a temporary Folding@Home server, proxified through Mozilla&rsquo;s Folding@Home servers.</li>
+<li>Whenever a user of Folding@Home downloads a sample from Mozilla&rsquo;s Folding@Home servers, it means that the server capacities of Folding@Home are exceeded, so we can route the request to the contributor&rsquo;s personal computer, which will distribute slices of protein folding encoding their build.</li>
+<li>Whenever the slice is folded, the results are uploaded to Mozilla&rsquo;s server, which serves again as a proxy for the individual contributor&rsquo;s temporary server. The contributor&rsquo;s computer therefore receives the slice.</li>
+<li>Once all slices are folded, the build is complete. Temporary server disconnects. Contributor is happy.</li>
+</ol>
+<h1 id="schematics">Schematics</h1>
+<p><img src="https://yoric.github.io/img/rube-goldberg.jpg" alt="Statue of a very Rube Goldberg-ish mechanism">
+(Credits: Wikimedia user <a href="https://commons.wikimedia.org/wiki/User:%D0%98%D1%80%D0%B8%D0%BD%D0%B0%D0%AF">ИринаЯ</a> – <a href="https://commons.wikimedia.org/wiki/File:%D0%A4%D0%BE%D0%BD%D1%82%D0%B0%D0%BD_%D0%9C%D0%B0%D1%88%D0%B8%D0%BD%D0%B0_%D0%93%D0%BE%D0%BB%D0%B4%D0%B1%D0%B5%D1%80%D0%B3%D0%B0_%D0%A1%D0%B0%D1%80%D0%B0%D1%82%D0%BE%D0%B2.jpg">source</a> – <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons Attribution-Share Alike 4.0 International</a>)</p>
+<h1 id="april1st"><code>&lt;/april1st&gt;</code></h1>
+<p>More seriously, Folding@Home is a very simple way to help (a bit) the fight against covid-19 (and also Alzheimer&rsquo;s disease, Parkinson&rsquo;s disease and others). If you&rsquo;re reading this bug, please consider helping them.</p>
+<p>I hope this got a smile out of you, we all need it.</p>
+<p>Health &amp; sanity to everyone.</p>
+</article>
+    <footer class="post-footer">
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1328</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: 'cece9ed08376598c9d170e52f8008bce',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+      
+      
+        
+        
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>

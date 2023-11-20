@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pascal on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/tags/pascal/</link>
+    <description>Recent content in Pascal on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Mon, 20 Nov 2023 09:55:20 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/pascal/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Programming Languages That Blew My Mind</title>
+      <link>https://yoric.github.io/post/programming-languages-that-blew-my-mind/</link>
+      <pubDate>Mon, 20 Nov 2023 09:55:20 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/programming-languages-that-blew-my-mind/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my
+life as a coder, both hobbyist and professional, I&amp;rsquo;ve learnt plenty of programming languages that felt
+like cookie-cutter clones of each other, but also a few programming languages that changed the way I
+looked at programming, sometimes even at thinking.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
