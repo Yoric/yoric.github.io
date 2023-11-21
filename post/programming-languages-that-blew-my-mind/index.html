@@ -241,7 +241,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Programming Languages That Blew My Mind</h1>
-      <p class="post-meta">@David Teller · Nov 20, 2023 · 12 min read</p>
+      <p class="post-meta">@David Teller · Nov 20, 2023 · 13 min read</p>
     </header>
     <article class="post-content"><p>I&rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my
 life as a coder, both hobbyist and professional, I&rsquo;ve learnt plenty of programming languages that felt
@@ -266,10 +266,7 @@ JavaScript, etc.)</p>
 <h1 id="turbo-pascalhttpsenwikipediaorgwikiturbo_pascal"><a href="https://en.wikipedia.org/wiki/Turbo_Pascal">(Turbo) Pascal</a></h1>
 <p>I guess my most formative language. I released a few applications in Turbo Pascal
 as a teenager, including a commercial one (although, to be fair, Alain Frisch did
-most of the work). A few years later, still a teen, I attempted to move to C and was a bit disappointed, only
-to find it basically the same language, just harder to read (what&rsquo;s that weird three-components
-<code>for</code> loop?) and more error-prone (far pointers? really?), so I&rsquo;m not going to include C
-in this list.</p>
+most of the work).</p>
 <ul>
 <li>Mind blown: A programming tutorial!</li>
 <li>Mind blown: An IDE!</li>
@@ -283,6 +280,11 @@ in this list.</p>
 <li>Mind blown: A community of developers (also, SWAGS)!</li>
 <li>Mind blown: Memory overlays!</li>
 </ul>
+<p>A few years later, still a teen, I attempted to move to C and was a bit disappointed, only
+to find it basically the same language, just harder to read (what&rsquo;s that weird three-components
+<code>for</code> loop?), more error-prone (far pointers? really?) and with glaring missing features (what
+do you mean, there are no modules?), so I&rsquo;m not going to include C
+in this list.</p>
 <p>Pascal language still exists a bit as Turbo Pascal, Lazarus Pascal and Delphi, but also lives
 on with Ada (for its syntax) and every documentation tool around the sun (JavaDoc, rustdoc,
 Sphinx, Doxygen, etc.), as the original documentation tool, WEB, was designed for and with
@@ -440,6 +442,22 @@ reimplementations of the design of Erlang/Elixir and the underlying BEAM Virtual
 Machine, but based on technologies that are much harder to use and deploy and
 protocols that are several orders of magnitude slower.</p>
 <p>Oh, Opalang borrows from Erlang, too.</p>
+<h1 id="the-π-calculushttpsenwikipediaorgwikicea0-calculus"><a href="https://en.wikipedia.org/wiki/%CE%A0-calculus">The π-calculus</a></h1>
+<p>I&rsquo;m cheating here. The π-calculus (&ldquo;pi-calculus&rdquo;) is not a programming language
+but a calculus, i.e. a mathematical model designed to reason about systems. This
+model can be fully defined with only a dozen lines of specification and is also
+pretty trivial to implement. It has been used to perform static analysis on
+models of cryptographic protocols, or banking protocols&hellip; and also biological
+processes. I&rsquo;ve used it to define a type system that developers could theoretically
+use to guarantee that their protocols would degrade nicely in presence of a (D)DoS
+attack.</p>
+<ul>
+<li>Mind blown: A completely different look at race conditions.</li>
+<li>Mind blown: You don&rsquo;t need any kind of sequential operation to be Turing-complete.</li>
+<li>Mind blown: Describing complex concurrent/distributed systems with simple mathematics.</li>
+</ul>
+<p>I haven&rsquo;t seen any new publication on the π-calculus in a while, but I might just not
+be looking in the right place. Concurrent ML borrow</p>
 <h1 id="opalanghttpsenwikipediaorgwikiopa_programming_language"><a href="https://en.wikipedia.org/wiki/Opa_(programming_language)">Opalang</a></h1>
 <p>This one is a bit special, as I joined the team and became the lead designer
 for the language for a while. Imagine writing a single codebase in a
@@ -489,6 +507,7 @@ marks on my resume is that I&rsquo;m one of the people who introduced the idea o
 <li>Mind blown: Opinionated unit testing.</li>
 <li>Mind blown: Doc testing.</li>
 <li>Mind blown: A friendly and welcoming community.</li>
+<li>Mind blown: Some support for writing my own gradual type system.</li>
 </ul>
 <p>I haven&rsquo;t had much time to contribute to the compiler or stdlib in a while, but
 I&rsquo;m planning to return to it once I have some free time!</p>
@@ -497,7 +516,19 @@ Python or Go (both of which I currently do for a living) or even TypeScript, I&r
 cringing at the prospect of my code blowing up as soon as I run it. With Rust, I encode
 as many properties as I reasonably can within the type system, which means that I need
 to think more before I code, but also that tests usuall pass the first time.</p>
+<h1 id="why-not-your-favorite-language">Why not $(YOUR FAVORITE LANGUAGE)?</h1>
+<p>I&rsquo;ve coded in dozens of programming languages throughout my career. This includes
+Haskell, Scheme, SmallTalk, (Tw)elf, Idris, Python, Go, PHP, Perl, Bash, C, C++, JoCaml,
+JavaScript, TypeScript, Scala, C#, F#, Visual Basic, Ruby, (D)TAL, Squeak, Logo,
+Scratch, UnrealScript, GDScript, Lua, SQL&hellip;</p>
+<p>If I didn&rsquo;t include them, it&rsquo;s because they didn&rsquo;t blow my mind. Which doesn&rsquo;t mean that
+these languages are not great or innovative. Just that the concepts either didn&rsquo;t resonate
+with me <em>or</em>, more often than not, that I had already discovered these same concepts with
+other languages, just by the luck of the order in which I learnt languages.</p>
 <h1 id="whats-next">What&rsquo;s next?</h1>
+<p>I haven&rsquo;t seen anything revolutionary in a while, but this doesn&rsquo;t mean anything.
+The next idea could be lurking around the corner, in a small research project that
+I just haven&rsquo;t heard about.</p>
 <p>When I joined PASQAL, I hoped to be wowed by languages for quantum computing. I&rsquo;m
 not there yet, but I don&rsquo;t lose hope!</p>
 <p>I imagine that, despite the overhype and the insane environmental cost, something
