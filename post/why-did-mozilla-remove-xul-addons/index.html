@@ -24,7 +24,7 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
 
   
   
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@ImYoric" />
     <meta name="twitter:title" content="Why Did Mozilla Remove XUL Add-ons?" />
     <meta name="twitter:description" content="TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.
@@ -32,7 +32,7 @@ During the past few days, I&amp;rsquo;ve been chatting with Firefox users, tryin
 And then, as someone pointed out on reddit, I realized that we still haven&amp;rsquo;t taken the time to explain in-depth why we had no choice but to remove XUL-based add-ons.
 So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&amp;rsquo;d like to take this opportunity to try and give you a bit more detail.
 " />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/dismantling_scaffolding.png" />
   
 
   
@@ -44,7 +44,7 @@ And then, as someone pointed out on reddit, I realized that we still haven&amp;r
 So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&amp;rsquo;d like to take this opportunity to try and give you a bit more detail.
 " />
   <meta property="og:url" content="https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+  <meta property="og:image" content="https://yoric.github.io/img/dismantling_scaffolding.png" />
 
 
 
@@ -256,6 +256,7 @@ So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons a
 <p>During the past few days, I&rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.</p>
 <p>And then, as someone pointed out on reddit, I realized that we still haven&rsquo;t taken the time to explain in-depth why we <em>had no choice</em> but to remove XUL-based add-ons.</p>
 <p>So, if you&rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&rsquo;d like to take this opportunity to try and give you a bit more detail.</p>
+<p><img src="https://yoric.github.io/img/dismantling_scaffolding.png" alt="Dismantling a clockwork scaffolding, as interpreted by MidJourney"></p>
 <h1 id="about-promiscuous-add-ons-jetpack-and-webextensions">About Promiscuous Add-Ons, JetPack and WebExtensions</h1>
 <p>For a very long time, Firefox was composed of a very small core on top of which everything was implemented as extensions. Many of these extensions were written in C++, others in JavaScript and many involved the XUL interface language and the XBL binding language. C++ and JavaScript code were connected thanks to a technology called XPCOM. Whenever an extension developer wished to customize Firefox, it was simple and extremely powerful, as the exact same building blocks used to power Firefox could be used to customize it.</p>
 <p>This is how Session Restore (the technology that lets you resume Firefox where you left it the last time, even in case of crash) or the Find Bar were first implemented in Firefox, among other features. This is the technology that powers Firefox and <a href="https://www.thunderbird.net">Thunderbird</a>. This is how tools such as <a href="https://en.wikipedia.org/wiki/Songbird_(software)">Songbird</a> (an open-source iTunes competitor) or <a href="https://en.wikipedia.org/wiki/Instantbird">Instantbird</a> (a chat client) were developed. This is also how I customized Firefox to become an eBook reader a long time ago. And this is how thousands of Firefox add-ons were developed.</p>
@@ -417,7 +418,7 @@ that Firefox spent being worse than Chrome in terms of security and crashes.</p>
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1187</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1189</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
