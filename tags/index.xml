@@ -9,6 +9,60 @@
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sat, 18 Feb 2017 16:29:32 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>compiler</title>
+      <link>https://yoric.github.io/tags/compiler/</link>
+      <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/compiler/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>energy</title>
+      <link>https://yoric.github.io/tags/energy/</link>
+      <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/energy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mozilla</title>
+      <link>https://yoric.github.io/tags/mozilla/</link>
+      <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>optimization</title>
+      <link>https://yoric.github.io/tags/optimization/</link>
+      <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/optimization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming</title>
+      <link>https://yoric.github.io/tags/programming/</link>
+      <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programming languages</title>
+      <link>https://yoric.github.io/tags/programming-languages/</link>
+      <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/tags/programming-languages/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>ASM</title>
       <link>https://yoric.github.io/tags/asm/</link>
       <pubDate>Mon, 20 Nov 2023 09:55:20 +0100</pubDate>
@@ -126,24 +180,6 @@
     </item>
     
     <item>
-      <title>programming</title>
-      <link>https://yoric.github.io/tags/programming/</link>
-      <pubDate>Mon, 20 Nov 2023 09:55:20 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/programming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>programming languages</title>
-      <link>https://yoric.github.io/tags/programming-languages/</link>
-      <pubDate>Mon, 20 Nov 2023 09:55:20 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/programming-languages/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Prolog</title>
       <link>https://yoric.github.io/tags/prolog/</link>
       <pubDate>Mon, 20 Nov 2023 09:55:20 +0100</pubDate>
@@ -243,24 +279,6 @@
     </item>
     
     <item>
-      <title>compiler</title>
-      <link>https://yoric.github.io/tags/compiler/</link>
-      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/compiler/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>energy</title>
-      <link>https://yoric.github.io/tags/energy/</link>
-      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/energy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>finite world</title>
       <link>https://yoric.github.io/tags/finite-world/</link>
       <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
@@ -284,15 +302,6 @@
       <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
       
       <guid>https://yoric.github.io/tags/jit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mozilla</title>
-      <link>https://yoric.github.io/tags/mozilla/</link>
-      <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/tags/mozilla/</guid>
       <description></description>
     </item>
     

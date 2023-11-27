@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>optimization on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/tags/optimization/</link>
+    <description>Recent content in optimization on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Mon, 27 Nov 2023 23:42:50 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)</title>
+      <link>https://yoric.github.io/post/so-you-want-to-optimize-your-code/</link>
+      <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
+      
+      <guid>https://yoric.github.io/post/so-you-want-to-optimize-your-code/</guid>
+      <description>&lt;p&gt;So you want to optimize your code, eh? Who am I to blame you? &lt;a href=&#34;../coding-for-a-finite-world/&#34;&gt;I certainly want you to optimize your code&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still
+bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let
+me invite you to sit down for a while and share a little hard-earned experience on code optimization.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -430,7 +430,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <ul>
 <li>C++ has <code>private</code> fields, so it is harder to break write-safety on purpose than in C.</li>
 <li>You can trivially break write-safety by using the features of the C subset of C++. Safe coding guidelines very much discourage this.</li>
-<li>If we abstain from using the C subset and restrict ourselves to C++ modules, it is still trivial, by misusing <code>operator[]</code> or iterators or data race conditions.</li>
+<li>If we abstain from using the C subset and restrict ourselves to C++ modules, it is still trivial, by misusing <code>operator\[\]</code> or iterators or data race conditions.</li>
 <li>As with other languages, write safety can be broken by dependencies.</li>
 <li>There are still higher-level manners of breaking write-safety with callbacks or coroutines, by letting some external code interrupt your code during a modification. The callbacks are not really idiomatic but some frameworks such as Qt use them all over the place and iirc the observer pattern is being discussed for inclusion in the stdlib.</li>
 <li>There are often ways to break safety by abusing aliasing, but I cannot see one from the top of my head.</li>
@@ -445,7 +445,7 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>to avoid the race conditions and any other mechanism that can interrupt your code while you&rsquo;re in the middle of updating a <code>WTFString</code>, adopt a side-effects-free programming style (aka functional programming), optionally concurrent/distributed;</li>
 <li>audit your dependencies.</li>
 </ul>
-<p>This feels reasonably write-safe. There may of course exist larger subsets, this one just happens to be something that fits within three lines.</p>
+<p>This feels reasonably write-safe. There may of course exist larger subsets, this one just happens to be something that fits within five lines.</p>
 <p>Of course, at this stage, two questions arise:</p>
 <ol>
 <li>How do you make sure that you are using this style?</li>
@@ -712,7 +712,7 @@ tools for some of these languages, which may help.</p>
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>292</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>297</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

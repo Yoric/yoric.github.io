@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="David Teller" />
+  <meta name="description" content="So you want to optimize your code, eh? Who am I to blame you? I certainly want you to optimize your code!
+I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let me invite you to sit down for a while and share a little hard-earned experience on code optimization.
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ImYoric" />
+    <meta name="twitter:title" content="So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)" />
+    <meta name="twitter:description" content="So you want to optimize your code, eh? Who am I to blame you? I certainly want you to optimize your code!
+I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let me invite you to sit down for a while and share a little hard-earned experience on code optimization.
+" />
+    <meta name="twitter:image" content="https://yoric.github.io/img/red_panda_running.png" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)" />
+  <meta property="og:description" content="So you want to optimize your code, eh? Who am I to blame you? I certainly want you to optimize your code!
+I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let me invite you to sit down for a while and share a little hard-earned experience on code optimization.
+" />
+  <meta property="og:url" content="https://yoric.github.io/post/so-you-want-to-optimize-your-code/" />
+  <meta property="og:image" content="https://yoric.github.io/img/red_panda_running.png" />
+
+
+
+
+<meta name="generator" content="Hugo 0.119.0" />
+
+
+<link rel="canonical" href="https://yoric.github.io/post/so-you-want-to-optimize-your-code/" />
+<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
+<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
+  
+  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://yoric.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/about/">About</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/categories/">Categories</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://yoric.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)</h1>
+      <p class="post-meta">@David Teller · Nov 27, 2023 · 18 min read</p>
+    </header>
+    <article class="post-content"><p>So you want to optimize your code, eh? Who am I to blame you? <a href="../coding-for-a-finite-world/">I certainly want you to optimize your code</a>!</p>
+<p>I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still
+bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let
+me invite you to sit down for a while and share a little hard-earned experience on code optimization.</p>
+<p><img src="https://yoric.github.io/img/red_panda_running.png" alt="A red panda, running, as imagined by MidJourney"></p>
+<h1 id="make-sure-your-code-is-_ready_-for-optimizations">Make sure your code is <em>ready</em> for optimizations</h1>
+<h2 id="a-story">A story</h2>
+<p>It all starts with a story. A long time ago, in a galaxy far far away, toiled a developer who intended to make Firefox
+faster. One of the things that slowed down Firefox was that the disk was accessed on the main thread. If the disk
+was too busy, or waking up from sleep, this could cause the Firefox user interface to freeze for up to three seconds.</p>
+<p>That wasn&rsquo;t good. Our intrepid developer was in charge of making sure that this didn&rsquo;t happen anymore. This meant
+moving all disk accesses to another thread, which was complicated by the fact that, for historical reasons, all
+the APIs that needed to access the disk were synchronous.</p>
+<p>Anyway, after countless weeks carefully moving things across threads, making sure that unit tests passed (this
+required expanding the unit test framework to allow async tests), making sure that the integration tests passed
+(same story), making sure that the performance tests passed (no changes needed, lucky him) and testing manually,
+our developer finally merged the task and informed the rest of the team that he was done with this one file
+access.</p>
+<p>It was then that Firefox started breaking apart in weird an unexpected places. Crash Scene Investigations reported
+a surge in crash reports from Firefox Nightly. Reverting and debugging ensued.
+In the end, the culprit was identified. It was the dreaded <em>nested event loop</em>, an API (called elsewhere in
+the code) that can do weird things with causality. After much more debugging and blood sacrifices, and a complete
+refactoring of the shutdown code of the browser, said nested event loop was tamed, the code merged and performance
+improved.</p>
+<p>The anonymous developer happily moved on to the next file access.</p>
+<h2 id="drawing-lessons">Drawing Lessons</h2>
+<p>Despite the countless weeks spent working on this optimization, this story is actually one when things went reasonably
+well:</p>
+<ol>
+<li>There were plenty of tests (even if these tests didn&rsquo;t catch the issue);</li>
+<li>There were additional safeguards, with Firefox Nightly, Crash Reports and volunteer testers (which did catch the issue);</li>
+<li>There were a process and a mechanism that allowed our anonymous hero to backout the culprit without compromising the product;</li>
+<li>The code, while quite large, was well-tested, well-documented and clear enough that performing further refactorings was possible in the first place;</li>
+<li>The many teams involved were all aware of the difficulty of the task, of its importance, and were ready to spend a little time brainstorming or reviewing solutions, even if they required some sophisticated rearchitecturing.</li>
+</ol>
+<p>Critically, all these points were in place <em>before</em> the optimization began. If they had not been, the story
+would have ended considerably worse.</p>
+<blockquote>
+<p><strong>Lesson 1</strong> Make sure that your code is ready for optimizations.</p>
+<p>You will break things during optimization. Some of the things you break will be your fault. Some were already
+broken, and you&rsquo;ll just have made them visible.</p>
+<ul>
+<li>If you can&rsquo;t detect breakages, you&rsquo;re killing your product.</li>
+<li>If you can&rsquo;t revert your optimizations, you&rsquo;re killing your product.</li>
+<li>If your processes or tools won&rsquo;t let you fix breakages that arise, you&rsquo;re setting yourself up for failure.</li>
+</ul>
+</blockquote>
+<p>There are many ways to make sure that your code is ready for optimization. Documentation may not be sufficient.
+Static types may not be sufficient. Unit tests may not be sufficient. Integration tests may not be sufficient.
+Manual tests may not be sufficient. A crowd of testers may not be sufficient. Crash reporting may not be sufficient.
+But every one of these things that you&rsquo;re missing is a hole in your defenses.</p>
+<blockquote>
+<p><strong>Lesson 2</strong> Defend in depth.</p>
+</blockquote>
+<p>And yes, that lesson is also valid for safety and for security.</p>
+<h1 id="determine-what-youre-optimizing-_for_">Determine what you&rsquo;re optimizing <em>for</em></h1>
+<h2 id="a-story-1">A story</h2>
+<p>This story takes place earlier in the history of Firefox. A new contender had recently joined the arena, an upstart
+called Chrome. The Firefox teams were cringing a little bit because the name Chrome belonged to them (the chrome
+being the historical name of the Firefox front-end), more so because users claimed that Chrome was much faster than
+Firefox and even more so because the benchmarks disagreed.</p>
+<p>Let me repeat this. Pretty much every single benchmark indicated that, by right, Firefox was faster than Chrome.
+After immense optimization work by the SpiderMonkey team, JavaScript code completed its tasks faster on Firefox
+than on Chrome. Files downloaded faster on Firefox than on Chrome. Pages completed rendering faster on Firefox
+than on Chrome. Firefox even took way less memory than Chrome.</p>
+<p>And yet, pretty much every single user reported the opposite.</p>
+<p>It took the Firefox teams perhaps one year to figure out what was going on. The developers were measuring how long it took
+for a file to <em>complete</em> download. Users cared about how long it took for the browser to indicate that the download had
+<em>started</em>. The developers were measuring how long it took for a page to <em>finish</em> rendering. Users cared about how long it
+took for the page to <em>start</em> displaying. The developers were measuring how long it took for JavaScript to <em>finish</em>
+execution. Users cared about how many images per second were rendered during scrolling.</p>
+<p>It is then that they realized that they had spent the past year optimizing for the wrong metrics. And that they
+started moving file I/O off the main thread.</p>
+<h2 id="drawing-lessons-1">Drawing Lessons</h2>
+<p>This is a case in which things could have gone much better. An entire year lost. Still, things could have been
+worse. The Firefox team knew that something was off, even if they couldn&rsquo;t quite figure out what.</p>
+<p>In this case, Mozilla had optimized for <em>throughput</em> at a time it should have focused on <em>responsiveness</em>. But
+for your application, it might be something different entirely. Here are a few possibilities:</p>
+<ul>
+<li>If you are working on mobile or IoT, you may need to optimize for <em>battery</em> and possibly <em>memory</em>.</li>
+<li>If you are working on a video game, you will need to optimize for video and audio rendering <em>smoothness</em>, controls <em>responsiveness</em>.</li>
+<li>If you are working on a frontend, you will need to optimize for <em>time to first rendering</em>, <em>time to first interactive</em> and <em>responsiveness</em>.</li>
+<li>If you are working on a scientific tool, you will need to optimize for <em>total execution time</em>.</li>
+<li>If you are working on a backend, you will need to optimize for <em>total execution time</em>, <em>memory</em>, <em>disk</em> and <em>cpu</em>.</li>
+<li>If you are working at datacenter- or planetary-scale, you will need to optimize for <em>energy</em> and possibly <em>hardware wear</em>.</li>
+<li>If you are working on a streaming solution, you will need to optimize for <em>bandwidth</em>.</li>
+<li>etc.</li>
+</ul>
+<p>In many cases, you will have more than one target. In many cases, too, targets may be contradictory.
+For instance, if you&rsquo;re optimizing for <em>total execution time</em> and/or <em>responsiveness</em>, past a certain
+point, this is going to cost you <em>battery</em>, <em>energy</em>, <em>cpu</em> and possibly <em>memory</em>. Possibly worse,
+some of the tools used to achieve <em>responsiveness</em> is making things
+async, which is going to end up increasing your <em>total execution time</em>.</p>
+<blockquote>
+<p><strong>Lesson 3</strong> Know what you&rsquo;re optimizing <em>for</em>.</p>
+<ul>
+<li>Optimizing for the wrong metric will waste your time.</li>
+<li>Optimizing for the wrong metric may push the right metric in the wrong direction.</li>
+<li>Optimizing for the wrong metric will very likely make your code less ready for further optimizations.</li>
+</ul>
+</blockquote>
+<p>Oh, by the way, how do you know what to optimize for in the first place? Maybe your code is already
+optimized enough? Well, that&rsquo;s where you need your product lead to chime in, or directly your users.</p>
+<blockquote>
+<p><strong>Lesson 4</strong> Optimization is a feature.</p>
+<p>Corollary: it may be backlogged until it becomes a priority.</p>
+</blockquote>
+<h1 id="determine-what-youre-willing-to-_trade-off_">Determine what you&rsquo;re willing to <em>trade off</em></h1>
+<h2 id="a-story-2">A story</h2>
+<p>Our story continues years later. Efforts to make Firefox faster had succeeded. Firefox felt smoother,
+more responsive, users were largely happy. But the developers knew that this couldn&rsquo;t last. Any
+add-on could slow down Firefox, freezing its user interface for arbitrary durations. Any webpage
+could do the same. The solution was simple: move to a multi-process architecture. In fact, by then,
+a multi-process prototype had been available for years. This architecture was better not only for
+performance but also for security and reliability.</p>
+<p>But there was a snag: the XUL model for developing add-ons was not, could demonstrably not be made
+compatible with the multi-process architecture. So moving to the multi-process architecture would
+mean dropping pretty much all existing add-ons and quite possibly angering the community that relied
+upon these add-ons. Also, multiple processes meant a larger memory footprint.</p>
+<p>The Firefox team dithered and delayed for several years, hoping to find a miracle solution. But
+in the end, <a href="../why-did-mozilla-remove-xul-addons/">sacrifices were made</a> (you may wish to take
+a look at the comment section, too, as well as comments on <a href="https://news.ycombinator.com/item?id=24231017">HN</a>
+and <a href="https://www.reddit.com/r/firefox/comments/idde50/why_did_mozilla_remove_xul_addons/">Reddit</a>
+to get an idea of the reactions to that choice).</p>
+<h2 id="lessons-drawn">Lessons Drawn</h2>
+<p>Sometimes, optimizing will require sacrifices. Strike that. Optimizing <em>always</em> requires sacrifices.</p>
+<ul>
+<li>Caching results may improve your speed, but it will cost you memory, and possibly consistency.</li>
+<li>Cutting features may let you get rid of inefficiencies, but it will cost you, well, features.</li>
+<li>Approximating results may be how your game reaches 60fps, but players may be unhappy about weird
+bounding boxes.</li>
+<li>If you are splitting your backend into microservices, you are sacrificing CPU efficiency,
+energy, bandwidth to gain scalability.</li>
+<li>If your game needs a recent GPU to achieve decent performance, you are sacrificing some of your
+userbase, in addition to natural resources, to gain smoothness.</li>
+<li>If you are called Netflix, you are probably willing to trade staggering CPU time for a
+small percentage of bandwidth gains.</li>
+<li>If, for the sake of performance, you are using C or C++, or bringing in native modules in your
+higher-level language, or bringing in external components such as Redis or Kafka,
+you are accepting an extended security perimeter and lesser built-in safety.</li>
+<li>In every case, you are trading away engineering time for optimization.</li>
+<li>In most cases, you also make your code more complicated, trading readiness for
+optimization.</li>
+</ul>
+<blockquote>
+<p><strong>Lesson 5</strong> Optimizations have a cost.</p>
+<p>If you are not willing to pay this cost, do not perform the optimization.</p>
+</blockquote>
+<p>And since optimizations have a cost, you may run out of budget while optimizing.</p>
+<blockquote>
+<p><strong>Lesson 6</strong> Scope and checkpoint your optimizations</p>
+<ul>
+<li>If your optimization process doesn&rsquo;t have checkpoints, it&rsquo;s much harder to measure your
+improvements.</li>
+<li>If your optimization process doesn&rsquo;t have checkpoints, it&rsquo;s much harder to give your
+QA / alpha-testers / post-CI testing process time to confirm that your optimizations
+have not broken your code.</li>
+<li>If your optimization process doesn&rsquo;t have checkpoints, you risk the chance of the
+entire process being dropped without results when it ends up being longer and more
+complicated than expected.</li>
+</ul>
+</blockquote>
+<h1 id="measure">Measure</h1>
+<h2 id="a-story-3">A story</h2>
+<p>Fast forward a few more years. Firefox had lost many add-ons, but was now a fast and reliable browser, once
+again. It felt good. Developers, who were all Firefox users, finally could brag that their browser felt
+smoother than it ever had. Benchmarks were green. Also, the switch to the new add-ons model and to the
+multi-process architecture has enabled considerable cleanups, which made the codebase much fitter for
+further optimizations.</p>
+<p>But still, Performance Telemetry insisted that Firefox was slow for a non-negligible percentage of
+users. No developers could ever reproduce these slowdowns, so surely, it had to be some kind of mistake?
+Some exotic configuration? Perhaps unreliable GPU drivers? Some buggy anti-virus that drained all CPU?
+Surely this could be ignored?</p>
+<p>Until one day, one developer-turned-manager decided to try something different. He ordered a bunch of low-end laptops,
+the ones that you probably never use if you read (or write) this blog. Not even the kind of laptop that you
+can find for cheap in supermarkets, but the kind of laptop that you could find last year in a supermarket.
+He then proceeded to distribute these laptops to performance developers.</p>
+<p>Everybody had to agree that there was still some work to do on the performance front.</p>
+<h2 id="drawing-lessons-2">Drawing Lessons</h2>
+<p>Once again, this is a case in which things worked fairly well, even if it took some time to get there:</p>
+<ol>
+<li>Developers were dogfooding their product.</li>
+<li>There were a fair number of benchmarks (both micro-benchmarks and end-to-end benchmarks).</li>
+<li>There were additional safeguards, such as alpha testers.</li>
+<li>Firefox had Performance Telemetry, which measured real-world performance and trends.</li>
+<li>A team was looking the results of Performance Telemetry and taking notes on surprising results.</li>
+<li>Someone was really motivated to dig into the notes.</li>
+</ol>
+<p>Very few organizations have all these steps. And while steps 1-5 worked and caught numerous
+issues, none of them noticed this particular issue. Once again, all these steps were in place
+<em>before</em> the optimization work started.</p>
+<p>Now, let&rsquo;s unpack this. Your primary tool for measuring improvements are benchmarks
+(and, at a later stage, profiling data). They are incredibly useful, but they&rsquo;re also lies. Your
+JIT, your optimizing compiler, your CPU cache, your disk cache, your OS, your router,
+your semi-hardware battery monitor are all conspiring to make every number you get
+from a benchmark unreliable. Or, as the saying goes, &ldquo;The second algorithm is always
+faster.&rdquo;</p>
+<blockquote>
+<p><strong>Lesson 7</strong> Use benchmark but don&rsquo;t trust them.</p>
+<ul>
+<li>The numbers given by a benchmark are incredibly noisy.</li>
+<li>The numbers given by a benchmark are useless if your machine is doing anything else.</li>
+<li>The evolution of numbers given by a benchmark is useless if you have upgraded your machine.</li>
+<li>The evolution of numbers given by a benchmark is useless if you have updated your OS.</li>
+</ul>
+<p>Corollary: You need a dedicated machine.</p>
+</blockquote>
+<p>Of course, as we&rsquo;ve seen, benchmark numbers are not sufficient. You&rsquo;re going to need
+real-world numbers. That&rsquo;s what Firefox is doing (yes, we learnt that
+from Chrome). This is the mechanism known as Performance Telemetry, or simply Telemetry,
+and it&rsquo;s about phoning home with (anonymous) performance information. It is of course
+easier if you own the device phoning home (i.e. if you&rsquo;re writing a backend application),
+but it can be deployed to just almost any device with connectivity. Just be certain that
+Telemetry doesn&rsquo;t mess up with your optimizations (on a low-powered device, sending data
+can be costly) <strong>and doesn&rsquo;t leak privacy information</strong>. Also, please think carefully
+about the privacy implications of Telemetry and think whether it can/should be opt-in
+or opt-out.</p>
+<p>Note that Telemetry data is even more noisy than benchmark data. If you have many users,
+they will be running your code on a variety of devices, network or OS configurations,
+concurrently with any number of other applications, or your numbers may be affected by a
+user putting their laptop to sleep. Experience indicates that Telemetry is even affected
+by religious festivals.</p>
+<blockquote>
+<p><strong>Lesson 8</strong> Use real-world data but don&rsquo;t trust it either.</p>
+<ul>
+<li>If you&rsquo;re not measuring real-world performance, you have no idea whether you have improved anything.</li>
+<li>If you have not started measuring real-world performance <em>before you start optimizing</em>, you have no
+idea whether you have improved anything.</li>
+<li>If it&rsquo;s possible, don&rsquo;t forget to include your cost in your measures.</li>
+<li>Real-world performance is incredibly noisy.</li>
+</ul>
+</blockquote>
+<p>So if benchmark data is noisy and real-world performance data is even more noisy, how can
+you trust these numbers? You can&rsquo;t. However, if 5% of your users start having performance
+issues regularly, there are really good chances that performance has regressed.
+It is time to investigate.</p>
+<blockquote>
+<p><strong>Lesson 9</strong> Extract reliable data from unreliable data.</p>
+<ul>
+<li>Graph the evolution of your median performance. It will show you how you&rsquo;re doing
+on average.</li>
+<li>For each metric, graph the evolution of the percentage of samples with unacceptable
+performance. It will show you how you&rsquo;re doing in the worst case.</li>
+</ul>
+<p>This applies both to benchmarks and to real-world data.</p>
+<p>Corollary: You need to have decided what &ldquo;unacceptable performance&rdquo; means. You can
+have more than one threshold (e.g. barely acceptable/unacceptable/unusable).</p>
+</blockquote>
+<p>Chances are that you will always have samples with unacceptable performance, because
+of the noise.</p>
+<p>And now that we have numbers, we can safely ignore them, right?</p>
+<blockquote>
+<p><strong>Lesson 10</strong> Raise alarms.</p>
+<ul>
+<li>Numbers are useless if you don&rsquo;t look at them.</li>
+<li>Raise the alarm if your median performance dips.</li>
+<li>Raise the alarm if your number of sample with unacceptable performance raises
+above some unacceptability threshold.</li>
+<li>Just as performance is a feature, a performance alert is a bug.</li>
+</ul>
+<p>Corollary: You need to have decided what &ldquo;unacceptability threshold means&rdquo;. Given
+that measures are noisy, 0 is probably not an acceptable answer.</p>
+</blockquote>
+<h1 id="_tools_-of-the-trade"><em>Tools</em> of the trade</h1>
+<h2 id="story">Story</h2>
+<p>This story get us close to where we began. At the time, there was no good way to
+determine where time went. Certainly, Firefox took too long to save its state,
+or to launch, or to scroll down, but why? Was it because of too much CPU used?
+Was the code using the disk too much? Was there a complexity issue in the
+garbage-collector?</p>
+<p>Certainly, Telemetry could answer some of these questions. But adding Telemetry
+probes to each line of the code was out of the question. So developers needed
+a tool that could tell them, on their own computer, where the time went.</p>
+<p>Some operating systems come with mechanisms that let code ask these questions
+to the OS and extract precise performance data. Experiments were made to take
+advantage of these mechanisms, but they proved disappointing, in part because
+only the computer&rsquo;s administrator had any right to perform such measures.
+Still, Firefox developers made use of these tools when they could.</p>
+<p>Similarly, existing profiling tools, while useful, didn&rsquo;t work well with
+a codebase that mixed several languages on the stack – in the case of Firefox,
+the JavaScript used both by webpages, add-ons and most of the user interface,
+and the C++ used by most of the backend. Still, Firefox developers also
+made use of these tools, on a regular basis.</p>
+<p>In the end, one lone developer (not the same) rolled up his sleeves, taught
+himself how to write a profiler and did exactly that. He then expanded his
+profiler to interact with the JavaScript VM, to extract developer-readable
+stacks of JavaScript from mess of JIT-compiled assembly language.
+Furthermore, he exposed APIs that other developers could use to instrument
+Firefox, indicating e.g. I/O operations or DOM operations, at ~zero performance
+cost.</p>
+<p>Finally, Firefox developers, add-on developers and, soon, web developers
+had an almost-one-click access to performance information that they could
+use to make Firefox or their websites faster.</p>
+<p>Another lone developer also rolled up his sleeves, taught himself how to
+access real-time performance data from the CPU and how context-switching
+between C++ and JavaScript worked within Firefox, and took upon himself to
+instrument Firefox to further attribute performance information to individual
+webpages and add-ons, in such a format that add-on developers could be
+informed if their add-ons were causing slowdowns. Much to his chagrin,
+the resources to get in touch with add-on developers never materialized.</p>
+<h2 id="drawing-lessons-3">Drawing Lessons</h2>
+<p>So, what went well and what went wrong?</p>
+<ol>
+<li>Through Performance Telemetry, developers could get an idea of which part
+of the code encountered performance issues. This mechanism was not
+sufficiently precise to guide optimizations through the entire process,
+but it did its job quite well.</li>
+<li>There were native tools, including native profilers and native probes,
+and Firefox developers made use of them. Without these tools, the
+considerable improvements to SpiderMonkey or other modules would not
+have been possible in the first place.</li>
+<li>In the end, tools adapted to the technology were even better. But building
+these tools had a cost.</li>
+<li>As we discussed previously, sometimes, the costs pile up and some optimization
+work (or in this case, optimization tooling) is dropped before it can become
+useful.</li>
+</ol>
+<p>Your situation is, most likely, different. For one thing, it is fairly unlikely
+that you&rsquo;ll need to come up with your own profiler.</p>
+<p>However, one thing remains: the tools we have discussed in previous sections will
+let you monitor optimizations and the need for them, but they are not sufficient
+to investigate inefficiencies in depth. For that, you&rsquo;ll need some
+kind of profiler, whether it&rsquo;s a performance profiler, a memory profiler, a
+network profiler, etc.</p>
+<blockquote>
+<p><strong>Lesson 11</strong> Profile, profile, profile.</p>
+<ul>
+<li>Your profiler shows you the biggest inefficiences in your code/system.</li>
+<li>Your profiler is usually not as stable as a benchmark.</li>
+<li>Your profiler is definitely not as realistic as real-world data.</li>
+<li>Nevertheless, it&rsquo;s your best friend.</li>
+</ul>
+</blockquote>
+<p>A profiler will put you on the right track. A profiler will let you approach
+the problem from the outside, as an investigation. How simple the investigation
+will be depends on how many layers of abstraction you need to peel before you
+reach the culprit.</p>
+<blockquote>
+<p><strong>Lesson 12</strong> Explicit is better than implicit.</p>
+<ul>
+<li>Your GC will make performance decisions without your knowledge.</li>
+<li>Your ORM will make performance decisions without your knowledge.</li>
+<li>Your API SDK will make performance decisions without your knowledge.</li>
+<li>Any operation that performs magic on your behalf makes performance
+decisions without your knowledge.</li>
+<li>Your programming language makes performance decisions without your
+knowledge.</li>
+</ul>
+<p>Corollary: You will need to find the toggles for these performance
+decisions, if they exist.</p>
+<p>Corollary: If the toggles do not exist, you&rsquo;re in for turbulent times.</p>
+<p>Corollary: For performance, prefer an ecosystem that favors explicit
+choices over implicit choices.</p>
+<p>Corollary: The programming language + framework you used for prototyping
+may not be adapted once you have reached the need for performance.</p>
+</blockquote>
+<p>One of the pitfalls of using <em>ecosystems</em> such as Python&rsquo;s or Node&rsquo;s is that they can
+easily get you some of the way towards your performance objectives, but that
+after the easy wins, the road suddenly becomes nightmarish.</p>
+<p>If you reach the stage at which you need to optimize, chances are that
+you will do it much more efficiently in an ecosystem that is more designed
+towards a final product, even if that ecosystem is less efficient for
+coming up with prototypes.</p>
+<h1 id="now-what">Now what?</h1>
+<p>I hope that you have enjoyed reading this entry. If you have reached that point,
+you now have seen some of the tools and processes you&rsquo;ll need to optimize
+efficiently.</p>
+<p>Congratulations. It&rsquo;s going to be a bumpy ride.</p>
+<p>It is my hope that these
+lessons can apply to most of the optimization problems you may need
+to deal with.</p>
+<p>There is certainly more to say about performance. In fact, there is
+enough content to fill entire bookshelves. But we&rsquo;re reaching the
+end of this blogpost.</p>
+<p>If I find time to write a followup, I might add a few ideas on how
+to deal with more specific issues, such as I/O, migrating code from
+sync to async, etc.</p>
+<p>Have fun optimizing!</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/optimization"><span class="tag">Optimization</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/programming"><span class="tag">Programming</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/programming-languages"><span class="tag">Programming Languages</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/energy"><span class="tag">Energy</span></a></li>
+        
+          <li><a href="https://yoric.github.io/tags/compiler"><span class="tag">Compiler</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: 'da0f2f18d2a6a901f10a6a00d96b86f7',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+      
+      
+        
+        
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\[','\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://yoric.github.io/js/bundle.js"></script>
+
+
+
+
+  </body>
+</html>
