@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)</title>
+  <title>So You Want to Optimize Your Code? (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)</title>
 
   
   
@@ -24,7 +24,7 @@ I spent a few years as part of the Firefox Performance Team, on the frontline of
   
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)" />
+    <meta name="twitter:title" content="So You Want to Optimize Your Code? (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)" />
     <meta name="twitter:description" content="So you want to optimize your code, eh? Who am I to blame you? I certainly want you to optimize your code!
 I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let me invite you to sit down for a while and share a little hard-earned experience on code optimization.
 " />
@@ -33,7 +33,7 @@ I spent a few years as part of the Firefox Performance Team, on the frontline of
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)" />
+  <meta property="og:title" content="So You Want to Optimize Your Code? (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)" />
   <meta property="og:description" content="So you want to optimize your code, eh? Who am I to blame you? I certainly want you to optimize your code!
 I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let me invite you to sit down for a while and share a little hard-earned experience on code optimization.
 " />
@@ -243,8 +243,8 @@ I spent a few years as part of the Firefox Performance Team, on the frontline of
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">So You Want to Optimize Your Code (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)</h1>
-      <p class="post-meta">@David Teller · Nov 27, 2023 · 18 min read</p>
+      <h1 class="post-title">So You Want to Optimize Your Code? (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)</h1>
+      <p class="post-meta">@David Teller · Nov 27, 2023 · 19 min read</p>
     </header>
     <article class="post-content"><p>So you want to optimize your code, eh? Who am I to blame you? <a href="../coding-for-a-finite-world/">I certainly want you to optimize your code</a>!</p>
 <p>I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still
@@ -510,8 +510,9 @@ above some unacceptability threshold.</li>
 that measures are noisy, 0 is probably not an acceptable answer.</p>
 </blockquote>
 <h1 id="_tools_-of-the-trade"><em>Tools</em> of the trade</h1>
-<h2 id="story">Story</h2>
-<p>This story get us close to where we began. At the time, there was no good way to
+<h2 id="a-story-4">A story</h2>
+<p>The loop is almost complete. We&rsquo;re close to where we began.
+At the time, there was no good way to
 determine where time went. Certainly, Firefox took too long to save its state,
 or to launch, or to scroll down, but why? Was it because of too much CPU used?
 Was the code using the disk too much? Was there a complexity issue in the
@@ -609,6 +610,32 @@ after the easy wins, the road suddenly becomes nightmarish.</p>
 you will do it much more efficiently in an ecosystem that is more designed
 towards a final product, even if that ecosystem is less efficient for
 coming up with prototypes.</p>
+<h1 id="one-last-word">One last word</h1>
+<h2 id="a-story-5">A story</h2>
+<p>Let us finish where we started, with our valiant developer fighting to get file I/O
+out of any performance-critical section.</p>
+<p>If you recall, our developer was thwarted for a time by a nested event loop. That
+nested event loop was a leftover from previous work on improving the performance
+of another feature. Fixing the ensuing explosion required much more work than
+either moving the file I/O to a background thread or improving the performance
+of that other feature in the first place.</p>
+<h2 id="drawing-lessons-4">Drawing Lessons</h2>
+<p>As you work towards optimization, you will often make your code more complicated
+and possibly less fragile.
+Whether you add fastpaths, move algorithms across threads or processes, rework
+data structures to take less memory, add or remove laziness, deploy external
+caches, introduce custom allocators&hellip; your logics will be more complicated
+to follow and it may introduce subtle bugs.</p>
+<p>That&rsquo;s an expected part of the cost. But there are things that you can do
+to keep it contained.</p>
+<blockquote>
+<p><strong>Lesson 13</strong> Contain your optimizations</p>
+<ul>
+<li>If you don&rsquo;t document your performance choices, expect people to undo them by accident.</li>
+<li>If you don&rsquo;t defend in depth from the potential consequences of your performance choices, you are laying
+mines for the next developers who will work on this code.</li>
+</ul>
+</blockquote>
 <h1 id="now-what">Now what?</h1>
 <p>I hope that you have enjoyed reading this entry. If you have reached that point,
 you now have seen some of the tools and processes you&rsquo;ll need to optimize
