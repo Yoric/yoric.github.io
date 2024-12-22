@@ -1,247 +1,145 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>mozilla on Il y a du thé renversé au bord de la table !</title>
+    <title>Mozilla on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/categories/mozilla/</link>
-    <description>Recent content in mozilla on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Mozilla on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate><atom:link href="https://yoric.github.io/categories/mozilla/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Dec 2024 20:00:47 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/categories/mozilla/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What would it take to add refinement types to Rust?</title>
+      <link>https://yoric.github.io/post/rust-refinement-types/</link>
+      <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
+      <guid>https://yoric.github.io/post/rust-refinement-types/</guid>
+      <description>&lt;p&gt;A few years ago, on a whim, I wrote &lt;a href=&#34;https://yoric.github.io/post/uom.rs/&#34;&gt;YAIOUOM&lt;/a&gt;. YAOIOUM was a static analyzer for Rust that checked that the code&#xA;was using units of measures correctly, e.g. a distance in meters is not a distance in centimeters, dividing meters&#xA;by seconds gave you a value in &lt;code&gt;m / s&lt;/code&gt; (aka &lt;code&gt;m * s^-1&lt;/code&gt;).&lt;/p&gt;&#xA;&lt;p&gt;YAIOUOM was an example of a &lt;em&gt;refinement type system&lt;/em&gt;, i.e. a type system that does its work after another type&#xA;system has already done its work. It was purely static, users could add new units in about&#xA;one line of code, and it was actually surprisingly easy to write. It also couldn&amp;rsquo;t be written within the Rust&#xA;type system, in part because I wanted legible error messages, and in part because Rust doesn&amp;rsquo;t offer a very&#xA;good way to specify that &lt;code&gt;(m / s) * s&lt;/code&gt; is actually the same type as &lt;code&gt;m&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Sadly, it also worked only on a specific version of Rust Nightly, and the code broke down with every new version&#xA;of Rust. It&amp;rsquo;s a shame, because I believe that there&amp;rsquo;s lots we could do with refinement types. Simple things such&#xA;as units of measure, as above, but also, I suspect, we could achieve much better error messages for complex&#xA;type-level programming, such as what Diesel is doing.&lt;/p&gt;&#xA;&lt;p&gt;It got me to wonder how we could extend Rust in such a way that refinement types could be easily added&#xA;to the language.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
       <link>https://yoric.github.io/post/safety-and-security/</link>
       <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/safety-and-security/</guid>
-      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;
-&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;&#xA;&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>yoric.steps.next()</title>
       <link>https://yoric.github.io/post/yoric-step-next/</link>
       <pubDate>Mon, 26 Oct 2020 16:33:46 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/yoric-step-next/</guid>
-      <description>&lt;p&gt;The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.&lt;/p&gt;
-&lt;p&gt;The creators of the Matrix protocol have recently published &lt;a href=&#34;https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors&#34;&gt;the most promising plan I have seen&lt;/a&gt;. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.&lt;/p&gt;
-&lt;p&gt;I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at &lt;a href=&#34;https://mozilla.org&#34;&gt;Mozilla&lt;/a&gt;, I&amp;rsquo;ll be moving to &lt;a href=&#34;https://element.io&#34;&gt;Element&lt;/a&gt;, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.&lt;/p&gt;</description>
+      <description>&lt;p&gt;The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.&lt;/p&gt;&#xA;&lt;p&gt;The creators of the Matrix protocol have recently published &lt;a href=&#34;https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors&#34;&gt;the most promising plan I have seen&lt;/a&gt;. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.&lt;/p&gt;&#xA;&lt;p&gt;I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at &lt;a href=&#34;https://mozilla.org&#34;&gt;Mozilla&lt;/a&gt;, I&amp;rsquo;ll be moving to &lt;a href=&#34;https://element.io&#34;&gt;Element&lt;/a&gt;, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>about:Mozilla&#39;s blockers and needinfos</title>
       <link>https://yoric.github.io/post/about-blockers/</link>
       <pubDate>Thu, 08 Oct 2020 12:15:16 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/about-blockers/</guid>
-      <description>&lt;p&gt;On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;some great practices that we have at Mozilla and that would deserve to take over the world&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Today, let&amp;rsquo;s talk about what you can do when your work is blocked.&lt;/p&gt;</description>
+      <description>&lt;p&gt;On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;some great practices that we have at Mozilla and that would deserve to take over the world&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Today, let&amp;rsquo;s talk about what you can do when your work is blocked.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>about:Mozilla&#39;s #introduction channel - and how it could work for your project</title>
       <link>https://yoric.github.io/post/about-introduction/</link>
       <pubDate>Tue, 06 Oct 2020 11:06:16 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/about-introduction/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s continue &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;this series&lt;/a&gt; on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.&lt;/p&gt;
-&lt;p&gt;This time, let&amp;rsquo;s talk about &lt;a href=&#34;https://chat.mozilla.org/#/room/#introduction:mozilla.org&#34;&gt;Mozilla&amp;rsquo;s &lt;code&gt;#introduction&lt;/code&gt; chatroom&lt;/a&gt;.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Let&amp;rsquo;s continue &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;this series&lt;/a&gt; on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.&lt;/p&gt;&#xA;&lt;p&gt;This time, let&amp;rsquo;s talk about &lt;a href=&#34;https://chat.mozilla.org/#/room/#introduction:mozilla.org&#34;&gt;Mozilla&amp;rsquo;s &lt;code&gt;#introduction&lt;/code&gt; chatroom&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>about:Mozilla&#39;s Mentored Bugs - and how it could work for your project</title>
       <link>https://yoric.github.io/post/moz-great-stuff/</link>
       <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/moz-great-stuff/</guid>
-      <description>&lt;p&gt;2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.&lt;/p&gt;
-&lt;p&gt;At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.&lt;/p&gt;
-&lt;p&gt;This is where &lt;strong&gt;Mentored Bugs&lt;/strong&gt; come in.&lt;/p&gt;</description>
+      <description>&lt;p&gt;2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.&lt;/p&gt;&#xA;&lt;p&gt;At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.&lt;/p&gt;&#xA;&lt;p&gt;This is where &lt;strong&gt;Mentored Bugs&lt;/strong&gt; come in.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Why Did Mozilla Remove XUL Add-ons?</title>
       <link>https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/</link>
       <pubDate>Thu, 20 Aug 2020 18:09:36 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/why-did-mozilla-remove-xul-addons/</guid>
-      <description>&lt;p&gt;TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.&lt;/p&gt;
-&lt;p&gt;During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.&lt;/p&gt;
-&lt;p&gt;And then, as someone pointed out on reddit, I realized that we still haven&amp;rsquo;t taken the time to explain in-depth why we &lt;em&gt;had no choice&lt;/em&gt; but to remove XUL-based add-ons.&lt;/p&gt;
-&lt;p&gt;So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&amp;rsquo;d like to take this opportunity to try and give you a bit more detail.&lt;/p&gt;</description>
+      <description>&lt;p&gt;TL;DR: Firefox used to have a great extension mechanism based on the XUL and XPCOM. This mechanism served us well for a long time. However, it came at an ever-growing cost in terms of maintenance for both Firefox developers and add-on developers. On one side, this growing cost progressively killed any effort to make Firefox secure, fast or to try new things. On the other side, this growing cost progressively killed the community of add-on developers. Eventually, after spending years trying to protect this old add-on mechanism, Mozilla made the hard choice of removing this extension mechanism and replacing this with the less powerful but much more maintainable WebExtensions API. Thanks to this choice, Firefox developers can once again make the necessary changes to improve security, stability or speed.&lt;/p&gt;&#xA;&lt;p&gt;During the past few days, I&amp;rsquo;ve been chatting with Firefox users, trying to separate fact from rumor regarding the consequences of the August 2020 Mozilla layoffs. One of the topics that came back a few times was the removal of XUL-based add-ons during the move to Firefox Quantum. I was very surprised to see that, years after it happened, some community members still felt hurt by this choice.&lt;/p&gt;&#xA;&lt;p&gt;And then, as someone pointed out on reddit, I realized that we still haven&amp;rsquo;t taken the time to explain in-depth why we &lt;em&gt;had no choice&lt;/em&gt; but to remove XUL-based add-ons.&lt;/p&gt;&#xA;&lt;p&gt;So, if you&amp;rsquo;re ready for a dive into some of the internals of add-ons and Gecko, I&amp;rsquo;d like to take this opportunity to try and give you a bit more detail.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Possibly one step towards named arguments in Rust</title>
       <link>https://yoric.github.io/post/rust-named-arguments/</link>
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/rust-named-arguments/</guid>
-      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which
-makes some function calls much more readable and safer.&lt;/p&gt;
-&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
+      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which&#xA;makes some function calls much more readable and safer.&lt;/p&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Units of Measure in Rust with Refinement Types</title>
       <link>https://yoric.github.io/post/uom.rs/</link>
       <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/uom.rs/</guid>
-      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for
-F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;
-&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
+      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for&#xA;F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;&#xA;&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Thinkerbell Postmortem/Brain dump</title>
       <link>https://yoric.github.io/post/thinkerbell-postmortem/</link>
       <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/thinkerbell-postmortem/</guid>
-      <description>&lt;p&gt;Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of
-the Connected Devices branch of Mozilla. While this branch has since been stopped,
-some part of Project Link lives on as &lt;a href=&#34;https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/&#34;&gt;Project Things&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far)
-was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome
-without coding. While only parts of Thinkerbell were ever implemented, they were sufficient
-to write programs such as:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;or&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Thinkerbell also had:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;semantics that ensured that scripts could continue/resume running unmonitored even when hardware
-was replaced/upgraded/moved around the house, including both the server and the sensors;&lt;/li&gt;
-&lt;li&gt;a visual syntax, rather than a text syntax;&lt;/li&gt;
-&lt;li&gt;a novel type system designed to avoid physical accidents;&lt;/li&gt;
-&lt;li&gt;a semantics based on process algebras.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but
-realistically, there is very little chance that I&amp;rsquo;ll find that time.
-So, rather than letting these ideas die in some corner of my brain, here is a post-mortem
-for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
-it a second life.&lt;/p&gt;
-&lt;p&gt;Note that some of the ideas exposed here were never actually implemented. Project Link
-was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of&#xA;the Connected Devices branch of Mozilla. While this branch has since been stopped,&#xA;some part of Project Link lives on as &lt;a href=&#34;https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/&#34;&gt;Project Things&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far)&#xA;was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome&#xA;without coding. While only parts of Thinkerbell were ever implemented, they were sufficient&#xA;to write programs such as:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;or&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Thinkerbell also had:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;semantics that ensured that scripts could continue/resume running unmonitored even when hardware&#xA;was replaced/upgraded/moved around the house, including both the server and the sensors;&lt;/li&gt;&#xA;&lt;li&gt;a visual syntax, rather than a text syntax;&lt;/li&gt;&#xA;&lt;li&gt;a novel type system designed to avoid physical accidents;&lt;/li&gt;&#xA;&lt;li&gt;a semantics based on process algebras.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but&#xA;realistically, there is very little chance that I&amp;rsquo;ll find that time.&#xA;So, rather than letting these ideas die in some corner of my brain, here is a post-mortem&#xA;for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives&#xA;it a second life.&lt;/p&gt;&#xA;&lt;p&gt;Note that some of the ideas exposed here were never actually implemented. Project Link&#xA;was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>HolyJIT: Could we write a multi-staged JIT compiler?</title>
       <link>https://yoric.github.io/post/holyjit/</link>
       <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/holyjit/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;
-&lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,
-nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
-and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we
-mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;
-&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;&#xA;&lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,&#xA;nodding and smiling mischeviously whenever Nicolas started exploring new ideas,&#xA;and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we&#xA;mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;&#xA;&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
       <link>https://yoric.github.io/post/binary-ast-pcc/</link>
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
       <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Typestates in Rust</title>
       <link>https://yoric.github.io/post/rust-typestate/</link>
       <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/rust-typestate/</guid>
       <description>&lt;p&gt;A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Binary AST - Motivations and Design Decisions - Part 1</title>
       <link>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</guid>
-      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
-Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
-It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype.</description>
+      <description>&lt;p&gt;&lt;em&gt;&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo;&lt;/em&gt;&#xA;- &lt;a href=&#34;https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html&#34;&gt;Mike Haertel, creator of GNU Grep&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying&#xA;a binary-encoded syntax for JS with the intent of allowing browsers and other&#xA;JS-executing environments to parse and load code as much as 80% faster than&#xA;standard minified JS.&lt;/p&gt;&#xA;&lt;p&gt;It has recently cleared Stage 1 of the TC39 standards process, and while the&#xA;final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident&#xA;that the final implementation will deliver the impressive performance&#xA;improvements promised by the prototype.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>JavaScript Binary AST Engineering Newsletter #1</title>
       <link>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</link>
       <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</guid>
-      <description>Hey, all cool kids have exciting Engineering Newsletters these days, so it&amp;rsquo;s high time the JavaScript Binary AST got one!
-Summary JavaScript Binary AST is a joint project between Mozilla and Facebook to rethink how JavaScript source code is stored/transmitted/parsed. We expect that this project will help visibly speed up the loading of large codebases of JS applications and will have a large impact on the JS development community, including both web developers, Node developers, add-on developers and ourselves.</description>
+      <description>&lt;p&gt;Hey, all cool kids have exciting Engineering Newsletters these days, so&#xA;it&amp;rsquo;s high time the JavaScript Binary AST got one!&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h1 id=&#34;summary&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    Summary&#xA;  &lt;/h1&gt;&#xA;&lt;/div&gt;&lt;p&gt;JavaScript Binary AST is a joint project between Mozilla and Facebook to&#xA;rethink how JavaScript source code is stored/transmitted/parsed. We&#xA;expect that this project will help visibly speed up the loading of large&#xA;codebases of JS applications and will have&#xA;a large impact on the JS development community, including both web&#xA;developers, Node developers, add-on developers and ourselves.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Towards a JavaScript Binary AST</title>
       <link>https://yoric.github.io/post/binary-ast-newsletter-1/</link>
       <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-newsletter-1/</guid>
-      <description>In this blog post, I would like to introduce the JavaScript Binary AST, an ongoing project that we hope will help make webpages load faster, along with a number of other benefits.
-A little background Over the years, JavaScript has grown from one of the slowest scripting languages available to a high-performance powerhouse, fast enough that it can run desktop, server, mobile and even embedded applications, whether through web browsers or other environments.</description>
+      <description>&lt;p&gt;In this blog post, I would like to introduce the JavaScript Binary AST, an&#xA;ongoing project that we hope will help make webpages load faster, along with&#xA;a number of other benefits.&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h1 id=&#34;a-little-background&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    A little background&#xA;  &lt;/h1&gt;&#xA;&lt;/div&gt;&lt;p&gt;Over the years, JavaScript has grown from one of the slowest scripting languages&#xA;available to a high-performance powerhouse, fast enough that it can run desktop,&#xA;server, mobile and even embedded applications, whether through web browsers or&#xA;other environments.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Project Lighthouse: A post-mortem</title>
       <link>https://yoric.github.io/post/post-mortem-lighthouse/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/post-mortem-lighthouse/</guid>
-      <description>A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
-One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life.</description>
+      <description>&lt;p&gt;A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment:&#xA;a bunch of internal non-profit hardware-related startups. One of our main&#xA;objectives was to determine if we could come up with designs that could help&#xA;turn the tide against the spyware-riddled and gruyère-level security devices that are&#xA;currently being offered (or pushed) to unwary users.&lt;/p&gt;&#xA;&lt;p&gt;One of the startups was &lt;a href=&#34;https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse&#34;&gt;&lt;strong&gt;Project Lighthouse&lt;/strong&gt;&lt;/a&gt;. We tried to provide an&#xA;affordable, simple and privacy-friendly tool for people suffering from&#xA;vision impairment and who needed help in their daily life. While Mozilla&#xA;closed the experiment before we could release anything useful, we still came&#xA;up with a few nifty ideas. Here is a post-mortem, in the hope that, maybe,&#xA;someone will be able to succeed where we couldn&amp;rsquo;t.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Things to do before you[r project] die[s]</title>
       <link>https://yoric.github.io/post/how-to-survive/</link>
       <pubDate>Fri, 17 Feb 2017 00:10:34 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/how-to-survive/</guid>
-      <description>&lt;p&gt;It&amp;rsquo;s no secret that all projects die, eventually, and that most projects die
-before they have had a chance to have any impact. This is true of personal projects,
-of open-source projects, of startup projects, of hardware projects, and more.&lt;/p&gt;
-&lt;p&gt;A few days ago, &lt;a href=&#34;https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse&#34;&gt;the IoT project on which I was working&lt;/a&gt;
-did just that. It was funded, it was open-source, it was open-hardware, and it
-still died before having the opportunity to release anything useful. In our case,
-we got pretty far, didn&amp;rsquo;t run out of funds, and were a little polish away from
-putting our first alpha-testers in front of a pretty advanced prototype before
-a higher-level strategy pivot killed a number of projects at once.&lt;/p&gt;
-&lt;p&gt;Ah, well, risks of the trade.&lt;/p&gt;
-&lt;p&gt;Still, working on it, we managed to learn or come up with a few tricks
-to increase the chances of surviving at least long enough to release a product.
-I&amp;rsquo;ll try to summarize and explain some of these tricks here. Hopefully, if you
-have a project, regardless of funding and medium, you may find some of this
-summary useful.&lt;/p&gt;</description>
+      <description>&lt;p&gt;It&amp;rsquo;s no secret that all projects die, eventually, and that most projects die&#xA;before they have had a chance to have any impact. This is true of personal projects,&#xA;of open-source projects, of startup projects, of hardware projects, and more.&lt;/p&gt;&#xA;&lt;p&gt;A few days ago, &lt;a href=&#34;https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse&#34;&gt;the IoT project on which I was working&lt;/a&gt;&#xA;did just that. It was funded, it was open-source, it was open-hardware, and it&#xA;still died before having the opportunity to release anything useful. In our case,&#xA;we got pretty far, didn&amp;rsquo;t run out of funds, and were a little polish away from&#xA;putting our first alpha-testers in front of a pretty advanced prototype before&#xA;a higher-level strategy pivot killed a number of projects at once.&lt;/p&gt;&#xA;&lt;p&gt;Ah, well, risks of the trade.&lt;/p&gt;&#xA;&lt;p&gt;Still, working on it, we managed to learn or come up with a few tricks&#xA;to increase the chances of surviving at least long enough to release a product.&#xA;I&amp;rsquo;ll try to summarize and explain some of these tricks here. Hopefully, if you&#xA;have a project, regardless of funding and medium, you may find some of this&#xA;summary useful.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Extracting text from images is not easy (who would have guessed?)</title>
       <link>https://yoric.github.io/post/extracting-text-from-images/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/extracting-text-from-images/</guid>
-      <description>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
-From there, we started a number of experiments. I figured out it was time to braindump some of them.
-Our problem Consider the following example:
-How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.</description>
+      <description>&lt;p&gt;At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision&#xA;disabilities?&lt;/p&gt;&#xA;&lt;p&gt;From there, we started a number of experiments. I figured out it was time to&#xA;braindump some of them.&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h2 id=&#34;our-problem&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    Our problem&#xA;  &lt;/h2&gt;&#xA;&lt;/div&gt;&lt;p&gt;Consider the following example:&lt;/p&gt;&#xA;&lt;p&gt;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&lt;figure class=&#34;image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big&#34;&gt;  &lt;div class=&#34;component-content&#34;&gt;&#xA;    &lt;div class=&#34;image-sharesheet&#34;&gt;&#xA;      &lt;div class=&#34;image image-load image-asset image-ebfe30a8b74539a7f6c2f49a4bb92033&#34; id=&#34;lhtebfe30a8b74539a7f6c2f49a4bb92033&#34;&gt;&#xA;        &lt;picture  class=&#34;picture&#34;&gt;&#xA;          &lt;img class=&#34;picture-image&#34; data-src=&#34;https://cloud.githubusercontent.com/assets/10190/18631303/80cce95a-7e71-11e6-8a4e-bed542e6e7bb.png&#34; alt=&#34;&#34;  /&gt;&#xA;        &lt;/picture&gt;&#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div class=&#34;image-description&#34;&gt;&#xA;      &lt;div class=&#34;image-caption&#34;&gt;&#xA;        &#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/figure&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.99&amp;rdquo;, &amp;ldquo;Super livres&amp;rdquo;, &amp;ldquo;Super prix&amp;rdquo;? That&amp;rsquo;s Canadian dollars, if you wonder.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

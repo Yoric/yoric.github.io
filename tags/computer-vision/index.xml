@@ -4,31 +4,23 @@
     <title>Computer Vision on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/computer-vision/</link>
     <description>Recent content in Computer Vision on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 20 Feb 2017 10:44:33 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/computer-vision/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Feb 2017 10:44:33 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/computer-vision/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Project Lighthouse: A post-mortem</title>
       <link>https://yoric.github.io/post/post-mortem-lighthouse/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/post-mortem-lighthouse/</guid>
-      <description>A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
-One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life.</description>
+      <description>&lt;p&gt;A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment:&#xA;a bunch of internal non-profit hardware-related startups. One of our main&#xA;objectives was to determine if we could come up with designs that could help&#xA;turn the tide against the spyware-riddled and gruyère-level security devices that are&#xA;currently being offered (or pushed) to unwary users.&lt;/p&gt;&#xA;&lt;p&gt;One of the startups was &lt;a href=&#34;https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse&#34;&gt;&lt;strong&gt;Project Lighthouse&lt;/strong&gt;&lt;/a&gt;. We tried to provide an&#xA;affordable, simple and privacy-friendly tool for people suffering from&#xA;vision impairment and who needed help in their daily life. While Mozilla&#xA;closed the experiment before we could release anything useful, we still came&#xA;up with a few nifty ideas. Here is a post-mortem, in the hope that, maybe,&#xA;someone will be able to succeed where we couldn&amp;rsquo;t.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Extracting text from images is not easy (who would have guessed?)</title>
       <link>https://yoric.github.io/post/extracting-text-from-images/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/extracting-text-from-images/</guid>
-      <description>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
-From there, we started a number of experiments. I figured out it was time to braindump some of them.
-Our problem Consider the following example:
-How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.</description>
+      <description>&lt;p&gt;At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision&#xA;disabilities?&lt;/p&gt;&#xA;&lt;p&gt;From there, we started a number of experiments. I figured out it was time to&#xA;braindump some of them.&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h2 id=&#34;our-problem&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    Our problem&#xA;  &lt;/h2&gt;&#xA;&lt;/div&gt;&lt;p&gt;Consider the following example:&lt;/p&gt;&#xA;&lt;p&gt;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&lt;figure class=&#34;image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big&#34;&gt;  &lt;div class=&#34;component-content&#34;&gt;&#xA;    &lt;div class=&#34;image-sharesheet&#34;&gt;&#xA;      &lt;div class=&#34;image image-load image-asset image-ebfe30a8b74539a7f6c2f49a4bb92033&#34; id=&#34;lhtebfe30a8b74539a7f6c2f49a4bb92033&#34;&gt;&#xA;        &lt;picture  class=&#34;picture&#34;&gt;&#xA;          &lt;img class=&#34;picture-image&#34; data-src=&#34;https://cloud.githubusercontent.com/assets/10190/18631303/80cce95a-7e71-11e6-8a4e-bed542e6e7bb.png&#34; alt=&#34;&#34;  /&gt;&#xA;        &lt;/picture&gt;&#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div class=&#34;image-description&#34;&gt;&#xA;      &lt;div class=&#34;image-caption&#34;&gt;&#xA;        &#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/figure&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.99&amp;rdquo;, &amp;ldquo;Super livres&amp;rdquo;, &amp;ldquo;Super prix&amp;rdquo;? That&amp;rsquo;s Canadian dollars, if you wonder.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

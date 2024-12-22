@@ -1,258 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/about-introduction/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="about:Mozilla&#39;s #introduction channel - and how it could work for your project">
+  <meta property="og:description" content="Let’s continue this series on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.
+This time, let’s talk about Mozilla’s #introduction chatroom.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-10-06T11:06:16+02:00">
+    <meta property="article:modified_time" content="2020-10-06T11:06:16+02:00">
+    <meta property="article:tag" content="Mozilla">
+    <meta property="article:tag" content="Mentoring">
+    <meta property="article:tag" content="Open-Source">
+    <meta property="article:tag" content="MozGreatStuff">
+    <meta property="article:tag" content="Remote">
+<title>about:Mozilla&#39;s #introduction channel - and how it could work for your project</title>
 
-  
-  <title>about:Mozilla&#39;s #introduction channel - and how it could work for your project</title>
+    <link rel="canonical" href="https://yoric.github.io/post/about-introduction/">
 
-  
-  
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="Let&amp;rsquo;s continue this series on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.
-This time, let&amp;rsquo;s talk about Mozilla&amp;rsquo;s #introduction chatroom.
-" />
-
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="about:Mozilla&#39;s #introduction channel - and how it could work for your project" />
-    <meta name="twitter:description" content="Let&amp;rsquo;s continue this series on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.
-This time, let&amp;rsquo;s talk about Mozilla&amp;rsquo;s #introduction chatroom.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="about:Mozilla&#39;s #introduction channel - and how it could work for your project" />
-  <meta property="og:description" content="Let&amp;rsquo;s continue this series on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.
-This time, let&amp;rsquo;s talk about Mozilla&amp;rsquo;s #introduction chatroom.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/about-introduction/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
-
-
-
-
-<meta name="generator" content="Hugo 0.119.0" />
-
-
-<link rel="canonical" href="https://yoric.github.io/post/about-introduction/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">about:Mozilla&#39;s #introduction channel - and how it could work for your project</h1>
-      <p class="post-meta">@David Teller · Oct 6, 2020 · 2 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>Let&rsquo;s continue <a href="https://yoric.github.io/tags/mozgreatstuff/">this series</a> on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.</p>
-<p>This time, let&rsquo;s talk about <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org">Mozilla&rsquo;s <code>#introduction</code> chatroom</a>.</p>
-<p>Mozilla is a large community, with dozens of projects, from Firefox front-end to localization to addons.mozilla.org to Firefox Hubs to support.mozilla.org, etc. Unsurprisingly, we have many communication channels. Bugzilla and Phabricator, Github issues and Pull Requests, Matrix/Riot/Element (formerly IRC) and Discourse, etc.</p>
-<p>When you are a seasoned contributor, you already know where to find people who can answer your project-related questions. I&rsquo;ve been on <code>#developers</code> for the best part of 17 years, on <code>#spidermonkey</code> (previously named #jsapi) for about 10 years, on both of the French-speaking channels for as long as I remember, etc.</p>
-<p>But if you are a newcomer, where do you go?</p>
-<p>Well, you go to <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a>!</p>
-<ul>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        mozilla
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">October 6, 2020</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">about:Mozilla&#39;s #introduction channel - and how it could work for your project</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/mozilla" class="tag">
+                    mozilla
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/mentoring" class="tag">
+                    mentoring
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/open-source" class="tag">
+                    open-source
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/mozgreatstuff" class="tag">
+                    mozGreatStuff
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/remote" class="tag">
+                    remote
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">Let&rsquo;s continue <a href="https://yoric.github.io/tags/mozgreatstuff/">this series</a> on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.</p>
+<p class="component-content component">This time, let&rsquo;s talk about <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org">Mozilla&rsquo;s <code>#introduction</code> chatroom</a>.</p>
+<p class="component-content component">Mozilla is a large community, with dozens of projects, from Firefox front-end to localization to addons.mozilla.org to Firefox Hubs to support.mozilla.org, etc. Unsurprisingly, we have many communication channels. Bugzilla and Phabricator, Github issues and Pull Requests, Matrix/Riot/Element (formerly IRC) and Discourse, etc.</p>
+<p class="component-content component">When you are a seasoned contributor, you already know where to find people who can answer your project-related questions. I&rsquo;ve been on <code>#developers</code> for the best part of 17 years, on <code>#spidermonkey</code> (previously named #jsapi) for about 10 years, on both of the French-speaking channels for as long as I remember, etc.</p>
+<p class="component-content component">But if you are a newcomer, where do you go?</p>
+<p class="component-content component">Well, you go to <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a>!</p>
+<div class="component-content component"><ul>
 <li>It&rsquo;s a web-accessible channel. You don&rsquo;t need to download and install Discord, or Slack, or anything else to join it.</li>
 <li>It&rsquo;s a public channel. You don&rsquo;t need anybody&rsquo;s authorization to join it.</li>
 <li>It&rsquo;s a channel where <em>you can ask dumb questions</em>. It&rsquo;s ok. On <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a>, everybody knows that you&rsquo;re here because you don&rsquo;t know yet. Everybody on the channel is gentle.</li>
@@ -260,34 +175,25 @@ This time, let&amp;rsquo;s talk about Mozilla&amp;rsquo;s #introduction chatroom
 <li>It&rsquo;s also a mutual help channel. The first people to respond to newcomers are very often people who have only been here for a few days or a few weeks, who have passed the first few difficulties and are happy to share their knowledge.</li>
 <li>It&rsquo;s a moderated channel. If you&rsquo;re a troll or a spambot, you are going to get ejected.</li>
 <li>It&rsquo;s a volunteer-only channel. While many Mozilla employees participate, they&rsquo;re here because they want to, not because it&rsquo;s part of their job description (except a few who actually talked to management and succeeded at making it part of their job description :) ). We&rsquo;re here to help :)</li>
-</ul>
-<p>On <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a>, you can ask about <a href="https://yoric.github.io/post/moz-great-stuff/">mentored bugs</a>, or general contribution-oriented questions. Volunteers will help you, will put you in touch with other developers who might answer your questions best, or will lead you towards detailed documentation.</p>
-<p>These days, many open-source projects have public or semi-public chats (e.g. Discord) and that&rsquo;s great! But I feel that many of them are missing one that would work as <code>#introduction</code>.</p>
-<p>Mozilla&rsquo;s original <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a> was created in 2011 by <a href="https://www.linkedin.com/in/joshuadmatthews/">Josh Matthews</a>, <a href="https://www.gavinsharp.com/">Gavin Sharp</a> and <a href="https://www.linkedin.com/in/ted-mielczarek-3376b1181/">Ted Mielczarek</a>.</p></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/mentoring"><span class="tag">Mentoring</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/open-source"><span class="tag">Open-Source</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/mozgreatstuff"><span class="tag">MozGreatStuff</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/remote"><span class="tag">Remote</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1148</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+</ul></div>
+<p class="component-content component">On <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a>, you can ask about <a href="https://yoric.github.io/post/moz-great-stuff/">mentored bugs</a>, or general contribution-oriented questions. Volunteers will help you, will put you in touch with other developers who might answer your questions best, or will lead you towards detailed documentation.</p>
+<p class="component-content component">These days, many open-source projects have public or semi-public chats (e.g. Discord) and that&rsquo;s great! But I feel that many of them are missing one that would work as <code>#introduction</code>.</p>
+<p class="component-content component">Mozilla&rsquo;s original <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a> was created in 2011 by <a href="https://www.linkedin.com/in/joshuadmatthews/">Josh Matthews</a>, <a href="https://www.gavinsharp.com/">Gavin Sharp</a> and <a href="https://www.linkedin.com/in/ted-mielczarek-3376b1181/">Ted Mielczarek</a>.</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  October 6, 2020</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -302,49 +208,51 @@ This time, let&amp;rsquo;s talk about Mozilla&amp;rsquo;s #introduction chatroom
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

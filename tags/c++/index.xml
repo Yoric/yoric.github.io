@@ -4,29 +4,23 @@
     <title>C&#43;&#43; on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/c&#43;&#43;/</link>
     <description>Recent content in C&#43;&#43; on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
       <link>https://yoric.github.io/post/safety-and-security/</link>
       <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/safety-and-security/</guid>
-      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;
-&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;&#xA;&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Project Lighthouse: A post-mortem</title>
       <link>https://yoric.github.io/post/post-mortem-lighthouse/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/post-mortem-lighthouse/</guid>
-      <description>A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
-One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life.</description>
+      <description>&lt;p&gt;A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment:&#xA;a bunch of internal non-profit hardware-related startups. One of our main&#xA;objectives was to determine if we could come up with designs that could help&#xA;turn the tide against the spyware-riddled and gruyère-level security devices that are&#xA;currently being offered (or pushed) to unwary users.&lt;/p&gt;&#xA;&lt;p&gt;One of the startups was &lt;a href=&#34;https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse&#34;&gt;&lt;strong&gt;Project Lighthouse&lt;/strong&gt;&lt;/a&gt;. We tried to provide an&#xA;affordable, simple and privacy-friendly tool for people suffering from&#xA;vision impairment and who needed help in their daily life. While Mozilla&#xA;closed the experiment before we could release anything useful, we still came&#xA;up with a few nifty ideas. Here is a post-mortem, in the hope that, maybe,&#xA;someone will be able to succeed where we couldn&amp;rsquo;t.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

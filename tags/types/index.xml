@@ -1,90 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>types on Il y a du thé renversé au bord de la table !</title>
+    <title>Types on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/types/</link>
-    <description>Recent content in types on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Types on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/types/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/types/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
       <link>https://yoric.github.io/post/safety-and-security/</link>
       <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/safety-and-security/</guid>
-      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;
-&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;&#xA;&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Possibly one step towards named arguments in Rust</title>
       <link>https://yoric.github.io/post/rust-named-arguments/</link>
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/rust-named-arguments/</guid>
-      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which
-makes some function calls much more readable and safer.&lt;/p&gt;
-&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
+      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which&#xA;makes some function calls much more readable and safer.&lt;/p&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Units of Measure in Rust with Refinement Types</title>
       <link>https://yoric.github.io/post/uom.rs/</link>
       <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/uom.rs/</guid>
-      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for
-F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;
-&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
+      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for&#xA;F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;&#xA;&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Thinkerbell Postmortem/Brain dump</title>
       <link>https://yoric.github.io/post/thinkerbell-postmortem/</link>
       <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/thinkerbell-postmortem/</guid>
-      <description>&lt;p&gt;Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of
-the Connected Devices branch of Mozilla. While this branch has since been stopped,
-some part of Project Link lives on as &lt;a href=&#34;https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/&#34;&gt;Project Things&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far)
-was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome
-without coding. While only parts of Thinkerbell were ever implemented, they were sufficient
-to write programs such as:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;or&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Thinkerbell also had:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;semantics that ensured that scripts could continue/resume running unmonitored even when hardware
-was replaced/upgraded/moved around the house, including both the server and the sensors;&lt;/li&gt;
-&lt;li&gt;a visual syntax, rather than a text syntax;&lt;/li&gt;
-&lt;li&gt;a novel type system designed to avoid physical accidents;&lt;/li&gt;
-&lt;li&gt;a semantics based on process algebras.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but
-realistically, there is very little chance that I&amp;rsquo;ll find that time.
-So, rather than letting these ideas die in some corner of my brain, here is a post-mortem
-for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
-it a second life.&lt;/p&gt;
-&lt;p&gt;Note that some of the ideas exposed here were never actually implemented. Project Link
-was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of&#xA;the Connected Devices branch of Mozilla. While this branch has since been stopped,&#xA;some part of Project Link lives on as &lt;a href=&#34;https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/&#34;&gt;Project Things&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far)&#xA;was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome&#xA;without coding. While only parts of Thinkerbell were ever implemented, they were sufficient&#xA;to write programs such as:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;or&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Thinkerbell also had:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;semantics that ensured that scripts could continue/resume running unmonitored even when hardware&#xA;was replaced/upgraded/moved around the house, including both the server and the sensors;&lt;/li&gt;&#xA;&lt;li&gt;a visual syntax, rather than a text syntax;&lt;/li&gt;&#xA;&lt;li&gt;a novel type system designed to avoid physical accidents;&lt;/li&gt;&#xA;&lt;li&gt;a semantics based on process algebras.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but&#xA;realistically, there is very little chance that I&amp;rsquo;ll find that time.&#xA;So, rather than letting these ideas die in some corner of my brain, here is a post-mortem&#xA;for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives&#xA;it a second life.&lt;/p&gt;&#xA;&lt;p&gt;Note that some of the ideas exposed here were never actually implemented. Project Link&#xA;was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Typestates in Rust</title>
       <link>https://yoric.github.io/post/rust-typestate/</link>
       <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/rust-typestate/</guid>
       <description>&lt;p&gt;A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

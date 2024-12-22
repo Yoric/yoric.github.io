@@ -4,19 +4,16 @@
     <title>OpenCV on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/opencv/</link>
     <description>Recent content in OpenCV on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 20 Feb 2017 10:44:33 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/opencv/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Feb 2017 10:44:33 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/opencv/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Project Lighthouse: A post-mortem</title>
       <link>https://yoric.github.io/post/post-mortem-lighthouse/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/post-mortem-lighthouse/</guid>
-      <description>A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
-One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life.</description>
+      <description>&lt;p&gt;A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment:&#xA;a bunch of internal non-profit hardware-related startups. One of our main&#xA;objectives was to determine if we could come up with designs that could help&#xA;turn the tide against the spyware-riddled and gruyère-level security devices that are&#xA;currently being offered (or pushed) to unwary users.&lt;/p&gt;&#xA;&lt;p&gt;One of the startups was &lt;a href=&#34;https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse&#34;&gt;&lt;strong&gt;Project Lighthouse&lt;/strong&gt;&lt;/a&gt;. We tried to provide an&#xA;affordable, simple and privacy-friendly tool for people suffering from&#xA;vision impairment and who needed help in their daily life. While Mozilla&#xA;closed the experiment before we could release anything useful, we still came&#xA;up with a few nifty ideas. Here is a post-mortem, in the hope that, maybe,&#xA;someone will be able to succeed where we couldn&amp;rsquo;t.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -4,28 +4,16 @@
     <title>Element on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/element/</link>
     <description>Recent content in Element on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 15 Dec 2022 07:43:54 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/element/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Dec 2022 07:43:54 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/element/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Moderated Federated Networks might actually be what we need - part 1</title>
       <link>https://yoric.github.io/post/federated-moderation-is-hard/</link>
       <pubDate>Thu, 15 Dec 2022 07:43:54 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/federated-moderation-is-hard/</guid>
-      <description>&lt;p&gt;Among the many &lt;em&gt;interesting&lt;/em&gt; moments of this ending year 2022, we have had the chance of
-seeing the Twitter/Musk experiment unfold. I won&amp;rsquo;t spend time rehashing the many twists
-of this experiment, just a moment to offer the best wishes to all who work or worked at
-Twitter, in particular those being offered as scapegoats for the many sins of the C-suit,
-both past and present.&lt;/p&gt;
-&lt;p&gt;What I&amp;rsquo;m going to spend time on is moderation. If we listen to the official discourse, this
-entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid
-experiment, the number of users on Federated Networks such as Matrix and Mastodon has never
-been so high. And Twitter, both past and present, has been a permanent demonstration that
-moderation is hard. So&amp;hellip; what does it change to moderate a Federated Network?&lt;/p&gt;
-&lt;p&gt;Spoiler alert: it&amp;rsquo;s harder, but not impossible.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Among the many &lt;em&gt;interesting&lt;/em&gt; moments of this ending year 2022, we have had the chance of&#xA;seeing the Twitter/Musk experiment unfold. I won&amp;rsquo;t spend time rehashing the many twists&#xA;of this experiment, just a moment to offer the best wishes to all who work or worked at&#xA;Twitter, in particular those being offered as scapegoats for the many sins of the C-suit,&#xA;both past and present.&lt;/p&gt;&#xA;&lt;p&gt;What I&amp;rsquo;m going to spend time on is moderation. If we listen to the official discourse, this&#xA;entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid&#xA;experiment, the number of users on Federated Networks such as Matrix and Mastodon has never&#xA;been so high. And Twitter, both past and present, has been a permanent demonstration that&#xA;moderation is hard. So&amp;hellip; what does it change to moderate a Federated Network?&lt;/p&gt;&#xA;&lt;p&gt;Spoiler alert: it&amp;rsquo;s harder, but not impossible.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

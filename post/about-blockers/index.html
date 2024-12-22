@@ -1,291 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/about-blockers/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="about:Mozilla&#39;s blockers and needinfos">
+  <meta property="og:description" content="On this rainy october day (well, at least it rains where I’m writing this) of the great year 2020, let’s take another few minutes to reflect on some great practices that we have at Mozilla and that would deserve to take over the world.
+Today, let’s talk about what you can do when your work is blocked.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-10-08T12:15:16+02:00">
+    <meta property="article:modified_time" content="2020-10-08T12:15:16+02:00">
+    <meta property="article:tag" content="Mozilla">
+    <meta property="article:tag" content="Mentoring">
+    <meta property="article:tag" content="Open-Source">
+    <meta property="article:tag" content="MozGreatStuff">
+    <meta property="article:tag" content="Remote">
+    <meta property="article:tag" content="Bugzilla">
+<title>about:Mozilla&#39;s blockers and needinfos</title>
 
-  
-  <title>about:Mozilla&#39;s blockers and needinfos</title>
+    <link rel="canonical" href="https://yoric.github.io/post/about-blockers/">
 
-  
-  
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on some great practices that we have at Mozilla and that would deserve to take over the world.
-Today, let&amp;rsquo;s talk about what you can do when your work is blocked.
-" />
-
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="about:Mozilla&#39;s blockers and needinfos" />
-    <meta name="twitter:description" content="On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on some great practices that we have at Mozilla and that would deserve to take over the world.
-Today, let&amp;rsquo;s talk about what you can do when your work is blocked.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="about:Mozilla&#39;s blockers and needinfos" />
-  <meta property="og:description" content="On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on some great practices that we have at Mozilla and that would deserve to take over the world.
-Today, let&amp;rsquo;s talk about what you can do when your work is blocked.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/about-blockers/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
-
-
-
-
-<meta name="generator" content="Hugo 0.119.0" />
-
-
-<link rel="canonical" href="https://yoric.github.io/post/about-blockers/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">about:Mozilla&#39;s blockers and needinfos</h1>
-      <p class="post-meta">@David Teller · Oct 8, 2020 · 3 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>On this rainy october day (well, at least it rains where I&rsquo;m writing this) of the great year 2020, let&rsquo;s take another few minutes to reflect on <a href="https://yoric.github.io/tags/mozgreatstuff/">some great practices that we have at Mozilla and that would deserve to take over the world</a>.</p>
-<p>Today, let&rsquo;s talk about what you can do when your work is blocked.</p>
-<p>As a software developer, I spend most of my time being blocked. Sometimes, I&rsquo;m waiting for a review. Sometimes, I need information: What should this dialog look like? Is it legal for me to copy part of a (copyrighted) page to attach it to a test that will be published on our repo? What&rsquo;s the best way to test this feature? Or sometimes, I&rsquo;m working on a bug that I just can&rsquo;t finish because it depends on some other bug that some other developer hasn&rsquo;t finished working on – or that I haven&rsquo;t finished working on, or worse, that nobody is working on.</p>
-<p>And that&rsquo;s ok. All that is a normal part of the day for a developer. That&rsquo;s the reason for which I currently have 8 copies of Mozilla&rsquo;s main repositories, opened in 8 terminals and 8 editors, so that I can quickly switch between 8 bugs as they are unblocked. Plus one editor for blogging, of course.</p>
-<p>But the question is: when are these bugs unblocked?</p>
-<p>In many organizations, that&rsquo;s where product managers are needed, or sometimes tech leads, and where they need to maintain copious amounts of notes. At Mozilla, while we do have product managers and tech leads, we assume that they have better things to do than tracking such dependencies. So we use Bugzilla.</p>
-<p>When bug A is blocked by bug B, I can, in two clicks, from either bug A or bug B, set B as <code>blocking A</code>. This shows up on both the page of bug A and the page of bug B. The developers working on both bug A and bug B receive a message informing them that bug B is blocked by bug A. When a look at a bug, you can see the blockers, the blockers&rsquo; blockers, etc. Eventually, someone will finish working on B and close it, lifting the blocker. This shows up on both pages and in the tree of dependencies and the developers working on bug A are notified that their blocker is lifted. <em>Et voilà</em>!</p>
-<p>Similarly, when bug A is blocked because there&rsquo;s a missing piece of data from developer Charlie, in two clicks, I can mark the bug as <code>needinfo Charlie</code>. This shows up on the page of bug A and Charlie receives an email with the question that needs to be answered. Once Charlie has responded, the needinfo is lifted. Once again, this shows up on the page and the developers working on bug A are notified. <em>Et revoilà</em>!</p>
-<p>Here&rsquo;s an example of what it looks like for a bug I&rsquo;m currently working on:
-<img src="https://yoric.github.io/img/about-processes-dependencies.png" alt="Tree of dependencies for about:processes. I can now work on visualizing workers!"></p>
-<p>Whenever I work with github issues, I miss blockers and needinfos every day, because they&rsquo;re life savers when it comes to organizing work!</p>
-<p>Blockers were introduced by <a href="https://www.linkedin.com/in/terryweissman/">Terry Weissman</a> in 1999 and Needinfos by <a href="https://www.linkedin.com/in/dave-lawrence-319924/">David Lawrence</a> in 2012. A round of applause to both of them!</p></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/mentoring"><span class="tag">Mentoring</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/open-source"><span class="tag">Open-Source</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/mozgreatstuff"><span class="tag">MozGreatStuff</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/remote"><span class="tag">Remote</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/bugzilla"><span class="tag">Bugzilla</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/processes"><span class="tag">Processes</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1146</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
     
-      
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        mozilla
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">October 8, 2020</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">about:Mozilla&#39;s blockers and needinfos</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/mozilla" class="tag">
+                    mozilla
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/mentoring" class="tag">
+                    mentoring
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/open-source" class="tag">
+                    open-source
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/mozgreatstuff" class="tag">
+                    mozGreatStuff
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/remote" class="tag">
+                    remote
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/bugzilla" class="tag">
+                    bugzilla
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/processes" class="tag">
+                    processes
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">On this rainy october day (well, at least it rains where I&rsquo;m writing this) of the great year 2020, let&rsquo;s take another few minutes to reflect on <a href="https://yoric.github.io/tags/mozgreatstuff/">some great practices that we have at Mozilla and that would deserve to take over the world</a>.</p>
+<p class="component-content component">Today, let&rsquo;s talk about what you can do when your work is blocked.</p>
+<p class="component-content component">As a software developer, I spend most of my time being blocked. Sometimes, I&rsquo;m waiting for a review. Sometimes, I need information: What should this dialog look like? Is it legal for me to copy part of a (copyrighted) page to attach it to a test that will be published on our repo? What&rsquo;s the best way to test this feature? Or sometimes, I&rsquo;m working on a bug that I just can&rsquo;t finish because it depends on some other bug that some other developer hasn&rsquo;t finished working on – or that I haven&rsquo;t finished working on, or worse, that nobody is working on.</p>
+<p class="component-content component">And that&rsquo;s ok. All that is a normal part of the day for a developer. That&rsquo;s the reason for which I currently have 8 copies of Mozilla&rsquo;s main repositories, opened in 8 terminals and 8 editors, so that I can quickly switch between 8 bugs as they are unblocked. Plus one editor for blogging, of course.</p>
+<p class="component-content component">But the question is: when are these bugs unblocked?</p>
+<p class="component-content component">In many organizations, that&rsquo;s where product managers are needed, or sometimes tech leads, and where they need to maintain copious amounts of notes. At Mozilla, while we do have product managers and tech leads, we assume that they have better things to do than tracking such dependencies. So we use Bugzilla.</p>
+<p class="component-content component">When bug A is blocked by bug B, I can, in two clicks, from either bug A or bug B, set B as <code>blocking A</code>. This shows up on both the page of bug A and the page of bug B. The developers working on both bug A and bug B receive a message informing them that bug B is blocked by bug A. When a look at a bug, you can see the blockers, the blockers&rsquo; blockers, etc. Eventually, someone will finish working on B and close it, lifting the blocker. This shows up on both pages and in the tree of dependencies and the developers working on bug A are notified that their blocker is lifted. <em>Et voilà</em>!</p>
+<p class="component-content component">Similarly, when bug A is blocked because there&rsquo;s a missing piece of data from developer Charlie, in two clicks, I can mark the bug as <code>needinfo Charlie</code>. This shows up on the page of bug A and Charlie receives an email with the question that needs to be answered. Once Charlie has responded, the needinfo is lifted. Once again, this shows up on the page and the developers working on bug A are notified. <em>Et revoilà</em>!</p>
+<p class="component-content component">Here&rsquo;s an example of what it looks like for a bug I&rsquo;m currently working on:
+
+
+
+
+
+
+
+
+
+<figure class="image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big">  <div class="component-content">
+    <div class="image-sharesheet">
+      <div class="image image-load image-asset image-61793e688ff9c4d1dc2dcceefbf6d8d4" id="lht61793e688ff9c4d1dc2dcceefbf6d8d4">
+        <picture  class="picture">
+          <img class="picture-image" data-src="https://yoric.github.io/img/about-processes-dependencies.png" alt="Tree of dependencies for about:processes. I can now work on visualizing workers!"  />
+        </picture>
+      </div>
+    </div>
+    <div class="image-description">
+      <div class="image-caption">
+        Tree of dependencies for about:processes. I can now work on visualizing workers!
+      </div>
+    </div>
+  </div>
+</figure>
+</p>
+<p class="component-content component">Whenever I work with github issues, I miss blockers and needinfos every day, because they&rsquo;re life savers when it comes to organizing work!</p>
+<p class="component-content component">Blockers were introduced by <a href="https://www.linkedin.com/in/terryweissman/">Terry Weissman</a> in 1999 and Needinfos by <a href="https://www.linkedin.com/in/dave-lawrence-319924/">David Lawrence</a> in 2012. A round of applause to both of them!</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  October 8, 2020</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -300,49 +237,51 @@ Today, let&amp;rsquo;s talk about what you can do when your work is blocked.
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

@@ -1,52 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>meta on Il y a du thé renversé au bord de la table !</title>
+    <title>Meta on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/categories/meta/</link>
-    <description>Recent content in meta on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Meta on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 26 Oct 2020 16:33:46 +0200</lastBuildDate><atom:link href="https://yoric.github.io/categories/meta/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Oct 2020 16:33:46 +0200</lastBuildDate>
+    <atom:link href="https://yoric.github.io/categories/meta/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>yoric.steps.next()</title>
       <link>https://yoric.github.io/post/yoric-step-next/</link>
       <pubDate>Mon, 26 Oct 2020 16:33:46 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/yoric-step-next/</guid>
-      <description>&lt;p&gt;The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.&lt;/p&gt;
-&lt;p&gt;The creators of the Matrix protocol have recently published &lt;a href=&#34;https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors&#34;&gt;the most promising plan I have seen&lt;/a&gt;. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.&lt;/p&gt;
-&lt;p&gt;I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at &lt;a href=&#34;https://mozilla.org&#34;&gt;Mozilla&lt;/a&gt;, I&amp;rsquo;ll be moving to &lt;a href=&#34;https://element.io&#34;&gt;Element&lt;/a&gt;, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.&lt;/p&gt;</description>
+      <description>&lt;p&gt;The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.&lt;/p&gt;&#xA;&lt;p&gt;The creators of the Matrix protocol have recently published &lt;a href=&#34;https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors&#34;&gt;the most promising plan I have seen&lt;/a&gt;. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.&lt;/p&gt;&#xA;&lt;p&gt;I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at &lt;a href=&#34;https://mozilla.org&#34;&gt;Mozilla&lt;/a&gt;, I&amp;rsquo;ll be moving to &lt;a href=&#34;https://element.io&#34;&gt;Element&lt;/a&gt;, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.&lt;/p&gt;</description>
     </item>
-    
+    <item>
+      <title>Tags</title>
+      <link>https://yoric.github.io/tags/</link>
+      <pubDate>Sat, 18 Feb 2017 16:29:32 +0100</pubDate>
+      <guid>https://yoric.github.io/tags/</guid>
+      <description>&lt;p&gt;Yep, tags indeed.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>About me</title>
       <link>https://yoric.github.io/about/</link>
       <pubDate>Sat, 18 Feb 2017 16:06:26 +0100</pubDate>
-      
       <guid>https://yoric.github.io/about/</guid>
-      <description>Hi, I&amp;rsquo;m Yoric, aka David Teller, I&amp;rsquo;m a Jack of all Threads at Element (aka Tech Lead). When I&amp;rsquo;m not producing code, I&amp;rsquo;m coordinating efforts within my team or between teams.
-I&amp;rsquo;ve been spotted spending time on
-mentoring junior developers and open-source contributors; federated/decentralized communication networks; protecting users making the Firefox web browser safer and faster; the Rust compiler and standard library; the SpiderMonkey JavaScript Virtual Machine; a micro-kernel; a next-gen browser engine; a few compilers; static analyzers; a few eBook readers; a programming language designed for multi-tiered web applications and services whose components distrust each other; a programming language designed for always-on, fault-tolerant, reboot-tolerant, hardware-replacement-tolerant, power-limited IoT applications; IoT for the disabled; IoT snooping countermeasure experiment; pedagogic robots; university teaching; high-school teaching; academic research; also, backpacking through exotic countries; &amp;hellip; You can find my latest resume here.</description>
+      <description>&lt;p&gt;Hi, I&amp;rsquo;m Yoric, aka David Teller, I&amp;rsquo;m a Jack of all Threads at Element&#xA;(aka Tech Lead). When I&amp;rsquo;m not producing code, I&amp;rsquo;m coordinating efforts&#xA;within my team or between teams.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been spotted spending time on&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;mentoring junior developers and open-source contributors;&lt;/li&gt;&#xA;&lt;li&gt;compilers for quantum processors;&lt;/li&gt;&#xA;&lt;li&gt;federated/decentralized communication networks;&lt;/li&gt;&#xA;&lt;li&gt;protecting users&lt;/li&gt;&#xA;&lt;li&gt;making the Firefox web browser safer and faster;&lt;/li&gt;&#xA;&lt;li&gt;the Rust compiler and standard library;&lt;/li&gt;&#xA;&lt;li&gt;the SpiderMonkey JavaScript Virtual Machine;&lt;/li&gt;&#xA;&lt;li&gt;a micro-kernel;&lt;/li&gt;&#xA;&lt;li&gt;a next-gen browser engine;&lt;/li&gt;&#xA;&lt;li&gt;a few compilers;&lt;/li&gt;&#xA;&lt;li&gt;static analyzers;&lt;/li&gt;&#xA;&lt;li&gt;a few eBook readers;&lt;/li&gt;&#xA;&lt;li&gt;a programming language designed for multi-tiered web applications and services whose components distrust each other;&lt;/li&gt;&#xA;&lt;li&gt;a programming language designed for always-on, fault-tolerant, reboot-tolerant, hardware-replacement-tolerant, power-limited IoT applications;&lt;/li&gt;&#xA;&lt;li&gt;IoT for the disabled;&lt;/li&gt;&#xA;&lt;li&gt;IoT snooping countermeasure experiment;&lt;/li&gt;&#xA;&lt;li&gt;pedagogic robots;&lt;/li&gt;&#xA;&lt;li&gt;university teaching;&lt;/li&gt;&#xA;&lt;li&gt;high-school teaching;&lt;/li&gt;&#xA;&lt;li&gt;academic research;&lt;/li&gt;&#xA;&lt;li&gt;also, backpacking through exotic countries;&lt;/li&gt;&#xA;&lt;li&gt;&amp;hellip;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;You can find my latest resume &lt;a href=&#34;https://www.linkedin.com/in/davidteller/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
-    
+    <item>
+      <title>About me</title>
+      <link>https://yoric.github.io/posts/</link>
+      <pubDate>Sat, 18 Feb 2017 16:06:26 +0100</pubDate>
+      <guid>https://yoric.github.io/posts/</guid>
+      <description>&lt;p&gt;This is a test&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Migrating again</title>
       <link>https://yoric.github.io/post/migration-2/</link>
       <pubDate>Fri, 17 Feb 2017 00:07:21 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/migration-2/</guid>
-      <description>While Hubpress is a cool project, I had no idea of what it could be doing with my password, so I have migrated to Hugo.</description>
+      <description>&lt;p&gt;While Hubpress is a cool project, I had no idea of what it could be doing with&#xA;my password, so I have migrated to Hugo.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Blog migration in progress</title>
       <link>https://yoric.github.io/post/migration/</link>
       <pubDate>Thu, 01 Dec 2016 23:42:19 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/migration/</guid>
-      <description>I am in the process of migrating to github.io. You can find my previous blog on Wordpress.</description>
+      <description>&lt;p&gt;I am in the process of migrating to github.io. You can find my previous blog&#xA;&lt;a href=&#34;http://dutherenverseauborddelatable.wordpress.com/&#34;&gt;on Wordpress&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

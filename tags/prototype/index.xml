@@ -1,37 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>prototype on Il y a du thé renversé au bord de la table !</title>
+    <title>Prototype on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/prototype/</link>
-    <description>Recent content in prototype on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Prototype on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Wed, 01 Nov 2023 15:51:13 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/prototype/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Nov 2023 15:51:13 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/prototype/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coding for a Finite World</title>
       <link>https://yoric.github.io/post/coding-for-a-finite-world/</link>
       <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/coding-for-a-finite-world/</guid>
-      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;
-&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;
-&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;
-&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;
-&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;
-&lt;p&gt;Also, the world is burning.&lt;/p&gt;
-&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
+      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;&#xA;&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;&#xA;&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;&#xA;&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;&#xA;&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;&#xA;&lt;p&gt;Also, the world is burning.&lt;/p&gt;&#xA;&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Project Lighthouse: A post-mortem</title>
       <link>https://yoric.github.io/post/post-mortem-lighthouse/</link>
       <pubDate>Mon, 20 Feb 2017 10:44:33 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/post-mortem-lighthouse/</guid>
-      <description>A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
-One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life.</description>
+      <description>&lt;p&gt;A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment:&#xA;a bunch of internal non-profit hardware-related startups. One of our main&#xA;objectives was to determine if we could come up with designs that could help&#xA;turn the tide against the spyware-riddled and gruyère-level security devices that are&#xA;currently being offered (or pushed) to unwary users.&lt;/p&gt;&#xA;&lt;p&gt;One of the startups was &lt;a href=&#34;https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse&#34;&gt;&lt;strong&gt;Project Lighthouse&lt;/strong&gt;&lt;/a&gt;. We tried to provide an&#xA;affordable, simple and privacy-friendly tool for people suffering from&#xA;vision impairment and who needed help in their daily life. While Mozilla&#xA;closed the experiment before we could release anything useful, we still came&#xA;up with a few nifty ideas. Here is a post-mortem, in the hope that, maybe,&#xA;someone will be able to succeed where we couldn&amp;rsquo;t.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

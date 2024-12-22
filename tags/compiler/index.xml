@@ -1,79 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>compiler on Il y a du thé renversé au bord de la table !</title>
+    <title>Compiler on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/compiler/</link>
-    <description>Recent content in compiler on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Compiler on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 27 Nov 2023 23:42:50 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/compiler/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Nov 2023 23:42:50 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/compiler/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>So You Want to Optimize Your Code? (also, a disordered, confusing and absolutely incomplete oral history of Firefox performance)</title>
       <link>https://yoric.github.io/post/so-you-want-to-optimize-your-code/</link>
       <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/so-you-want-to-optimize-your-code/</guid>
-      <description>&lt;p&gt;So you want to optimize your code, eh? Who am I to blame you? &lt;a href=&#34;../coding-for-a-finite-world/&#34;&gt;I certainly want you to optimize your code&lt;/a&gt;!&lt;/p&gt;
-&lt;p&gt;I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still
-bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let
-me invite you to sit down for a while and share a little hard-earned experience on code optimization.&lt;/p&gt;</description>
+      <description>&lt;p&gt;So you want to optimize your code, eh? Who am I to blame you? &lt;a href=&#34;../coding-for-a-finite-world/&#34;&gt;I certainly want you to optimize your code&lt;/a&gt;!&lt;/p&gt;&#xA;&lt;p&gt;I spent a few years as part of the Firefox Performance Team, on the frontline of, well, performance. I still&#xA;bear some of the scars. So, as the grizzled perf-veteran that I have decided to be for the day, let&#xA;me invite you to sit down for a while and share a little hard-earned experience on code optimization.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Coding for a Finite World</title>
       <link>https://yoric.github.io/post/coding-for-a-finite-world/</link>
       <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/coding-for-a-finite-world/</guid>
-      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;
-&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;
-&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;
-&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;
-&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;
-&lt;p&gt;Also, the world is burning.&lt;/p&gt;
-&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
+      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;&#xA;&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;&#xA;&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;&#xA;&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;&#xA;&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;&#xA;&lt;p&gt;Also, the world is burning.&lt;/p&gt;&#xA;&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
       <link>https://yoric.github.io/post/binary-ast-pcc/</link>
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
       <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Binary AST - Motivations and Design Decisions - Part 1</title>
       <link>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</guid>
-      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
-Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
-It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype.</description>
+      <description>&lt;p&gt;&lt;em&gt;&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo;&lt;/em&gt;&#xA;- &lt;a href=&#34;https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html&#34;&gt;Mike Haertel, creator of GNU Grep&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying&#xA;a binary-encoded syntax for JS with the intent of allowing browsers and other&#xA;JS-executing environments to parse and load code as much as 80% faster than&#xA;standard minified JS.&lt;/p&gt;&#xA;&lt;p&gt;It has recently cleared Stage 1 of the TC39 standards process, and while the&#xA;final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident&#xA;that the final implementation will deliver the impressive performance&#xA;improvements promised by the prototype.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>JavaScript Binary AST Engineering Newsletter #1</title>
       <link>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</link>
       <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</guid>
-      <description>Hey, all cool kids have exciting Engineering Newsletters these days, so it&amp;rsquo;s high time the JavaScript Binary AST got one!
-Summary JavaScript Binary AST is a joint project between Mozilla and Facebook to rethink how JavaScript source code is stored/transmitted/parsed. We expect that this project will help visibly speed up the loading of large codebases of JS applications and will have a large impact on the JS development community, including both web developers, Node developers, add-on developers and ourselves.</description>
+      <description>&lt;p&gt;Hey, all cool kids have exciting Engineering Newsletters these days, so&#xA;it&amp;rsquo;s high time the JavaScript Binary AST got one!&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h1 id=&#34;summary&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    Summary&#xA;  &lt;/h1&gt;&#xA;&lt;/div&gt;&lt;p&gt;JavaScript Binary AST is a joint project between Mozilla and Facebook to&#xA;rethink how JavaScript source code is stored/transmitted/parsed. We&#xA;expect that this project will help visibly speed up the loading of large&#xA;codebases of JS applications and will have&#xA;a large impact on the JS development community, including both web&#xA;developers, Node developers, add-on developers and ourselves.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Towards a JavaScript Binary AST</title>
       <link>https://yoric.github.io/post/binary-ast-newsletter-1/</link>
       <pubDate>Thu, 03 Aug 2017 23:31:43 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-newsletter-1/</guid>
-      <description>In this blog post, I would like to introduce the JavaScript Binary AST, an ongoing project that we hope will help make webpages load faster, along with a number of other benefits.
-A little background Over the years, JavaScript has grown from one of the slowest scripting languages available to a high-performance powerhouse, fast enough that it can run desktop, server, mobile and even embedded applications, whether through web browsers or other environments.</description>
+      <description>&lt;p&gt;In this blog post, I would like to introduce the JavaScript Binary AST, an&#xA;ongoing project that we hope will help make webpages load faster, along with&#xA;a number of other benefits.&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h1 id=&#34;a-little-background&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    A little background&#xA;  &lt;/h1&gt;&#xA;&lt;/div&gt;&lt;p&gt;Over the years, JavaScript has grown from one of the slowest scripting languages&#xA;available to a high-performance powerhouse, fast enough that it can run desktop,&#xA;server, mobile and even embedded applications, whether through web browsers or&#xA;other environments.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

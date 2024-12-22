@@ -1,267 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/federated-moderation-is-hard/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="Moderated Federated Networks might actually be what we need - part 1">
+  <meta property="og:description" content="Among the many interesting moments of this ending year 2022, we have had the chance of seeing the Twitter/Musk experiment unfold. I won’t spend time rehashing the many twists of this experiment, just a moment to offer the best wishes to all who work or worked at Twitter, in particular those being offered as scapegoats for the many sins of the C-suit, both past and present.
+What I’m going to spend time on is moderation. If we listen to the official discourse, this entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid experiment, the number of users on Federated Networks such as Matrix and Mastodon has never been so high. And Twitter, both past and present, has been a permanent demonstration that moderation is hard. So… what does it change to moderate a Federated Network?
+Spoiler alert: it’s harder, but not impossible.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-12-15T07:43:54+01:00">
+    <meta property="article:modified_time" content="2022-12-15T07:43:54+01:00">
+    <meta property="article:tag" content="Matrix">
+    <meta property="article:tag" content="Element">
+    <meta property="article:tag" content="Moderation">
+    <meta property="article:tag" content="Federation">
+    <meta property="article:tag" content="Distribution">
+    <meta property="article:tag" content="Decentralization">
+<title>Moderated Federated Networks might actually be what we need - part 1</title>
 
-  
-  <title>Moderated Federated Networks might actually be what we need - part 1</title>
+    <link rel="canonical" href="https://yoric.github.io/post/federated-moderation-is-hard/">
 
-  
-  
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="Among the many interesting moments of this ending year 2022, we have had the chance of seeing the Twitter/Musk experiment unfold. I won&amp;rsquo;t spend time rehashing the many twists of this experiment, just a moment to offer the best wishes to all who work or worked at Twitter, in particular those being offered as scapegoats for the many sins of the C-suit, both past and present.
-What I&amp;rsquo;m going to spend time on is moderation. If we listen to the official discourse, this entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid experiment, the number of users on Federated Networks such as Matrix and Mastodon has never been so high. And Twitter, both past and present, has been a permanent demonstration that moderation is hard. So&amp;hellip; what does it change to moderate a Federated Network?
-Spoiler alert: it&amp;rsquo;s harder, but not impossible.
-" />
-
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="Moderated Federated Networks might actually be what we need - part 1" />
-    <meta name="twitter:description" content="Among the many interesting moments of this ending year 2022, we have had the chance of seeing the Twitter/Musk experiment unfold. I won&amp;rsquo;t spend time rehashing the many twists of this experiment, just a moment to offer the best wishes to all who work or worked at Twitter, in particular those being offered as scapegoats for the many sins of the C-suit, both past and present.
-What I&amp;rsquo;m going to spend time on is moderation. If we listen to the official discourse, this entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid experiment, the number of users on Federated Networks such as Matrix and Mastodon has never been so high. And Twitter, both past and present, has been a permanent demonstration that moderation is hard. So&amp;hellip; what does it change to moderate a Federated Network?
-Spoiler alert: it&amp;rsquo;s harder, but not impossible.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Moderated Federated Networks might actually be what we need - part 1" />
-  <meta property="og:description" content="Among the many interesting moments of this ending year 2022, we have had the chance of seeing the Twitter/Musk experiment unfold. I won&amp;rsquo;t spend time rehashing the many twists of this experiment, just a moment to offer the best wishes to all who work or worked at Twitter, in particular those being offered as scapegoats for the many sins of the C-suit, both past and present.
-What I&amp;rsquo;m going to spend time on is moderation. If we listen to the official discourse, this entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid experiment, the number of users on Federated Networks such as Matrix and Mastodon has never been so high. And Twitter, both past and present, has been a permanent demonstration that moderation is hard. So&amp;hellip; what does it change to moderate a Federated Network?
-Spoiler alert: it&amp;rsquo;s harder, but not impossible.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/federated-moderation-is-hard/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
-
-
-
-
-<meta name="generator" content="Hugo 0.119.0" />
-
-
-<link rel="canonical" href="https://yoric.github.io/post/federated-moderation-is-hard/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Moderated Federated Networks might actually be what we need - part 1</h1>
-      <p class="post-meta">@David Teller · Dec 15, 2022 · 15 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>Among the many <em>interesting</em> moments of this ending year 2022, we have had the chance of
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        Matrix
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">December 15, 2022</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Moderated Federated Networks might actually be what we need - part 1</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/matrix" class="tag">
+                    Matrix
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/element" class="tag">
+                    Element
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/moderation" class="tag">
+                    moderation
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/federation" class="tag">
+                    federation
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/distribution" class="tag">
+                    distribution
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/decentralization" class="tag">
+                    decentralization
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/open-source" class="tag">
+                    open-source
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/p2p" class="tag">
+                    p2p
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/bluesky" class="tag">
+                    bluesky
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/twitter" class="tag">
+                    twitter
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/musk" class="tag">
+                    musk
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">Among the many <em>interesting</em> moments of this ending year 2022, we have had the chance of
 seeing the Twitter/Musk experiment unfold. I won&rsquo;t spend time rehashing the many twists
 of this experiment, just a moment to offer the best wishes to all who work or worked at
 Twitter, in particular those being offered as scapegoats for the many sins of the C-suit,
 both past and present.</p>
-<p>What I&rsquo;m going to spend time on is moderation. If we listen to the official discourse, this
+<p class="component-content component">What I&rsquo;m going to spend time on is moderation. If we listen to the official discourse, this
 entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid
 experiment, the number of users on Federated Networks such as Matrix and Mastodon has never
 been so high. And Twitter, both past and present, has been a permanent demonstration that
 moderation is hard. So&hellip; what does it change to moderate a Federated Network?</p>
-<p>Spoiler alert: it&rsquo;s harder, but not impossible.</p>
-<h1 id="about-federation">About Federation</h1>
-<p>First, a word about Federated Networks. A Federated Network is form of distributed system,
+<p class="component-content component">Spoiler alert: it&rsquo;s harder, but not impossible.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="about-federation" class="pagebody-header">
+    About Federation
+  </h1>
+</div><p class="component-content component">First, a word about Federated Networks. A Federated Network is form of distributed system,
 in which none of the computers is privileged above others. In theory, the web is mostly a Federated
 Network (let&rsquo;s ignore DNSes or CAs) with every webmaster the ruler of their own small kingdom.
 Matrix, XMPP, Mastodon are Federated Networks with every server managed by one admin, but all
@@ -270,73 +218,81 @@ at the extreme of this spectrum, with every node in the network being a server m
 single user. On the other hand, Twitter, Facebook, Instagram, Tik Tok are the absolute opposite:
 they are centralized services, controlled each by a central entity, and nobody who doesn&rsquo;t work
 for (or own) said service has any hand or say in how the service works.</p>
-<p>Centralized services have benefits. They&rsquo;re easier to design, easier to maintain, easier to
+<p class="component-content component">Centralized services have benefits. They&rsquo;re easier to design, easier to maintain, easier to
 upgrade, they have consistent policies and tools. They also have downsides: if the owner of
 one of them were to suddenly decide to use
 it as their own personal playground, inviting one group while ostracizing others, users have
 no ability to migrate away while maintaining their network of contacts, their data, their identity.</p>
-<p>But that&rsquo;s science-fiction, right? So let&rsquo;s make this a tad more concrete. Here&rsquo;s an imaginary Far Far Away
+<p class="component-content component">But that&rsquo;s science-fiction, right? So let&rsquo;s make this a tad more concrete. Here&rsquo;s an imaginary Far Far Away
 Network, composed of many servers. We have three main subnetworks, called the Galactic Empire, the
 Rebel Alliance and the Hutt Syndicate, plus a host of smaller subnetworks, including the Bounty Hunter&rsquo;s
 Guild, the Federation of Free Traders or the Mandalorian Horde. Each of these subnetworks hosts a number of
 communities. The Galactic Empire is home to the Imperial Administration, the Circle of Survivors from the Explosion
 of the Death Star, the Tatooine&rsquo;s Young Farmer Flying Association, &hellip; the Rebel Alliance is home to
 the Rogue Squadron, the Wraith Squadron, the Jedi Cosplayer Association, the Yoda Spotters Group, &hellip;</p>
-<p>Some users own their personal server (perhaps they&rsquo;re even communicating in peer-to-peer mode).
+<p class="component-content component">Some users own their personal server (perhaps they&rsquo;re even communicating in peer-to-peer mode).
 Others (well, most) connect from their device to a server. Each user can participate in any number
 of communities and create communities at will. Critically, a conversation or a community may
 involve users from any number of servers. So, for instance, the Disney Princess Appreciation
 Community has users from the Galactic Empire, the Rebel Alliance, the Hutt Syndicate and more.
 Oh, and a real person may very well have several identities on the network.</p>
-<p>Thanks to Federation, when the Galactic Empire blew up Alderaan, many users migrated away to other servers in a more or less orderly fashion.</p>
-<p>Note that I&rsquo;m most familiar with the <a href="https://matrix.org">Matrix</a> Federated Network, so bits and pieces
+<p class="component-content component">Thanks to Federation, when the Galactic Empire blew up Alderaan, many users migrated away to other servers in a more or less orderly fashion.</p>
+<p class="component-content component">Note that I&rsquo;m most familiar with the <a href="https://matrix.org">Matrix</a> Federated Network, so bits and pieces
 of what I&rsquo;m going to discuss below may accidentally inspired from Matrix-specifities, but the general
 ideas should apply to all Federated Networks.</p>
-<h1 id="about-moderation">About Moderation</h1>
-<p>So what is Moderation? On a communication network, Moderation is the task of getting rid of stuff that
+
+<div class="component-content pagebody component">
+  <h1 id="about-moderation" class="pagebody-header">
+    About Moderation
+  </h1>
+</div><p class="component-content component">So what is Moderation? On a communication network, Moderation is the task of getting rid of stuff that
 is considered inacceptable, either because users won&rsquo;t stand for it or because the local law says that
 the server&rsquo;s owner will be punished if they don&rsquo;t do anything against such content.</p>
-<p>As an example, on our network:</p>
-<ul>
+<p class="component-content component">As an example, on our network:</p>
+<div class="component-content component"><ul>
 <li>very few people, regardless of their political opinions, want to see spam;</li>
 <li>very few people, again regardless of their political opinions, want to be impersonated;</li>
 <li>very few people enjoy being victims of phishing.</li>
-</ul>
-<p>Among their tasks, moderators should therefore fight spam, impersonations and phishing.</p>
-<p>Let me reiterate: moderation is a (thankless but) critical task. A community without moderation will
+</ul></div>
+<p class="component-content component">Among their tasks, moderators should therefore fight spam, impersonations and phishing.</p>
+<p class="component-content component">Let me reiterate: moderation is a (thankless but) critical task. A community without moderation will
 eventually fall prey to trolls and spammers and will be deserted by its users. Also, for services that
 happen to be ad-sponsored, announcers typically don&rsquo;t like to have their name associated with phishing,
 spam or trolling.</p>
-<p>So, what exactly do moderators need to filter out?</p>
-<h1 id="problem-1-what-rules">Problem 1: What rules?</h1>
-<p>Most server have rules. Most communities have rules. Rules that say, for instance, that spam, impersonation
+<p class="component-content component">So, what exactly do moderators need to filter out?</p>
+
+<div class="component-content pagebody component">
+  <h1 id="problem-1-what-rules" class="pagebody-header">
+    Problem 1: What rules?
+  </h1>
+</div><p class="component-content component">Most server have rules. Most communities have rules. Rules that say, for instance, that spam, impersonation
 attempts or phishing are not acceptable. However, not all servers have the same rules and not all
 communities have the same rules. In fact, not all communities on the same server have the same rules.
 The rules of servers are often called Terms of Services and the rules of communities are often called Codes of
 Conduct.</p>
-<p>For instance, what about politics? Pro-Empire propaganda is omnipresent on Galactic Empire servers but
+<p class="component-content component">For instance, what about politics? Pro-Empire propaganda is omnipresent on Galactic Empire servers but
 removed on sight from Alliance servers. Pro-Rebellion propaganda is omnipresent on Alliance servers but
 will grant you a one-way ticket to the caves of the Imperial Security Bureau on Empire servers.</p>
-<p>What about something more universal, say pornography? The ever family friendly Galactic Empire rules &ldquo;no, on penalty of 5
+<p class="component-content component">What about something more universal, say pornography? The ever family friendly Galactic Empire rules &ldquo;no, on penalty of 5
 years of forced labour&rdquo;, the Hutt Syndicate responds emphatically that &ldquo;yes, do you want a sex slave with it?&rdquo;
 Alliance servers tend to allow consensual pornography, but not in all communities.
 Also, some communities have stricter or more exotic rules. For instance, on Yavin IV and Kashyyyk, unboxing teddy
 bear toys is both considered pornography and punishable by tribal law.</p>
-<p>Oh, and Hutt Syndicate have a very hands off approach to moderation. In fact, they will allow pretty much anything
+<p class="component-content component">Oh, and Hutt Syndicate have a very hands off approach to moderation. In fact, they will allow pretty much anything
 on their servers. Individual communities hosted on these servers can moderate themselves but should not expect any
 help from the servers or their administrators.</p>
-<p>All this is a considerable difference between Federated and Centralized. Where Centralized networks can enforce
+<p class="component-content component">All this is a considerable difference between Federated and Centralized. Where Centralized networks can enforce
 global policies, Federated networks need to cope with policies that are distinct between servers and between
 communities. And by &ldquo;distinct&rdquo;, we sometimes mean &ldquo;outright contradictory&rdquo;. Which would still be fairly simple
 to solve if not for the fact that users from distinct servers often participate in shared communities/conversations.</p>
-<p>Let&rsquo;s consider the community of Archaeological Artifacts Enthusiasts, opened by Luthen Rael on the Coruscant Server,
+<p class="component-content component">Let&rsquo;s consider the community of Archaeological Artifacts Enthusiasts, opened by Luthen Rael on the Coruscant Server,
 member of the Galactic Empire Network. In this community, people from all over the Federated Network meet and chat
 about archaeological artifacts. Which means that this community actually exists on <em>both</em> Galactic Empire servers,
 Rebel Alliance servers (because that&rsquo;s how Rebel Alliance users can connect to this community), Hutt Syndicate
 servers (because that&rsquo;s how Hutt Syndicate users can connect to this community) and even on peer-to-peer Bounty
 Hunter devices.</p>
-<p>To summarize:</p>
-<ol>
+<p class="component-content component">To summarize:</p>
+<div class="component-content component"><ol>
 <li>The copy hosted by the Galactic Empire Network allows neither pornography, spam nor talk of sedition. Users can say
 anything else, even if it contradicts the rules of other servers.</li>
 <li>The copy hosted by the Rebel Alliance allows neither slave trading, spam nor Empire propaganda. Users can say
@@ -346,145 +302,177 @@ anything else, even if it contradicts the rules of other servers.</li>
 <li>The moderators of this community have setup additional rules. Nobody should speak of anything else than archaeology.
 In particular, no politics. Some of the moderators connect from the Galactic Empire Network server and some from Hutt
 Syndicate servers.</li>
-</ol>
-<p>Surely, that cannot hold?</p>
-<p>Well, in practice, it does. Let&rsquo;s look at a few scenarios.</p>
-<h2 id="what-if-an-empire-user-starts-sending-spam">What if&hellip; an Empire user starts sending spam?</h2>
-<p>For a first, simple case, let&rsquo;s assume that everybody agrees that what the user is sending constitutes spam.</p>
-<p>What do the Terms of Service and Code of Conduct say?</p>
-<ul>
+</ol></div>
+<p class="component-content component">Surely, that cannot hold?</p>
+<p class="component-content component">Well, in practice, it does. Let&rsquo;s look at a few scenarios.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="what-if-an-empire-user-starts-sending-spam" class="pagebody-header">
+    What if&hellip; an Empire user starts sending spam?
+  </h2>
+</div><p class="component-content component">For a first, simple case, let&rsquo;s assume that everybody agrees that what the user is sending constitutes spam.</p>
+<p class="component-content component">What do the Terms of Service and Code of Conduct say?</p>
+<div class="component-content component"><ul>
 <li>Empire Terms of Service say &ldquo;no spam&rdquo;;</li>
 <li>Alliance Terms of Service say &ldquo;no spam&rdquo;;</li>
 <li>Bobba Fett doesn&rsquo;t have Terms of Services;</li>
 <li>Hutt Syndicate Terms of Services don&rsquo;t care about spam;</li>
 <li>The Community&rsquo;s Code of Conduct says &ldquo;no spam&rdquo;.</li>
-</ul>
-<p>In this case, we can probably agree that spam should be eliminated if and whenever possible.</p>
-<p>Recall that the Empire user is connecting from their device to Empire servers. If the Empire manages to
+</ul></div>
+<p class="component-content component">In this case, we can probably agree that spam should be eliminated if and whenever possible.</p>
+<p class="component-content component">Recall that the Empire user is connecting from their device to Empire servers. If the Empire manages to
 eliminate spam before it is replicated from their servers to other servers, that spam stops here. Otherwise,
 the Community Manager may <em>request</em> that the spam be eliminated from all servers and individual servers that
 detect spam can also remove it <em>from their server</em>.</p>
-<p>We&rsquo;ll address <em>detecting</em> spam in another entry of this series, because that&rsquo;s a complicated topic in itself.</p>
-<h2 id="what-if-a-hutt-user-is-complaining-about-the-empires-latest-policies">What if&hellip; a Hutt user is complaining about the Empire&rsquo;s latest policies?</h2>
-<p>Well, technically, that&rsquo;s almost the same thing as above. Except not everybody agress that it&rsquo;s bad content.</p>
-<p>Let&rsquo;s look at the Terms of Service (henceforth ToS) and Codes of Conduct (henceforth CoC):</p>
-<ul>
+<p class="component-content component">We&rsquo;ll address <em>detecting</em> spam in another entry of this series, because that&rsquo;s a complicated topic in itself.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="what-if-a-hutt-user-is-complaining-about-the-empires-latest-policies" class="pagebody-header">
+    What if&hellip; a Hutt user is complaining about the Empire&rsquo;s latest policies?
+  </h2>
+</div><p class="component-content component">Well, technically, that&rsquo;s almost the same thing as above. Except not everybody agress that it&rsquo;s bad content.</p>
+<p class="component-content component">Let&rsquo;s look at the Terms of Service (henceforth ToS) and Codes of Conduct (henceforth CoC):</p>
+<div class="component-content component"><ul>
 <li>Empire ToS say &ldquo;no seditious talk&rdquo;;</li>
 <li>Alliance ToS say &ldquo;seditious talk welcome&rdquo;;</li>
 <li>Bobba Fett doesn&rsquo;t have ToS;</li>
 <li>Hutt Syndicate Tos don&rsquo;t care;</li>
 <li>The Community&rsquo;s CoC says &ldquo;no politics&rdquo;, which implies &ldquo;no seditious talk&rdquo;.</li>
-</ul>
-<p>Well, the Empire won&rsquo;t like that. If they detect the message, they may scrub the content from their own
+</ul></div>
+<p class="component-content component">Well, the Empire won&rsquo;t like that. If they detect the message, they may scrub the content from their own
 server, but after that, they can only politely <em>request</em> that <em>clients</em> and other servers scrub that
 content from their own copies. In the real world, clients connected to a server tend to accept these
 requests blindly, as well as well-behaved servers. However, there is no guarantee that a server is
 well-behaved. Here, chances are that the Alliance servers are programmed to ignore scrub requests coming
 from the Empire.</p>
-<p>By the way, since there is no difference between a seditious talk removal request and a spam removal request,
+<p class="component-content component">By the way, since there is no difference between a seditious talk removal request and a spam removal request,
 that probably means that, in the previous example, the Alliance needs spam tooling entirely separate from
 request from the Empire.</p>
-<p>Of course, Community Moderators may place the same kind of request. A Community Moderator using a
+<p class="component-content component">Of course, Community Moderators may place the same kind of request. A Community Moderator using a
 Galactic Empire server can place the exact same request as the Empire itself, presumaby with the same
 results. A Community Moderator using a Hutt Syndicate can also place the exact same request and hope
 that the responses will be more favorable. In practice, this should be the case, but in theory, there
 is no guarantee.</p>
-<h2 id="what-if-an-empire-user-is-complaining-about-the-empires-latest-policies">What if&hellip; an Empire user is complaining about the Empire&rsquo;s latest policies?</h2>
-<ul>
+
+<div class="component-content pagebody component">
+  <h2 id="what-if-an-empire-user-is-complaining-about-the-empires-latest-policies" class="pagebody-header">
+    What if&hellip; an Empire user is complaining about the Empire&rsquo;s latest policies?
+  </h2>
+</div><div class="component-content component"><ul>
 <li>Empire ToS say &ldquo;no seditious talk&rdquo;;</li>
 <li>Alliance ToS say &ldquo;seditious talk welcome&rdquo;;</li>
 <li>Bobba Fett doesn&rsquo;t have ToS;</li>
 <li>Hutt Syndicate Tos don&rsquo;t care;</li>
 <li>The Community&rsquo;s CoC says &ldquo;no politics&rdquo;, which implies &ldquo;no seditious talk&rdquo;.</li>
-</ul>
-<p>What happens here depends a lot on <em>when</em> the Empire detects the seditious talk. If it does before said talk
+</ul></div>
+<p class="component-content component">What happens here depends a lot on <em>when</em> the Empire detects the seditious talk. If it does before said talk
 leaves the server, it can eliminate it and stop it immediately. Nobody will ever see it.</p>
-<p>If the Empire detects the unwanted content after said content has been sent to users connected to
+<p class="component-content component">If the Empire detects the unwanted content after said content has been sent to users connected to
 the server but before it has been replicated to other servers, it can still stop the replication
 and request that all clients scrub the message. As with centralized networks, well-behaved clients will typically accept these
 requests, but there is no guarantee.</p>
-<p>And if the Empire detects the unwanted content after said content has been replicated to at least
+<p class="component-content component">And if the Empire detects the unwanted content after said content has been replicated to at least
 one other server, it&rsquo;s pretty much too late. Even if the Empire scrubs the content, the other servers
 will in turn replicate it to the rest of servers. We&rsquo;re back in the previous scenario, with the Empire
 having to politely request that the Alliance (and others) remove any trace of the seditious talk,
 which will quite possibly be ignored.</p>
-<p>If the Empire wishes to avoid this scenario at all cost, they may decide to de-federate, blocking any
+<p class="component-content component">If the Empire wishes to avoid this scenario at all cost, they may decide to de-federate, blocking any
 other server from receiving their messages or sending them messages. That&rsquo;s rather an extreme measure
 but it may be necessary in some cases, either temporarily or permanently.</p>
-<h2 id="what-if-an-empire-user-is-looking-for-a-pornographic-artifact">What if&hellip; an Empire user is looking for a pornographic artifact?</h2>
-<ul>
+
+<div class="component-content pagebody component">
+  <h2 id="what-if-an-empire-user-is-looking-for-a-pornographic-artifact" class="pagebody-header">
+    What if&hellip; an Empire user is looking for a pornographic artifact?
+  </h2>
+</div><div class="component-content component"><ul>
 <li>Empire ToS say &ldquo;no porn&rdquo;;</li>
 <li>Alliance ToS say &ldquo;consensual porn welcome&rdquo;;</li>
 <li>Bobba Fett doesn&rsquo;t have ToS;</li>
 <li>Hutt Syndicate ToS say &ldquo;all porn welcome&rdquo;;</li>
 <li>The Community&rsquo;s CoC says &ldquo;any talk about artifacts welcome&rdquo;.</li>
-</ul>
-<p>Again, from the point of view of the Empire, this is unwanted content. From the point of everyone else,
+</ul></div>
+<p class="component-content component">Again, from the point of view of the Empire, this is unwanted content. From the point of everyone else,
 including the Community, this is legitimate content.</p>
-<p>If the Empire can detect the content, they can scrub it (or fail to scrub it), exactly as in the previous
+<p class="component-content component">If the Empire can detect the content, they can scrub it (or fail to scrub it), exactly as in the previous
 scenarios, regardless of the wishes of the Community.</p>
-<p>Without entering details about detection, let&rsquo;s just mention briefly that the Community can make it easier
+<p class="component-content component">Without entering details about detection, let&rsquo;s just mention briefly that the Community can make it easier
 or harder for the Empire to detect such content, some of the keywords being &ldquo;End-to-end encryption&rdquo;.</p>
-<h2 id="what-if-a-rebel-user-is-looking-for-a-pornographic-artifact">What if&hellip; a Rebel user is looking for a pornographic artifact?</h2>
-<ul>
+
+<div class="component-content pagebody component">
+  <h2 id="what-if-a-rebel-user-is-looking-for-a-pornographic-artifact" class="pagebody-header">
+    What if&hellip; a Rebel user is looking for a pornographic artifact?
+  </h2>
+</div><div class="component-content component"><ul>
 <li>Empire ToS say &ldquo;no porn&rdquo;;</li>
 <li>Alliance ToS say &ldquo;consensual porn welcome&rdquo;;</li>
 <li>Bobba Fett doesn&rsquo;t have ToS;</li>
 <li>Hutt Syndicate ToS say &ldquo;all porn welcome&rdquo;;</li>
 <li>The Community&rsquo;s CoC says &ldquo;any talk about artifacts welcome&rdquo;.</li>
-</ul>
-<p>Again, from the point of view of the Empire, this is unwanted content. From the point of everyone else,
+</ul></div>
+<p class="component-content component">Again, from the point of view of the Empire, this is unwanted content. From the point of everyone else,
 including the Community, this is legitimate content.</p>
-<p>Again, if the Empire can detect the content, they can scrub it (or fail to scrub it), exactly as in the
+<p class="component-content component">Again, if the Empire can detect the content, they can scrub it (or fail to scrub it), exactly as in the
 previous scenarios, regardless of the wishes of the Community. Even though the message did not originate
 from the Empire, the Empire can remove it from its own servers, presumably from its own clients, and,
 since at least one Community Moderator is hosted on an Empire server, the Empire can request that other
 servers remove it, too. Again, other servers can ignore this request.</p>
-<p>Again, end-to-end encryption can influence whether the Empire can detect this unwanted content at all.</p>
-<p>If such instances happen regularly, the Empire may decide to apply some form of content firewall, to
+<p class="component-content component">Again, end-to-end encryption can influence whether the Empire can detect this unwanted content at all.</p>
+<p class="component-content component">If such instances happen regularly, the Empire may decide to apply some form of content firewall, to
 block messages from Alliance users – or from specific Alliance users – from reaching their server. This
 will not affect the ability of the Alliance to send the messages to Hutt Syndicate users and Communities.
 This is, in practice, a much more lighweight form of de-federation.</p>
-<p>Similarly, a Community Moderator may apply some form of content firewall to their Community, to the same
+<p class="component-content component">Similarly, a Community Moderator may apply some form of content firewall to their Community, to the same
 effect.</p>
-<h2 id="what-if-an-alliance-user-is-trying-to-get-some-pro-empire-artifact-banned-from-sale">What if&hellip; an Alliance user is trying to get some pro-Empire artifact banned from sale?</h2>
-<ul>
+
+<div class="component-content pagebody component">
+  <h2 id="what-if-an-alliance-user-is-trying-to-get-some-pro-empire-artifact-banned-from-sale" class="pagebody-header">
+    What if&hellip; an Alliance user is trying to get some pro-Empire artifact banned from sale?
+  </h2>
+</div><div class="component-content component"><ul>
 <li>Empire ToS say &ldquo;pro-Empire is good&rdquo;;</li>
 <li>Alliance ToS say &ldquo;pro-Empire is bad&rdquo;;</li>
 <li>Bobba Fett doesn&rsquo;t have ToS;</li>
 <li>Hutt Syndicate ToS say &ldquo;pretty much everything is good&rdquo;;</li>
 <li>The Community&rsquo;s CoC says &ldquo;artifacts are good&rdquo;.</li>
-</ul>
-<p>Well, as an end user without moderation rights, our Alliance user cannot remove stuff they didn&rsquo;t provide
+</ul></div>
+<p class="component-content component">Well, as an end user without moderation rights, our Alliance user cannot remove stuff they didn&rsquo;t provide
 themself. In particular, they cannot send scrub requests to servers or other clients.</p>
-<p>The only thing they can do is ask for intervention from a Moderator. As it turns out,
+<p class="component-content component">The only thing they can do is ask for intervention from a Moderator. As it turns out,
 the CoC explicitly allows these artifacts, so said Alliance user will not be able to
 ban said artifact.</p>
-<h2 id="what-if-bobba-fett-is-trying-to-get-some-piece-of-armor-banned-from-sale">What if&hellip; Bobba Fett is trying to get some piece of armor banned from sale?</h2>
-<ul>
+
+<div class="component-content pagebody component">
+  <h2 id="what-if-bobba-fett-is-trying-to-get-some-piece-of-armor-banned-from-sale" class="pagebody-header">
+    What if&hellip; Bobba Fett is trying to get some piece of armor banned from sale?
+  </h2>
+</div><div class="component-content component"><ul>
 <li>Empire ToS says nothing about armor;</li>
 <li>Alliance ToS says nothing about armor;</li>
 <li>Bobba Fett doesn&rsquo;t have ToS;</li>
 <li>Hutt Syndicate ToS say &ldquo;pretty much everything is good&rdquo;;</li>
 <li>The Community&rsquo;s CoC says &ldquo;pieces of armor are artifacts and artifacts are good&rdquo;.</li>
-</ul>
-<p>Well, moderators are not going to help Bobba Fett either and Bobba Fett is not a moderator.
+</ul></div>
+<p class="component-content component">Well, moderators are not going to help Bobba Fett either and Bobba Fett is not a moderator.
 However, Bobba Fett does have his own server. Perhaps he can send scrub requests to other servers?</p>
-<p>All servers who have at least one member in the conversation know the capabilities of all users
+<p class="component-content component">All servers who have at least one member in the conversation know the capabilities of all users
 in this conversation, including Bobba Fett. So, while Bobba Fett could try and send scrub requests,
 by specification, all servers will ignore these requests because Bobba Fett doesn&rsquo;t have the right
 to perform such operations.</p>
-<h1 id="so-is-it-broken">So, is it broken?</h1>
-<p>Actually, I&rsquo;d argue that it works pretty well.</p>
-<p>If you look at the above examples, not all users get what they wish, but (assuming that unwanted
+
+<div class="component-content pagebody component">
+  <h1 id="so-is-it-broken" class="pagebody-header">
+    So, is it broken?
+  </h1>
+</div><p class="component-content component">Actually, I&rsquo;d argue that it works pretty well.</p>
+<p class="component-content component">If you look at the above examples, not all users get what they wish, but (assuming that unwanted
 content can be detected), the Community can remain exempt of stuff that the Community Managers
 don&rsquo;t want (because they&rsquo;re off-topic) and the Servers can remain exempt of stuff that the Server
 Managers don&rsquo;t want (because that will land them in jail).</p>
-<p>Could everyone get what they want? Probably not, as in real life. When users want things that are
+<p class="component-content component">Could everyone get what they want? Probably not, as in real life. When users want things that are
 in contradiction to the rules (ToS or CoC), well, there is a mismatch between what the users and
 the Community and/or Server. And there is a very easy way to solve this: the user can find or create
 a new Community, with their own rules, on another or their own Server.</p>
-<p>I would even go further and venture the fact that the experiment of Centralized Moderation has proven
+<p class="component-content component">I would even go further and venture the fact that the experiment of Centralized Moderation has proven
 to be a failure. Real-world services such as Twitter, Facebook or Tiktok need to apply the same rules
 to the entire system or be labeled unfair. But these rules don&rsquo;t exist. Outside of extremes, there is
 no monolithic definition of &ldquo;good&rdquo; and &ldquo;bad&rdquo;. Even worse: attempting to privatize these choices puts
@@ -492,65 +480,48 @@ us one step closer to the Cyberpunk dystopia that&rsquo;s been lurking as a poss
 few years. Decentralizing rules towards Servers and Communities makes Moderation several steps closer
 to real-life: messy, gray, with lots of rooms for error and the need to step away and try something
 different without bringing down the entire building.</p>
-<p>Now, we haven&rsquo;t covered the critical case of trolling/bullying/harassment. Generally speaking, this
+<p class="component-content component">Now, we haven&rsquo;t covered the critical case of trolling/bullying/harassment. Generally speaking, this
 follows the same schemas as other examples above: either the behavior of the abuser is in contradiction
 with the rules of the Server or Community, in which case said abuser can be spoken to sternly, kicked or
 banned, or the behavior of the abuser isn&rsquo;t, in which case the only solutions of the victim are to either
 fight to get the rules changed or slam the door, possibly starting another Community and/or Server.</p>
-<p>Trolling/bullying/harassment is (as everything else in this article) a human problem and the solutions
+<p class="component-content component">Trolling/bullying/harassment is (as everything else in this article) a human problem and the solutions
 are mostly human. The fact that the Network is Federated doesn&rsquo;t get in the way of solving this problem,
 and the Twitter/Musk experiment suggests that it is actually helpful, insofar as on a Federated Network,
 victims can fairly easily move away and create new Communities and/or Servers with rules better suited to their
 situation, de-federating or firewalling abusers away if necessary.</p>
-<h1 id="wait-are-we-stopping-here">Wait, are we stopping here?</h1>
-<p>Yes, we are.</p>
-<p>Moderation is a very complex topic and we have only covered one angle of it: how a Federated Network
+
+<div class="component-content pagebody component">
+  <h1 id="wait-are-we-stopping-here" class="pagebody-header">
+    Wait, are we stopping here?
+  </h1>
+</div><p class="component-content component">Yes, we are.</p>
+<p class="component-content component">Moderation is a very complex topic and we have only covered one angle of it: how a Federated Network
 can handle contradictory rules.</p>
-<p>This is meant to be the first entry in a series about Federated Moderation. As of this writing, I&rsquo;m
+<p class="component-content component">This is meant to be the first entry in a series about Federated Moderation. As of this writing, I&rsquo;m
 not certain of the topic of the second entry, but I expect that I&rsquo;ll be discussing at some point things
 such as:</p>
-<ul>
+<div class="component-content component"><ul>
 <li>detecting unwanted content;</li>
 <li>asking for help;</li>
 <li>pooling resources;</li>
 <li>what end-to-end encryption is good (or bad) for.</li>
-</ul></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/matrix"><span class="tag">Matrix</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/element"><span class="tag">Element</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/moderation"><span class="tag">Moderation</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/federation"><span class="tag">Federation</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/distribution"><span class="tag">Distribution</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/decentralization"><span class="tag">Decentralization</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/open-source"><span class="tag">Open-Source</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/p2p"><span class="tag">P2p</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/bluesky"><span class="tag">Bluesky</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/twitter"><span class="tag">Twitter</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/musk"><span class="tag">Musk</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>348</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+</ul></div>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  December 15, 2022</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -565,49 +536,51 @@ such as:</p>
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

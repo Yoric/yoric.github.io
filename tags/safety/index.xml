@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>safety on Il y a du thé renversé au bord de la table !</title>
+    <title>Safety on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/safety/</link>
-    <description>Recent content in safety on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Safety on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/safety/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/safety/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
       <link>https://yoric.github.io/post/safety-and-security/</link>
       <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/safety-and-security/</guid>
-      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;
-&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;&#xA;&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
       <link>https://yoric.github.io/post/binary-ast-pcc/</link>
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
       <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -1,304 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
-
-  
-  <title>yoric.steps.next()</title>
-
-  
-  
-
-
-
-
-
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/yoric-step-next/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="yoric.steps.next()">
+  <meta property="og:description" content="The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we’ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.
 The creators of the Matrix protocol have recently published the most promising plan I have seen. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.
-I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at Mozilla, I&amp;rsquo;ll be moving to Element, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.
-" />
+I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at Mozilla, I’ll be moving to Element, where I’ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-10-26T16:33:46+02:00">
+    <meta property="article:modified_time" content="2020-10-26T16:33:46+02:00">
+    <meta property="article:tag" content="Mozilla">
+    <meta property="article:tag" content="Open-Source">
+    <meta property="article:tag" content="Meta">
+<title>yoric.steps.next()</title>
 
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="yoric.steps.next()" />
-    <meta name="twitter:description" content="The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.
-The creators of the Matrix protocol have recently published the most promising plan I have seen. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.
-I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at Mozilla, I&amp;rsquo;ll be moving to Element, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
+    <link rel="canonical" href="https://yoric.github.io/post/yoric-step-next/">
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="yoric.steps.next()" />
-  <meta property="og:description" content="The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.
-The creators of the Matrix protocol have recently published the most promising plan I have seen. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.
-I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at Mozilla, I&amp;rsquo;ll be moving to Element, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/yoric-step-next/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
-<meta name="generator" content="Hugo 0.119.0" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-
-<link rel="canonical" href="https://yoric.github.io/post/yoric-step-next/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">yoric.steps.next()</h1>
-      <p class="post-meta">@David Teller · Oct 26, 2020 · 3 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.</p>
-<p>The creators of the Matrix protocol have recently published <a href="https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors">the most promising plan I have seen</a>. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.</p>
-<p>I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at <a href="https://mozilla.org">Mozilla</a>, I&rsquo;ll be moving to <a href="https://element.io">Element</a>, where I&rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.</p>
-<h1 id="9-years-already">9 years already!</h1>
-<p>I&rsquo;d like to <del>brag</del> reminisce about all the great people I&rsquo;ve met at and around Mozilla, all the great stuff I&rsquo;ve learnt from them and all the great projects I&rsquo;ve worked on, but I don&rsquo;t want to make this a 20 pages long read, so, I&rsquo;ll leave it as a great &ldquo;<em>thank you</em>&rdquo; to Mozillians, past, present and future!</p>
-<p>You all make the web a better place.</p>
-<p>To paraphrase <a href="https://davidwalsh.name/leaving-mozilla">David Walsh</a>: &ldquo;I&rsquo;m not sad, I&rsquo;m proud of all of us. You did it! We did it! We all f*cking did it! Now let&rsquo;s do it again!&rdquo;</p>
-<h1 id="wait-im-not-dead">Wait, I&rsquo;m not dead!</h1>
-<p>I&rsquo;ve been a card-carrying member of the Mozilla community since 2003, I&rsquo;m not going to vanish overnight!</p>
-<p>I&rsquo;m going to reduce my activities a lot but I&rsquo;m planning to stick around quite a bit longer. You&rsquo;ll still be able to find me on <a href="https://chat.mozilla.org">https://chat.mozilla.org</a>, lurking around <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a>, #mozfr and certainly a few other places.</p>
-<p>I will also keep my bugzilla account open, although I&rsquo;ll certainly monitor it less frequently.</p>
-<p>And once we&rsquo;re finally past covid, I hope to see some of you around FOSDEM, MozFests, Rust Meetups, etc.</p>
-<h1 id="orphan-code">Orphan code</h1>
-<p>That being said, I believe that I am leaving behind the following projects without any natural owner:</p>
-<ul>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        mozilla
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">October 26, 2020</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">yoric.steps.next()</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/mozilla" class="tag">
+                    mozilla
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/open-source" class="tag">
+                    open-source
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/meta" class="tag">
+                    meta
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.</p>
+<p class="component-content component">The creators of the Matrix protocol have recently published <a href="https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors">the most promising plan I have seen</a>. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.</p>
+<p class="component-content component">I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at <a href="https://mozilla.org">Mozilla</a>, I&rsquo;ll be moving to <a href="https://element.io">Element</a>, where I&rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="9-years-already" class="pagebody-header">
+    9 years already!
+  </h1>
+</div><p class="component-content component">I&rsquo;d like to <del>brag</del> reminisce about all the great people I&rsquo;ve met at and around Mozilla, all the great stuff I&rsquo;ve learnt from them and all the great projects I&rsquo;ve worked on, but I don&rsquo;t want to make this a 20 pages long read, so, I&rsquo;ll leave it as a great &ldquo;<em>thank you</em>&rdquo; to Mozillians, past, present and future!</p>
+<p class="component-content component">You all make the web a better place.</p>
+<p class="component-content component">To paraphrase <a href="https://davidwalsh.name/leaving-mozilla">David Walsh</a>: &ldquo;I&rsquo;m not sad, I&rsquo;m proud of all of us. You did it! We did it! We all f*cking did it! Now let&rsquo;s do it again!&rdquo;</p>
+
+<div class="component-content pagebody component">
+  <h1 id="wait-im-not-dead" class="pagebody-header">
+    Wait, I&rsquo;m not dead!
+  </h1>
+</div><p class="component-content component">I&rsquo;ve been a card-carrying member of the Mozilla community since 2003, I&rsquo;m not going to vanish overnight!</p>
+<p class="component-content component">I&rsquo;m going to reduce my activities a lot but I&rsquo;m planning to stick around quite a bit longer. You&rsquo;ll still be able to find me on <a href="https://chat.mozilla.org">https://chat.mozilla.org</a>, lurking around <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org"><code>#introduction</code></a>, #mozfr and certainly a few other places.</p>
+<p class="component-content component">I will also keep my bugzilla account open, although I&rsquo;ll certainly monitor it less frequently.</p>
+<p class="component-content component">And once we&rsquo;re finally past covid, I hope to see some of you around FOSDEM, MozFests, Rust Meetups, etc.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="orphan-code" class="pagebody-header">
+    Orphan code
+  </h1>
+</div><p class="component-content component">That being said, I believe that I am leaving behind the following projects without any natural owner:</p>
+<div class="component-content component"><ul>
 <li><del>OS.File and OS.Path</del> (thanks, @barret);</li>
 <li><del>AsyncShutdown</del> (thanks, @mak and @Gijs);</li>
 <li>The Shutdown Terminator;</li>
 <li>PromiseWorker;</li>
 <li><del>Maybe async testing</del> (thanks, @ahal);</li>
 <li>Maybe some Talos Tests I wrote a while ago.</li>
-</ul>
-<p>I think that&rsquo;s all. I hope that&rsquo;s all. I believe that all the other projects I&rsquo;ve worked on have still at least one stakeholder working at Mozilla in a capacity in which they can either take over or designate a helpless victim to take over for me.</p>
-<p>So&hellip; it might be great if a few willing devs were to step forward and take <del>the blame</del> charge of these components! I&rsquo;ll do my best to answer any question they might have.</p>
-<h1 id="goodbye">Goodbye!</h1>
-<p>See you soon and keep rocking the free web!</p>
-<p>My coordinates:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">myNickname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">@</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">myNickname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.xyz`</span> <span style="color:#75715e">// e-mail
+</ul></div>
+<p class="component-content component">I think that&rsquo;s all. I hope that&rsquo;s all. I believe that all the other projects I&rsquo;ve worked on have still at least one stakeholder working at Mozilla in a capacity in which they can either take over or designate a helpless victim to take over for me.</p>
+<p class="component-content component">So&hellip; it might be great if a few willing devs were to step forward and take <del>the blame</del> charge of these components! I&rsquo;ll do my best to answer any question they might have.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="goodbye" class="pagebody-header">
+    Goodbye!
+  </h1>
+</div><p class="component-content component">See you soon and keep rocking the free web!</p>
+<p class="component-content component">My coordinates:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">myNickname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">@</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">myNickname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.xyz`</span> <span style="color:#75715e">// e-mail
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#e6db74">`@</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">myNickname</span><span style="color:#e6db74">}</span><span style="color:#e6db74">:matrix.org`</span>       <span style="color:#75715e">// Matrix
-</span></span></span></code></pre></div></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/open-source"><span class="tag">Open-Source</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/meta"><span class="tag">Meta</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1127</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+</span></span></span></code></pre></div></div>
+  
+</div>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  October 26, 2020</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -313,49 +231,51 @@ I have been offered the opportunity to work on this plan. For this reason, after
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

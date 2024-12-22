@@ -1,334 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="http://localhost:1313/img/favicon.ico">
 
-  <meta charset="utf-8" />
-
-  
-  <title>Building a Task Manager, part 1</title>
-
-  
-  
-
-
-
-
-
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="If you&amp;rsquo;re using Firefox Nightly, you may have noticed the early prototype of a new task manager appearing at about:processes (if you wish to check it out, open this address in your address bar). It will evolve a lot yet, but let&amp;rsquo;s take a look at how we have already.
+    <meta name="keyword" content=""><meta property="og:url" content="http://localhost:1313/post/building-a-task-manager-1/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="Building a Task Manager, part 1">
+  <meta property="og:description" content="If you’re using Firefox Nightly, you may have noticed the early prototype of a new task manager appearing at about:processes (if you wish to check it out, open this address in your address bar). It will evolve a lot yet, but let’s take a look at how we have already.
 In this entry: getting data from the operating system.
-Note: If you wish to contribute to Firefox and give us a hand with the Fission project, you can find me on chat.mozilla.org - I&amp;rsquo;m Yoric.
-" />
+Note: If you wish to contribute to Firefox and give us a hand with the Fission project, you can find me on chat.mozilla.org - I’m Yoric.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2020-07-10T20:31:58+02:00">
+    <meta property="article:modified_time" content="2020-07-10T20:31:58+02:00">
+    <meta property="article:tag" content="TagA">
+    <meta property="article:tag" content="TagB">
+<title>Building a Task Manager, part 1</title>
 
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="Building a Task Manager, part 1" />
-    <meta name="twitter:description" content="If you&amp;rsquo;re using Firefox Nightly, you may have noticed the early prototype of a new task manager appearing at about:processes (if you wish to check it out, open this address in your address bar). It will evolve a lot yet, but let&amp;rsquo;s take a look at how we have already.
-In this entry: getting data from the operating system.
-Note: If you wish to contribute to Firefox and give us a hand with the Fission project, you can find me on chat.mozilla.org - I&amp;rsquo;m Yoric.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
+    <link rel="canonical" href="http://localhost:1313/post/building-a-task-manager-1/">
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Building a Task Manager, part 1" />
-  <meta property="og:description" content="If you&amp;rsquo;re using Firefox Nightly, you may have noticed the early prototype of a new task manager appearing at about:processes (if you wish to check it out, open this address in your address bar). It will evolve a lot yet, but let&amp;rsquo;s take a look at how we have already.
-In this entry: getting data from the operating system.
-Note: If you wish to contribute to Firefox and give us a hand with the Fission project, you can find me on chat.mozilla.org - I&amp;rsquo;m Yoric.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/building-a-task-manager-1/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+    <link rel="stylesheet" href="http://localhost:1313/css/global.css">
 
+    <link rel="stylesheet" href="http://localhost:1313/css/custom.css">
 
+    <link rel="stylesheet" href="http://localhost:1313/css/search.css" />
 
+    
+    
 
-<meta name="generator" content="Hugo 0.119.0" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-
-<link rel="canonical" href="https://yoric.github.io/post/building-a-task-manager-1/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="http://localhost:1313/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="http://localhost:1313/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="http://localhost:1313/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="http://localhost:1313/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Building a Task Manager, part 1</h1>
-      <p class="post-meta">@David Teller · Jul 10, 2020 · 5 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "http://localhost:1313/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>If you&rsquo;re using Firefox Nightly, you may have noticed the early prototype of a new task
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        tagA
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">July 10, 2020</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Building a Task Manager, part 1</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="http://localhost:1313/tags/taga" class="tag">
+                    tagA
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/tagb" class="tag">
+                    tagB
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">If you&rsquo;re using Firefox Nightly, you may have noticed the early prototype of a new task
 manager appearing at <code>about:processes</code> (if you wish to check it out, open this address
 in your address bar). It will evolve a lot yet, but let&rsquo;s take a look at how we have already.</p>
-<p>In this entry: getting data from the operating system.</p>
-<p>Note: If you wish to contribute to Firefox and give us a hand with the Fission project,
+<p class="component-content component">In this entry: getting data from the operating system.</p>
+<p class="component-content component">Note: If you wish to contribute to Firefox and give us a hand with the Fission project,
 you can find me on <a href="https://chat.mozilla.org/#/room/#introduction:mozilla.org">chat.mozilla.org</a> - I&rsquo;m <code>Yoric</code>.</p>
-<p><img src="https://yoric.github.io/img/taskman/about_processes-1.png" alt="Screenshot of about:processes"></p>
-<p><strong>Note</strong> If you&rsquo;re not familiar with the meaning of &ldquo;Memory (Virtual)&rdquo;, don&rsquo;t let it impress you. That&rsquo;s <em>not</em>
+<p class="component-content component">
+
+
+
+
+
+
+
+
+<figure class="image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big">  <div class="component-content">
+    <div class="image-sharesheet">
+      <div class="image image-load image-asset image-08e4f6ae35f7fecb231a5fd4e197c58e" id="lht08e4f6ae35f7fecb231a5fd4e197c58e">
+        <picture  class="picture">
+          <img class="picture-image" data-src="http://localhost:1313/img/taskman/about_processes-1.png" alt="Screenshot of about:processes"  />
+        </picture>
+      </div>
+    </div>
+    <div class="image-description">
+      <div class="image-caption">
+        Screenshot of about:processes
+      </div>
+    </div>
+  </div>
+</figure>
+</p>
+<p class="component-content component"><strong>Note</strong> If you&rsquo;re not familiar with the meaning of &ldquo;Memory (Virtual)&rdquo;, don&rsquo;t let it impress you. That&rsquo;s <em>not</em>
 the memory used by Firefox. It&rsquo;s basically memory that Firefox may request from the operating system without
 too much hassle if it ever needs it.</p>
-<p>At its heart, this early prototype of <code>about:processes</code> is just a little
+<p class="component-content component">At its heart, this early prototype of <code>about:processes</code> is just a little
 front-end code on top of C++/Objective-C APIs that request information from the
 operating system:</p>
-<ul>
+<div class="component-content component"><ul>
 <li>all the processes that are part of Firefox;</li>
 <li>all the threads that are part of each process;</li>
 <li>the amount of memory and recent CPU use by each process;</li>
 <li>the amount of recent CPU use by each thread;</li>
 <li>the name and system identifier of each process/thread.</li>
-</ul>
-<p>Let&rsquo;s see where we can collect this data.</p>
-<h1 id="not-getting-the-data-from-firefox">Not getting the data from Firefox</h1>
-<p>In fact, much of this information is already available inside Firefox. The &ldquo;browser&rdquo;
+</ul></div>
+<p class="component-content component">Let&rsquo;s see where we can collect this data.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="not-getting-the-data-from-firefox" class="pagebody-header">
+    Not getting the data from Firefox
+  </h1>
+</div><p class="component-content component">In fact, much of this information is already available inside Firefox. The &ldquo;browser&rdquo;
 process knows all the other processes it has launched, each process knows its own
 threads and we have facilities within Firefox to provide extremely detailed memory
 information (if you&rsquo;re curious, that&rsquo;s <code>about:memory</code>).</p>
-<p>We do <strong>not</strong> want to use this information.</p>
-<p>There are several reasons for this, but they boil down to performance.</p>
-<p>Consider the following (simplified) Firefox:</p>
-<ul>
+<p class="component-content component">We do <strong>not</strong> want to use this information.</p>
+<p class="component-content component">There are several reasons for this, but they boil down to performance.</p>
+<p class="component-content component">Consider the following (simplified) Firefox:</p>
+<div class="component-content component"><ul>
 <li>Process: <code>browser</code>
-<ul>
+<div class="component-content component"><ul>
 <li>Process 1: site A (54 Mb)</li>
 <li>Process 2: site B (150 Mb)</li>
 <li>Process 3: site C (200Mb hasn&rsquo;t been visited in 10 minutes)</li>
 <li>&hellip;</li>
-</ul>
+</ul></div>
 </li>
-</ul>
-<ol>
+</ul></div>
+<div class="component-content component"><ol>
 <li>Process <code>browser</code> decides to collect the information.</li>
 <li>Process <code>browser</code> sends messages to Process 1, Process 2, Process 3.</li>
 <li>Process <code>browser</code> inspects itself to extract detailed memory information (slow).</li>
 <li>Process 1 inspects itself to extract detailed memory information (slow).</li>
 <li>Process 2 inspects itself to extract detailed memory information (slow).</li>
 <li>Process 3 wakes up from slumber
-<ul>
+<div class="component-content component"><ul>
 <li>Under Windows or Linux, this may mean reloading the process from disk (slows down the entire machine – might need to swap another process to disk instead if memory is full).</li>
 <li>Under macOS, this may mean reloading the process from compressed memory (slows down the process itself – or can bring the machine to its knees if the memory is full and another process must be found and compressed instead).</li>
 <li>I haven&rsquo;t checked, but I believe that under Android that would mean relaunching the process entirely, possibly killing other processes along the way to save memory/battery.</li>
-</ul>
+</ul></div>
 </li>
 <li>Process 3 inspects itself to extract detailed memory information (slow).</li>
 <li>Processes 1, 2, 3 send messages back to <code>browser</code>.</li>
 <li>Process <code>browser</code> needs to wait for all messages, collate data, display it.</li>
-</ol>
-<p>If several processes have been unloaded from main memory to disk/compressed memory,
+</ol></div>
+<p class="component-content component">If several processes have been unloaded from main memory to disk/compressed memory,
 this technique can easily bring the entire machine to its knees.</p>
-<p>We don&rsquo;t want that :)</p>
-<p>So instead, we&rsquo;re going to ask the OS to provide us this same information.</p>
-<p>Note: Kudos to @tarek for having already written most of the code below
+<p class="component-content component">We don&rsquo;t want that :)</p>
+<p class="component-content component">So instead, we&rsquo;re going to ask the OS to provide us this same information.</p>
+<p class="component-content component">Note: Kudos to @tarek for having already written most of the code below
 when I started needing it :)</p>
-<h1 id="under-linux">Under Linux</h1>
-<p>Let&rsquo;s start with Linux, because it has the easiest-to-understand API.</p>
-<p>Under Linux, all the information on running processes can be found in
+
+<div class="component-content pagebody component">
+  <h1 id="under-linux" class="pagebody-header">
+    Under Linux
+  </h1>
+</div><p class="component-content component">Let&rsquo;s start with Linux, because it has the easiest-to-understand API.</p>
+<p class="component-content component">Under Linux, all the information on running processes can be found in
 pseudo-files that reside in the directory called <code>/proc</code>. If I
 wish to find the information on my process <code>browser</code>, I just need
 to call <code>getpid()</code> to find its identifier (in the screenshot above,
 <code>60721</code>) and read file <code>/proc/60721</code>.</p>
-<p>This file looks like</p>
-<p>FIXME</p>
-<p>We just need to read the file and extract the relevant information.</p>
-<p>Linux exposes additional information in subdirectories of
+<p class="component-content component">This file looks like</p>
+<p class="component-content component">FIXME</p>
+<p class="component-content component">We just need to read the file and extract the relevant information.</p>
+<p class="component-content component">Linux exposes additional information in subdirectories of
 <code>/proc/60721</code>. For instance, if we wish to access the information
 on thread <code>4810972</code>, it is available as file</p>
-<p><code>/proc/60721/task/4810972</code></p>
-<p>FIXME</p>
-<h2 id="what-about-race-conditions">What about race conditions?</h2>
-<p>Consider the following scenario:</p>
-<ol>
+<p class="component-content component"><code>/proc/60721/task/4810972</code></p>
+<p class="component-content component">FIXME</p>
+
+<div class="component-content pagebody component">
+  <h2 id="what-about-race-conditions" class="pagebody-header">
+    What about race conditions?
+  </h2>
+</div><p class="component-content component">Consider the following scenario:</p>
+<div class="component-content component"><ol>
 <li>I wish to read the information of process <code>60721</code>.</li>
 <li>Start reading the information on process <code>60721</code>.</li>
 <li>Oh, look, the process has a thread <code>4810972</code>.</li>
@@ -338,15 +269,19 @@ on thread <code>4810972</code>, it is available as file</p>
 be reading the information on a new thread also numbered <code>4810972</code>
 while we thought we were reading the old stuff.</li>
 <li>Chaos ensues.</li>
-</ol>
-<p>Well, fortunately, this <em>does not happen</em> with <code>procfs</code>.
+</ol></div>
+<p class="component-content component">Well, fortunately, this <em>does not happen</em> with <code>procfs</code>.
 Once you have opened <code>/proc/60721</code>, you have acquired your
 own personal view of this subdirectory – not exactly a snapshot,
 but close enough for our needs here. Anything that happens
 in the rest of the world will not impact the information
 we&rsquo;re reading in <code>/proc/60721</code> or <code>/proc/60721/task/4810972</code>.</p>
-<h2 id="last-words">Last words</h2>
-<p>Before I used this API, I admit I was dubious. It appeared slow,
+
+<div class="component-content pagebody component">
+  <h2 id="last-words" class="pagebody-header">
+    Last words
+  </h2>
+</div><p class="component-content component">Before I used this API, I admit I was dubious. It appeared slow,
 stringly-typed, it required me to write a parser. Well, it turns
 out to be the fastest (in my quick and non-scientific tests),
 easy to test (because it&rsquo;s also human-readable), the best
@@ -354,36 +289,37 @@ documented (I&rsquo;m looking at you, macOS) and, by opposition
 to the APIs exposed by other OSes, it is designed so that
 adding new information on processes can be done without
 breaking existing code/introducing yet another API.</p>
-<p>So, kudos to the Linux kernel :)</p>
-<h1 id="under-windows">Under Windows</h1>
-<p>Under Windows, you need to access an API to extract process information.</p>
-<p>Let&rsquo;s see:</p>
-<ul>
+<p class="component-content component">So, kudos to the Linux kernel :)</p>
+
+<div class="component-content pagebody component">
+  <h1 id="under-windows" class="pagebody-header">
+    Under Windows
+  </h1>
+</div><p class="component-content component">Under Windows, you need to access an API to extract process information.</p>
+<p class="component-content component">Let&rsquo;s see:</p>
+<div class="component-content component"><ul>
 <li>Windows offers an API called <code>SystemProcessInformation</code> but this API is deprecated.</li>
 <li>Windows offers an API called <code>NtGetNextThread</code> but, ah, actually, no, this API (system call?) is undocumented.</li>
 <li>Windows offers an API called <code>CreateToolhelp32Snapshot</code> to take a snapshot of the entire system.</li>
-</ul>
-<p>Ah, well, not much of a choice, is there?</p>
-<p>Ok, so let&rsquo;s use <code>CreateToolhelp32Snapshot</code>. This function, as the name partially implies, takes a snapshot
-of the entire system (so, it would be the equivalent of copying a bunch of files from Linux)</p></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/taga"><span class="tag">TagA</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/tagb"><span class="tag">TagB</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1227</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+</ul></div>
+<p class="component-content component">Ah, well, not much of a choice, is there?</p>
+<p class="component-content component">Ok, so let&rsquo;s use <code>CreateToolhelp32Snapshot</code>. This function, as the name partially implies, takes a snapshot
+of the entire system (so, it would be the equivalent of copying a bunch of files from Linux)</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  July 10, 2020</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -391,56 +327,58 @@ of the entire system (so, it would be the equivalent of copying a bunch of files
           repo: 'yoric.github.io',    
           owner: 'Yoric',
           admin: ['Yoric'],
-          id: '9afd9386a674a8b7e1b749b8bb339201',  
+          id: '0fbde4a9c0446c9c5920a2b2baa679c8',  
           distractionFreeMode: false  
         })
 
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "http://localhost:1313/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

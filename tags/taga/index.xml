@@ -1,44 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>tagA on Il y a du thé renversé au bord de la table !</title>
-    <link>https://yoric.github.io/tags/taga/</link>
-    <description>Recent content in tagA on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>TagA on Il y a du thé renversé au bord de la table !</title>
+    <link>http://localhost:1313/tags/taga/</link>
+    <description>Recent content in TagA on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Tue, 27 Oct 2020 13:10:41 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/taga/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Oct 2020 13:10:41 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/taga/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>about: Mozilla&#39;s Dino Tank</title>
-      <link>https://yoric.github.io/post/about-dino-tank/</link>
+      <link>http://localhost:1313/post/about-dino-tank/</link>
       <pubDate>Tue, 27 Oct 2020 13:10:41 +0100</pubDate>
-      
-      <guid>https://yoric.github.io/post/about-dino-tank/</guid>
+      <guid>http://localhost:1313/post/about-dino-tank/</guid>
       <description>&lt;p&gt;Cut out summary from your post content here.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Interview Concurrency Exercices</title>
-      <link>https://yoric.github.io/post/interview-concurrency-exercices/</link>
+      <link>http://localhost:1313/post/interview-concurrency-exercices/</link>
       <pubDate>Sun, 11 Oct 2020 14:18:46 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/post/interview-concurrency-exercices/</guid>
+      <guid>http://localhost:1313/post/interview-concurrency-exercices/</guid>
       <description>&lt;p&gt;I&amp;rsquo;ve recently gone through a number of job interviews. As a warmup, I&amp;rsquo;ve attempted to find exercices in concurrency and I was a bit disappointed by what I&amp;rsquo;ve found. So here are a few, from the top of my head. I&amp;rsquo;ll add more as I think of them.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Building a Task Manager, part 1</title>
-      <link>https://yoric.github.io/post/building-a-task-manager-1/</link>
+      <link>http://localhost:1313/post/building-a-task-manager-1/</link>
       <pubDate>Fri, 10 Jul 2020 20:31:58 +0200</pubDate>
-      
-      <guid>https://yoric.github.io/post/building-a-task-manager-1/</guid>
-      <description>&lt;p&gt;If you&amp;rsquo;re using Firefox Nightly, you may have noticed the early prototype of a new task
-manager appearing at &lt;code&gt;about:processes&lt;/code&gt; (if you wish to check it out, open this address
-in your address bar). It will evolve a lot yet, but let&amp;rsquo;s take a look at how we have already.&lt;/p&gt;
-&lt;p&gt;In this entry: getting data from the operating system.&lt;/p&gt;
-&lt;p&gt;Note: If you wish to contribute to Firefox and give us a hand with the Fission project,
-you can find me on &lt;a href=&#34;https://chat.mozilla.org/#/room/#introduction:mozilla.org&#34;&gt;chat.mozilla.org&lt;/a&gt; - I&amp;rsquo;m &lt;code&gt;Yoric&lt;/code&gt;.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/post/building-a-task-manager-1/</guid>
+      <description>&lt;p&gt;If you&amp;rsquo;re using Firefox Nightly, you may have noticed the early prototype of a new task&#xA;manager appearing at &lt;code&gt;about:processes&lt;/code&gt; (if you wish to check it out, open this address&#xA;in your address bar). It will evolve a lot yet, but let&amp;rsquo;s take a look at how we have already.&lt;/p&gt;&#xA;&lt;p&gt;In this entry: getting data from the operating system.&lt;/p&gt;&#xA;&lt;p&gt;Note: If you wish to contribute to Firefox and give us a hand with the Fission project,&#xA;you can find me on &lt;a href=&#34;https://chat.mozilla.org/#/room/#introduction:mozilla.org&#34;&gt;chat.mozilla.org&lt;/a&gt; - I&amp;rsquo;m &lt;code&gt;Yoric&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

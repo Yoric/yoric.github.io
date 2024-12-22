@@ -1,298 +1,277 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
-
-  
-  <title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
-
-  
-  
-
-
-
-
-
-  
-  <meta name="author" content="David (Yoric) Teller" />
-  <meta name="description" content="Recent publications by Consumer Reports and the NSA have launched countless conversations in development circles about safety and its benefits.
-In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.
-" />
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="About Safety, Security and yes, C&#43;&#43; and Rust" />
-    <meta name="twitter:description" content="Recent publications by Consumer Reports and the NSA have launched countless conversations in development circles about safety and its benefits.
-In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/A_metal_safe_leaking_fluid_data_Dan_Colen.png" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="About Safety, Security and yes, C&#43;&#43; and Rust" />
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/safety-and-security/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="About Safety, Security and yes, C&#43;&#43; and Rust">
   <meta property="og:description" content="Recent publications by Consumer Reports and the NSA have launched countless conversations in development circles about safety and its benefits.
-In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/safety-and-security/" />
-  <meta property="og:image" content="https://yoric.github.io/img/A_metal_safe_leaking_fluid_data_Dan_Colen.png" />
+In these conversations, I’ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let’s clarify a few things.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2023-02-03T21:54:25+01:00">
+    <meta property="article:modified_time" content="2023-02-03T21:54:25+01:00">
+    <meta property="article:tag" content="Types">
+    <meta property="article:tag" content="Type Systems">
+    <meta property="article:tag" content="Static Analysis">
+    <meta property="article:tag" content="Safety">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Programming">
+<title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
 
+    <link rel="canonical" href="https://yoric.github.io/post/safety-and-security/">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
-<meta name="generator" content="Hugo 0.119.0" />
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
-<link rel="canonical" href="https://yoric.github.io/post/safety-and-security/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">About Safety, Security and yes, C&#43;&#43; and Rust</h1>
-      <p class="post-meta">@David (Yoric) Teller · Feb 3, 2023 · 34 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>Recent publications by <a href="https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf">Consumer Reports</a> and the <a href="https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF">NSA</a> have launched countless conversations in development circles about <em>safety</em> and its benefits.</p>
-<p>In these conversations, I&rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&rsquo;s clarify a few things.</p>
-<p><img src="https://yoric.github.io/img/A_metal_safe_leaking_fluid_data_Dan_Colen.png" alt="A metal safe leaking fluid data, as imagined by MidJourney"></p>
-<h1 id="safety-and-security">Safety and Security</h1>
-<p>So let&rsquo;s start by clarifying a few things. First, (software) safety is <strong>not</strong> (software) security.</p>
-<p>Security is something that has meaning only within a <em>threat model</em>:</p>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        types
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">February 3, 2023</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">About Safety, Security and yes, C&#43;&#43; and Rust</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/types" class="tag">
+                    types
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/type-systems" class="tag">
+                    type systems
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/static-analysis" class="tag">
+                    static analysis
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/safety" class="tag">
+                    safety
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/security" class="tag">
+                    security
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/programming" class="tag">
+                    programming
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/programming-languages" class="tag">
+                    programming languages
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/rust" class="tag">
+                    rust
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/c&#43;&#43;" class="tag">
+                    c&#43;&#43;
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/mozilla" class="tag">
+                    mozilla
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">Recent publications by <a href="https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf">Consumer Reports</a> and the <a href="https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF">NSA</a> have launched countless conversations in development circles about <em>safety</em> and its benefits.</p>
+<p class="component-content component">In these conversations, I&rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&rsquo;s clarify a few things.</p>
+<p class="component-content component">
+
+
+
+
+
+
+
+
+<figure class="image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big">  <div class="component-content">
+    <div class="image-sharesheet">
+      <div class="image image-load image-asset image-c88cc417c53b33c4dc68c3d3a68a3f31" id="lhtc88cc417c53b33c4dc68c3d3a68a3f31">
+        <picture  class="picture">
+          <img class="picture-image" data-src="https://yoric.github.io/img/A_metal_safe_leaking_fluid_data_Dan_Colen.png" alt="A metal safe leaking fluid data, as imagined by MidJourney"  />
+        </picture>
+      </div>
+    </div>
+    <div class="image-description">
+      <div class="image-caption">
+        A metal safe leaking fluid data, as imagined by MidJourney
+      </div>
+    </div>
+  </div>
+</figure>
+</p>
+
+<div class="component-content pagebody component">
+  <h1 id="safety-and-security" class="pagebody-header">
+    Safety and Security
+  </h1>
+</div><p class="component-content component">So let&rsquo;s start by clarifying a few things. First, (software) safety is <strong>not</strong> (software) security.</p>
+<p class="component-content component">Security is something that has meaning only within a <em>threat model</em>:</p>
 <blockquote>
-<p>Security (within a given threat model): A piece of code is secure if no attacker can find a way to use your code to realize a risk judged unacceptable.</p>
+<p class="component-content component">Security (within a given threat model): A piece of code is secure if no attacker can find a way to use your code to realize a risk judged unacceptable.</p>
 </blockquote>
-<p>As most applications do not have a formal threat model, we&rsquo;ll let this degenerate to the more handwavy:</p>
+<p class="component-content component">As most applications do not have a formal threat model, we&rsquo;ll let this degenerate to the more handwavy:</p>
 <blockquote>
-<p>Security (handwavy): An attacker cannot make your code do somethings it should not do.</p>
+<p class="component-content component">Security (handwavy): An attacker cannot make your code do somethings it should not do.</p>
 </blockquote>
-<p>Similarly, safety is something that has meaning only within a <em>specification</em>:</p>
+<p class="component-content component">Similarly, safety is something that has meaning only within a <em>specification</em>:</p>
 <blockquote>
-<p>Safety (within a specification): The code behaves according to its specifications.</p>
+<p class="component-content component">Safety (within a specification): The code behaves according to its specifications.</p>
 </blockquote>
-<p>While most code doesn&rsquo;t have specifications other than the code itself, in practice, this is a hard definition to uphold. We can go with the gentler:</p>
+<p class="component-content component">While most code doesn&rsquo;t have specifications other than the code itself, in practice, this is a hard definition to uphold. We can go with the gentler:</p>
 <blockquote>
-<p>Safety (within a set of invariants): The invariants for the code hold.</p>
+<p class="component-content component">Safety (within a set of invariants): The invariants for the code hold.</p>
 </blockquote>
-<p>What&rsquo;s an invariant? Well, good question. In this post, we&rsquo;ll define</p>
+<p class="component-content component">What&rsquo;s an invariant? Well, good question. In this post, we&rsquo;ll define</p>
 <blockquote>
-<p>Invariant: Something the programmer believes of the code.</p>
+<p class="component-content component">Invariant: Something the programmer believes of the code.</p>
 </blockquote>
-<p>Usually, invariants are easy to spot: they are often called &ldquo;documentation&rdquo;, &ldquo;comments&rdquo; or &ldquo;names&rdquo;. If you can&rsquo;t spot any invariants in code, assume that they are broken. For instance, and while this is not often something that you&rsquo;ll find in litterature, I personally consider Python&rsquo;s syntax and keyword arguments safety tools.</p>
-<p>We can even decide to let degenerate the definition of safety to:</p>
+<p class="component-content component">Usually, invariants are easy to spot: they are often called &ldquo;documentation&rdquo;, &ldquo;comments&rdquo; or &ldquo;names&rdquo;. If you can&rsquo;t spot any invariants in code, assume that they are broken. For instance, and while this is not often something that you&rsquo;ll find in litterature, I personally consider Python&rsquo;s syntax and keyword arguments safety tools.</p>
+<p class="component-content component">We can even decide to let degenerate the definition of safety to:</p>
 <blockquote>
-<p>Safety (handwavy): The code works <em>and</em> the programmer understands why. No, for real, not just guessing.</p>
+<p class="component-content component">Safety (handwavy): The code works <em>and</em> the programmer understands why. No, for real, not just guessing.</p>
 </blockquote>
-<p>Safety is definitely <em>related</em> to security. However, here is a program that has full security and no safety:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">not_main</span>() { <span style="color:#75715e">// Oops, typo. This should have been `main()`.
+<p class="component-content component">Safety is definitely <em>related</em> to security. However, here is a program that has full security and no safety:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">not_main</span>() { <span style="color:#75715e">// Oops, typo. This should have been `main()`.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Do many useful things.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>Since we&rsquo;re not doing anything, we&rsquo;re (presumbaly) not behaving according to specifications. However, since we&rsquo;re not doing anything either, we&rsquo;re (presumably) not doing anything we shouldn&rsquo;t do.</p>
-<p>And here is a program that has full safety and no security:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Since we&rsquo;re not doing anything, we&rsquo;re (presumbaly) not behaving according to specifications. However, since we&rsquo;re not doing anything either, we&rsquo;re (presumably) not doing anything we shouldn&rsquo;t do.</p>
+<p class="component-content component">And here is a program that has full safety and no security:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>    disclose_user_password();
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>These are, of course, extreme examples. In most cases, when you write a program, you want to achieve both safety and security. Moreover, in a perfectly safe program, you can analyze security by auditing the specs.</p>
-<p>Let&rsquo;s repeat this:</p>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">These are, of course, extreme examples. In most cases, when you write a program, you want to achieve both safety and security. Moreover, in a perfectly safe program, you can analyze security by auditing the specs.</p>
+<p class="component-content component">Let&rsquo;s repeat this:</p>
 <blockquote>
-<p>Benefit of safety: If a program is perfectly safe (wrt a spec or invariants), you can guarantee security (wrt a threat model) by analyzing the spec (or invariants).</p>
+<p class="component-content component">Benefit of safety: If a program is perfectly safe (wrt a spec or invariants), you can guarantee security (wrt a threat model) by analyzing the spec (or invariants).</p>
 </blockquote>
-<p>In particular, <em>some</em> safety properties, when broken, often open security <em>vulnerabilities</em>. More on this later.</p>
-<p>Achieving perfectly safe code has been a long-standing goal of both the programming language community and the formal methods community. This goal has not been reached yet. I suspect that it never will. But that is ok, because while pursuing this objective (or subsets thereof), the PL and FM communities have given us a number of extremely valuable tools, including:</p>
-<ul>
+<p class="component-content component">In particular, <em>some</em> safety properties, when broken, often open security <em>vulnerabilities</em>. More on this later.</p>
+<p class="component-content component">Achieving perfectly safe code has been a long-standing goal of both the programming language community and the formal methods community. This goal has not been reached yet. I suspect that it never will. But that is ok, because while pursuing this objective (or subsets thereof), the PL and FM communities have given us a number of extremely valuable tools, including:</p>
+<div class="component-content component"><ul>
 <li>strong, static type systems – some of them formally proven to be sound;</li>
 <li>type inference (as featured to some extent in pretty much all statically typed languages nowadays);</li>
 <li>literate programming (as featured to some extent in pretty much all languages nowadays);</li>
@@ -320,334 +299,558 @@ In these conversations, I&amp;rsquo;ve seen many misunderstandings about what sa
 <li>labeled/keyword arguments;</li>
 <li>code reviews;</li>
 <li>&hellip;</li>
-</ul>
-<p>Yes, I&rsquo;m probably stretching a bit the definition of &ldquo;PL community&rdquo; with some of the items above. Some definitely come from communities that make use of programming languages without pretending to invent anything PL-related. I&rsquo;m also skipping a number of other items that are definitely adjacent to safety and security, such as cryptography, containers, etc. I&rsquo;m planning to write about these in another post.</p>
-<p>Not all of these innovations have made it into the industry, but many are now taken for granted by developers.</p>
-<p>Now, let&rsquo;s get one thing out of the way: <em>to achieve safety, you do not need any of these tools</em>. No, really, you can write perfectly safe (and secure) programs in raw assembly language. However, I do not expect that, for any reasonable spec and threat model, anybody will write a perfectly safe + secure web browser in raw assembly any time soon. These days, the complexity of the code of a full web browser is simply mind-bending. In fact, let&rsquo;s be honest, if you start from asm, the complexity of the code of <em>any</em> modern, useful application is already considerable. These days, if you or I wish to write an application, we&rsquo;re going to start by picking a programming language and a set of libraries and tools, which will probably feature some of the items listed above.</p>
-<p>Conversely, there are safety violations that you can do nothing about, even with perfect tooling: if you OS or your hardware are unreliable, it may break your code in ways that are impossible to predict. The same is true for security.</p>
-<p>So why try to achieve safety and security despite the fact that we live in an imperfect world? Because knowing that you can&rsquo;t be 100% successful is no excuse for accepting a bad result. As software developers we are here to produce the best possible software under the constraints at hand, which may include unreliable hardware, an unreliable environment or a finite runway. And both safety (it works) and security (it doesn&rsquo;t cause harm) are among the most important features of &ldquo;best possible software&rdquo;, typically alongside performance.</p>
-<h1 id="programming-languages">Programming languages</h1>
-<p>Oh, programming languages? Yes, programming languages. Because the reports I&rsquo;ve linked to above all talk of <em>safe programming languages</em>. For some definition of safe. So what is a <em>safe programming language</em>? Well, let&rsquo;s try and come up with a definition:</p>
+</ul></div>
+<p class="component-content component">Yes, I&rsquo;m probably stretching a bit the definition of &ldquo;PL community&rdquo; with some of the items above. Some definitely come from communities that make use of programming languages without pretending to invent anything PL-related. I&rsquo;m also skipping a number of other items that are definitely adjacent to safety and security, such as cryptography, containers, etc. I&rsquo;m planning to write about these in another post.</p>
+<p class="component-content component">Not all of these innovations have made it into the industry, but many are now taken for granted by developers.</p>
+<p class="component-content component">Now, let&rsquo;s get one thing out of the way: <em>to achieve safety, you do not need any of these tools</em>. No, really, you can write perfectly safe (and secure) programs in raw assembly language. However, I do not expect that, for any reasonable spec and threat model, anybody will write a perfectly safe + secure web browser in raw assembly any time soon. These days, the complexity of the code of a full web browser is simply mind-bending. In fact, let&rsquo;s be honest, if you start from asm, the complexity of the code of <em>any</em> modern, useful application is already considerable. These days, if you or I wish to write an application, we&rsquo;re going to start by picking a programming language and a set of libraries and tools, which will probably feature some of the items listed above.</p>
+<p class="component-content component">Conversely, there are safety violations that you can do nothing about, even with perfect tooling: if you OS or your hardware are unreliable, it may break your code in ways that are impossible to predict. The same is true for security.</p>
+<p class="component-content component">So why try to achieve safety and security despite the fact that we live in an imperfect world? Because knowing that you can&rsquo;t be 100% successful is no excuse for accepting a bad result. As software developers we are here to produce the best possible software under the constraints at hand, which may include unreliable hardware, an unreliable environment or a finite runway. And both safety (it works) and security (it doesn&rsquo;t cause harm) are among the most important features of &ldquo;best possible software&rdquo;, typically alongside performance.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="programming-languages" class="pagebody-header">
+    Programming languages
+  </h1>
+</div><p class="component-content component">Oh, programming languages? Yes, programming languages. Because the reports I&rsquo;ve linked to above all talk of <em>safe programming languages</em>. For some definition of safe. So what is a <em>safe programming language</em>? Well, let&rsquo;s try and come up with a definition:</p>
 <blockquote>
-<p>Language (in this post): A general-purpose programming language actually used in the industry at wild.</p>
+<p class="component-content component">Language (in this post): A general-purpose programming language actually used in the industry at wild.</p>
 </blockquote>
-<p>Yes, we can definitely write safe Domain-Specific Languages. Yes, there are specialized implementations of, say, JavaScript that reduce the Trusted Computing Base by supporting neither <code>async</code> nor any kind of calls to native code. Yes some academics program in Coq on Twelf or using Proof-Carrying Code. These are absolutely valid tools, but they are beyond the scope of this post.</p>
+<p class="component-content component">Yes, we can definitely write safe Domain-Specific Languages. Yes, there are specialized implementations of, say, JavaScript that reduce the Trusted Computing Base by supporting neither <code>async</code> nor any kind of calls to native code. Yes some academics program in Coq on Twelf or using Proof-Carrying Code. These are absolutely valid tools, but they are beyond the scope of this post.</p>
 <blockquote>
-<p>Safe language (with respect to a specification/invariants): A language which helps the developer write safe code (with respect to a specification/invariants).</p>
-</blockquote>
-<blockquote>
-<p>Safe language (handwavy): A language which helps the developer write safe code (handwavy).</p>
-</blockquote>
-<p>Given that PL and FM researchers still toil hard to try and achieve a perfectly safe language, calling a language &ldquo;safe&rdquo; is something of a stretch. No, sadly, <code>$(YOUR FAVORITE LANGUAGE)</code> is not safe (handwavy). It may feature some very important safety properties (we&rsquo;ll discuss these later), but it&rsquo;s not absolutely safe. It can, however, be safer than another language <em>for some subset of specs</em> and/or (handwavy) <em>for some developers</em>. Yes, since our handwavy definition for safety implies a developer, of course, some languages are going to be safer for some developers and less safe for others. And of course how much experience you have in a language very much influences how safe this language is for you. This is why quite safe code (e.g sqlite) has been written in C, a language that features very few tools to aid with safety. This is also why the Linux kernel is opening itself to Rust – because finding developers who can write C with this level of safety is really hard, while kernel maintainers believe that finding developers who can write Rust code with this level of safety is easier, thanks to better safety-oriented tooling.</p>
-<p>And while we&rsquo;re at it, let&rsquo;s try and come up with a definition for a secure programming langauge:</p>
-<blockquote>
-<p>Secure language (with respect to a threat model): A language which helps the developer write secure code (with respect to a threat model).</p>
+<p class="component-content component">Safe language (with respect to a specification/invariants): A language which helps the developer write safe code (with respect to a specification/invariants).</p>
 </blockquote>
 <blockquote>
-<p>Secure language (handwavy): A language which helps the developer write secure code (handwavy).</p>
+<p class="component-content component">Safe language (handwavy): A language which helps the developer write safe code (handwavy).</p>
 </blockquote>
-<p>One of the many conversations spawned by the above reports was within the <code>/r/cpp</code> community. Two themes returned regularly &ldquo;These reports are not focusing on recent versions of C++&rdquo; and &ldquo;I&rsquo;m writing safe/secure code in C++ all day long, <code>$(LANGUAGE X)</code> won&rsquo;t help me&rdquo;, where <code>$(LANGUAGE X)</code> often rhymed with &ldquo;Trust&rdquo;.</p>
-<p>I can&rsquo;t judge on the first argument. Most of my knowledge of C++ I gained either before joining Mozilla or while working for 9 years on the codebase of Firefox. While this codebase has been modernized quite a few times, its roots are deeply entrenched in legacy C++ – and even legacy C – dating back to times where many of the features that modern C++ developers take for granted were not implemented or not properly implemented by compilers. In fact, these past few weeks, I have been trying to brush up on my C++ by finding examples of shiny, pure, modern and of course safe C++. I haven&rsquo;t found any yet, but if any reader knows of a good codebase I could look at, please don&rsquo;t hesitate to drop me a line!</p>
-<p>What about the second argument? The answer is absolutely &ldquo;yes&rdquo;. You can definitely write safe and secure code in C++, at least for some threat models and some specifications. This is also true for <code>$(YOUR FAVORITE LANGUAGE)</code>, of course.</p>
-<p>This doesn&rsquo;t make <code>$(YOUR FAVORITE LANGUAGE)</code> (or <code>$(LANGUAGE X)</code>) a safe language, or a secure language, for <em>all</em> specs/threat models.</p>
-<p>Let me emphasize this.</p>
+<p class="component-content component">Given that PL and FM researchers still toil hard to try and achieve a perfectly safe language, calling a language &ldquo;safe&rdquo; is something of a stretch. No, sadly, <code>$(YOUR FAVORITE LANGUAGE)</code> is not safe (handwavy). It may feature some very important safety properties (we&rsquo;ll discuss these later), but it&rsquo;s not absolutely safe. It can, however, be safer than another language <em>for some subset of specs</em> and/or (handwavy) <em>for some developers</em>. Yes, since our handwavy definition for safety implies a developer, of course, some languages are going to be safer for some developers and less safe for others. And of course how much experience you have in a language very much influences how safe this language is for you. This is why quite safe code (e.g sqlite) has been written in C, a language that features very few tools to aid with safety. This is also why the Linux kernel is opening itself to Rust – because finding developers who can write C with this level of safety is really hard, while kernel maintainers believe that finding developers who can write Rust code with this level of safety is easier, thanks to better safety-oriented tooling.</p>
+<p class="component-content component">And while we&rsquo;re at it, let&rsquo;s try and come up with a definition for a secure programming langauge:</p>
 <blockquote>
-<p>Your favorite language is <em>not</em> perfectly safe. It is <em>not</em> perfectly secure. It is not even safer and more secure than most other languages for all teams of developers, all domains, all threat models.</p>
+<p class="component-content component">Secure language (with respect to a threat model): A language which helps the developer write secure code (with respect to a threat model).</p>
 </blockquote>
-<p>If you&rsquo;re reading these lines and must remember only one thing, please, fellow developers in <code>$(YOUR FAVORITE LANGUAGE)</code>, stop trolling developers with different experience. Chances are that they are perfectly right to use these tools that you despise. Even if they&rsquo;re not, trolling is not constructive.</p>
-<h1 id="classifying-safeties">Classifying safeties</h1>
-<p>In some of the conversations about safety and security, one of the recurrent topics is that there is more than one kind of safety and that either <code>$(YOUR FAVORITE LANGUAGE)</code> or <code>$(LANGUAGE X)</code> doesn&rsquo;t help with <em>that</em> kind of safety. Both assertions are absolutely true. So let&rsquo;s take a deeper look at software safety.</p>
-<p>A few kinds of safety return constantly in these conversations:</p>
-<ul>
+<blockquote>
+<p class="component-content component">Secure language (handwavy): A language which helps the developer write secure code (handwavy).</p>
+</blockquote>
+<p class="component-content component">One of the many conversations spawned by the above reports was within the <code>/r/cpp</code> community. Two themes returned regularly &ldquo;These reports are not focusing on recent versions of C++&rdquo; and &ldquo;I&rsquo;m writing safe/secure code in C++ all day long, <code>$(LANGUAGE X)</code> won&rsquo;t help me&rdquo;, where <code>$(LANGUAGE X)</code> often rhymed with &ldquo;Trust&rdquo;.</p>
+<p class="component-content component">I can&rsquo;t judge on the first argument. Most of my knowledge of C++ I gained either before joining Mozilla or while working for 9 years on the codebase of Firefox. While this codebase has been modernized quite a few times, its roots are deeply entrenched in legacy C++ – and even legacy C – dating back to times where many of the features that modern C++ developers take for granted were not implemented or not properly implemented by compilers. In fact, these past few weeks, I have been trying to brush up on my C++ by finding examples of shiny, pure, modern and of course safe C++. I haven&rsquo;t found any yet, but if any reader knows of a good codebase I could look at, please don&rsquo;t hesitate to drop me a line!</p>
+<p class="component-content component">What about the second argument? The answer is absolutely &ldquo;yes&rdquo;. You can definitely write safe and secure code in C++, at least for some threat models and some specifications. This is also true for <code>$(YOUR FAVORITE LANGUAGE)</code>, of course.</p>
+<p class="component-content component">This doesn&rsquo;t make <code>$(YOUR FAVORITE LANGUAGE)</code> (or <code>$(LANGUAGE X)</code>) a safe language, or a secure language, for <em>all</em> specs/threat models.</p>
+<p class="component-content component">Let me emphasize this.</p>
+<blockquote>
+<p class="component-content component">Your favorite language is <em>not</em> perfectly safe. It is <em>not</em> perfectly secure. It is not even safer and more secure than most other languages for all teams of developers, all domains, all threat models.</p>
+</blockquote>
+<p class="component-content component">If you&rsquo;re reading these lines and must remember only one thing, please, fellow developers in <code>$(YOUR FAVORITE LANGUAGE)</code>, stop trolling developers with different experience. Chances are that they are perfectly right to use these tools that you despise. Even if they&rsquo;re not, trolling is not constructive.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="classifying-safeties" class="pagebody-header">
+    Classifying safeties
+  </h1>
+</div><p class="component-content component">In some of the conversations about safety and security, one of the recurrent topics is that there is more than one kind of safety and that either <code>$(YOUR FAVORITE LANGUAGE)</code> or <code>$(LANGUAGE X)</code> doesn&rsquo;t help with <em>that</em> kind of safety. Both assertions are absolutely true. So let&rsquo;s take a deeper look at software safety.</p>
+<p class="component-content component">A few kinds of safety return constantly in these conversations:</p>
+<div class="component-content component"><ul>
 <li>memory safety;</li>
 <li>type safety;</li>
 <li>data race safety;</li>
 <li>thread safety.</li>
-</ul>
-<p>There is definitely more to safety than these four kinds of safety. Documentation and clarity of intent/implementation are parts of safety. Assertions/contracts are part of safety (although one could argue that they are already part of type safety). Many applications also need to take into account user safety, which is not part of software safety. There are also various notions of resource safety, etc. But they are all beyond the scope of this discussion.</p>
-<p>Let&rsquo;s try and provide a quick and fairly handwavy definition for these kinds of safety:</p>
+</ul></div>
+<p class="component-content component">There is definitely more to safety than these four kinds of safety. Documentation and clarity of intent/implementation are parts of safety. Assertions/contracts are part of safety (although one could argue that they are already part of type safety). Many applications also need to take into account user safety, which is not part of software safety. There are also various notions of resource safety, etc. But they are all beyond the scope of this discussion.</p>
+<p class="component-content component">Let&rsquo;s try and provide a quick and fairly handwavy definition for these kinds of safety:</p>
 <blockquote>
-<p>Memory safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). If your code reads from a memory address believing that it&rsquo;s reading something with type T, then it&rsquo;s actually reading from something with type T (or a subtype thereof). If your code writes to a memory address believing that it&rsquo;s writing something with type T, then it&rsquo;s actually writing on top of something with type T (or a supertype thereof, including <code>undefined</code>).</p>
+<p class="component-content component">Memory safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). If your code reads from a memory address believing that it&rsquo;s reading something with type T, then it&rsquo;s actually reading from something with type T (or a subtype thereof). If your code writes to a memory address believing that it&rsquo;s writing something with type T, then it&rsquo;s actually writing on top of something with type T (or a supertype thereof, including <code>undefined</code>).</p>
 </blockquote>
 <blockquote>
-<p>Data race safety: If a thread is performing a non-atomic write at an address in memory, another thread may not be performing a read or a write at the same address concurrently.</p>
+<p class="component-content component">Data race safety: If a thread is performing a non-atomic write at an address in memory, another thread may not be performing a read or a write at the same address concurrently.</p>
 </blockquote>
 <blockquote>
-<p>Thread safety: There is no scheduling that can break an invariant.</p>
+<p class="component-content component">Thread safety: There is no scheduling that can break an invariant.</p>
 </blockquote>
-<p>Thread safety includes deadlocks, livelocks and data race safety, but they are not limited to these. If you are familiar with chaos testing, you will probably be able to quote from memory many examples in which scheduling breaks your code, without deadlock, livelock or data race.</p>
+<p class="component-content component">Thread safety includes deadlocks, livelocks and data race safety, but they are not limited to these. If you are familiar with chaos testing, you will probably be able to quote from memory many examples in which scheduling breaks your code, without deadlock, livelock or data race.</p>
 <blockquote>
-<p>Type safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). Every invariant for every type in memory holds for the entire duration of the program.</p>
+<p class="component-content component">Type safety: Pretend that all your memory is labeled with dynamic types (including <code>undefined</code>, for memory that isn&rsquo;t addressable anymore). Every invariant for every type in memory holds for the entire duration of the program.</p>
 </blockquote>
-<p>Readers familiar with Formal Methods will immediately notice that this definition is lacking both the words &ldquo;Soundness&rdquo; and &ldquo;Subject Reduction&rdquo;. I promise I tried to include them in this post, but both of them require concepts that don&rsquo;t really map well to most industrial languages (operational semantics and some kind of stuck state), so I&rsquo;ve progressively rephrased these definitions into something that both makes more sense in the context without needing an entire research paper&rsquo;s worth of definition per language. Type safety as I define it is not strictly equivalent to traditional mathematical definitions of type safety, but I feel that this definition works much better with industrial languages. If you can come up with a better definition, feel free to drop me a line!</p>
-<p>Note that, with this definition (or the usual mathematical one), type safety is <em>not</em> the same thing as having static type checks. You can very well have static type checks that are insufficient to guarantee type safety or a dynamic type system that enforces type safety.</p>
-<p>Now, if you squint hard (or if you rewrite this post five times in an attempt to simplify it), you can see that memory safety, data race safety and type safety can be rewritten as the following, which I find simpler and easier to reason with:</p>
+<p class="component-content component">Readers familiar with Formal Methods will immediately notice that this definition is lacking both the words &ldquo;Soundness&rdquo; and &ldquo;Subject Reduction&rdquo;. I promise I tried to include them in this post, but both of them require concepts that don&rsquo;t really map well to most industrial languages (operational semantics and some kind of stuck state), so I&rsquo;ve progressively rephrased these definitions into something that both makes more sense in the context without needing an entire research paper&rsquo;s worth of definition per language. Type safety as I define it is not strictly equivalent to traditional mathematical definitions of type safety, but I feel that this definition works much better with industrial languages. If you can come up with a better definition, feel free to drop me a line!</p>
+<p class="component-content component">Note that, with this definition (or the usual mathematical one), type safety is <em>not</em> the same thing as having static type checks. You can very well have static type checks that are insufficient to guarantee type safety or a dynamic type system that enforces type safety.</p>
+<p class="component-content component">Now, if you squint hard (or if you rewrite this post five times in an attempt to simplify it), you can see that memory safety, data race safety and type safety can be rewritten as the following, which I find simpler and easier to reason with:</p>
 <blockquote>
-<p>Memory safety (within a set of types and invariants) A piece of code is memory safe if it is both write safe and read safe with respect to these invariants.</p>
-</blockquote>
-<blockquote>
-<p>Write safety (within a set of invariants): A piece of code is said to &ldquo;break write safety&rdquo; if, at any point, it overwrites a value, breaking an invariant of the code. It is write-safe if it never breaks write safety.</p>
+<p class="component-content component">Memory safety (within a set of types and invariants) A piece of code is memory safe if it is both write safe and read safe with respect to these invariants.</p>
 </blockquote>
 <blockquote>
-<p>Read safety (within a set of types and invariants): A piece of code is said to &ldquo;break read safety&rdquo; if, at any point, accessing memory as a given type T results in a value that does not respect the invariants of T. It is read-safe if it never breaks read safety.</p>
+<p class="component-content component">Write safety (within a set of invariants): A piece of code is said to &ldquo;break write safety&rdquo; if, at any point, it overwrites a value, breaking an invariant of the code. It is write-safe if it never breaks write safety.</p>
 </blockquote>
-<p>Why do we care about write safety or read safety? Because breaking read or write safety means breaking invariants. Invariants are the total sum of knowledge that the developer has about their code. Break invariants and you have no clear idea about what your code is going to do.</p>
-<p>And to emphasize once again: breaking invariants/safety does <strong>not</strong> mean introducing a vulnerability. It most likely means introducing a bug. It also means that you don&rsquo;t know what your code is going, so this bug <em>might</em> introduce a vulnerability.</p>
-<p>So is your code / your language thread safe? Is it read safe? Is it write safe?</p>
-<p>Let&rsquo;s start with an example of invariants. Someone in your team has come up with a revolutionary encoding, the WTF-42. You need to implement a new class or type <code>WTFString</code> of strings that are guaranteed to always be valid once initialization is complete. Can you do it? You lose:</p>
-<ul>
+<blockquote>
+<p class="component-content component">Read safety (within a set of types and invariants): A piece of code is said to &ldquo;break read safety&rdquo; if, at any point, accessing memory as a given type T results in a value that does not respect the invariants of T. It is read-safe if it never breaks read safety.</p>
+</blockquote>
+<p class="component-content component">Why do we care about write safety or read safety? Because breaking read or write safety means breaking invariants. Invariants are the total sum of knowledge that the developer has about their code. Break invariants and you have no clear idea about what your code is going to do.</p>
+<p class="component-content component">And to emphasize once again: breaking invariants/safety does <strong>not</strong> mean introducing a vulnerability. It most likely means introducing a bug. It also means that you don&rsquo;t know what your code is going, so this bug <em>might</em> introduce a vulnerability.</p>
+<p class="component-content component">So is your code / your language thread safe? Is it read safe? Is it write safe?</p>
+<p class="component-content component">Let&rsquo;s start with an example of invariants. Someone in your team has come up with a revolutionary encoding, the WTF-42. You need to implement a new class or type <code>WTFString</code> of strings that are guaranteed to always be valid once initialization is complete. Can you do it? You lose:</p>
+<div class="component-content component"><ul>
 <li>if there is a way to (accidentally or on purpose) take an instance of <code>WTFString</code> and somehow tweak the data to make it invalid; or</li>
 <li>if an instance of <code>BrokenString</code> is (accidentally or on purpose) mistaken for an instance of <code>WTFString</code>.</li>
-</ul>
-<p>Can you do it?</p>
-<p>As for our thread-safety invariant, we&rsquo;ll adopt something simple: the program executes to the end (e.g. no deadlock, no livelock).</p>
-<p>Are you ready for a tentative taxonomy of languages? I&rsquo;ll do my best to be objective, but I am a human being, with limited knowledge and unlimited bias, so I can be writing things that are false or misleading. If you feel that&rsquo;s the case, don&rsquo;t hesitate to get in touch.</p>
-<h2 id="c">C</h2>
-<h3 id="can-we-break-write-safety-in-the-language">Can we break write-safety in the language?</h3>
-<p>Yes, trivially:</p>
-<ul>
+</ul></div>
+<p class="component-content component">Can you do it?</p>
+<p class="component-content component">As for our thread-safety invariant, we&rsquo;ll adopt something simple: the program executes to the end (e.g. no deadlock, no livelock).</p>
+<p class="component-content component">Are you ready for a tentative taxonomy of languages? I&rsquo;ll do my best to be objective, but I am a human being, with limited knowledge and unlimited bias, so I can be writing things that are false or misleading. If you feel that&rsquo;s the case, don&rsquo;t hesitate to get in touch.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="c" class="pagebody-header">
+    C
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-write-safety-in-the-language" class="pagebody-header">
+    Can we break write-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, trivially:</p>
+<div class="component-content component"><ul>
 <li>C doesn&rsquo;t have any kind of private fields, but that can be encoded fairly easily so no breakage from here.</li>
 <li>C has <code>union</code>, casts, raw pointers, pointer arithmetics, race conditions, etc. that can all accidentally overwrite part of a <code>WTFString</code>.</li>
 <li>And of course, as in other languages, write-safety in C code can be broken by a dependency (which is typically more C code).</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code. If you have ever used model-checking on C code, please feel free to drop me a line.</p>
-<h3 id="can-we-break-read-safety-in-the-language">Can we break read-safety in the language?</h3>
-<p>Yes, trivially.</p>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications" class="pagebody-header">
+    How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code. If you have ever used model-checking on C code, please feel free to drop me a line.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-read-safety-in-the-language" class="pagebody-header">
+    Can we break read-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, trivially.</p>
+<div class="component-content component"><ul>
 <li>Any <code>union</code>, cast, raw pointer access, etc. can let you read a <code>BrokenString</code> while believing that it&rsquo;s a <code>WTFString</code>.</li>
 <li>Macro shennanigans can have the same effect, by renaming <code>BrokenString</code> into <code>WTFString</code>.</li>
 <li>As usual, dependencies.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
-<h3 id="can-we-break-thread-safety-in-the-language">Can we break thread-safety in the language?</h3>
-<p>Yes, writing a deadlock, a livelock or a data race condition is trivial.</p>
-<h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I do not feel that it is possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
-<h2 id="c-1">C++</h2>
-<h3 id="can-we-break-write-safety-in-the-language-1">Can we break write-safety in the language?</h3>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications" class="pagebody-header">
+    How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">I do not see how this could be possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-thread-safety-in-the-language" class="pagebody-header">
+    Can we break thread-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, writing a deadlock, a livelock or a data race condition is trivial.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications" class="pagebody-header">
+    How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">I do not feel that it is possible in the general case. Model-checking tools (e.g. TLA+) can help for a specific piece of code.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="c-1" class="pagebody-header">
+    C++
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-write-safety-in-the-language-1" class="pagebody-header">
+    Can we break write-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>C++ has <code>private</code> fields, so it is harder to break write-safety on purpose than in C.</li>
 <li>You can trivially break write-safety by using the features of the C subset of C++. Safe coding guidelines very much discourage this.</li>
 <li>If we abstain from using the C subset and restrict ourselves to C++ modules, it is still trivial, by misusing <code>operator\[\]</code> or iterators or data race conditions.</li>
 <li>As with other languages, write safety can be broken by dependencies.</li>
 <li>There are still higher-level manners of breaking write-safety with callbacks or coroutines, by letting some external code interrupt your code during a modification. The callbacks are not really idiomatic but some frameworks such as Qt use them all over the place and iirc the observer pattern is being discussed for inclusion in the stdlib.</li>
 <li>There are often ways to break safety by abusing aliasing, but I cannot see one from the top of my head.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>There is a folk theorem within the C++ community that there exists a safe subset of C++. I have read both CERT&rsquo;s guidelines and Bjarne Stroustrup&rsquo;s guidelines and they very clearly are not this subset. If this subset is written anywhere, I would be very interested in reading it.</p>
-<p>That being said, let&rsquo;s see if we can come with a subset:</p>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1" class="pagebody-header">
+    How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">There is a folk theorem within the C++ community that there exists a safe subset of C++. I have read both CERT&rsquo;s guidelines and Bjarne Stroustrup&rsquo;s guidelines and they very clearly are not this subset. If this subset is written anywhere, I would be very interested in reading it.</p>
+<p class="component-content component">That being said, let&rsquo;s see if we can come with a subset:</p>
+<div class="component-content component"><ul>
 <li>don&rsquo;t use C in C++;</li>
 <li>use a version of the stdlib that panics whenever you read or write out of bounds, whenever you attempt to dereference an iterator that has been invalidated or that is accidentally out of bounds;</li>
 <li>use smart pointers everywhere;</li>
 <li>to avoid the race conditions and any other mechanism that can interrupt your code while you&rsquo;re in the middle of updating a <code>WTFString</code>, adopt a side-effects-free programming style (aka functional programming), optionally concurrent/distributed;</li>
 <li>audit your dependencies.</li>
-</ul>
-<p>This feels reasonably write-safe. There may of course exist larger subsets, this one just happens to be something that fits within five lines.</p>
-<p>Of course, at this stage, two questions arise:</p>
-<ol>
+</ul></div>
+<p class="component-content component">This feels reasonably write-safe. There may of course exist larger subsets, this one just happens to be something that fits within five lines.</p>
+<p class="component-content component">Of course, at this stage, two questions arise:</p>
+<div class="component-content component"><ol>
 <li>How do you make sure that you are using this style?</li>
 <li>Would developers use this style?</li>
-</ol>
-<p>To answer 1.: I believe that it would be possible to write a linter. Not easy – writing linters for C++ is never easy – but possible. Auditing the stdlib to make sure that it always panics&hellip; well, the stdlib is a huge piece of code but it can be rewritten. It is my understanding that there are efforts to port the stdlib to CHERI-enabled hardware. For platforms that support CHERI, this might provide essentially what I&rsquo;m speaking of. It is my understanding that we&rsquo;re still at least 5 years away from being able to actually test this, though.</p>
-<p>To answer 2.: I my experience writing C++ and being part of the C++ community, I believe that there are two categories of C++ users. Those that write High Frequency Trading code and everybody else.</p>
-<ul>
+</ol></div>
+<p class="component-content component">To answer 1.: I believe that it would be possible to write a linter. Not easy – writing linters for C++ is never easy – but possible. Auditing the stdlib to make sure that it always panics&hellip; well, the stdlib is a huge piece of code but it can be rewritten. It is my understanding that there are efforts to port the stdlib to CHERI-enabled hardware. For platforms that support CHERI, this might provide essentially what I&rsquo;m speaking of. It is my understanding that we&rsquo;re still at least 5 years away from being able to actually test this, though.</p>
+<p class="component-content component">To answer 2.: I my experience writing C++ and being part of the C++ community, I believe that there are two categories of C++ users. Those that write High Frequency Trading code and everybody else.</p>
+<div class="component-content component"><ul>
 <li>I know of several HFT firms that write their code in Haskell or OCaml or F#, which strongly suggests that HFT is fully compatible with functional programming. In fact, I suspect that some variants of this C++ style are <em>already</em> being used to reduce risks. Not everywhere. Not full applications. But still, used.</li>
 <li>For the rest of us, who need to deal with different constraints, I suspect that this style would not get much traction, as it forces developers to abandon one of the greatest strengths (and weaknesses) of C++: its ability to mix every single paradigm under the sun.</li>
-</ul>
-<p>Other than using this subset, model-checking tools can probably help ensure write-safety of a specific piece of code.</p>
-<h3 id="can-we-break-read-safety-in-the-language-1">Can we break read-safety in the language?</h3>
-<p>Yes, the remarks regarding write-safety also apply here.</p>
-<h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>The remarks regarding write-safety also apply here.</p>
-<h3 id="can-we-break-thread-safety-in-the-language-1">Can we break thread-safety in the language?</h3>
-<p>Yes, exactly as in C.</p>
-<h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I believe that with the appropriate libraries, one could implement a concurrent but safe sublanguage for C++, for instance by imitating Sklml-style concurrency. However, I suspect that very few programmers would use this, as this would considerably restrict C++, a language that many use specifically because it is so flexible.</p>
-<p>Without such a library and discipline, just as hard as in C.</p>
-<h2 id="python">Python</h2>
-<h3 id="can-we-break-write-safety-in-the-language-2">Can we break write-safety in the language?</h3>
-<ul>
+</ul></div>
+<p class="component-content component">Other than using this subset, model-checking tools can probably help ensure write-safety of a specific piece of code.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-read-safety-in-the-language-1" class="pagebody-header">
+    Can we break read-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, the remarks regarding write-safety also apply here.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1" class="pagebody-header">
+    How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">The remarks regarding write-safety also apply here.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-thread-safety-in-the-language-1" class="pagebody-header">
+    Can we break thread-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, exactly as in C.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-1" class="pagebody-header">
+    How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">I believe that with the appropriate libraries, one could implement a concurrent but safe sublanguage for C++, for instance by imitating Sklml-style concurrency. However, I suspect that very few programmers would use this, as this would considerably restrict C++, a language that many use specifically because it is so flexible.</p>
+<p class="component-content component">Without such a library and discipline, just as hard as in C.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="python" class="pagebody-header">
+    Python
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-write-safety-in-the-language-2" class="pagebody-header">
+    Can we break write-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>If Python calls native code that breaks write-safety, it will break write-safety.</li>
 <li>Python does not have any mechanism to prevent writing into a private field. This makes breaking write-safety very easy.</li>
 <li>If code that mutates a <code>WTFString</code> is somehow interrupted between two steps of a mutation, either by the scheduler or by triggering a setter, a callback, by calling <code>await</code>, etc. the instance of <code>WTFString</code> may be used while it is partially mutated and still invalid.</li>
 <li>If your data is not atomic, you can have read/write race conditions between threads despite the GIL.</li>
 <li>Python does not have writes to arbitrary memory locations, so there is that.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>While I haven&rsquo;t checked formally, I believe that there is at least one way to achieve this:</p>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2" class="pagebody-header">
+    How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">While I haven&rsquo;t checked formally, I believe that there is at least one way to achieve this:</p>
+<div class="component-content component"><ul>
 <li>dynamically block calls into non-audited native code;</li>
 <li>adopt a side-effect-free style of programming, also known as functional programming.</li>
-</ul>
-<p>There are certainly larger subsets that would work. This subset has the advantage that,
+</ul></div>
+<p class="component-content component">There are certainly larger subsets that would work. This subset has the advantage that,
 if coupled with well-reviewed libraries, it would be easy to review/lint. Furthermore,
 I have recently spoken with a Python developer who apparently uses this style, so it
 seems to exist in the wild.</p>
-<p>However, this would require throwing away most of the existing ecosystem, including almost
+<p class="component-content component">However, this would require throwing away most of the existing ecosystem, including almost
 all of Python&rsquo;s batteries. I suspect that most Python developers would be unhappy about this.</p>
-<p>I don&rsquo;t know of any model-checking tool for Python.</p>
-<h3 id="can-we-break-read-safety-in-the-language-2">Can we break read-safety in the language?</h3>
-<ul>
+<p class="component-content component">I don&rsquo;t know of any model-checking tool for Python.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-read-safety-in-the-language-2" class="pagebody-header">
+    Can we break read-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>In theory, any code can verify at API boundaries that data that is passed is a real instance of <code>WTFString</code> and not something that has the same duck type. However, doing this is against the general guidelines of duck typing. Consequently, in idiomatic code, any <code>BrokenString</code> can be passed instead of a <code>WTFString</code>, breaking invariants.</li>
 <li>In theory, MyPy can verify that the above does not happen, but out of the box, even with MyPy enabled, most checks remain disabled, and even with all checks enabled, it is trivially possible to <code>cast</code> a <code>BrokenString</code> into a <code>WTFString</code>.</li>
 <li>If your data is not atomic, you can have read/write race conditions between threads despite the GIL.</li>
 <li>Python does not have writes to arbitrary memory locations, so there is that.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I believe that it is possible, by adopting the same constraints as for write-safety <em>and</em>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2" class="pagebody-header">
+    How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">I believe that it is possible, by adopting the same constraints as for write-safety <em>and</em>
 rejecting duck-typing in favor of <code>isinstance</code>. Unfortunately, this collides violently
 with the concept of idiomatic Python, so I suspect that such a subset would not be used.</p>
-<h3 id="can-we-break-thread-safety-in-the-language-2">Can we break thread-safety in the language?</h3>
-<p>Yes, exactly as in C. The GIL protects refcounting, but nothing else.</p>
-<h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Once again, adopting a (concurrent) functional programming style could help, something
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-thread-safety-in-the-language-2" class="pagebody-header">
+    Can we break thread-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, exactly as in C. The GIL protects refcounting, but nothing else.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-2" class="pagebody-header">
+    How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">Once again, adopting a (concurrent) functional programming style could help, something
 similar to Sklml for instance.</p>
-<h2 id="javascript">JavaScript</h2>
-<h3 id="can-we-break-write-safety-in-the-language-3">Can we break write-safety in the language?</h3>
-<ul>
+
+<div class="component-content pagebody component">
+  <h2 id="javascript" class="pagebody-header">
+    JavaScript
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-write-safety-in-the-language-3" class="pagebody-header">
+    Can we break write-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>If JavaScript calls native code that breaks write-safety, it will break write-safety.</li>
 <li>This is the year 2023 and JavaScript has private fields \o/. This makes breaking write-safety on purpose very hard.</li>
 <li>JavaScript does not have writes to arbitrary memory locations.</li>
 <li>JavaScript threads have separate memory spaces, so they do not support data races.</li>
 <li>If code that mutates a <code>WTFString</code> is somehow interrupted between two steps of a mutation, either by the scheduler or by triggering a setter, a callback, by calling <code>await</code>, etc. the instance of <code>WTFString</code> may be used while it is partially mutated and still invalid. I have seen some code that does this in the wild, because developers don&rsquo;t realize that you can manufacture race conditions in JavaScript. I myself <em>might</em> have committed some code that did that in the Firefox front-end back in the very early days of <code>Promise</code>. That was&hellip; an interesting debugging session.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-3">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>As in Python, I suspect that it would be sufficient to audit native code and adopt a functional style in JS. There are
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-3" class="pagebody-header">
+    How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">As in Python, I suspect that it would be sufficient to audit native code and adopt a functional style in JS. There are
 JS frameworks based on the idea, so this would not be entirely shocking. It might even be possible to continue interacting
 with the DOM, with an approach comparable to React. Network access would be complicated but Haskell libraries have demonstrated
 that it can be done with a functional style.</p>
-<p>This would be fairly easy to review or lint. However, this would require throwing away most of the existing ecosystem.</p>
-<p>I don&rsquo;t know of any model-checking tool for JS.</p>
-<h3 id="can-we-break-read-safety-in-the-language-3">Can we break read-safety in the language?</h3>
-<ul>
+<p class="component-content component">This would be fairly easy to review or lint. However, this would require throwing away most of the existing ecosystem.</p>
+<p class="component-content component">I don&rsquo;t know of any model-checking tool for JS.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-read-safety-in-the-language-3" class="pagebody-header">
+    Can we break read-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>JS code cannot read from arbitrary memory addresses.</li>
 <li>In theory, any code can verify at API boundaries that data that is passed is a real instance of <code>WTFString</code> and not something that has the same duck type. However, outside of native code and the odd <code>Array.isArray</code>, I almost never see this in JS code. Consequently, in idiomatic code, any <code>BrokenString</code> can be passed instead of a <code>WTFString</code>, breaking invariants.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-3">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>My intuition tells me that it wouldn&rsquo;t be difficult. Just enforce dynamic type checks at boundaries. A TypeScript compiler could be customized to inject this.</p>
-<h3 id="can-we-break-thread-safety-in-the-language-3">Can we break thread-safety in the language?</h3>
-<p>Yes, either with the scheduling of <code>Promise</code> (which form logical threads) or with that of Workers (which are backed by OS threads or processes).</p>
-<h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-3">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>As in Python, very likely feasible, at the expense of most of the existing ecosystem.</p>
-<h2 id="typescript">TypeScript</h2>
-<h3 id="can-we-break-write-safety-in-the-language-4">Can we break write-safety in the language?</h3>
-<p>Yes, exactly as in JavaScript.</p>
-<h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-4">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Exactly as in JavaScript.</p>
-<h3 id="can-we-break-read-safety-in-the-language-4">Can we break read-safety in the language?</h3>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-3" class="pagebody-header">
+    How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">My intuition tells me that it wouldn&rsquo;t be difficult. Just enforce dynamic type checks at boundaries. A TypeScript compiler could be customized to inject this.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-thread-safety-in-the-language-3" class="pagebody-header">
+    Can we break thread-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, either with the scheduling of <code>Promise</code> (which form logical threads) or with that of Workers (which are backed by OS threads or processes).</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-3" class="pagebody-header">
+    How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">As in Python, very likely feasible, at the expense of most of the existing ecosystem.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="typescript" class="pagebody-header">
+    TypeScript
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-write-safety-in-the-language-4" class="pagebody-header">
+    Can we break write-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, exactly as in JavaScript.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-4" class="pagebody-header">
+    How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">Exactly as in JavaScript.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-read-safety-in-the-language-4" class="pagebody-header">
+    Can we break read-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>Normally, TypeScript&rsquo;s type system makes sure that you cannot pass a <code>BrokenString</code> where a <code>WTFString</code> is expected. However, by default, much of the type system is deactivated. Even at highest settings, all it takes is <code>as any</code> to cast a <code>BrokenString</code> into a <code>WTFString</code>.</li>
 <li>For the rest, exactly as JavaScript.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-4">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I haven&rsquo;t checked in details but this feels fairly easy:</p>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-4" class="pagebody-header">
+    How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">I haven&rsquo;t checked in details but this feels fairly easy:</p>
+<div class="component-content component"><ul>
 <li>Set TypeScript to its highest settings.</li>
 <li>It shouldn&rsquo;t be too hard extend TypeScript to prevent <code>as any</code>.</li>
 <li>Alternatively, each use of <code>as any</code> should be considered an alert that needs a special review to guarantee that it does not break read safety.</li>
-</ul>
-<h3 id="can-we-break-thread-safety-in-the-language-4">Can we break thread-safety in the language?</h3>
-<p>Yes, exactly as in JavaScript.</p>
-<h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-4">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Exactly as in JavaScript.</p>
-<h2 id="ruby">Ruby</h2>
-<p>I&rsquo;m not very familiar with Ruby. It is my understanding that the situation is exactly as in JavaScript.</p>
-<h2 id="java-kotlin-c-without-unsafe-scala-f-ocaml">Java, Kotlin, C# without <code>unsafe</code>, Scala, F#, OCaml</h2>
-<h3 id="can-we-break-write-safety-in-the-language-5">Can we break write-safety in the language?</h3>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-thread-safety-in-the-language-4" class="pagebody-header">
+    Can we break thread-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, exactly as in JavaScript.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-4" class="pagebody-header">
+    How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">Exactly as in JavaScript.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="ruby" class="pagebody-header">
+    Ruby
+  </h2>
+</div><p class="component-content component">I&rsquo;m not very familiar with Ruby. It is my understanding that the situation is exactly as in JavaScript.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="java-kotlin-c-without-unsafe-scala-f-ocaml" class="pagebody-header">
+    Java, Kotlin, C# without <code>unsafe</code>, Scala, F#, OCaml
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-write-safety-in-the-language-5" class="pagebody-header">
+    Can we break write-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>If code calls native code that breaks write-safety, it will break write-safety.</li>
 <li>All these languages support private fields or equivalent, which is good.</li>
 <li>All these languages are protected against writes to arbitrary pointers, which is good.</li>
 <li>All these languages support concurrent writes to non-atomic data, which can break write-safety.</li>
 <li>All these languages support the same callback nightmare as JavaScript.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>I suspect that this is entirely possible. Again, one such policy could be:</p>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5" class="pagebody-header">
+    How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">I suspect that this is entirely possible. Again, one such policy could be:</p>
+<div class="component-content component"><ul>
 <li>Restrict native calls to vetted code. May be difficut to enforce through dependencies.</li>
 <li>Adopt a side-effects free (i.e. functional) programming style.</li>
-</ul>
-<p>As it turns out, Scala, Kotlin, F# and OCaml are designed explicitly to allow this latter point,
+</ul></div>
+<p class="component-content component">As it turns out, Scala, Kotlin, F# and OCaml are designed explicitly to allow this latter point,
 while Java and C# have progressively gained the features necessary to support this.</p>
-<p>Again, this would require throwing away most of the ecosystem and standard library,
+<p class="component-content component">Again, this would require throwing away most of the ecosystem and standard library,
 something that may involve some pushback.</p>
-<p>There may of course be some larger subsets that remain write-safe.</p>
-<p>Alternatively, there are model-checking and other formal analysis
+<p class="component-content component">There may of course be some larger subsets that remain write-safe.</p>
+<p class="component-content component">Alternatively, there are model-checking and other formal analysis
 tools for some of these languages, which may help.</p>
-<h3 id="can-we-break-read-safety-in-the-language-5">Can we break read-safety in the language?</h3>
-<ul>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-read-safety-in-the-language-5" class="pagebody-header">
+    Can we break read-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>If code calls native code that breaks read-safety, it will break read-safety.</li>
 <li>All these languages are protected against reads from arbitrary pointers, which is good.</li>
 <li>All these languages are protected against arbitrary casts, which is good.</li>
 <li>All these languages support concurrent read/write to non-atomic data, which can break read-safety.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>The ideas exposed in the write-safe subset would basically work.</p>
-<h3 id="can-we-break-thread-safety-in-the-language-5">Can we break thread-safety in the language?</h3>
-<p>Yes, exactly as in C or C++.</p>
-<h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>As in C++, adopting a concurrent functional programming approach would work. This has been demonstrated for OCaml with Camlp3l and Skelml.</p>
-<h2 id="rust">Rust</h2>
-<h3 id="can-we-break-write-safety-in-the-language-6">Can we break write-safety in the language?</h3>
-<ul>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5" class="pagebody-header">
+    How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">The ideas exposed in the write-safe subset would basically work.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-thread-safety-in-the-language-5" class="pagebody-header">
+    Can we break thread-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes, exactly as in C or C++.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-5" class="pagebody-header">
+    How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">As in C++, adopting a concurrent functional programming approach would work. This has been demonstrated for OCaml with Camlp3l and Skelml.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="rust" class="pagebody-header">
+    Rust
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-write-safety-in-the-language-6" class="pagebody-header">
+    Can we break write-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>If code calls native code that breaks write-safety, it will break write-safety. This requires the keyword <code>unsafe</code>.</li>
 <li>Rust supports private fields, which is good.</li>
 <li>Out of the box, Rust does not support writes to arbitrary pointers. Entering <code>unsafe</code> mode allows it and is strongly discouraged.</li>
 <li>Out of the box, Rust does not support concurrent writes to non-atomic data. Entering <code>unsafe</code> mode allows it and is strongly discouraged.</li>
 <li>Out of the box, Rust does not support side-effects on the data, which avoids the callback nightmare of JavaScript. Entering <code>unsafe</code> mode allows it and is strongly discouraged.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6">How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Option 1: Don&rsquo;t use <code>unsafe</code>. Most of the code I have seen or written in Rust doesn&rsquo;t use <code>unsafe</code>, it&rsquo;s not particularly constraining.</p>
-<p>Option 2: If you absolutely must use <code>unsafe</code>, make sure that it does not break write-safety, as recommended by the official documentation.
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-write-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6" class="pagebody-header">
+    How hard is it to isolate a write-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">Option 1: Don&rsquo;t use <code>unsafe</code>. Most of the code I have seen or written in Rust doesn&rsquo;t use <code>unsafe</code>, it&rsquo;s not particularly constraining.</p>
+<p class="component-content component">Option 2: If you absolutely must use <code>unsafe</code>, make sure that it does not break write-safety, as recommended by the official documentation.
 - No, really, review them again. Re-read the Rustonomicon. Have them reviewed by a second and a third person. Ideally, they can even suggest a way to remove that use of <code>unsafe</code>.</p>
-<p>In either case, restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
-<p>And&hellip; that&rsquo;s it? From our list, despite having a strong functional programming core, Rust is the only language that has a clear write-safe subset that does not require developers to switch to functional programming.</p>
-<p>Alternatively, there are also several model-checkers for Rust.</p>
-<h3 id="can-we-break-read-safety-in-the-language-6">Can we break read-safety in the language?</h3>
-<ul>
+<p class="component-content component">In either case, restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
+<p class="component-content component">And&hellip; that&rsquo;s it? From our list, despite having a strong functional programming core, Rust is the only language that has a clear write-safe subset that does not require developers to switch to functional programming.</p>
+<p class="component-content component">Alternatively, there are also several model-checkers for Rust.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-read-safety-in-the-language-6" class="pagebody-header">
+    Can we break read-safety in the language?
+  </h3>
+</div><div class="component-content component"><ul>
 <li>If code calls native code that breaks read-safety, it will break read-safety. This requires the keyword <code>unsafe</code>.</li>
 <li>Out of the box, Rust does not support reads from arbitrary pointers. Entering <code>unsafe</code> mode allows it and is strongly discouraged.</li>
 <li>Out of the box, Rust does not support concurrent read/writes to non-atomic data. Entering <code>unsafe</code> mode allows it and is strongly discouraged.</li>
 <li>Out of the box, Rust does not support arbitrary casts. Entering <code>unsafe</code> mode allows it and is strongly discouraged.</li>
-</ul>
-<h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6">How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Option 1: Don&rsquo;t use <code>unsafe</code>. Really. The only times I&rsquo;ve had to use <code>unsafe</code> in production code was when writing a new kind of Mutex and I had a proof at hand that it didn&rsquo;t break any invariant.</p>
-<p>Option 2: If you absolutely must use <code>unsafe</code>, review every site to ensure that it does not break write-safety. This is strongly encouraged by the recommendations.
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-read-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6" class="pagebody-header">
+    How hard is it to isolate a read-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">Option 1: Don&rsquo;t use <code>unsafe</code>. Really. The only times I&rsquo;ve had to use <code>unsafe</code> in production code was when writing a new kind of Mutex and I had a proof at hand that it didn&rsquo;t break any invariant.</p>
+<p class="component-content component">Option 2: If you absolutely must use <code>unsafe</code>, review every site to ensure that it does not break write-safety. This is strongly encouraged by the recommendations.
 - Then review them some more. Add assertions around them. Try to eliminate them.</p>
-<p>In either case, restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
-<p>And that&rsquo;s it. No need to switch to functional programming.</p>
-<p>Alternatively, there are also several model-checkers for Rust.</p>
-<h3 id="can-we-break-thread-safety-in-the-language-6">Can we break thread-safety in the language?</h3>
-<p>Yes. It&rsquo;s not as bad as in C, because <code>Sync</code> and <code>Send</code> will reject many breakages, but it remains possible to create deadlocks or livelocks, either with OS threads or with Futures.</p>
-<h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6">How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?</h3>
-<p>Formal methods are very good at detecting deadlocks, livelocks or any other reliance on scheduling, but I don&rsquo;t know that anyone has every tried to attempt this with Rust.</p>
-<p>I have not checked but my hunch is that the following policy would be sufficient:</p>
-<ul>
+<p class="component-content component">In either case, restrict your dependencies to vetted crates/libraries. The Rust toolchain will let you inspect your dependencies.</p>
+<p class="component-content component">And that&rsquo;s it. No need to switch to functional programming.</p>
+<p class="component-content component">Alternatively, there are also several model-checkers for Rust.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="can-we-break-thread-safety-in-the-language-6" class="pagebody-header">
+    Can we break thread-safety in the language?
+  </h3>
+</div><p class="component-content component">Yes. It&rsquo;s not as bad as in C, because <code>Sync</code> and <code>Send</code> will reject many breakages, but it remains possible to create deadlocks or livelocks, either with OS threads or with Futures.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="how-hard-is-it-to-isolate-a-thread-safe-subset-of-the-language-in-which-we-can-still-code-some-useful-applications-6" class="pagebody-header">
+    How hard is it to isolate a thread-safe subset of the language in which we can still code some useful applications?
+  </h3>
+</div><p class="component-content component">Formal methods are very good at detecting deadlocks, livelocks or any other reliance on scheduling, but I don&rsquo;t know that anyone has every tried to attempt this with Rust.</p>
+<p class="component-content component">I have not checked but my hunch is that the following policy would be sufficient:</p>
+<div class="component-content component"><ul>
 <li>avoid any kind of Mutexes &amp; co (semaphores, condition variables, read-write locks, thread partings, &hellip;);</li>
 <li>avoid message-passing channels.</li>
-</ul>
-<p>This severely restricts our ability to write concurrent code, but doesn&rsquo;t suppress it, as scoped threads remain usable. Additionally, this would be easy to enforce with a Clippy lint. As it turns out, this is pretty much a form of functional concurrent programming.</p>
-<p>There may be larger subsets that are safe.</p>
-<h2 id="other-languages">Other languages?</h2>
-<p>I&rsquo;d love to add Ada, Circle, Go, Haskell, Idris, Zig and others. But I think that this post is long enough, isn&rsquo;t it?</p>
-<h1 id="so-whats-the-safest-language-whats-the-most-secure-language">So, what&rsquo;s the safest language? What&rsquo;s the most secure language?</h1>
-<p>As expressed above, this depends on your spec or invariants and on your threat model. There is no absolute answer.</p>
-<h1 id="but-rust-is-the-safest-right">But Rust is the safest, right?</h1>
-<p>Out of the box, Rust provides a pretty good baseline level. But in practice, any evaluation needs to take into account your spec or invariants and your threat model. So it&rsquo;s entirely possible that other languages will behave better against some specs and thread models.</p>
-<p>In particular, I wouldn&rsquo;t be surprised if Ada, Haskell or Idris provided an even better baseline at safety than Rust.</p>
-<h1 id="what-about-statistics">What about statistics?</h1>
-<p>Oh, right, I forgot something. Researchers have attempted to draw statistics about language safety and security.</p>
-<p>Apparently, there is somewhere a list of <a href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVEs</a> classified by programming language. I will admit that I have been to lazy to look for it seriously. I expect that C and C++ are somewhere at the head of the list but that by itself doesn&rsquo;t actually mean anything, since Linux (C), BSD (C), MySQL (C), Sqlite (C), Postgres (C), Chromium (C++), Firefox (C++) and a few others are both highly monitored by their communities (including the part of the NSA that helps with protection) and targeted by attackers. As ChatGPT grows in use, I expect that Python will rise in the ranks, but that also won&rsquo;t mean anything conclusive, for the same reasons.</p>
-<p>Now, Microsoft has also published a <a href="https://raw.githubusercontent.com/microsoft/MSRC-Security-Research/master/presentations/2019_02_BlueHatIL/2019_01%20-%20BlueHatIL%20-%20Trends%2C%20challenge%2C%20and%20shifts%20in%20software%20vulnerability%20mitigation.pdf">summary</a> of vulnerabilities fixed in their products. This is, again, heavily biased, because Microsoft develops almost everything in C++. However, Microsoft&rsquo;s conclusion is that ~70% of the vulnerabilities are due to memory corruptions, which these days are prevented by default by every language other than C and C++. Apparently, the statistics are similar in <a href="https://www.chromium.org/Home/chromium-security/memory-safety/">Chromium</a> and in <a href="https://langui.sh/2021/12/13/apple-memory-safety/">Apple products</a>.</p>
-<p>To emphasize</p>
+</ul></div>
+<p class="component-content component">This severely restricts our ability to write concurrent code, but doesn&rsquo;t suppress it, as scoped threads remain usable. Additionally, this would be easy to enforce with a Clippy lint. As it turns out, this is pretty much a form of functional concurrent programming.</p>
+<p class="component-content component">There may be larger subsets that are safe.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="other-languages" class="pagebody-header">
+    Other languages?
+  </h2>
+</div><p class="component-content component">I&rsquo;d love to add Ada, Circle, Go, Haskell, Idris, Zig and others. But I think that this post is long enough, isn&rsquo;t it?</p>
+
+<div class="component-content pagebody component">
+  <h1 id="so-whats-the-safest-language-whats-the-most-secure-language" class="pagebody-header">
+    So, what&rsquo;s the safest language? What&rsquo;s the most secure language?
+  </h1>
+</div><p class="component-content component">As expressed above, this depends on your spec or invariants and on your threat model. There is no absolute answer.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="but-rust-is-the-safest-right" class="pagebody-header">
+    But Rust is the safest, right?
+  </h1>
+</div><p class="component-content component">Out of the box, Rust provides a pretty good baseline level. But in practice, any evaluation needs to take into account your spec or invariants and your threat model. So it&rsquo;s entirely possible that other languages will behave better against some specs and thread models.</p>
+<p class="component-content component">In particular, I wouldn&rsquo;t be surprised if Ada, Haskell or Idris provided an even better baseline at safety than Rust.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="what-about-statistics" class="pagebody-header">
+    What about statistics?
+  </h1>
+</div><p class="component-content component">Oh, right, I forgot something. Researchers have attempted to draw statistics about language safety and security.</p>
+<p class="component-content component">Apparently, there is somewhere a list of <a href="https://en.wikipedia.org/wiki/Common_Vulnerabilities_and_Exposures">CVEs</a> classified by programming language. I will admit that I have been to lazy to look for it seriously. I expect that C and C++ are somewhere at the head of the list but that by itself doesn&rsquo;t actually mean anything, since Linux (C), BSD (C), MySQL (C), Sqlite (C), Postgres (C), Chromium (C++), Firefox (C++) and a few others are both highly monitored by their communities (including the part of the NSA that helps with protection) and targeted by attackers. As ChatGPT grows in use, I expect that Python will rise in the ranks, but that also won&rsquo;t mean anything conclusive, for the same reasons.</p>
+<p class="component-content component">Now, Microsoft has also published a <a href="https://raw.githubusercontent.com/microsoft/MSRC-Security-Research/master/presentations/2019_02_BlueHatIL/2019_01%20-%20BlueHatIL%20-%20Trends%2C%20challenge%2C%20and%20shifts%20in%20software%20vulnerability%20mitigation.pdf">summary</a> of vulnerabilities fixed in their products. This is, again, heavily biased, because Microsoft develops almost everything in C++. However, Microsoft&rsquo;s conclusion is that ~70% of the vulnerabilities are due to memory corruptions, which these days are prevented by default by every language other than C and C++. Apparently, the statistics are similar in <a href="https://www.chromium.org/Home/chromium-security/memory-safety/">Chromium</a> and in <a href="https://langui.sh/2021/12/13/apple-memory-safety/">Apple products</a>.</p>
+<p class="component-content component">To emphasize</p>
 <blockquote>
-<p>More than 70% of security vulnerabilities spotted by Microsoft, Google and Apple are due to breaking write safety using mechanisms that are available only out of the box only in C and C++.</p>
+<p class="component-content component">More than 70% of security vulnerabilities spotted by Microsoft, Google and Apple are due to breaking write safety using mechanisms that are available only out of the box only in C and C++.</p>
 </blockquote>
-<p>As a reminder, these are developments that involve:</p>
-<ul>
+<p class="component-content component">As a reminder, these are developments that involve:</p>
+<div class="component-content component"><ul>
 <li>C++ developers hired by Microsoft, Google and Apple, companies with a high bar during recruitment;</li>
 <li>some of whom are members of the C++ standardization committee;</li>
 <li>writing code that they know is security-critical;</li>
@@ -668,57 +871,66 @@ tools for some of these languages, which may help.</p>
 <li>with human testers;</li>
 <li>with data-driven investigation mechanisms;</li>
 <li>25+ years of accumulated experience (***).</li>
-</ul>
-<p>(*) I know that both Google and Mozilla are doing this. I&rsquo;m guessing that Microsoft and Apple are, too.</p>
-<p>(**) Probably not in all applications.</p>
-<p>(***) Recall that Chromium team was initially a Firefox development team.</p>
-<p>Is there a conclusion that we can draw? The signs suggest that despite taking inhuman levels of precautions to avoid specifically memory corruptions, these teams fail repeatedly at this specific task. This is a problem of both safety and security. As a member of the PL (and formerly FM) community, my first reflex is to blame the tools involved. To prove that C and/or C++ are to blame, however, one would of course need the opportunity to compare against similar programs, used quite as much in the wild, but written with different programming languages. As far as I know, such a study is currently impossible because there is no code that fulfills all these criteria, so this is un(dis)provable. However, it is clear that <em>if you are using C or C++ for anything security-critical, you are abandoning lots of tools designed to help you achieve memory-safe code and assuming that you can beat both Google, Microsoft, Apple and Mozilla at this game, despite all the assets mentioned above</em>. You are a brave person.</p>
-<p>Mozilla has decided years ago to switch progressively their efforts from C++ to Rust. Google has followed suit first with components of Fuchsia, Android and now Chromium. Microsoft has long ago started investing in Managed C++, C# and more recently in Rust. Apple is progressively moving many developments to Swift. To clarify, none of this means that either Rust or Swift is better than C or C++, only that these companies (and the C or C++ developers pushing for the adoption of Rust and Swift) believe that it is, for some tasks. If the trend continues, we may end up with a comparison between vulnerabilities in C or C++ and Rust or Swift on not just comparable projects but identical ones.</p>
-<p>There has also been <a href="https://cacm.acm.org/magazines/2017/10/221326-a-large-scale-study-of-programming-languages-and-code-quality-in-github/fulltext">at least one attempt</a> to study the safety of a programming language by looking at the number of bug fixes commits vs. non bug fixes commits. Bugs are typically safety violations, whether they are security issues or not. Intuitively, this feels like a valid way to indirectly measure whether there is any unsafety correlated to the use of a language.</p>
-<p>Let me copy their results:</p>
-<p><img src="https://dl.acm.org/cms/attachment/29401a57-a1f3-4b5e-9c64-3dd1637963bd/t6.jpg" alt="From highest to lowest proportion of bugfixes, C++, TypeScript tied to Obj-C, C, PHP, Python, CoffeeScript, JavaScript, Erlang, C#, Java, Perl, Go, Ruby, Scala, Haskell, Clojure"></p>
-<p>Note that this study dates back to 2017. Rust was too young to be in the list. Since Rust and Scala have pretty close safety guarantees, I would imagine that Rust would feature somewhere close to Scala in that table, but that&rsquo;s just a hunch from my part. One possible conclusion is that C++, TypeScript, Objective-C, C, PHP, Python code available in the wild seems to contain many bugs. Or it could mean that the developers in these languages just <em>fix</em> more bugs. Or are better at labelling what they&rsquo;re doing as bugfixes. Or that their software has more users, which causes more bugs to be found. It&rsquo;s really hard to be certain.</p>
-<p>There may be something to conclude from the fact that Python lies among the &ldquo;worse than average languages&rdquo; while Ruby which is somewhat similar lies among the &ldquo;better than average languages&rdquo;, but it would take someone smarter than me to figure out what.</p>
-<h1 id="so-what">So what?</h1>
-<p>What what? Oh, do you want me to tell you to use Rust?</p>
-<p>Use whichever language makes sense for your goal, specs and threat model. There are many use cases in which <em>I</em> will be using Rust if I have a choice. But I&rsquo;ll happily use a different tool if it feels appropriate.</p>
-<p>I just hope that this post can help you a bit navigate the constraints and vocabulary of safety and security. And please, please, do not use this for trolling. We&rsquo;re all in this together, attempting to improve the safety and security of our code. We all have things to learn from each other and each other&rsquo;s tools.</p>
-<p>Also, if you feel that I&rsquo;ve made a mistake and misrepresented <code>$(YOUR FAVORITE LANGUAGE)</code>, feel free to drop me a line!</p>
-<p><strong>edit</strong> Lots of feedback, thanks! I keep updating this post.</p></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/types"><span class="tag">Types</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/type-systems"><span class="tag">Type Systems</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/static-analysis"><span class="tag">Static Analysis</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/safety"><span class="tag">Safety</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/security"><span class="tag">Security</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/programming"><span class="tag">Programming</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/programming-languages"><span class="tag">Programming Languages</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/rust"><span class="tag">Rust</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/c&#43;&#43;"><span class="tag">C&#43;&#43;</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>297</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+</ul></div>
+<p class="component-content component">(*) I know that both Google and Mozilla are doing this. I&rsquo;m guessing that Microsoft and Apple are, too.</p>
+<p class="component-content component">(**) Probably not in all applications.</p>
+<p class="component-content component">(***) Recall that Chromium team was initially a Firefox development team.</p>
+<p class="component-content component">Is there a conclusion that we can draw? The signs suggest that despite taking inhuman levels of precautions to avoid specifically memory corruptions, these teams fail repeatedly at this specific task. This is a problem of both safety and security. As a member of the PL (and formerly FM) community, my first reflex is to blame the tools involved. To prove that C and/or C++ are to blame, however, one would of course need the opportunity to compare against similar programs, used quite as much in the wild, but written with different programming languages. As far as I know, such a study is currently impossible because there is no code that fulfills all these criteria, so this is un(dis)provable. However, it is clear that <em>if you are using C or C++ for anything security-critical, you are abandoning lots of tools designed to help you achieve memory-safe code and assuming that you can beat both Google, Microsoft, Apple and Mozilla at this game, despite all the assets mentioned above</em>. You are a brave person.</p>
+<p class="component-content component">Mozilla has decided years ago to switch progressively their efforts from C++ to Rust. Google has followed suit first with components of Fuchsia, Android and now Chromium. Microsoft has long ago started investing in Managed C++, C# and more recently in Rust. Apple is progressively moving many developments to Swift. To clarify, none of this means that either Rust or Swift is better than C or C++, only that these companies (and the C or C++ developers pushing for the adoption of Rust and Swift) believe that it is, for some tasks. If the trend continues, we may end up with a comparison between vulnerabilities in C or C++ and Rust or Swift on not just comparable projects but identical ones.</p>
+<p class="component-content component">There has also been <a href="https://cacm.acm.org/magazines/2017/10/221326-a-large-scale-study-of-programming-languages-and-code-quality-in-github/fulltext">at least one attempt</a> to study the safety of a programming language by looking at the number of bug fixes commits vs. non bug fixes commits. Bugs are typically safety violations, whether they are security issues or not. Intuitively, this feels like a valid way to indirectly measure whether there is any unsafety correlated to the use of a language.</p>
+<p class="component-content component">Let me copy their results:</p>
+<p class="component-content component">
+
+
+
+
+
+
+
+
+<figure class="image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big">  <div class="component-content">
+    <div class="image-sharesheet">
+      <div class="image image-load image-asset image-36e4fbcdd2f9ef1f70059f3b6eff56fc" id="lht36e4fbcdd2f9ef1f70059f3b6eff56fc">
+        <picture  class="picture">
+          <img class="picture-image" data-src="https://dl.acm.org/cms/attachment/29401a57-a1f3-4b5e-9c64-3dd1637963bd/t6.jpg" alt="From highest to lowest proportion of bugfixes, C&#43;&#43;, TypeScript tied to Obj-C, C, PHP, Python, CoffeeScript, JavaScript, Erlang, C#, Java, Perl, Go, Ruby, Scala, Haskell, Clojure"  />
+        </picture>
+      </div>
+    </div>
+    <div class="image-description">
+      <div class="image-caption">
+        From highest to lowest proportion of bugfixes, C&#43;&#43;, TypeScript tied to Obj-C, C, PHP, Python, CoffeeScript, JavaScript, Erlang, C#, Java, Perl, Go, Ruby, Scala, Haskell, Clojure
+      </div>
+    </div>
+  </div>
+</figure>
+</p>
+<p class="component-content component">Note that this study dates back to 2017. Rust was too young to be in the list. Since Rust and Scala have pretty close safety guarantees, I would imagine that Rust would feature somewhere close to Scala in that table, but that&rsquo;s just a hunch from my part. One possible conclusion is that C++, TypeScript, Objective-C, C, PHP, Python code available in the wild seems to contain many bugs. Or it could mean that the developers in these languages just <em>fix</em> more bugs. Or are better at labelling what they&rsquo;re doing as bugfixes. Or that their software has more users, which causes more bugs to be found. It&rsquo;s really hard to be certain.</p>
+<p class="component-content component">There may be something to conclude from the fact that Python lies among the &ldquo;worse than average languages&rdquo; while Ruby which is somewhat similar lies among the &ldquo;better than average languages&rdquo;, but it would take someone smarter than me to figure out what.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="so-what" class="pagebody-header">
+    So what?
+  </h1>
+</div><p class="component-content component">What what? Oh, do you want me to tell you to use Rust?</p>
+<p class="component-content component">Use whichever language makes sense for your goal, specs and threat model. There are many use cases in which <em>I</em> will be using Rust if I have a choice. But I&rsquo;ll happily use a different tool if it feels appropriate.</p>
+<p class="component-content component">I just hope that this post can help you a bit navigate the constraints and vocabulary of safety and security. And please, please, do not use this for trolling. We&rsquo;re all in this together, attempting to improve the safety and security of our code. We all have things to learn from each other and each other&rsquo;s tools.</p>
+<p class="component-content component">Also, if you feel that I&rsquo;ve made a mistake and misrepresented <code>$(YOUR FAVORITE LANGUAGE)</code>, feel free to drop me a line!</p>
+<p class="component-content component"><strong>edit</strong> Lots of feedback, thanks! I keep updating this post.</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David (Yoric) Teller </p>
+                <p class="content">Posted on:  February 3, 2023</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -733,49 +945,51 @@ tools for some of these languages, which may help.</p>
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

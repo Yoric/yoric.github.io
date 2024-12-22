@@ -1,252 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/rust-typestate/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="Typestates in Rust">
+  <meta property="og:description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2018-02-22T15:15:55+01:00">
+    <meta property="article:modified_time" content="2018-03-22T10:00:55+01:00">
+    <meta property="article:tag" content="Rust">
+    <meta property="article:tag" content="Programming Languages">
+    <meta property="article:tag" content="Types">
+<title>Typestates in Rust</title>
 
-  
-  <title>Typestates in Rust</title>
+    <link rel="canonical" href="https://yoric.github.io/post/rust-typestate/">
 
-  
-  
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.
-" />
-
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="Typestates in Rust" />
-    <meta name="twitter:description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Typestates in Rust" />
-  <meta property="og:description" content="A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/rust-typestate/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
-
-
-
-
-<meta name="generator" content="Hugo 0.119.0" />
-
-
-<link rel="canonical" href="https://yoric.github.io/post/rust-typestate/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Typestates in Rust</h1>
-      <p class="post-meta">@David Teller · Feb 22, 2018 · 9 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.</p>
-<h1 id="wait-whats-a-typestate">Wait, what’s a typestate?</h1>
-<p>Consider an object representing a file – let’s call that data structure a <code>MyFile</code>. Before a <code>MyFile</code> is opened, it cannot be read. Once a <code>MyFile</code> is closed, it cannot be read. In between, the file can be read. Typestates are a mechanism to let the type-checker check that you’re not making the following mistakes:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; String {
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        Rust
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">February 22, 2018</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Typestates in Rust</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/rust" class="tag">
+                    Rust
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/programming-languages" class="tag">
+                    programming languages
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/types" class="tag">
+                    types
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="wait-whats-a-typestate" class="pagebody-header">
+    Wait, what’s a typestate?
+  </h1>
+</div><p class="component-content component">Consider an object representing a file – let’s call that data structure a <code>MyFile</code>. Before a <code>MyFile</code> is opened, it cannot be read. Once a <code>MyFile</code> is closed, it cannot be read. In between, the file can be read. Typestates are a mechanism to let the type-checker check that you’re not making the following mistakes:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; String {
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::new(path);
 </span></span><span style="display:flex;"><span>  my_file.open();  <span style="color:#75715e">// Error: this may fail.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> my_file.read_all(); <span style="color:#75715e">// Invalid if `my_file.open()` failed.
@@ -254,29 +167,38 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  my_file.seek(Seek::Start); <span style="color:#75715e">// Error: we have closed `my_file`.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  result
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>In this example, we have made two mistakes:</p>
-<ol>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In this example, we have made two mistakes:</p>
+<div class="component-content component"><ol>
 <li>we have read a file that may not have been opened;</li>
 <li>we have seeked in a file that was already closed.</li>
-</ol>
-<p>In most programming languages, we can easily design the API
+</ol></div>
+<p class="component-content component">In most programming languages, we can easily design the API
 of <code>MyFile</code> to ensure that the first error is impossible,
 simply by throwing an exception when the file fails to open.
 Some standard libraries and frameworks decide to not follow
 this principle for the sake of flexibility, but the capability
 exists in the language itself.</p>
-<p>The second error, however, is much harder to catch. Most
+<p class="component-content component">The second error, however, is much harder to catch. Most
 programming languages support the necessary features to
 make this error hard, typically by closing the file upon
 destruction or at the end of a higher-order function call,
 but the only non-academic language that I know of that
 can actually entirely prevent that error is Rust.</p>
-<h1 id="trivial-typestates-in-rust">Trivial typestates in Rust</h1>
-<p>How do we do this in Rust?</p>
-<p>Well, the simplest way to do it is to introduce sane types
+
+<div class="component-content pagebody component">
+  <h1 id="trivial-typestates-in-rust" class="pagebody-header">
+    Trivial typestates in Rust
+  </h1>
+</div><p class="component-content component">How do we do this in Rust?</p>
+<p class="component-content component">Well, the simplest way to do it is to introduce sane types
 for our operations on <code>MyFile</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> MyFile {
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> MyFile {
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// `open` is the only way of constructing an instance of `MyFile`.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">open</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>MyFile, Error<span style="color:#f92672">&gt;</span> { <span style="color:#f92672">..</span>. }
 </span></span><span style="display:flex;"><span>
@@ -295,9 +217,14 @@ for our operations on <code>MyFile</code>:</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Introduce a destructor to auto-close an instance of `MyFile`
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// if we haven&#39;t closed it yet.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">drop</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self) { <span style="color:#f92672">..</span>. }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Let&rsquo;s rewrite our above example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Let&rsquo;s rewrite our above example:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Note the `?` above. It&#39;s a simple operator that asks
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// the compiler to check whether the operation succeeded.
@@ -315,9 +242,14 @@ for our operations on <code>MyFile</code>:</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>  my_file.seek(Seek::Start)<span style="color:#f92672">?</span>; <span style="color:#75715e">// Error, detected by the compiler
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  result
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>This works even in more complex cases:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This works even in more complex cases:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// As above.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> my_file.read_all()<span style="color:#f92672">?</span>; <span style="color:#75715e">// Valid.
@@ -335,15 +267,20 @@ for our operations on <code>MyFile</code>:</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>The key here is that the Rust type system enforces the fact
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">The key here is that the Rust type system enforces the fact
 that a variable may not be used after having been <strong>moved</strong>.
 In our case, <code>my_file.close()</code> moved the value, effectively
 consuming it.</p>
-<p>Even if we had attempted to hide the variable somewhere
+<p class="component-content component">Even if we had attempted to hide the variable somewhere
 else, and reuse it after the call to <code>my_file.close()</code>,
 we would have been thwarted by the compiler:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// As above.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> my_file <span style="color:#f92672">=</span> MyFile::open(path)<span style="color:#f92672">?</span>;
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> result <span style="color:#f92672">=</span> my_file.read_all()<span style="color:#f92672">?</span>;
@@ -359,10 +296,15 @@ we would have been thwarted by the compiler:</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>Let&rsquo;s try another way to cheat the compiler by making
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Let&rsquo;s try another way to cheat the compiler by making
 the file accessible after it has been closed:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">read_contents_of_file</span>(path: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Path</span>) -&gt; Result<span style="color:#f92672">&lt;</span>String, Error<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> my_shared_file <span style="color:#f92672">=</span> Rc::new(RefCell::new(MyFile::open(path)<span style="color:#f92672">?</span>));
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Here, `my_shared_file` is a shared pointer to a mutable
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// instance of `MyFile`, pretty much as a regular
@@ -394,19 +336,24 @@ the file accessible after it has been closed:</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// If we haven&#39;t closed `my_file`, the destructor will close
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// it now.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>Again, we have been thwarted by the compiler. Indeed, short
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Again, we have been thwarted by the compiler. Indeed, short
 of explicitly going into <code>unsafe</code> mode, we will not be able
 to break the invariant that <code>seek</code> cannot be used after <code>close</code>.</p>
-<p>This example demonstrated the first brick of type states in
+<p class="component-content component">This example demonstrated the first brick of type states in
 Rust: the <strong>typed move operation</strong>. So far, so good. But we are
 only dealing with a trivial case, in which files only have two
 states: <strong>opened</strong> and <strong>closed</strong>.</p>
-<p>Let&rsquo;s see if we can handle more complex cases.</p>
-<h1 id="complex-typestates">Complex typestates</h1>
-<p>Instead of files, let us now consider the following (and admittedly pretty dumb)
+<p class="component-content component">Let&rsquo;s see if we can handle more complex cases.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="complex-typestates" class="pagebody-header">
+    Complex typestates
+  </h1>
+</div><p class="component-content component">Instead of files, let us now consider the following (and admittedly pretty dumb)
 network protocol:</p>
-<ol>
+<div class="component-content component"><ol>
 <li>Sender sends message &ldquo;HELLO&rdquo;.</li>
 <li>Receiver receives message &ldquo;HELLO&rdquo;, responds with message &ldquo;HELLO, YOU&rdquo;.</li>
 <li>Sender receives message &ldquo;HELLO, YOU&rdquo;, responds with random number.</li>
@@ -414,16 +361,20 @@ network protocol:</p>
 <li>Sender receives same number from receiver, responds &ldquo;BYE&rdquo;.</li>
 <li>Receiver receives &ldquo;BYE&rdquo; from sender, responds &ldquo;BYE, YOU&rdquo;.</li>
 <li>Return to 1.</li>
-</ol>
-<p>Any other message is ignored.</p>
-<p>We can design our <code>Sender</code> (and similarly, <code>Receiver</code>) to
+</ol></div>
+<p class="component-content component">Any other message is ignored.</p>
+<p class="component-content component">We can design our <code>Sender</code> (and similarly, <code>Receiver</code>) to
 ensure that operations proceed in the right order. For
 the moment, we don&rsquo;t care about identifying the
 correspondant or the number.</p>
-<p>For this purpose, we&rsquo;ll combine the <strong>typed moves</strong>
+<p class="component-content component">For this purpose, we&rsquo;ll combine the <strong>typed moves</strong>
 with another technique, well known to strongly-typed
 functional programmers, known as <strong>phantom types</strong>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// A series of 0-sized types representing
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">// the state of the sender. The value
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">// is not important, only the type
@@ -506,66 +457,75 @@ functional programmers, known as <strong>phantom types</strong>.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>    <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">try_respond_to_hello_you</span>(<span style="color:#66d9ef">mut</span> self) -&gt; Result<span style="color:#f92672">&lt;</span>Sender<span style="color:#f92672">&lt;</span>SenderReadyToSendHello<span style="color:#f92672">&gt;</span>, Self<span style="color:#f92672">&gt;</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ...
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>With this design, it is clear that the <code>Sender</code> can only follow the protocol:</p>
-<ul>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">With this design, it is clear that the <code>Sender</code> can only follow the protocol:</p>
+<div class="component-content component"><ul>
 <li>from step 1 (<code>SenderReadyToSendHello</code>, it may only go to step 3);</li>
 <li>from step 3 (<code>SenderHasSentHello</code>, it may only stay in step 3 or go to step 5);</li>
 <li>from step 5 (<code>SenderHasSentNumber</code>, it may only stay in step 5 or go back to step 1).</li>
-</ul>
-<p>Any attempt to detract from the protocol will be blocked by the type system.</p>
-<p>If you ever need to work with network protocols, device drivers,
+</ul></div>
+<p class="component-content component">Any attempt to detract from the protocol will be blocked by the type system.</p>
+<p class="component-content component">If you ever need to work with network protocols, device drivers,
 industrial devices with specific safety instructions or OpenGL/DirectX/anything
 else that requires you to perform complex interactions with the hardware,
 you&rsquo;ll probably be happy to have such guarantees!</p>
-<p>Welcome to the world of type states.</p>
-<h1 id="quick-note-beyond-type-states">Quick note: beyond type states</h1>
-<p>By the way, to continue on our network example,
+<p class="component-content component">Welcome to the world of type states.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="quick-note-beyond-type-states" class="pagebody-header">
+    Quick note: beyond type states
+  </h1>
+</div><p class="component-content component">By the way, to continue on our network example,
 what if we wanted to, say, store the number sent by the <code>Server</code> to
 check that the response matched? Well, to do this, we can simply
 store the number on <code>SenderHasSentNumber</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentNumber</span> {
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SenderHasSentNumber</span> {
 </span></span><span style="display:flex;"><span>    number_sent: <span style="color:#66d9ef">u32</span>,
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Once again, the compiler will check that the code only accesses <code>number_sent</code>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Once again, the compiler will check that the code only accesses <code>number_sent</code>
 when the sender is in state <code>SenderHasSentNumber</code>.</p>
-<p>We will lose a (tiny) amount of performance, we the compiler won&rsquo;t be able to
+<p class="component-content component">We will lose a (tiny) amount of performance, we the compiler won&rsquo;t be able to
 optimize the transformation of the <code>Sender</code> between identical representations,
 but that&rsquo;s generally worth it.</p>
-<h1 id="closing-words">Closing words</h1>
-<p>I hope that this quick demonstration has convinced you that the power of Rust
+
+<div class="component-content pagebody component">
+  <h1 id="closing-words" class="pagebody-header">
+    Closing words
+  </h1>
+</div><p class="component-content component">I hope that this quick demonstration has convinced you that the power of Rust
 <strong>typed move</strong>, combined with <strong>phantom types</strong>,
 is a great tool to ensure the safety of your code. It is used
 all around the Rust standard libraries and many well-designed third-party
 libraries.</p>
-<p>For the moment, I am not aware of any other programming language with typed
+<p class="component-content component">For the moment, I am not aware of any other programming language with typed
 move semantics (note: C++ has <em>untyped</em> move semantics), but I imagine that
 other languages will eventually imitate Rust if this feature proves to be
 well-liked. I, for one, couldn&rsquo;t do without :)</p>
-<p><strong>edit</strong> As remarked by Thomas Bracht Laumann Jespersen, a variant of
+<p class="component-content component"><strong>edit</strong> As remarked by Thomas Bracht Laumann Jespersen, a variant of
 this method can also be used to encode session types in Rust. I&rsquo;ll
 let you look at the <a href="https://github.com/Munksgaard/session-types">library</a>
-and the <a href="http://munksgaard.me/papers/laumann-munksgaard-larsen.pdf">paper</a> for more details!</p></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/rust"><span class="tag">Rust</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/programming-languages"><span class="tag">Programming Languages</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/types"><span class="tag">Types</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2077</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+and the <a href="http://munksgaard.me/papers/laumann-munksgaard-larsen.pdf">paper</a> for more details!</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  February 22, 2018</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -580,71 +540,51 @@ and the <a href="http://munksgaard.me/papers/laumann-munksgaard-larsen.pdf">pape
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-          Legacy comment system.
-          <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "il-y-a-du-the-renverse-au-bord-de-la-table" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        
-      
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

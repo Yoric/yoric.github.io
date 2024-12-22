@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>processes on Il y a du thé renversé au bord de la table !</title>
+    <title>Processes on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/processes/</link>
-    <description>Recent content in processes on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Processes on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 08 Oct 2020 12:15:16 +0200</lastBuildDate><atom:link href="https://yoric.github.io/tags/processes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Oct 2020 12:15:16 +0200</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/processes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>about:Mozilla&#39;s blockers and needinfos</title>
       <link>https://yoric.github.io/post/about-blockers/</link>
       <pubDate>Thu, 08 Oct 2020 12:15:16 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/about-blockers/</guid>
-      <description>&lt;p&gt;On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;some great practices that we have at Mozilla and that would deserve to take over the world&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Today, let&amp;rsquo;s talk about what you can do when your work is blocked.&lt;/p&gt;</description>
+      <description>&lt;p&gt;On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;some great practices that we have at Mozilla and that would deserve to take over the world&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Today, let&amp;rsquo;s talk about what you can do when your work is blocked.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -1,315 +1,319 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
-
-  
-  <title>Project Lighthouse: A post-mortem</title>
-
-  
-  
-
-
-
-
-
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
-One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life." />
-
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="Project Lighthouse: A post-mortem" />
-    <meta name="twitter:description" content="A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
-One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life." />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Project Lighthouse: A post-mortem" />
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/post-mortem-lighthouse/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="Project Lighthouse: A post-mortem">
   <meta property="og:description" content="A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment: a bunch of internal non-profit hardware-related startups. One of our main objectives was to determine if we could come up with designs that could help turn the tide against the spyware-riddled and gruyère-level security devices that are currently being offered (or pushed) to unwary users.
-One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life." />
-  <meta property="og:url" content="https://yoric.github.io/post/post-mortem-lighthouse/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
+One of the startups was Project Lighthouse. We tried to provide an affordable, simple and privacy-friendly tool for people suffering from vision impairment and who needed help in their daily life. While Mozilla closed the experiment before we could release anything useful, we still came up with a few nifty ideas. Here is a post-mortem, in the hope that, maybe, someone will be able to succeed where we couldn’t.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2017-02-20T10:44:33+01:00">
+    <meta property="article:modified_time" content="2017-02-20T10:44:33+01:00">
+    <meta property="article:tag" content="Mozilla">
+    <meta property="article:tag" content="Connected Devices">
+    <meta property="article:tag" content="IoT">
+    <meta property="article:tag" content="WoT">
+    <meta property="article:tag" content="Vision-Impaired">
+    <meta property="article:tag" content="Computer Vision">
+<title>Project Lighthouse: A post-mortem</title>
 
+    <link rel="canonical" href="https://yoric.github.io/post/post-mortem-lighthouse/">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
-<meta name="generator" content="Hugo 0.119.0" />
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
-<link rel="canonical" href="https://yoric.github.io/post/post-mortem-lighthouse/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Project Lighthouse: A post-mortem</h1>
-      <p class="post-meta">@David Teller · Feb 20, 2017 · 9 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment:
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        Mozilla
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">February 20, 2017</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Project Lighthouse: A post-mortem</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/mozilla" class="tag">
+                    Mozilla
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/connected-devices" class="tag">
+                    Connected Devices
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/iot" class="tag">
+                    IoT
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/wot" class="tag">
+                    WoT
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/vision-impaired" class="tag">
+                    vision-impaired
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/computer-vision" class="tag">
+                    computer vision
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/opencv" class="tag">
+                    OpenCV
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/raspberry-pi" class="tag">
+                    Raspberry Pi
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/raspbian" class="tag">
+                    Raspbian
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/docker" class="tag">
+                    Docker
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/python" class="tag">
+                    Python
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/c&#43;&#43;" class="tag">
+                    C&#43;&#43;
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/swift" class="tag">
+                    Swift
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/obj-c" class="tag">
+                    Obj-C
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/ios" class="tag">
+                    iOS
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/iphone" class="tag">
+                    iPhone
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/wearable" class="tag">
+                    wearable
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/prototype" class="tag">
+                    prototype
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">A few weeks ago, Mozilla pulled the plug on its Connected Devices Experiment:
 a bunch of internal non-profit hardware-related startups. One of our main
 objectives was to determine if we could come up with designs that could help
 turn the tide against the spyware-riddled and gruyère-level security devices that are
 currently being offered (or pushed) to unwary users.</p>
-<p>One of the startups was <a href="https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse"><strong>Project Lighthouse</strong></a>. We tried to provide an
+<p class="component-content component">One of the startups was <a href="https://wiki.mozilla.org/Connected_Devices/Projects/Project_Lighthouse"><strong>Project Lighthouse</strong></a>. We tried to provide an
 affordable, simple and privacy-friendly tool for people suffering from
 vision impairment and who needed help in their daily life. While Mozilla
 closed the experiment before we could release anything useful, we still came
 up with a few nifty ideas. Here is a post-mortem, in the hope that, maybe,
 someone will be able to succeed where we couldn&rsquo;t.</p>
-<h1 id="the-problems-at-hand">The problems at hand</h1>
-<p>If you suffer from sever enough vision impairment, there are many things that
+
+<div class="component-content pagebody component">
+  <h1 id="the-problems-at-hand" class="pagebody-header">
+    The problems at hand
+  </h1>
+</div><p class="component-content component">If you suffer from sever enough vision impairment, there are many things that
 you can do on your own, but also many things for which you need help. Things
 such as interacting with printed text, with identical-to-the-touch bottles or
 cereal boxes, with the color of your clothes, etc.</p>
-<p>The World Health Organization estimates that there are ~285 millions of
+<p class="component-content component">The World Health Organization estimates that there are ~285 millions of
 vision-impaired people in the world, including ~30 millions who are entirely
 blind. Roughly 85% of them live below poverty level, which means that they
 cannot afford a helper (unless it&rsquo;s a family member), nor an expensive gadget.</p>
-<p>So, how can we help them?</p>
-<h1 id="real-life-text-recognition">Real-life text recognition</h1>
-<p>At first, we considered helping vision-impaired people interact with printed text.
+<p class="component-content component">So, how can we help them?</p>
+
+<div class="component-content pagebody component">
+  <h1 id="real-life-text-recognition" class="pagebody-header">
+    Real-life text recognition
+  </h1>
+</div><p class="component-content component">At first, we considered helping vision-impaired people interact with printed text.
 The general idea was to develop a camera that could read out the text from an
 image, and then iterate on accessibility and form factor.</p>
-<p>I have written in details about the difficulties of the operation in
+<p class="component-content component">I have written in details about the difficulties of the operation in
 <a href="../extracting-text-from-images">another blog entry</a>.</p>
-<p>Among the questions at hand:</p>
-<ul>
+<p class="component-content component">Among the questions at hand:</p>
+<div class="component-content component"><ul>
 <li>is it feasible?</li>
 <li>would such a device need an Internet connection?</li>
 <li>how much CPU/memory would the device need?</li>
 <li>what accuracy could we expect?</li>
 <li>would it be limited to English?</li>
-</ul>
-<h2 id="results">Results</h2>
-<p>We concluded that we could finish implementing a reasonable text extraction
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="results" class="pagebody-header">
+    Results
+  </h2>
+</div><p class="component-content component">We concluded that we could finish implementing a reasonable text extraction
 with a few more weeks of work. This extraction would work just as well if the
 object was held upside-down or in diagonal, and should, in theory, work with
 all the common fonts used for indo-european languages. We suspected that the
 algorithms would need additional work for semitic or asian languages.</p>
-<p>We also realized that the underlying algorithms relied upon a number of magic
+<p class="component-content component">We also realized that the underlying algorithms relied upon a number of magic
 constants (e.g. contrast) and that we would need additional work to tune these
 constants to actual use cases. We could not rely upon stock pictures, for
 instance, as we could expect that vision-impaired users would not be sensitive
 the lighting conditions, or shadows or the framing in the same manner as
 professional or even casual photographers. It was not clear how we could capture
 a sample sufficiently large to extract relevant constants.</p>
-<p>We benchmarked that text extraction needed lots of CPU, so would probably rely
+<p class="component-content component">We benchmarked that text extraction needed lots of CPU, so would probably rely
 either upon a cloud service (bad for privacy, expensive for many users) or upon
 a beefy cellphone (expensive for many users).</p>
-<p>Further, we determined that extraction would be unfeasible when the orientation
+<p class="component-content component">Further, we determined that extraction would be unfeasible when the orientation
 of a single line of text changed too much, e.g. on round pill bottles, or on
 bags of potato chips.</p>
-<p>Finally, it was clear that extracting texts and recognizing logos were two very
+<p class="component-content component">Finally, it was clear that extracting texts and recognizing logos were two very
 different issues. No amount of text extraction would be able to parse the
 calligraphy of the Coca-Cola logo, or to understand that a &ldquo;G&rdquo; with a specific
 color combination could mean &ldquo;Google&rdquo;, or that &ldquo;moz://a&rdquo; could mean &ldquo;Mozilla&rdquo;.</p>
-<h2 id="conclusions">Conclusions</h2>
-<p>We decided that text extraction should not be the main feature of the device,
+
+<div class="component-content pagebody component">
+  <h2 id="conclusions" class="pagebody-header">
+    Conclusions
+  </h2>
+</div><p class="component-content component">We decided that text extraction should not be the main feature of the device,
 but rather something that we would add at a later stage, probably after logo
 recognition.</p>
-<h1 id="object-tagging">Object tagging</h1>
-<p>A second avenue was helping vision-impaired users interact with objects that
+
+<div class="component-content pagebody component">
+  <h1 id="object-tagging" class="pagebody-header">
+    Object tagging
+  </h1>
+</div><p class="component-content component">A second avenue was helping vision-impaired users interact with objects that
 are difficult to differentiate by touch.</p>
-<p>We envisioned three possible ways to proceed in this direction:</p>
-<ol>
+<p class="component-content component">We envisioned three possible ways to proceed in this direction:</p>
+<div class="component-content component"><ol>
 <li>let the user take pictures of the objects, recognize what the object was;</li>
 <li>let the user take pictures of the objects, record a description (
 &ldquo;noodles, they need to cook 10 minutes&rdquo;,
@@ -317,173 +321,158 @@ are difficult to differentiate by touch.</p>
 to later recognize objects from the internal database;</li>
 <li>let the user take pictures of the objects, record a description, use
 deep learning to later recognize objects from the internal database.</li>
-</ol>
-<p>We decided to avoid 1. for a minimal viable product, as it would require either a large
+</ol></div>
+<p class="component-content component">We decided to avoid 1. for a minimal viable product, as it would require either a large
 database and a cloud service, or reliance upon third-party cloud services,
 which in turn meant:</p>
-<ul>
+<div class="component-content component"><ul>
 <li>dependency on an always-present internet connection;</li>
 <li>many potential privacy issues.</li>
-</ul>
-<p>We also decided to avoid 3. for a minimal viable product, as we did not have
+</ul></div>
+<p class="component-content component">We also decided to avoid 3. for a minimal viable product, as we did not have
 the in-team skills to proceed with deep learning. We meant to return to 3. in
 a relatively close future, though.</p>
-<p>So, we went ahead with option 2. Among the questions at hand:</p>
-<ul>
+<p class="component-content component">So, we went ahead with option 2. Among the questions at hand:</p>
+<div class="component-content component"><ul>
 <li>is it feasible?</li>
 <li>would such a device need an Internet connection?</li>
 <li>how much CPU/memory would the device need?</li>
 <li>what accuracy could we expect?</li>
-</ul>
-<h2 id="results-1">Results</h2>
-<p>After a few weeks of coding, we managed to produce a pretty nice prototype,
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="results-1" class="pagebody-header">
+    Results
+  </h2>
+</div><p class="component-content component">After a few weeks of coding, we managed to produce a pretty nice prototype,
 using a Raspberry Pi, OpenCV and Python. In this limited span of time, we did
 not seriously attempt to resolve issues such as shaky cameras, but otherwise,
 the prototype worked nicely. Recording or finding an object in the database was
 nearly instantaneous (for a database of a dozen recorded objects only), without
 an internet connection, and accuracy was good (we did not attempt to quantify it).</p>
-<p>We needed to come up with a method to let the camera differentiate the object
+<p class="component-content component">We needed to come up with a method to let the camera differentiate the object
 from its background. In the absence of sophisticated stereoscopic cameras, we
 used two tricks:</p>
-<ul>
+<div class="component-content component"><ul>
 <li>ask the user to show the object, then hide it; or</li>
 <li>ask the user to shake the object in from of the camera.</li>
-</ul>
-<p>We tested some of the prototypes with real users, got good feedback
+</ul></div>
+<p class="component-content component">We tested some of the prototypes with real users, got good feedback
 and figured that we could iterate from there. Our prototypes cost ~$50 to build,
 a far cry from the $1,500+ we found for other devices for vision-impaired users.</p>
-<p>Also, other tests with a few fully blind users confirmed that aiming with a
+<p class="component-content component">Also, other tests with a few fully blind users confirmed that aiming with a
 camera was not a problem. There were difficulties with judging distance or
 light, of course, but we expected that these could be mitigated by judicious
 algorithms.</p>
-<p>So, we decided to proceed from this prototype.</p>
-<h1 id="form-factor">Form factor</h1>
-<p>Once we were reasonably convinced that we could come up with a technology to
+<p class="component-content component">So, we decided to proceed from this prototype.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="form-factor" class="pagebody-header">
+    Form factor
+  </h1>
+</div><p class="component-content component">Once we were reasonably convinced that we could come up with a technology to
 make the device work, we started working on the form factor. We came up with
 several ideas:</p>
-<ul>
+<div class="component-content component"><ul>
 <li>a camera in a necklace;</li>
 <li>a camera attached to the user&rsquo;s glasses;</li>
 <li>a camera that could attach to many places, including a supermarket trolley.</li>
-</ul>
-<p>Unfortunately, the project was canceled before we could make much headway in
+</ul></div>
+<p class="component-content component">Unfortunately, the project was canceled before we could make much headway in
 the form factor.</p>
-<p>An important lesson, though, is that going from design to industrial prototype
+<p class="component-content component">An important lesson, though, is that going from design to industrial prototype
 takes lots of time. I do not have hard numbers, as we didn&rsquo;t reach that stage,
 but my personal estimate puts this around <strong>6 months</strong>. Which means that we
 needed a way to test our code and our form factor prototypes with real users.</p>
-<p>We did not get the opportunity to test the form factor, although <a href="how-to-survive.html">I discussed in
+<p class="component-content component">We did not get the opportunity to test the form factor, although <a href="how-to-survive.html">I discussed in
 another post</a> some of the techniques that we could have
 used for this purpose.</p>
-<h1 id="app">App</h1>
-<p>It would have been unrealistic to wait for the industrial prototypes before
+
+<div class="component-content pagebody component">
+  <h1 id="app" class="pagebody-header">
+    App
+  </h1>
+</div><p class="component-content component">It would have been unrealistic to wait for the industrial prototypes before
 proceeding, so we came up with an idea to test our code in parallel with the
 external and industrial design.</p>
-<p>The idea was to port our algorithms to a device that a sufficiently large number
+<p class="component-content component">The idea was to port our algorithms to a device that a sufficiently large number
 of our user base already owned. While developing for Android would have been
 nice, our statistics (US only) showed almost all vision-impaired users who owned
 a smartphone were using iPhones, so we did not have much of a choice. We decided
 to develop an application for iPhone, release it first on Apple&rsquo;s TestFlight
 (for alpha-testers), then the App Store.</p>
-<p>Additionally, we expected that some users who already owned an iPhone could be
+<p class="component-content component">Additionally, we expected that some users who already owned an iPhone could be
 interested in the application, even without an optimal form factor. For other users, we still intended to provide an
 inexpensive full-featured device.</p>
-<h2 id="results-2">Results</h2>
-<p>We managed to port our code relatively easily from Linux to iOS but the project
+
+<div class="component-content pagebody component">
+  <h2 id="results-2" class="pagebody-header">
+    Results
+  </h2>
+</div><p class="component-content component">We managed to port our code relatively easily from Linux to iOS but the project
 was canceled while we were still 1-2 weeks away from a first pre-alpha release,
 an estimated 4-6 weeks before we could go beta.</p>
-<p>Performance was excellent, which is no surprise as iPhones are largely more
+<p class="component-content component">Performance was excellent, which is no surprise as iPhones are largely more
 powerful than Raspberry Pis.</p>
-<p>While population numbers make it clear that iOS was the right platform for early
+<p class="component-content component">While population numbers make it clear that iOS was the right platform for early
 testing and would be the only reasonable target for a smartphone-only application
 for vision-impaired people <em>in the US</em>, we had a terrible experience developing
 for iPhone.</p>
-<p>Since we needed to interact with a C++ library for computer vision, we needed
+<p class="component-content component">Since we needed to interact with a C++ library for computer vision, we needed
 to code in three languages: C++ (for the computer vision), Swift (for the UX)
 and Obj-C++ (the unnatural grandchild of C), with two different threading models
 and three different memory management paradigms (C, C++, Swift/Obj-C). Getting
 to a stage at which we could perform callbacks from C++ to Swift took some
 serious digging and understanding Obj-C++&rsquo;s very <em>interesting</em> memory model.</p>
-<p>The signature mechanism seems to be designed largely to get developers to pay
+<p class="component-content component">The signature mechanism seems to be designed largely to get developers to pay
 (either $99 per developer or $199 per team), which is quite adverse to both
 open-source contributions and to continuous integration. It also makes it
 hard/impossible to distribute binaries for testing, even to your non-developer
 teammates.</p>
-<p>Also, the command-line tools offer now reliable way to launch unit/integration
+<p class="component-content component">Also, the command-line tools offer now reliable way to launch unit/integration
 tests, plus they have breaking syntax changes – these two points contribute to
 making continuous integration needlessly difficult.</p>
-<h1 id="not-tested-crowdsourcing-help">Not tested: Crowdsourcing help</h1>
-<p>One of the features we were considering was a way to crowdsource requests for
+
+<div class="component-content pagebody component">
+  <h1 id="not-tested-crowdsourcing-help" class="pagebody-header">
+    Not tested: Crowdsourcing help
+  </h1>
+</div><p class="component-content component">One of the features we were considering was a way to crowdsource requests for
 assistance. Consider a vision-impaired user with a question that cannot be
 easily answered by a computer: &ldquo;My arm hurts, is there anything strange on it?&rdquo;,
 &ldquo;Does this dress match this hat?&rdquo;, etc. How can we put the user in touch with
 someone willing to help?</p>
-<p>Broadly speaking, our idea was the following:</p>
-<ul>
+<p class="component-content component">Broadly speaking, our idea was the following:</p>
+<div class="component-content component"><ul>
 <li>extend the camera device and application with the ability to record a question;</li>
 <li>develop a web service to gather the questions, their answers, moderation, meta-moderation, &hellip;;</li>
 <li>develop a web application front-end to the web service;</li>
 <li>wrap this web application as smartphone apps and browser add-ons for all major
 browsers, designed so that a user could spend ~5-20 seconds helping whenever they
 felt like it.</li>
-</ul>
-<p>This left many issues unanswered, such as how to avoid spamming users with
+</ul></div>
+<p class="component-content component">This left many issues unanswered, such as how to avoid spamming users with
 inappropriate content, how to handle privacy (&ldquo;I have photographed my credit
 card by accident&rdquo;), etc.</p>
-<p>We only had time for the first paper explorations of the topic, but we
+<p class="component-content component">We only had time for the first paper explorations of the topic, but we
 believed that such an open-source crowdsourcing platform for requesting
 5-20 seconds help could have become very useful for many projects.</p>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/connected-devices"><span class="tag">Connected Devices</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/iot"><span class="tag">IoT</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/wot"><span class="tag">WoT</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/vision-impaired"><span class="tag">Vision-Impaired</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/computer-vision"><span class="tag">Computer Vision</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/opencv"><span class="tag">OpenCV</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/raspberry-pi"><span class="tag">Raspberry Pi</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/raspbian"><span class="tag">Raspbian</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/docker"><span class="tag">Docker</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/python"><span class="tag">Python</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/c&#43;&#43;"><span class="tag">C&#43;&#43;</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/swift"><span class="tag">Swift</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/obj-c"><span class="tag">Obj-C</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/ios"><span class="tag">IOS</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/iphone"><span class="tag">IPhone</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/wearable"><span class="tag">Wearable</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/prototype"><span class="tag">Prototype</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2472</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:   </p>
+                <p class="content">Posted on:  February 20, 2017</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -498,49 +487,51 @@ believed that such an open-source crowdsourcing platform for requesting
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

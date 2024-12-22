@@ -1,100 +1,61 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>open-source on Il y a du thé renversé au bord de la table !</title>
+    <title>Open-Source on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/open-source/</link>
-    <description>Recent content in open-source on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Open-Source on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Wed, 01 Nov 2023 15:51:13 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Nov 2023 15:51:13 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/open-source/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coding for a Finite World</title>
       <link>https://yoric.github.io/post/coding-for-a-finite-world/</link>
       <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/coding-for-a-finite-world/</guid>
-      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;
-&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;
-&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;
-&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;
-&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;
-&lt;p&gt;Also, the world is burning.&lt;/p&gt;
-&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
+      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;&#xA;&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;&#xA;&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;&#xA;&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;&#xA;&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;&#xA;&lt;p&gt;Also, the world is burning.&lt;/p&gt;&#xA;&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Moderated Federated Networks might actually be what we need - part 1</title>
       <link>https://yoric.github.io/post/federated-moderation-is-hard/</link>
       <pubDate>Thu, 15 Dec 2022 07:43:54 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/federated-moderation-is-hard/</guid>
-      <description>&lt;p&gt;Among the many &lt;em&gt;interesting&lt;/em&gt; moments of this ending year 2022, we have had the chance of
-seeing the Twitter/Musk experiment unfold. I won&amp;rsquo;t spend time rehashing the many twists
-of this experiment, just a moment to offer the best wishes to all who work or worked at
-Twitter, in particular those being offered as scapegoats for the many sins of the C-suit,
-both past and present.&lt;/p&gt;
-&lt;p&gt;What I&amp;rsquo;m going to spend time on is moderation. If we listen to the official discourse, this
-entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid
-experiment, the number of users on Federated Networks such as Matrix and Mastodon has never
-been so high. And Twitter, both past and present, has been a permanent demonstration that
-moderation is hard. So&amp;hellip; what does it change to moderate a Federated Network?&lt;/p&gt;
-&lt;p&gt;Spoiler alert: it&amp;rsquo;s harder, but not impossible.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Among the many &lt;em&gt;interesting&lt;/em&gt; moments of this ending year 2022, we have had the chance of&#xA;seeing the Twitter/Musk experiment unfold. I won&amp;rsquo;t spend time rehashing the many twists&#xA;of this experiment, just a moment to offer the best wishes to all who work or worked at&#xA;Twitter, in particular those being offered as scapegoats for the many sins of the C-suit,&#xA;both past and present.&lt;/p&gt;&#xA;&lt;p&gt;What I&amp;rsquo;m going to spend time on is moderation. If we listen to the official discourse, this&#xA;entire Twitter/Musk experiment is about moderation. Also, as a direct consequence of aid&#xA;experiment, the number of users on Federated Networks such as Matrix and Mastodon has never&#xA;been so high. And Twitter, both past and present, has been a permanent demonstration that&#xA;moderation is hard. So&amp;hellip; what does it change to moderate a Federated Network?&lt;/p&gt;&#xA;&lt;p&gt;Spoiler alert: it&amp;rsquo;s harder, but not impossible.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>yoric.steps.next()</title>
       <link>https://yoric.github.io/post/yoric-step-next/</link>
       <pubDate>Mon, 26 Oct 2020 16:33:46 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/yoric-step-next/</guid>
-      <description>&lt;p&gt;The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.&lt;/p&gt;
-&lt;p&gt;The creators of the Matrix protocol have recently published &lt;a href=&#34;https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors&#34;&gt;the most promising plan I have seen&lt;/a&gt;. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.&lt;/p&gt;
-&lt;p&gt;I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at &lt;a href=&#34;https://mozilla.org&#34;&gt;Mozilla&lt;/a&gt;, I&amp;rsquo;ll be moving to &lt;a href=&#34;https://element.io&#34;&gt;Element&lt;/a&gt;, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.&lt;/p&gt;</description>
+      <description>&lt;p&gt;The web is getting darker. It is being weaponized by trolls, bullies and bad actors and, as we&amp;rsquo;ve witnessed, this can have extremely grave consequences for individuals, groups, sometimes entire countries. So far, most of the counter-measures proposed by either governments or private actors are even scarier.&lt;/p&gt;&#xA;&lt;p&gt;The creators of the Matrix protocol have recently published &lt;a href=&#34;https://matrix.org/blog/2020/10/19/combating-abuse-in-matrix-without-backdoors&#34;&gt;the most promising plan I have seen&lt;/a&gt;. One that I believe stands a chance of making real headway in this fight, while respecting openness, decentralization, open-source and privacy.&lt;/p&gt;&#xA;&lt;p&gt;I have been offered the opportunity to work on this plan. For this reason, after 9 years as an employee at &lt;a href=&#34;https://mozilla.org&#34;&gt;Mozilla&lt;/a&gt;, I&amp;rsquo;ll be moving to &lt;a href=&#34;https://element.io&#34;&gt;Element&lt;/a&gt;, where I&amp;rsquo;ll try and contribute to making the web a better place. My last day at Mozilla will be October 30th.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>about:Mozilla&#39;s blockers and needinfos</title>
       <link>https://yoric.github.io/post/about-blockers/</link>
       <pubDate>Thu, 08 Oct 2020 12:15:16 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/about-blockers/</guid>
-      <description>&lt;p&gt;On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;some great practices that we have at Mozilla and that would deserve to take over the world&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Today, let&amp;rsquo;s talk about what you can do when your work is blocked.&lt;/p&gt;</description>
+      <description>&lt;p&gt;On this rainy october day (well, at least it rains where I&amp;rsquo;m writing this) of the great year 2020, let&amp;rsquo;s take another few minutes to reflect on &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;some great practices that we have at Mozilla and that would deserve to take over the world&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Today, let&amp;rsquo;s talk about what you can do when your work is blocked.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>about:Mozilla&#39;s #introduction channel - and how it could work for your project</title>
       <link>https://yoric.github.io/post/about-introduction/</link>
       <pubDate>Tue, 06 Oct 2020 11:06:16 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/about-introduction/</guid>
-      <description>&lt;p&gt;Let&amp;rsquo;s continue &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;this series&lt;/a&gt; on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.&lt;/p&gt;
-&lt;p&gt;This time, let&amp;rsquo;s talk about &lt;a href=&#34;https://chat.mozilla.org/#/room/#introduction:mozilla.org&#34;&gt;Mozilla&amp;rsquo;s &lt;code&gt;#introduction&lt;/code&gt; chatroom&lt;/a&gt;.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Let&amp;rsquo;s continue &lt;a href=&#34;https://yoric.github.io/tags/mozgreatstuff/&#34;&gt;this series&lt;/a&gt; on some of the great practices that we have at Mozilla and that your project may wish to adopt, too.&lt;/p&gt;&#xA;&lt;p&gt;This time, let&amp;rsquo;s talk about &lt;a href=&#34;https://chat.mozilla.org/#/room/#introduction:mozilla.org&#34;&gt;Mozilla&amp;rsquo;s &lt;code&gt;#introduction&lt;/code&gt; chatroom&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>about:Mozilla&#39;s Mentored Bugs - and how it could work for your project</title>
       <link>https://yoric.github.io/post/moz-great-stuff/</link>
       <pubDate>Fri, 02 Oct 2020 13:44:16 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/moz-great-stuff/</guid>
-      <description>&lt;p&gt;2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.&lt;/p&gt;
-&lt;p&gt;At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.&lt;/p&gt;
-&lt;p&gt;This is where &lt;strong&gt;Mentored Bugs&lt;/strong&gt; come in.&lt;/p&gt;</description>
+      <description>&lt;p&gt;2020 is a crappy year for pretty much everyone. As you may have seen, this includes organizations such as Mozilla. So I figured it was the best time to actually talk about good stuff! This entry should be the first of a series of short articles dedicated to some great practices we have at Mozilla and that I think many open-source projects could adopt.&lt;/p&gt;&#xA;&lt;p&gt;At its core, Mozilla is a community of open-source enthusiasts. When you&amp;rsquo;re new to an open-source community and you wish to start contributing somewhere, finding an entry point is often difficult.&lt;/p&gt;&#xA;&lt;p&gt;This is where &lt;strong&gt;Mentored Bugs&lt;/strong&gt; come in.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Extracting text from images is not easy (who would have guessed?)</title>
       <link>https://yoric.github.io/post/extracting-text-from-images/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/extracting-text-from-images/</guid>
-      <description>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
-From there, we started a number of experiments. I figured out it was time to braindump some of them.
-Our problem Consider the following example:
-How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.</description>
+      <description>&lt;p&gt;At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision&#xA;disabilities?&lt;/p&gt;&#xA;&lt;p&gt;From there, we started a number of experiments. I figured out it was time to&#xA;braindump some of them.&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h2 id=&#34;our-problem&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    Our problem&#xA;  &lt;/h2&gt;&#xA;&lt;/div&gt;&lt;p&gt;Consider the following example:&lt;/p&gt;&#xA;&lt;p&gt;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&lt;figure class=&#34;image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big&#34;&gt;  &lt;div class=&#34;component-content&#34;&gt;&#xA;    &lt;div class=&#34;image-sharesheet&#34;&gt;&#xA;      &lt;div class=&#34;image image-load image-asset image-ebfe30a8b74539a7f6c2f49a4bb92033&#34; id=&#34;lhtebfe30a8b74539a7f6c2f49a4bb92033&#34;&gt;&#xA;        &lt;picture  class=&#34;picture&#34;&gt;&#xA;          &lt;img class=&#34;picture-image&#34; data-src=&#34;https://cloud.githubusercontent.com/assets/10190/18631303/80cce95a-7e71-11e6-8a4e-bed542e6e7bb.png&#34; alt=&#34;&#34;  /&gt;&#xA;        &lt;/picture&gt;&#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div class=&#34;image-description&#34;&gt;&#xA;      &lt;div class=&#34;image-caption&#34;&gt;&#xA;        &#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/figure&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.99&amp;rdquo;, &amp;ldquo;Super livres&amp;rdquo;, &amp;ldquo;Super prix&amp;rdquo;? That&amp;rsquo;s Canadian dollars, if you wonder.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

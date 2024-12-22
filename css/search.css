@@ -1,0 +1,21 @@
+#modal-wrapper{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(25,25,25,0.3);
+  z-index: 999;
+  backdrop-filter: blur(5px);
+}
+
+.modal-body{
+  width: 50%;
+  transform: translateX(50%);
+  margin-top: 10vh;
+}
+
+.aa-Panel{
+  position: fixed !important;
+  z-index: 999;
+}

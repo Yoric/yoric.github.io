@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
+
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/rust-refinement-types/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="What would it take to add refinement types to Rust?">
+  <meta property="og:description" content="A few years ago, on a whim, I wrote YAIOUOM. YAOIOUM was a static analyzer for Rust that checked that the code was using units of measures correctly, e.g. a distance in meters is not a distance in centimeters, dividing meters by seconds gave you a value in m / s (aka m * s^-1).
+YAIOUOM was an example of a refinement type system, i.e. a type system that does its work after another type system has already done its work. It was purely static, users could add new units in about one line of code, and it was actually surprisingly easy to write. It also couldn’t be written within the Rust type system, in part because I wanted legible error messages, and in part because Rust doesn’t offer a very good way to specify that (m / s) * s is actually the same type as m.
+Sadly, it also worked only on a specific version of Rust Nightly, and the code broke down with every new version of Rust. It’s a shame, because I believe that there’s lots we could do with refinement types. Simple things such as units of measure, as above, but also, I suspect, we could achieve much better error messages for complex type-level programming, such as what Diesel is doing.
+It got me to wonder how we could extend Rust in such a way that refinement types could be easily added to the language.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-12-22T20:00:47+01:00">
+    <meta property="article:modified_time" content="2024-12-22T20:00:47+01:00">
+    <meta property="article:tag" content="Rust">
+    <meta property="article:tag" content="Compilers">
+    <meta property="article:tag" content="Type Systems">
+    <meta property="article:tag" content="Mozilla">
+<title>What would it take to add refinement types to Rust?</title>
+
+    <link rel="canonical" href="https://yoric.github.io/post/rust-refinement-types/">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
+
+    
+    
+
+</head>
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
+    </header>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        rust
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">December 22, 2024</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">What would it take to add refinement types to Rust?</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/rust" class="tag">
+                    rust
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/compilers" class="tag">
+                    compilers
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/type-systems" class="tag">
+                    type systems
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/mozilla" class="tag">
+                    mozilla
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">A few years ago, on a whim, I wrote <a href="https://yoric.github.io/post/uom.rs/">YAIOUOM</a>. YAOIOUM was a static analyzer for Rust that checked that the code
+was using units of measures correctly, e.g. a distance in meters is not a distance in centimeters, dividing meters
+by seconds gave you a value in <code>m / s</code> (aka <code>m * s^-1</code>).</p>
+<p class="component-content component">YAIOUOM was an example of a <em>refinement type system</em>, i.e. a type system that does its work after another type
+system has already done its work. It was purely static, users could add new units in about
+one line of code, and it was actually surprisingly easy to write. It also couldn&rsquo;t be written within the Rust
+type system, in part because I wanted legible error messages, and in part because Rust doesn&rsquo;t offer a very
+good way to specify that <code>(m / s) * s</code> is actually the same type as <code>m</code>.</p>
+<p class="component-content component">Sadly, it also worked only on a specific version of Rust Nightly, and the code broke down with every new version
+of Rust. It&rsquo;s a shame, because I believe that there&rsquo;s lots we could do with refinement types. Simple things such
+as units of measure, as above, but also, I suspect, we could achieve much better error messages for complex
+type-level programming, such as what Diesel is doing.</p>
+<p class="component-content component">It got me to wonder how we could extend Rust in such a way that refinement types could be easily added
+to the language.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="starting-with-rusts-type-system" class="pagebody-header">
+    Starting with Rust&rsquo;s type system
+  </h1>
+</div><p class="component-content component">As I&rsquo;ve already implemented one refinement type system for Rust, I&rsquo;ll use it as a benchmark of features that would be needed to let us implement this in Rust.</p>
+<p class="component-content component">Let&rsquo;s assume that we have defined the types <code>Value</code>, <code>Unit</code>, <code>Meter</code>, <code>Second</code> to make the following possible:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Value</span><span style="color:#f92672">&lt;</span>T, U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">where</span> U: <span style="color:#a6e22e">Unit</span> { <span style="color:#f92672">..</span>. }; <span style="color:#75715e">// a value of type T (e.g. f64) with a unit of type U
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> Value::<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span>, Meter<span style="color:#f92672">&gt;</span>::new(<span style="color:#ae81ff">9.81</span>); <span style="color:#75715e">// f64 Meter aka Value&lt;f64, Meter&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> Value::<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span>, Second<span style="color:#f92672">&gt;</span>::new(<span style="color:#ae81ff">1.0</span>); <span style="color:#75715e">// f64 Second aka Value&lt;f64, Second&gt;
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Furthermore, we have defined operations <code>std::ops::Add</code> and <code>std::ops::Sub</code> in such a way that we can write</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> b <span style="color:#f92672">+</span> b; <span style="color:#75715e">// f64 Second aka Value&lt;f64, Second&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> d <span style="color:#f92672">=</span> b <span style="color:#f92672">-</span> b; <span style="color:#75715e">// f64 Second aka Value&lt;f64, Second&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> _ <span style="color:#f92672">=</span> a <span style="color:#f92672">-</span> b; <span style="color:#75715e">// Error: cannot subtract `Value&lt;f64, Second&gt;` from `Value&lt;f64, Meter&gt;`
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Multiplication and division are a bit more complicated, because they introduce new units, so let&rsquo;s further assume
+that we have defined <code>std::ops::Mul</code>, <code>std::ops::Div</code> and two <code>Unit</code> combinators <code>Mul&lt;Left, Right&gt;</code> and <code>Div&lt;Left, Right&gt;</code>
+in such a way that we can write</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> g <span style="color:#f92672">=</span> a <span style="color:#f92672">/</span> (b <span style="color:#f92672">*</span> b); <span style="color:#75715e">// f64 Meter / (Second * Second) aka Value&lt;f64, Div&lt;Meter, Mul&lt;Second, Second&gt;&gt;&gt;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> h <span style="color:#f92672">=</span> a <span style="color:#f92672">/</span> b <span style="color:#f92672">/</span> b;   <span style="color:#75715e">// f64 Meter / (Second * Second) aka Value&lt;f64, Div&lt;Div&lt;Meter, Second&gt;, Second&gt;&gt;
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">So far, so good. Unless you want to compare <code>g</code> and <code>h</code>:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> diff <span style="color:#f92672">=</span> g <span style="color:#f92672">-</span> h; <span style="color:#75715e">// Error: cannot subtract `Value&lt;f64, Div&lt;Div&lt;Meter, Second&gt;, Second&gt;&gt;` from `Value&lt;f64, Div&lt;Meter, Mul&lt;Second, Second&gt;&gt;&gt;`
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">which is a shame, because <code>g</code> and <code>h</code> represent the same value and <code>Div&lt;Div&lt;Meter, Second&gt;, Second&gt;&gt;</code> and <code>Div&lt;Meter, Mul&lt;Second, Second&gt;&gt;</code> represent the same unit of measure.</p>
+<p class="component-content component">Perhaps we could be smarter about it?</p>
+<p class="component-content component">In the above encoding, we have used a definition of <code>-</code> with a type signature</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>V, U<span style="color:#f92672">&gt;</span> std::ops::Sub <span style="color:#66d9ef">for</span> Value<span style="color:#f92672">&lt;</span>V, U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">where</span> V: <span style="color:#a6e22e">std</span>::ops::Sub {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Output</span> <span style="color:#f92672">=</span> Value<span style="color:#f92672">&lt;&lt;</span>V <span style="color:#66d9ef">as</span> std::ops::Sub<span style="color:#f92672">&gt;</span>::Output, U<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">i.e.</p>
+<blockquote>
+<p class="component-content component">for any number type <code>V</code> and any unit <code>U</code>, <code>-</code> takes two arguments of type <code>Value&lt;V, U&gt;</code> and produces an argument of type <code>Value&lt;V, U&gt;</code>.</p>
+</blockquote>
+<p class="component-content component">But what we&rsquo;d like here would be to express</p>
+<blockquote>
+<p class="component-content component">for any number type <code>V</code> and any unit types <code>Left</code> and <code>Right</code>, <code>-</code> takes two arguments of type <code>Value&lt;V, Left&gt;</code> and <code>Value&lt;V, Right&gt;</code> and produces an argument of type <code>Value&lt;V, Left&gt;</code> if <code>Left</code> and <code>Right</code> are equivalent.</p>
+</blockquote>
+<p class="component-content component">In other words, in terms of type-level programming, what we need here is some form of type-level oracle function <code>Equivalent&lt;Left, Right&gt;</code> that is defined if and only if <code>Left</code> and <code>Right</code> are indeed equivalent. Unfortunately, as far as I can tell<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, in Rust, there is no way to define <code>Equivalent&lt;Left, Right&gt;</code> to combine the following three properties:</p>
+<div class="component-content component"><ol>
+<li><code>Equivalent&lt;Left, Right&gt;</code> is defined iff <code>Left</code> and <code>Right</code> are equivalent;</li>
+<li>keep the system extensible in such a way that other crates can create new units;</li>
+<li>don&rsquo;t need the user to manually express equivalences between units.</li>
+</ol></div>
+<p class="component-content component">So&hellip; what if we could expand the Rust type system to help us here?</p>
+
+<div class="component-content pagebody component">
+  <h1 id="then-expanding-it" class="pagebody-header">
+    &hellip;then expanding it
+  </h1>
+</div><p class="component-content component">Our life is complicated because programming with types is complicated. However, if instead of having to implement <code>Equivalent&lt;Left, Right&gt;</code>, we needed to implement <code>equivalent(left: UnitRepr, right: UnitRepr)</code>, where <code>UnitRepr</code> was an algebraic data structure representing our units of measures, our life would be much easier.</p>
+<p class="component-content component">If you&rsquo;re curious, Andrew Kennedy <a href="http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf">formalized the algorithm that does this ~15 years ago</a>, and then implemented it as part of the F# compiler (my own work on YAIOUOM was essentially a port of his work to Rust), so let&rsquo;s take it for granted that such an algorithm exists and that it&rsquo;s possible to implement <code>equivalent</code> or something like it.</p>
+<p class="component-content component">There are a few places where we could imagine plugging <code>equivalent</code>, or a variant thereof.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="option-trait-resolution" class="pagebody-header">
+    Option: Trait resolution
+  </h2>
+</div><p class="component-content component">We could somehow plug into <code>rustc_infer::trait</code>, rustc&rsquo;s implementation of trait resolution, whenever we attempt to resolve <code>Equivalent&lt;Left, Right&gt;</code>.</p>
+<p class="component-content component">This would let us write</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>V, Left, Right, C<span style="color:#f92672">&gt;</span> std::ops::Sub<span style="color:#f92672">&lt;</span>Value<span style="color:#f92672">&lt;</span>V, Right<span style="color:#f92672">&gt;&gt;</span> <span style="color:#66d9ef">for</span> Value<span style="color:#f92672">&lt;</span>V, Left<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> V: <span style="color:#a6e22e">std</span>::ops::Sub,
+</span></span><span style="display:flex;"><span>      Equivalence: <span style="color:#a6e22e">Equivalent</span><span style="color:#f92672">&lt;</span>Left, Right, Canonical<span style="color:#f92672">=</span>C<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Output</span> <span style="color:#f92672">=</span> Value<span style="color:#f92672">&lt;&lt;</span>V <span style="color:#66d9ef">as</span> std::ops::Sub<span style="color:#f92672">&gt;</span>::Output, C<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> diff <span style="color:#f92672">=</span> h <span style="color:#f92672">-</span> g; <span style="color:#75715e">// Value&lt;f64, C&gt; where C is the canonicalized version of Div&lt;Div&lt;Meter, Second&gt;, Second&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                  <span style="color:#75715e">// and Div&lt;Meter, Mul&lt;Second, Second&gt;&gt;
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">As of rustc 1.85, this <em>might</em> look like an additional variant in <a href="https://doc.rust-lang.org/nightly/nightly-rustc/rustc_infer/traits/select/enum.SelectionCandidate.html"><code>SelectionCandidate</code></a>.</p>
+<p class="component-content component">I am not convinced by this approach, for several reasons:</p>
+<div class="component-content component"><ol>
+<li>trait resolution is already quite complex, I&rsquo;m afraid that this would make it even more complex, with the added risk of slowing down the compiler/never returning;</li>
+<li>it&rsquo;s not entirely clear to me what should happen in case our plugged-in <code>equivalent</code> returns an error stating that no solution could be found;</li>
+<li>it&rsquo;s not entirely clear to me what should happen in case our plugged-in <code>equivalent</code> can find more than one equivalence &ndash; I suspect that this would probably be caused by an error in the implementation of <code>equivalent</code>, so perhaps this question doesn&rsquo;t need an answer;</li>
+<li>somehow, this feels too powerful.</li>
+</ol></div>
+
+<div class="component-content pagebody component">
+  <h2 id="option-typevar-unification" class="pagebody-header">
+    Option: TypeVar unification
+  </h2>
+</div><p class="component-content component">We could somehow plug into <code>rustc_infer::infer</code>, rustc&rsquo;s implementation of type inference, wherever we attempt to unify a <code>Unit&lt;V, T&gt;</code> and a <code>Unit&lt;V, U&gt;</code>, where either <code>T</code> or <code>U</code> contains a type variable. This would let us keep the definition of subtraction that requires a <code>Unit&lt;V, U&gt;</code> on both sides.</p>
+<p class="component-content component">I am also not convinced by this approach, for several reasons:</p>
+<div class="component-content component"><ol>
+<li>type unification is already non-trivial, as the author of a refinement type system, I don&rsquo;t want to have to reimplement part of unification;</li>
+<li>type unification happens all over the place, so there is a strong chance that this would slow down type checking considerably;</li>
+<li>somehow, this feels too powerful.</li>
+</ol></div>
+
+<div class="component-content pagebody component">
+  <h2 id="option-trait-resolution-optimistic" class="pagebody-header">
+    Option: Trait resolution (optimistic)
+  </h2>
+</div><p class="component-content component">Instead of this, we could offer a lower-powered solution that takes place in two steps.</p>
+<p class="component-content component">Step 1: During trait resolution, we entirely discard the unit information and assume that <code>Left</code>
+and <code>Right</code> are equivalent.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span><span style="color:#f92672">&lt;</span>V, Left, Right, C<span style="color:#f92672">&gt;</span> std::ops::Sub<span style="color:#f92672">&lt;</span>Value<span style="color:#f92672">&lt;</span>V, Right<span style="color:#f92672">&gt;&gt;</span> <span style="color:#66d9ef">for</span> Value<span style="color:#f92672">&lt;</span>V, Left<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> V: <span style="color:#a6e22e">std</span>::ops::Sub,
+</span></span><span style="display:flex;"><span>      record!(yaoioum, Equivalent<span style="color:#f92672">&lt;</span>Left, Right<span style="color:#f92672">&gt;</span>) <span style="color:#75715e">// &lt;!-- record for later post-processing
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Output</span> <span style="color:#f92672">=</span> Value<span style="color:#f92672">&lt;&lt;</span>V <span style="color:#66d9ef">as</span> std::ops::Sub<span style="color:#f92672">&gt;</span>::Output, Left<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In general, this is of course false, as this would let us subtract meters from seconds.</p>
+<p class="component-content component">Step 2: At some point before code generation, the compiler calls the plug-in and passes
+the list of equivalences that were assumed and lets the plug-in perform late rejection
+of types that are not actually equivalent.</p>
+<p class="component-content component">This variant feels faster, much less powerful than plugging an entirely new trait selection mechanism
+into <code>rustc_infer</code>, the behavior in case of error is clearer, and the plug-in has access
+to better information when displaying error messages. Also, it&rsquo;s possible that the plug-in
+would only need <code>rustdoc::clean::types::Type</code> type information, which are easier to
+manipulate (and more stable) than <code>rustc_infer::traits::select::{SelectionCandidate, EvaluationResult}</code>.</p>
+<p class="component-content component">My intuition, which would need to be confirmed, is that the post-processor would not always
+have access to enough information to decide whether an addition/subtraction is correct, a bit
+like the compiler cannot always determine whether <code>1.0</code> is a <code>f32</code> or a <code>f64</code>. Just as is the
+case for number literals, I suspect that we could live with that, and reject anything that
+cannot be proven correct, as long as error messages are clear enough that a developer can add
+the missing annotations.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="option-typevar-unification-optimistic" class="pagebody-header">
+    Option: TypeVar unification (optimistic)
+  </h3>
+</div><p class="component-content component">Similarly, we could perform optimistic typevar unification, e.g.</p>
+<div class="component-content component"><ol>
+<li>mark <code>Unit</code> unification as something that must be recorded by the compiler;</li>
+<li>assume that <code>Unit&lt;T, U&gt;</code> and <code>Unit&lt;T, V&gt;</code> are always unifiable if <code>U</code> or <code>V</code> is a type variable;</li>
+<li>perform post-processing to confirm unifications.</li>
+</ol></div>
+<p class="component-content component">While this shares some of the benefits of optimistic trait resolution, I suspect that this would be
+harder to debug both for the author of the plug-in and for its users.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="option-optimistic-pluggable-keyword" class="pagebody-header">
+    Option: Optimistic, pluggable keyword
+  </h3>
+</div><p class="component-content component">In fact, in YAOIOUM, I implemented a variant on optimistic unification. When you write a method in Rust, you can mark it with an attribute, e.g.:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">impl</span> Value<span style="color:#f92672">&lt;</span>T, U<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">where</span> U: <span style="color:#a6e22e">Unit</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[allow(unused_attributes)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#[yaoioum(method_unify)]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">unify</span><span style="color:#f92672">&lt;</span>V: <span style="color:#a6e22e">Unit</span><span style="color:#f92672">&gt;</span>(self) -&gt; <span style="color:#a6e22e">Value</span><span style="color:#f92672">&lt;</span>T, V<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>        Self {
+</span></span><span style="display:flex;"><span>            value: <span style="color:#a6e22e">self</span>.value,
+</span></span><span style="display:flex;"><span>            unit: <span style="color:#a6e22e">PhantomData</span>,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">when writing a compiler plug-in, you can then walk the tree, looking for all instances of this attribute, and
+apply some post-processing to the method. In effect, you are defining something akin to a new keyword.</p>
+<p class="component-content component">With this mechanism, the following definition still fails:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> diff <span style="color:#f92672">=</span> h <span style="color:#f92672">-</span> g; <span style="color:#75715e">// Error: cannot subtract `Value&lt;f64, Div&lt;Div&lt;Meter, Second&gt;, Second&gt;&gt;` from `Value&lt;f64, Div&lt;Meter, Mul&lt;Second, Second&gt;&gt;&gt;`
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">But the following two definitions pass type-checking</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> diff_1 <span style="color:#f92672">=</span> h.unify() <span style="color:#f92672">-</span> g; <span style="color:#75715e">// f64 Meter / (Second * Second) aka Value&lt;f64, Div&lt;Meter, Mul&lt;Second, Second&gt;&gt;&gt;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> diff_2 <span style="color:#f92672">=</span> h <span style="color:#f92672">-</span> g.unify(); <span style="color:#75715e">// f64 Meter / (Second * Second) aka Value&lt;f64, Div&lt;Div&lt;Meter, Second&gt;, Second&gt;&gt;&gt;
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Since calls to <code>unify</code> can be detected by the plug-in, they can be accepted or rejected during the compilation phase.</p>
+<p class="component-content component">While this variant is even more limited than the previous ones, and clearly less transparent for users, a few dozen
+minutes of experimenting with a compiler variant using it showed no really annoying case.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="what-about-error-messages" class="pagebody-header">
+    What about error messages?
+  </h3>
+</div><p class="component-content component">As mentioned above, I expect that refinement types can have two benefits:</p>
+<div class="component-content component"><ul>
+<li>when they complement type-level programming, they make the type system more poweful;</li>
+<li>when they replace type-level programming, it becomes possible to make error messages much clearer.</li>
+</ul></div>
+<p class="component-content component">In the case of YAOIOUM, an error message looks like</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> distance <span style="color:#f92672">=</span> Measure::<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span>, Km<span style="color:#f92672">&gt;</span>::new(<span style="color:#ae81ff">300_000.</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> duration <span style="color:#f92672">=</span> Measure::<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">f64</span>, S<span style="color:#f92672">&gt;</span>::new(<span style="color:#ae81ff">1.</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> _ <span style="color:#f92672">=</span> distance.unify() <span style="color:#f92672">-</span> duration;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Error:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         ----------------- in this unification
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//    = note: expected unit of measure: `S`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//               found unit of measure: `Km`
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">which feels pretty neat.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="what-about-an-api" class="pagebody-header">
+    What about an API?
+  </h1>
+</div><p class="component-content component">We&rsquo;re a bit far from having an implementation that works on recent rustc. However, it feels to me like, from the point of view of the refinement type developer, the API could be somewhat similar to that of procedural macros:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> rust_doc::clean::types::Type; <span style="color:#75715e">// Or some reimplementation thereof.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// If we go for post-processing trait selection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The directive means that we&#39;re only ever called when `selection` is an instance
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// of `crate::yaoioum::Equivalent&lt;Left, Right&gt;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[postprocess::trait(crate::yaoioum::Equivalent)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">confirm_trait_selection</span>(span: <span style="color:#a6e22e">Span</span>, selection: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Type</span>) -&gt; Result<span style="color:#f92672">&lt;</span>(), Error<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// If we go for post-processing type variable unification.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The directive means that we&#39;re only ever called when both `left` and `right`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// are instances of `crate::yaoioum::Unit&lt;T, _&gt;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[postprocess::unify(crate::yaoioum::Unit)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">confirm_typevar_unification</span>(span: <span style="color:#a6e22e">Span</span>, left: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Type</span>, right: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">Type</span>) -&gt; Result<span style="color:#f92672">&lt;</span>(), Error<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// If we go for post-processing a pseudo-keyword.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// The directive means that we&#39;re only ever called upon a call to `Value::unify`, which
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// entails that `args[0]` is an instance of `Value&lt;T, U&gt;` and `args[1]` is an instance of
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// `Value&lt;T, V&gt;`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">#[postprocess::keyword(yaoioum(unify))]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">confirm_keyword_unification</span>(span: <span style="color:#a6e22e">Span</span>, args: <span style="color:#66d9ef">&amp;</span>[<span style="color:#f92672">&amp;</span>Type]) -&gt; Result<span style="color:#f92672">&lt;</span>(), Error<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">While a nicer API would certainly be possible, I&rsquo;d already be quite happy if we succeeded
+at implementing one of these in a manner that doesn&rsquo;t break with each new version of Rust
+nightly.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="whats-next" class="pagebody-header">
+    What&rsquo;s next?
+  </h1>
+</div><p class="component-content component">From here, the following steps would involve:</p>
+<div class="component-content component"><ul>
+<li>gathering feedback;</li>
+<li>writing a rustc driver that supports plug-ins for the three optimistic interfaces mentioned above;</li>
+<li>implementing a few refinement types using these plug-ins, including a new version of YAOIOUM and ideally some subset of <a href="https://dl.acm.org/doi/10.1145/3591283">Flux</a> or <a href="https://popl18.sigplan.org/details/PLMW-POPL-2018/6/Liquid-Haskell-Refinement-Types-for-Haskell">Liquid Haskell</a> or SQL.</li>
+</ul></div>
+<p class="component-content component">I&rsquo;m a bit busy working on <a href="https://www.pasqal.com">analog quantum programming</a> these days, so I&rsquo;m not sure when and if I find time to do that. We&rsquo;ll see :)</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<div class="component-content component"><ol>
+<li id="fn:1">
+<p class="component-content component">If you find a way, drop me a line :) However, I suspect that any error messages would be fairly hard to read.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol></div>
+</div>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  December 22, 2024</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
+      
+      <div id="gitalk-container"></div>
+      GITALK ENABLED
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: 'ca8ec4ad240b4ebfbb1de4fe7a708c05',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
+    
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
+
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
+
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+    
+    
+
+    
+    
+</html>

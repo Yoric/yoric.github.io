@@ -1,129 +1,75 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>research on Il y a du thé renversé au bord de la table !</title>
+    <title>Research on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/categories/research/</link>
-    <description>Recent content in research on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Research on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 03 Feb 2023 21:54:25 +0100</lastBuildDate><atom:link href="https://yoric.github.io/categories/research/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Dec 2024 20:00:47 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/categories/research/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What would it take to add refinement types to Rust?</title>
+      <link>https://yoric.github.io/post/rust-refinement-types/</link>
+      <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
+      <guid>https://yoric.github.io/post/rust-refinement-types/</guid>
+      <description>&lt;p&gt;A few years ago, on a whim, I wrote &lt;a href=&#34;https://yoric.github.io/post/uom.rs/&#34;&gt;YAIOUOM&lt;/a&gt;. YAOIOUM was a static analyzer for Rust that checked that the code&#xA;was using units of measures correctly, e.g. a distance in meters is not a distance in centimeters, dividing meters&#xA;by seconds gave you a value in &lt;code&gt;m / s&lt;/code&gt; (aka &lt;code&gt;m * s^-1&lt;/code&gt;).&lt;/p&gt;&#xA;&lt;p&gt;YAIOUOM was an example of a &lt;em&gt;refinement type system&lt;/em&gt;, i.e. a type system that does its work after another type&#xA;system has already done its work. It was purely static, users could add new units in about&#xA;one line of code, and it was actually surprisingly easy to write. It also couldn&amp;rsquo;t be written within the Rust&#xA;type system, in part because I wanted legible error messages, and in part because Rust doesn&amp;rsquo;t offer a very&#xA;good way to specify that &lt;code&gt;(m / s) * s&lt;/code&gt; is actually the same type as &lt;code&gt;m&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Sadly, it also worked only on a specific version of Rust Nightly, and the code broke down with every new version&#xA;of Rust. It&amp;rsquo;s a shame, because I believe that there&amp;rsquo;s lots we could do with refinement types. Simple things such&#xA;as units of measure, as above, but also, I suspect, we could achieve much better error messages for complex&#xA;type-level programming, such as what Diesel is doing.&lt;/p&gt;&#xA;&lt;p&gt;It got me to wonder how we could extend Rust in such a way that refinement types could be easily added&#xA;to the language.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
       <link>https://yoric.github.io/post/safety-and-security/</link>
       <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/safety-and-security/</guid>
-      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;
-&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;&#xA;&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Possibly one step towards named arguments in Rust</title>
       <link>https://yoric.github.io/post/rust-named-arguments/</link>
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/rust-named-arguments/</guid>
-      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which
-makes some function calls much more readable and safer.&lt;/p&gt;
-&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
+      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which&#xA;makes some function calls much more readable and safer.&lt;/p&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Units of Measure in Rust with Refinement Types</title>
       <link>https://yoric.github.io/post/uom.rs/</link>
       <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/uom.rs/</guid>
-      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for
-F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;
-&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
+      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for&#xA;F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;&#xA;&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Thinkerbell Postmortem/Brain dump</title>
       <link>https://yoric.github.io/post/thinkerbell-postmortem/</link>
       <pubDate>Thu, 08 Mar 2018 08:50:05 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/thinkerbell-postmortem/</guid>
-      <description>&lt;p&gt;Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of
-the Connected Devices branch of Mozilla. While this branch has since been stopped,
-some part of Project Link lives on as &lt;a href=&#34;https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/&#34;&gt;Project Things&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far)
-was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome
-without coding. While only parts of Thinkerbell were ever implemented, they were sufficient
-to write programs such as:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;or&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Thinkerbell also had:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;semantics that ensured that scripts could continue/resume running unmonitored even when hardware
-was replaced/upgraded/moved around the house, including both the server and the sensors;&lt;/li&gt;
-&lt;li&gt;a visual syntax, rather than a text syntax;&lt;/li&gt;
-&lt;li&gt;a novel type system designed to avoid physical accidents;&lt;/li&gt;
-&lt;li&gt;a semantics based on process algebras.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but
-realistically, there is very little chance that I&amp;rsquo;ll find that time.
-So, rather than letting these ideas die in some corner of my brain, here is a post-mortem
-for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
-it a second life.&lt;/p&gt;
-&lt;p&gt;Note that some of the ideas exposed here were never actually implemented. Project Link
-was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of&#xA;the Connected Devices branch of Mozilla. While this branch has since been stopped,&#xA;some part of Project Link lives on as &lt;a href=&#34;https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/&#34;&gt;Project Things&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far)&#xA;was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome&#xA;without coding. While only parts of Thinkerbell were ever implemented, they were sufficient&#xA;to write programs such as:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;or&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Thinkerbell also had:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;semantics that ensured that scripts could continue/resume running unmonitored even when hardware&#xA;was replaced/upgraded/moved around the house, including both the server and the sensors;&lt;/li&gt;&#xA;&lt;li&gt;a visual syntax, rather than a text syntax;&lt;/li&gt;&#xA;&lt;li&gt;a novel type system designed to avoid physical accidents;&lt;/li&gt;&#xA;&lt;li&gt;a semantics based on process algebras.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but&#xA;realistically, there is very little chance that I&amp;rsquo;ll find that time.&#xA;So, rather than letting these ideas die in some corner of my brain, here is a post-mortem&#xA;for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives&#xA;it a second life.&lt;/p&gt;&#xA;&lt;p&gt;Note that some of the ideas exposed here were never actually implemented. Project Link&#xA;was cancelled while Thinkerbell was still in its infancy.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>HolyJIT: Could we write a multi-staged JIT compiler?</title>
       <link>https://yoric.github.io/post/holyjit/</link>
       <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/holyjit/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;
-&lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,
-nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
-and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we
-mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;
-&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;&#xA;&lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,&#xA;nodding and smiling mischeviously whenever Nicolas started exploring new ideas,&#xA;and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we&#xA;mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;&#xA;&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>JavaScript Binary AST diaries - How to replace proving with validating for fun and profit</title>
       <link>https://yoric.github.io/post/binary-ast-pcc/</link>
       <pubDate>Fri, 23 Feb 2018 10:44:39 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-pcc/</guid>
       <description>&lt;p&gt;In this entry, I’d like to discuss one of the most interesting and unusual aspects of the Binary AST: how we gain performance by turning &lt;em&gt;proof-building&lt;/em&gt; into &lt;em&gt;validation&lt;/em&gt;, and why this is very good news for performance (and maybe not so good news for file size).&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Binary AST - Motivations and Design Decisions - Part 1</title>
       <link>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</link>
       <pubDate>Thu, 07 Sep 2017 23:31:43 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-motivations-design-decisions-1/</guid>
-      <description>&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo; - Mike Haertel, creator of GNU Grep.
-Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying a binary-encoded syntax for JS with the intent of allowing browsers and other JS-executing environments to parse and load code as much as 80% faster than standard minified JS.
-It has recently cleared Stage 1 of the TC39 standards process, and while the final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident that the final implementation will deliver the impressive performance improvements promised by the prototype.</description>
+      <description>&lt;p&gt;&lt;em&gt;&amp;ldquo;The key to making programs fast is to make them do practically nothing.&amp;rdquo;&lt;/em&gt;&#xA;- &lt;a href=&#34;https://lists.freebsd.org/pipermail/freebsd-current/2010-August/019310.html&#34;&gt;Mike Haertel, creator of GNU Grep&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Binary AST - &amp;ldquo;Binary Abstract Syntax Tree&amp;rdquo; - is Mozilla&amp;rsquo;s proposal for specifying&#xA;a binary-encoded syntax for JS with the intent of allowing browsers and other&#xA;JS-executing environments to parse and load code as much as 80% faster than&#xA;standard minified JS.&lt;/p&gt;&#xA;&lt;p&gt;It has recently cleared Stage 1 of the TC39 standards process, and while the&#xA;final byte-level format isn&amp;rsquo;t completely nailed down, we&amp;rsquo;re confident&#xA;that the final implementation will deliver the impressive performance&#xA;improvements promised by the prototype.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>JavaScript Binary AST Engineering Newsletter #1</title>
       <link>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</link>
       <pubDate>Fri, 18 Aug 2017 13:46:54 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/binary-ast-engineering-newsletter-1/</guid>
-      <description>Hey, all cool kids have exciting Engineering Newsletters these days, so it&amp;rsquo;s high time the JavaScript Binary AST got one!
-Summary JavaScript Binary AST is a joint project between Mozilla and Facebook to rethink how JavaScript source code is stored/transmitted/parsed. We expect that this project will help visibly speed up the loading of large codebases of JS applications and will have a large impact on the JS development community, including both web developers, Node developers, add-on developers and ourselves.</description>
+      <description>&lt;p&gt;Hey, all cool kids have exciting Engineering Newsletters these days, so&#xA;it&amp;rsquo;s high time the JavaScript Binary AST got one!&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h1 id=&#34;summary&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    Summary&#xA;  &lt;/h1&gt;&#xA;&lt;/div&gt;&lt;p&gt;JavaScript Binary AST is a joint project between Mozilla and Facebook to&#xA;rethink how JavaScript source code is stored/transmitted/parsed. We&#xA;expect that this project will help visibly speed up the loading of large&#xA;codebases of JS applications and will have&#xA;a large impact on the JS development community, including both web&#xA;developers, Node developers, add-on developers and ourselves.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

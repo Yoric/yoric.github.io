@@ -1,110 +1,75 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>rust on Il y a du thé renversé au bord de la table !</title>
+    <title>Rust on Il y a du thé renversé au bord de la table !</title>
     <link>https://yoric.github.io/tags/rust/</link>
-    <description>Recent content in rust on Il y a du thé renversé au bord de la table !</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Rust on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
     <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 20 Nov 2023 09:55:20 +0100</lastBuildDate><atom:link href="https://yoric.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Dec 2024 20:00:47 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What would it take to add refinement types to Rust?</title>
+      <link>https://yoric.github.io/post/rust-refinement-types/</link>
+      <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
+      <guid>https://yoric.github.io/post/rust-refinement-types/</guid>
+      <description>&lt;p&gt;A few years ago, on a whim, I wrote &lt;a href=&#34;https://yoric.github.io/post/uom.rs/&#34;&gt;YAIOUOM&lt;/a&gt;. YAOIOUM was a static analyzer for Rust that checked that the code&#xA;was using units of measures correctly, e.g. a distance in meters is not a distance in centimeters, dividing meters&#xA;by seconds gave you a value in &lt;code&gt;m / s&lt;/code&gt; (aka &lt;code&gt;m * s^-1&lt;/code&gt;).&lt;/p&gt;&#xA;&lt;p&gt;YAIOUOM was an example of a &lt;em&gt;refinement type system&lt;/em&gt;, i.e. a type system that does its work after another type&#xA;system has already done its work. It was purely static, users could add new units in about&#xA;one line of code, and it was actually surprisingly easy to write. It also couldn&amp;rsquo;t be written within the Rust&#xA;type system, in part because I wanted legible error messages, and in part because Rust doesn&amp;rsquo;t offer a very&#xA;good way to specify that &lt;code&gt;(m / s) * s&lt;/code&gt; is actually the same type as &lt;code&gt;m&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Sadly, it also worked only on a specific version of Rust Nightly, and the code broke down with every new version&#xA;of Rust. It&amp;rsquo;s a shame, because I believe that there&amp;rsquo;s lots we could do with refinement types. Simple things such&#xA;as units of measure, as above, but also, I suspect, we could achieve much better error messages for complex&#xA;type-level programming, such as what Diesel is doing.&lt;/p&gt;&#xA;&lt;p&gt;It got me to wonder how we could extend Rust in such a way that refinement types could be easily added&#xA;to the language.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Programming Languages That Blew My Mind</title>
       <link>https://yoric.github.io/post/programming-languages-that-blew-my-mind/</link>
       <pubDate>Mon, 20 Nov 2023 09:55:20 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/programming-languages-that-blew-my-mind/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my
-life as a coder, both hobbyist and professional, I&amp;rsquo;ve learnt plenty of programming languages that felt
-like cookie-cutter clones of each other, but also a few programming languages that changed the way I
-looked at programming, sometimes even at thinking.&lt;/p&gt;</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my&#xA;life as a coder, both hobbyist and professional, I&amp;rsquo;ve learnt plenty of programming languages that felt&#xA;like cookie-cutter clones of each other, but also a few programming languages that changed the way I&#xA;looked at programming, sometimes even at thinking.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Coding for a Finite World</title>
       <link>https://yoric.github.io/post/coding-for-a-finite-world/</link>
       <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/coding-for-a-finite-world/</guid>
-      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;
-&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;
-&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;
-&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;
-&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;
-&lt;p&gt;Also, the world is burning.&lt;/p&gt;
-&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
+      <description>&lt;p&gt;(This is meant to be the first entry of a series which will cover individual points more in depth. We&amp;rsquo;ll see how that goes.)&lt;/p&gt;&#xA;&lt;p&gt;We&amp;rsquo;re the tech industry. We have ideas. We have ideas &lt;em&gt;all the time&lt;/em&gt;. And we&amp;rsquo;re used to turn our ideas into applications.&lt;/p&gt;&#xA;&lt;p&gt;So, how does it go&amp;hellip; here&amp;rsquo;s the back-end component&amp;hellip; here&amp;rsquo;s the front-end component. We&amp;rsquo;ll write the former in Python, or perhaps JavaScript, to optimize for prototyping. After all, we have &lt;em&gt;so many&lt;/em&gt; ideas, we need the ability to iterate quickly. Sprinkle in a few dependencies, that will speed us up. Oh, and let&amp;rsquo;s use ChatGPT and Copilot, we&amp;rsquo;ll be even faster. Oh, and performance, yeah, performance: microservices, Kafka, Redis, Kubernetes&amp;hellip; we&amp;rsquo;re now ready to scale up. Oh, Sentry, Prometheus and Grafana, too, where would we be without &amp;rsquo;em? For the front-end, we&amp;rsquo;ll write a website, and for mobile, Electron.&lt;/p&gt;&#xA;&lt;p&gt;Oh, wait a second, we need to make money and to fidelize our users! Let me see&amp;hellip; ads, tracking, and good reasons to revisit our app, perhaps a little NFT here, gamification&amp;hellip; alright, we should be good.&lt;/p&gt;&#xA;&lt;p&gt;Three&amp;hellip; two&amp;hellip; one&amp;hellip; and we have shipped v1!&lt;/p&gt;&#xA;&lt;p&gt;Also, the world is burning.&lt;/p&gt;&#xA;&lt;p&gt;Perhaps it&amp;rsquo;s time we revisited how we do things?&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>About Safety, Security and yes, C&#43;&#43; and Rust</title>
       <link>https://yoric.github.io/post/safety-and-security/</link>
       <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/safety-and-security/</guid>
-      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;
-&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Recent publications by &lt;a href=&#34;https://advocacy.consumerreports.org/wp-content/uploads/2023/01/Memory-Safety-Convening-Report-1-1.pdf&#34;&gt;Consumer Reports&lt;/a&gt; and the &lt;a href=&#34;https://media.defense.gov/2022/Nov/10/2003112742/-1/-1/0/CSI_SOFTWARE_MEMORY_SAFETY.PDF&#34;&gt;NSA&lt;/a&gt; have launched countless conversations in development circles about &lt;em&gt;safety&lt;/em&gt; and its benefits.&lt;/p&gt;&#xA;&lt;p&gt;In these conversations, I&amp;rsquo;ve seen many misunderstandings about what safety means in programming and how programming languages can implement, help or hinder safety. Let&amp;rsquo;s clarify a few things.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Possibly one step towards named arguments in Rust</title>
       <link>https://yoric.github.io/post/rust-named-arguments/</link>
       <pubDate>Sat, 08 Aug 2020 08:46:22 +0200</pubDate>
-      
       <guid>https://yoric.github.io/post/rust-named-arguments/</guid>
-      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which
-makes some function calls much more readable and safer.&lt;/p&gt;
-&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
+      <description>&lt;p&gt;A number of programming languages offer a feature called &amp;ldquo;Named Arguments&amp;rdquo; or &amp;ldquo;Labeled Arguments&amp;rdquo;, which&#xA;makes some function calls much more readable and safer.&lt;/p&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s see how hard it would be to add these in Rust.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Units of Measure in Rust with Refinement Types</title>
       <link>https://yoric.github.io/post/uom.rs/</link>
       <pubDate>Fri, 17 Jan 2020 13:35:02 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/uom.rs/</guid>
-      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for
-F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;
-&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
+      <description>&lt;p&gt;Years ago, Andrew Kennedy published &lt;a href=&#34;http://typesatwork.imm.dtu.dk/material/TaW_Paper_TypesAtWork_Kennedy.pdf&#34;&gt;a foundational paper&lt;/a&gt; about a type checker for units of measure, and later &lt;a href=&#34;https://docs.microsoft.com/en-us/archive/blogs/andrewkennedy/units-of-measure-in-f-part-one-introducing-units&#34;&gt;implemented it for&#xA;F#&lt;/a&gt;. To this day, F# is the only mainstream programming language which provides first class support to make sure that you will not accidentally confuse meters and feet, euros and dollars, but that you can still convert between watts·hours and joules.&lt;/p&gt;&#xA;&lt;p&gt;I decided to see whether this could be implemented in and for Rust. The answer is not only yes, but it was fun :)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>HolyJIT: Could we write a multi-staged JIT compiler?</title>
       <link>https://yoric.github.io/post/holyjit/</link>
       <pubDate>Tue, 06 Mar 2018 07:33:25 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/holyjit/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;
-&lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,
-nodding and smiling mischeviously whenever Nicolas started exploring new ideas,
-and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we
-mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;
-&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;Credit&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;While I&amp;rsquo;m the author of this blog post, 99% of the work was done by Nicolas B. Pierron.&lt;/p&gt;&#xA;&lt;p&gt;So far, my role in this project has largely been to play the wise old advisor,&#xA;nodding and smiling mischeviously whenever Nicolas started exploring new ideas,&#xA;and emitting cryptic comments in Reverse Jedi Notation.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;A few months ago, we published a &lt;a href=&#34;https://blog.mozilla.org/javascript/2017/10/20/holyjit-a-new-hope/&#34;&gt;short (and mysterious) blog post&lt;/a&gt; in which we&#xA;mentioned HolyJIT, an early research project towards a novel approach to writing JITs.&lt;/p&gt;&#xA;&lt;p&gt;In this blog post, I would like to detail a bit more the ideas behind HolyJIT.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Typestates in Rust</title>
       <link>https://yoric.github.io/post/rust-typestate/</link>
       <pubDate>Thu, 22 Feb 2018 15:15:55 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/rust-typestate/</guid>
       <description>&lt;p&gt;A long time ago, the Rust language was a language with typestate. Officially, typestates were dropped long before Rust 1.0. In this entry, I’ll get you in on the worst kept secret of the Rust community: Rust still has typestates.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Extracting text from images is not easy (who would have guessed?)</title>
       <link>https://yoric.github.io/post/extracting-text-from-images/</link>
       <pubDate>Sun, 01 Jan 2017 23:44:19 +0100</pubDate>
-      
       <guid>https://yoric.github.io/post/extracting-text-from-images/</guid>
-      <description>At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision disabilities?
-From there, we started a number of experiments. I figured out it was time to braindump some of them.
-Our problem Consider the following example:
-How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.</description>
+      <description>&lt;p&gt;At its core, Lighthouse is an idea we have been discussing in Connected Devices: can we build a device that will help people with partial or total vision&#xA;disabilities?&lt;/p&gt;&#xA;&lt;p&gt;From there, we started a number of experiments. I figured out it was time to&#xA;braindump some of them.&lt;/p&gt;&#xA;&#xA;&lt;div class=&#34;component-content pagebody component&#34;&gt;&#xA;  &lt;h2 id=&#34;our-problem&#34; class=&#34;pagebody-header&#34;&gt;&#xA;    Our problem&#xA;  &lt;/h2&gt;&#xA;&lt;/div&gt;&lt;p&gt;Consider the following example:&lt;/p&gt;&#xA;&lt;p&gt;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&lt;figure class=&#34;image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big&#34;&gt;  &lt;div class=&#34;component-content&#34;&gt;&#xA;    &lt;div class=&#34;image-sharesheet&#34;&gt;&#xA;      &lt;div class=&#34;image image-load image-asset image-ebfe30a8b74539a7f6c2f49a4bb92033&#34; id=&#34;lhtebfe30a8b74539a7f6c2f49a4bb92033&#34;&gt;&#xA;        &lt;picture  class=&#34;picture&#34;&gt;&#xA;          &lt;img class=&#34;picture-image&#34; data-src=&#34;https://cloud.githubusercontent.com/assets/10190/18631303/80cce95a-7e71-11e6-8a4e-bed542e6e7bb.png&#34; alt=&#34;&#34;  /&gt;&#xA;        &lt;/picture&gt;&#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;    &lt;div class=&#34;image-description&#34;&gt;&#xA;      &lt;div class=&#34;image-caption&#34;&gt;&#xA;        &#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/figure&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;How do we get from this beautiful picture of Mozilla&amp;rsquo;s Paris office to the text &amp;ldquo;PRIDE and PREJUDICE&amp;rdquo;, &amp;ldquo;Jane Austen&amp;rdquo;, &amp;ldquo;Great Books&amp;rdquo;, &amp;ldquo;Great Prices&amp;rdquo;, &amp;ldquo;$9.99&amp;rdquo;, &amp;ldquo;Super livres&amp;rdquo;, &amp;ldquo;Super prix&amp;rdquo;? That&amp;rsquo;s Canadian dollars, if you wonder.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

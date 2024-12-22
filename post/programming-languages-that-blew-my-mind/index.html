@@ -1,273 +1,298 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/programming-languages-that-blew-my-mind/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="Programming Languages That Blew My Mind">
+  <meta property="og:description" content="I’ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my life as a coder, both hobbyist and professional, I’ve learnt plenty of programming languages that felt like cookie-cutter clones of each other, but also a few programming languages that changed the way I looked at programming, sometimes even at thinking.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2023-11-20T09:55:20+01:00">
+    <meta property="article:modified_time" content="2023-11-20T09:55:20+01:00">
+    <meta property="article:tag" content="Basic">
+    <meta property="article:tag" content="Pascal">
+    <meta property="article:tag" content="ASM">
+    <meta property="article:tag" content="HyperCard">
+    <meta property="article:tag" content="OCaml">
+    <meta property="article:tag" content="Java">
+<title>Programming Languages That Blew My Mind</title>
 
-  
-  <title>Programming Languages That Blew My Mind</title>
+    <link rel="canonical" href="https://yoric.github.io/post/programming-languages-that-blew-my-mind/">
 
-  
-  
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="I&amp;rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my life as a coder, both hobbyist and professional, I&amp;rsquo;ve learnt plenty of programming languages that felt like cookie-cutter clones of each other, but also a few programming languages that changed the way I looked at programming, sometimes even at thinking.
-" />
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="Programming Languages That Blew My Mind" />
-    <meta name="twitter:description" content="I&amp;rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my life as a coder, both hobbyist and professional, I&amp;rsquo;ve learnt plenty of programming languages that felt like cookie-cutter clones of each other, but also a few programming languages that changed the way I looked at programming, sometimes even at thinking.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/it_blew_my_mind.png" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Programming Languages That Blew My Mind" />
-  <meta property="og:description" content="I&amp;rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my life as a coder, both hobbyist and professional, I&amp;rsquo;ve learnt plenty of programming languages that felt like cookie-cutter clones of each other, but also a few programming languages that changed the way I looked at programming, sometimes even at thinking.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/programming-languages-that-blew-my-mind/" />
-  <meta property="og:image" content="https://yoric.github.io/img/it_blew_my_mind.png" />
-
-
-
-
-<meta name="generator" content="Hugo 0.119.0" />
-
-
-<link rel="canonical" href="https://yoric.github.io/post/programming-languages-that-blew-my-mind/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Programming Languages That Blew My Mind</h1>
-      <p class="post-meta">@David Teller · Nov 20, 2023 · 14 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>I&rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        Basic
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">November 20, 2023</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Programming Languages That Blew My Mind</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/basic" class="tag">
+                    Basic
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/pascal" class="tag">
+                    Pascal
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/asm" class="tag">
+                    ASM
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/hypercard" class="tag">
+                    HyperCard
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/ocaml" class="tag">
+                    OCaml
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/java" class="tag">
+                    Java
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/javascript" class="tag">
+                    JavaScript
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/typescript" class="tag">
+                    TypeScript
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/python" class="tag">
+                    Python
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/go" class="tag">
+                    Go
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/coq" class="tag">
+                    Coq
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/erlang" class="tag">
+                    Erlang
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/prolog" class="tag">
+                    Prolog
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/sql" class="tag">
+                    SQL
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/rust" class="tag">
+                    Rust
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/opalang" class="tag">
+                    Opalang
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/idris" class="tag">
+                    Idris
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/programming" class="tag">
+                    Programming
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/programming-languages" class="tag">
+                    Programming languages
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/epistemology" class="tag">
+                    Epistemology
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">I&rsquo;ve been a programmer since the age of 8, and some kind of developer for most of my life. Throughout my
 life as a coder, both hobbyist and professional, I&rsquo;ve learnt plenty of programming languages that felt
 like cookie-cutter clones of each other, but also a few programming languages that changed the way I
 looked at programming, sometimes even at thinking.</p>
-<p><img src="https://yoric.github.io/img/it_blew_my_mind.png" alt="It blew my mind, as interpreted by MidJourney"></p>
-<p>Ranking by order in which I discovered these languages. In most cases, I&rsquo;m
+<p class="component-content component">
+
+
+
+
+
+
+
+
+<figure class="image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big">  <div class="component-content">
+    <div class="image-sharesheet">
+      <div class="image image-load image-asset image-03fe4ab1cb49f908fa8b95abf65ddd18" id="lht03fe4ab1cb49f908fa8b95abf65ddd18">
+        <picture  class="picture">
+          <img class="picture-image" data-src="https://yoric.github.io/img/it_blew_my_mind.png" alt="It blew my mind, as interpreted by MidJourney"  />
+        </picture>
+      </div>
+    </div>
+    <div class="image-description">
+      <div class="image-caption">
+        It blew my mind, as interpreted by MidJourney
+      </div>
+    </div>
+  </div>
+</figure>
+</p>
+<p class="component-content component">Ranking by order in which I discovered these languages. In most cases, I&rsquo;m
 going to attach features to languages that were not the first language to
 have such features. It&rsquo;s not meant to be a misattribution, just to showcase
 how I was exposed to such features.</p>
-<h1 id="basichttpsenwikipediaorgwikibasic"><a href="https://en.wikipedia.org/wiki/BASIC">Basic</a></h1>
-<p>A language designed to make programming simple.</p>
-<ul>
+
+<div class="component-content pagebody component">
+  <h1 id="basichttpsenwikipediaorgwikibasic" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/BASIC">Basic</a>
+  </h1>
+</div><p class="component-content component">A language designed to make programming simple.</p>
+<div class="component-content component"><ul>
 <li>Mind blown: Programming my own games!</li>
 <li>Mind blown: Arrays (or <code>DIM</code>, as they were called)!</li>
 <li>Mind blown: <code>GOTO</code>!</li>
 <li>Mind blown: <code>GOSUB</code>!</li>
-</ul>
-<p>Original, line-based, Basic is dead, but its legacy lives on in VB.Net, VBA,
+</ul></div>
+<p class="component-content component">Original, line-based, Basic is dead, but its legacy lives on in VB.Net, VBA,
 but also in more subtle manners in today&rsquo;s dynamic languages (Python,
 JavaScript, etc.)</p>
-<h1 id="turbo-pascalhttpsenwikipediaorgwikiturbo_pascal"><a href="https://en.wikipedia.org/wiki/Turbo_Pascal">(Turbo) Pascal</a></h1>
-<p>I guess my most formative language. I released a few applications in Turbo Pascal
+
+<div class="component-content pagebody component">
+  <h1 id="turbo-pascalhttpsenwikipediaorgwikiturbo_pascal" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/Turbo_Pascal">(Turbo) Pascal</a>
+  </h1>
+</div><p class="component-content component">I guess my most formative language. I released a few applications in Turbo Pascal
 as a teenager, including a commercial one (although, to be fair, Alain Frisch did
 most of the work).</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: A programming tutorial!</li>
 <li>Mind blown: An IDE!</li>
 <li>Mind blown: The compiler can actually help you find your errors!</li>
@@ -279,39 +304,47 @@ most of the work).</p>
 <li>Mind blown: Dynamic memory allocation!</li>
 <li>Mind blown: A community of developers (also, SWAGS)!</li>
 <li>Mind blown: Memory overlays!</li>
-</ul>
-<p>A few years later, still a teen, I attempted to move to C and was a bit disappointed, only
+</ul></div>
+<p class="component-content component">A few years later, still a teen, I attempted to move to C and was a bit disappointed, only
 to find it basically the same language, just harder to read (what&rsquo;s that weird three-components
 <code>for</code> loop?), more error-prone (far pointers? really?) and with glaring missing features (what
 do you mean, there are no modules?), so I&rsquo;m not going to include C
 in this list.</p>
-<p>Pascal language still exists a bit as Turbo Pascal, Lazarus Pascal and Delphi, but also lives
+<p class="component-content component">Pascal language still exists a bit as Turbo Pascal, Lazarus Pascal and Delphi, but also lives
 on with Ada (for its syntax) and every documentation tool around the sun (JavaDoc, rustdoc,
 Sphinx, Doxygen, etc.), as the original documentation tool, WEB, was designed for and with
 Turbo Pascal.</p>
-<h1 id="x86-asmhttpsenwikipediaorgwikix86_assembly_language"><a href="https://en.wikipedia.org/wiki/X86_assembly_language">x86 ASM</a></h1>
-<p>One of the main limitations of Turbo Pascal was that its BGI (the API to talk to the graphics
+
+<div class="component-content pagebody component">
+  <h1 id="x86-asmhttpsenwikipediaorgwikix86_assembly_language" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/X86_assembly_language">x86 ASM</a>
+  </h1>
+</div><p class="component-content component">One of the main limitations of Turbo Pascal was that its BGI (the API to talk to the graphics
 adapter) was limited to 16 colors and relatively small resolutions. When more modern graphic
 cards appeared, every developer suddenly started learning assembly language to be able to
 talk to the devices. I was no exception.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: Memory addressing!</li>
 <li>Mind blown: The stack is an illusion!</li>
 <li>Mind blown: Interacting with the graphics adapter directly!</li>
 <li>Mind blown: Interrupts!</li>
 <li>Mind blown: Registers!</li>
-</ul>
-<p>These days, very few people write assembly language manually, because it&rsquo;s not very useful
+</ul></div>
+<p class="component-content component">These days, very few people write assembly language manually, because it&rsquo;s not very useful
 and it&rsquo;s 100% unportable, but it is of course still present behind the scenes in your
 favorite compiler or JIT. Every so often, I see a Rust developer or a C++ developer
 showcasing a disassembled version of the binary they have produced and it reminds me
 of the (not so) good old times.</p>
-<h1 id="hypercardhttpsenwikipediaorgwikihypercard"><a href="https://en.wikipedia.org/wiki/HyperCard">HyperCard</a></h1>
-<p>At the other end of the spectrum was HyperCard. A programming language designed for people
+
+<div class="component-content pagebody component">
+  <h1 id="hypercardhttpsenwikipediaorgwikihypercard" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/HyperCard">HyperCard</a>
+  </h1>
+</div><p class="component-content component">At the other end of the spectrum was HyperCard. A programming language designed for people
 who did not want to learn programming languages. It looked like a drawing application but
 you could use the built-in language to customize it into a full IDE, as well as to write
 new programs.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: Customizing your environment.</li>
 <li>Mind blown: My first scripting language, although I didn&rsquo;t realize at the time.</li>
 <li>Mind blown: Almost natural language programming.</li>
@@ -320,16 +353,20 @@ new programs.</p>
 <li>Mind blown: Garbage-collection (although I didn&rsquo;t realize at the time).</li>
 <li>Mind blown (backwards): Impossible to port code to non-Apple platforms, which is probably one of the
 reasons I mostly stick with open-source these days.</li>
-</ul>
-<p>Arguably, this language is the core inspiration for everything &ldquo;visual&rdquo;, from Visual Basic
+</ul></div>
+<p class="component-content component">Arguably, this language is the core inspiration for everything &ldquo;visual&rdquo;, from Visual Basic
 to Visual Studio to every tool that you can use to draw a UX. Also, to some extent, the
 web itself traces some of its roots to HyperCard. Every so often, I see a
 revival of some descendent of HyperCard, but they don&rsquo;t seem to stick.</p>
-<p>SmallTalk shares of course many of these ideas and was possibly even more revolutionary,
+<p class="component-content component">SmallTalk shares of course many of these ideas and was possibly even more revolutionary,
 but I learnt SmallTalk much later, so it was too late to blow my mind on these specific
 points!</p>
-<h1 id="ocamlhttpsenwikipediaorgwikiocaml"><a href="https://en.wikipedia.org/wiki/OCaml">(O)Caml</a></h1>
-<p>Caml (then OCaml) came at me by surprise. I was a jaded 1st year student, convinced that I knew everything under
+
+<div class="component-content pagebody component">
+  <h1 id="ocamlhttpsenwikipediaorgwikiocaml" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/OCaml">(O)Caml</a>
+  </h1>
+</div><p class="component-content component">Caml (then OCaml) came at me by surprise. I was a jaded 1st year student, convinced that I knew everything under
 the sun since I had relased commercial software, and I had taken the habit of being better at
 programming that the teachers in charge of programming in high school, which of course meant
 that I was the best there was. I read the documentation of OCaml before
@@ -338,9 +375,9 @@ the first lesson and misunderstood &ldquo;polymorphism&rdquo; (we call it &ldquo
 to walk a tree in OCaml. It was <em>so</em> concise, <em>so</em> robust and <em>so</em> readable. Also,
 the professor was actually a strong developer and the author of one of the first
 word processors, so this course also became a much needed lesson in humility.</p>
-<p>I feel in love with OCaml. It quickly became my main programming language, until I burnt
+<p class="component-content component">I feel in love with OCaml. It quickly became my main programming language, until I burnt
 out while using it to develop Opalang.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: Parametric polymorphism (aka &ldquo;generics&rdquo;)!</li>
 <li>Mind blown: Type inference!</li>
 <li>Mind blown: Garbage-collection!</li>
@@ -355,8 +392,8 @@ out while using it to develop Opalang.</p>
 <li>Mind blown: Writing DSLs!</li>
 <li>Mind blown: Multistage programming!</li>
 <li>Mind blown: Type-level programming between modules!</li>
-</ul>
-<p>OCaml is still very much active. It&rsquo;s used to develop programming languages (including the
+</ul></div>
+<p class="component-content component">OCaml is still very much active. It&rsquo;s used to develop programming languages (including the
 original Rust prototypes), static analysis tools for nuclear plants, operating systems
 for satellites and other situations that require an extremely high level of safety.
 It is also one of the immediate ancestors of Rust,
@@ -364,15 +401,19 @@ F#, Elm, ReasonML and, if my memory serves, the first version of React. Oh, and 
 Opalang. For some reason, message-passing concurrency seems to be marketed as &ldquo;gochannels&rdquo;
 these days, but as far as I can tell, they date back to <a href="https://en.wikipedia.org/wiki/Concurrent_ML">Concurrent ML</a>,
 one of the ancestors of OCaml.</p>
-<h1 id="javahttpsenwikipediaorgwikijava_programming_language"><a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a></h1>
-<p>I started Java when I was trying to modernize some code I&rsquo;d written Turbo Pascal
+
+<div class="component-content pagebody component">
+  <h1 id="javahttpsenwikipediaorgwikijava_programming_language" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a>
+  </h1>
+</div><p class="component-content component">I started Java when I was trying to modernize some code I&rsquo;d written Turbo Pascal
 and finally get it to work on both Linux, Windows and System 7 (the ancestor
 of macOS). I found the language verbose, I couldn&rsquo;t understand why they
 didn&rsquo;t ship an installer given how complicated it was to ship and/or run
 classes and I really missed generics, algebraic data types or pattern-matching,
 but Java became my baseline language for a while – not as good as OCaml in my
 books, but with access to better libraries.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: A standard library that felt like it contained everything I needed!</li>
 <li>Mind blown: A documentation that was meant to be understood by its users!</li>
 <li>Mind blown: The JVML!</li>
@@ -381,29 +422,37 @@ books, but with access to better libraries.</p>
 <li>Mind blown: <code>finally</code>!</li>
 <li>Mind blown: Just in Time compilation!</li>
 <li>Mind blown backwards: Understanding how <code>finally</code> was implemented in the JVM.</li>
-</ul>
-<p>These days, Java is of course one of the pillars of the industry. It&rsquo;s also
+</ul></div>
+<p class="component-content component">These days, Java is of course one of the pillars of the industry. It&rsquo;s also
 one of the main ancestors of C#, Scala or Go.</p>
-<h1 id="prologhttpsenwikipediaorgwikiprolog"><a href="https://en.wikipedia.org/wiki/Prolog">Prolog</a></h1>
-<p>If you have never coded in Prolog, I can only recomment giving it a try.
+
+<div class="component-content pagebody component">
+  <h1 id="prologhttpsenwikipediaorgwikiprolog" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/Prolog">Prolog</a>
+  </h1>
+</div><p class="component-content component">If you have never coded in Prolog, I can only recomment giving it a try.
 It will absolutely change how you think of programs.
 In Prolog, you don&rsquo;t write algorithms, you teach the program how to think.
 Writing a simple path finder is something you can do in about 2-4
 trivial rules. Writing a simple type system is barely longer.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: Teaching the program how to think!</li>
-</ul>
-<p>These days, Prolog itself has mostly vanished. However, its legacy is impressive.
+</ul></div>
+<p class="component-content component">These days, Prolog itself has mostly vanished. However, its legacy is impressive.
 If my memory serves, SQL is largely based on a subset of Prolog, with a
 large focus on optimization at the expense of simplicity. The C++ template
 system is largely a more complicated reimplementation of Prolog. Parts of
 Rust&rsquo;s type system are being rewritten with Chalk, a descendent of Prolog.</p>
-<p>I somewhat suspect that, one of these days, someone will start combining
+<p class="component-content component">I somewhat suspect that, one of these days, someone will start combining
 LLMs with Prolog (or Coq) to build something reliable on top of ChatGPT.
 Also, I have recently stumbled upon TypeDB, which looks very much like
 a new generation of Prolog, with a relational database-like API.</p>
-<h1 id="coqhttpsenwikipediaorgwikicoq_software"><a href="https://en.wikipedia.org/wiki/Coq_(software)">Coq</a></h1>
-<p>Coq (and its cousins, Twelf, Isabel, &hellip;) is something different entirely.
+
+<div class="component-content pagebody component">
+  <h1 id="coqhttpsenwikipediaorgwikicoq_software" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/Coq_(software)">Coq</a>
+  </h1>
+</div><p class="component-content component">Coq (and its cousins, Twelf, Isabel, &hellip;) is something different entirely.
 You encode your entire specifications as types. These types are your goal.
 You don&rsquo;t program by looking at your functions, your libraries, but by
 looking at your types using tools that transform your types to simplify
@@ -411,30 +460,34 @@ them gradually into independent subgoals. One way to describe it is that
 instead of coding, you are solving a puzzle. Of course, your subgoals
 end up being your functions, your data structures, your modules. But
 that&rsquo;s almost accidental.</p>
-<p>Oh, and course,, the type-checker is so powerful that your program is
+<p class="component-content component">Oh, and course,, the type-checker is so powerful that your program is
 actually a formal, mathematically verified proof that it fulfills the
 specifications. A number of mathematical theorems have been verified
 by turning them into Coq.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: Types as specifications.</li>
 <li>Mind blown: Programs as proofs.</li>
 <li>Mind blown: When the lemma is simple, just ask Coq to write the function for you!</li>
 <li>Mind blown: Higher kinds.</li>
 <li>Mind blown: Passionate debates about whether the brain or the computer is the most trustworthy mathematician.</li>
-</ul>
-<p>I haven&rsquo;t followed development on Coq and other languages of the family in the while.
+</ul></div>
+<p class="component-content component">I haven&rsquo;t followed development on Coq and other languages of the family in the while.
 As far as I understand, they&rsquo;re still quite used in academia, where they have served
 to formally prove compliance of compilers and OS kernels. I suspect that if Prolog
 doesn&rsquo;t come back to create reliable LLMs, someone will use Coq or Idris to do so.</p>
-<h1 id="erlanghttpsenwikipediaorgwikierlang_programming_language"><a href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a></h1>
-<p>Erlang (and now Elixir) is and remains <em>the</em> language for distribution. A core
+
+<div class="component-content pagebody component">
+  <h1 id="erlanghttpsenwikipediaorgwikierlang_programming_language" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/Erlang_(programming_language)">Erlang</a>
+  </h1>
+</div><p class="component-content component">Erlang (and now Elixir) is and remains <em>the</em> language for distribution. A core
 much simpler than Python, but that scaled easily to millions of nodes.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: Distributed systems, trivially.</li>
 <li>Mind blown: Deploying new code from the language by sending closures.</li>
 <li>Mind blown: Let it fail design.</li>
-</ul>
-<p>While many people still haven&rsquo;t heard about Erlang/Elixir, this language has
+</ul></div>
+<p class="component-content component">While many people still haven&rsquo;t heard about Erlang/Elixir, this language has
 been used in the industry since the 90s, for highly distributed systems.
 The ecosystem is very much alive and a static type system is currently
 being tested. The let it fail model is used by mobile operating systems.
@@ -444,9 +497,13 @@ In fact I am a bit sad whenever I see microservices or Kafka, as they are largel
 reimplementations of the design of Erlang/Elixir and the underlying BEAM Virtual
 Machine, but based on technologies that are much harder to use and deploy and
 protocols that are several orders of magnitude slower.</p>
-<p>Oh, Opalang borrows from Erlang, too.</p>
-<h1 id="the-π-calculushttpsenwikipediaorgwikicea0-calculus"><a href="https://en.wikipedia.org/wiki/%CE%A0-calculus">The π-calculus</a></h1>
-<p>I&rsquo;m cheating here. The π-calculus (&ldquo;pi-calculus&rdquo;) is not a programming language
+<p class="component-content component">Oh, Opalang borrows from Erlang, too.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="the-π-calculushttpsenwikipediaorgwikicea0-calculus" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/%CE%A0-calculus">The π-calculus</a>
+  </h1>
+</div><p class="component-content component">I&rsquo;m cheating here. The π-calculus (&ldquo;pi-calculus&rdquo;) is not a programming language
 but a calculus, i.e. a mathematical model designed to reason about systems. This
 model can be fully defined with only a dozen lines of specification and is also
 pretty trivial to implement. It has been used to perform static analysis on
@@ -454,15 +511,19 @@ models of cryptographic protocols, or banking protocols&hellip; and also biologi
 processes. I&rsquo;ve used it to define a type system that developers could theoretically
 use to guarantee that their protocols would degrade nicely in presence of a (D)DoS
 attack.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: A completely different look at race conditions.</li>
 <li>Mind blown: You don&rsquo;t need any kind of sequential operation to be Turing-complete.</li>
 <li>Mind blown: Describing complex concurrent/distributed systems with simple mathematics.</li>
-</ul>
-<p>I haven&rsquo;t seen any new publication on the π-calculus in a while, but I might just not
+</ul></div>
+<p class="component-content component">I haven&rsquo;t seen any new publication on the π-calculus in a while, but I might just not
 be looking in the right place.</p>
-<h1 id="opalanghttpsenwikipediaorgwikiopa_programming_language"><a href="https://en.wikipedia.org/wiki/Opa_(programming_language)">Opalang</a></h1>
-<p>This one is a bit special, as I joined the team and became the lead designer
+
+<div class="component-content pagebody component">
+  <h1 id="opalanghttpsenwikipediaorgwikiopa_programming_language" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/Opa_(programming_language)">Opalang</a>
+  </h1>
+</div><p class="component-content component">This one is a bit special, as I joined the team and became the lead designer
 for the language for a while. Imagine writing a single codebase in a
 simple functional + actor-based language comparable to OCaml/F#/ReasonML/Elm
 or a statically typed Erlang,
@@ -470,10 +531,10 @@ then having the compiler analyze the code for safety, security <em>and distribut
 it into client-side code (compiled to JavaScript + HTML + CSS), server-side
 code (compiled to native) and database-side code (compiled into a db schema
 and compiled queries).</p>
-<p>I fell in love with the language. Then got burnt out designing, developing
+<p class="component-content component">I fell in love with the language. Then got burnt out designing, developing
 and evangelizing it in a toxic environment. Took me some time to get back
 in the field of programming language design after that.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: Automated splitting between client, server and database.</li>
 <li>Mind blown: Statically-typed HTML.</li>
 <li>Mind blown: Eliminating most of OWASP&rsquo;s top 10 security issues, automatically.</li>
@@ -485,13 +546,17 @@ that a bit).</li>
 <li>Mind blown: Data structure-oriented database.</li>
 <li>Mind blown: Distributed, scalable database (although sadly, we made mistakes
 and it ended up pretty slow in practice).</li>
-</ul>
-<p>I think that Opalang (and its cousins ReSharper and Ur/Web) was a bit too much in
+</ul></div>
+<p class="component-content component">I think that Opalang (and its cousins ReSharper and Ur/Web) was a bit too much in
 advance for its time. The entire idea of multi-tier programming seems to have been
 vanished into oblivion. Perhaps it will resurface some day – WASM should make this
 much easier.</p>
-<h1 id="rusthttpsenwikipediaorgwikirust_programming_language"><a href="https://en.wikipedia.org/wiki/Rust_(programming_language)">Rust</a></h1>
-<p>I fell in love again with Rust. It combined most of the benefits of OCaml or Haskell
+
+<div class="component-content pagebody component">
+  <h1 id="rusthttpsenwikipediaorgwikirust_programming_language" class="pagebody-header">
+    <a href="https://en.wikipedia.org/wiki/Rust_(programming_language)">Rust</a>
+  </h1>
+</div><p class="component-content component">I fell in love again with Rust. It combined most of the benefits of OCaml or Haskell
 with the promise of writing highly concurrent code and system-level development. Also,
 at the time, revolutionary ideas for modular garbage-collection and M:N scheduling,
 although these ideas were dumped before 1.0. At the time I started tinkering with the
@@ -499,7 +564,7 @@ language, it was very much a research project. I remember some of the early
 conversations we&rsquo;ve had on error-handling or strings or iterators. One of the high
 marks on my resume is that I&rsquo;m one of the people who introduced the idea of the
 <code>try!</code> macro, which since then graduated into operator <code>?</code>.</p>
-<ul>
+<div class="component-content component"><ul>
 <li>Mind blown: Using affine datatypes to prove typestate properties.</li>
 <li>Mind blown: Writing code on par with C++ performance, but with OCaml-level guarantees.</li>
 <li>Mind blown: An efficient compilation model for <code>async</code>/<code>await</code>.</li>
@@ -511,88 +576,57 @@ marks on my resume is that I&rsquo;m one of the people who introduced the idea o
 <li>Mind blown: Doc testing.</li>
 <li>Mind blown: A friendly and welcoming community.</li>
 <li>Mind blown: Some support for writing my own gradual type system.</li>
-</ul>
-<p>I haven&rsquo;t had much time to contribute to the compiler or stdlib in a while, but
+</ul></div>
+<p class="component-content component">I haven&rsquo;t had much time to contribute to the compiler or stdlib in a while, but
 I&rsquo;m planning to return to it once I have some free time!</p>
-<p>Sadly, I think that Rust has spoilt me for many other languages. Now, whenever I write
+<p class="component-content component">Sadly, I think that Rust has spoilt me for many other languages. Now, whenever I write
 Python or Go (both of which I currently do for a living) or even TypeScript, I&rsquo;m always
 cringing at the prospect of my code blowing up as soon as I run it. With Rust, I encode
 as many properties as I reasonably can within the type system, which means that I need
 to think more before I code, but also that tests usuall pass the first time.</p>
-<h1 id="why-not-your-favorite-language">Why not $(YOUR FAVORITE LANGUAGE)?</h1>
-<p>I&rsquo;ve coded in dozens of programming languages throughout my career. This includes
+
+<div class="component-content pagebody component">
+  <h1 id="why-not-your-favorite-language" class="pagebody-header">
+    Why not $(YOUR FAVORITE LANGUAGE)?
+  </h1>
+</div><p class="component-content component">I&rsquo;ve coded in dozens of programming languages throughout my career. This includes
 Haskell, Scheme, SmallTalk, (Tw)elf, Idris, Python, Go, PHP, Perl, Bash, C, C++, JoCaml,
 JavaScript, TypeScript, Scala, C#, F#, Visual Basic, Ruby, (D)TAL, Squeak, Logo,
 Scratch, UnrealScript, GDScript, Lua, SQL&hellip;</p>
-<p>If I didn&rsquo;t include them, it&rsquo;s because they didn&rsquo;t blow my mind. Which doesn&rsquo;t mean that
+<p class="component-content component">If I didn&rsquo;t include them, it&rsquo;s because they didn&rsquo;t blow my mind. Which doesn&rsquo;t mean that
 these languages are not great or innovative. Just that the concepts either didn&rsquo;t resonate
 with me <em>or</em>, more often than not, that I had already discovered these same concepts with
 other languages, just by the luck of the order in which I learnt languages.</p>
-<h1 id="whats-next">What&rsquo;s next?</h1>
-<p>I haven&rsquo;t seen anything revolutionary in a while, but this doesn&rsquo;t mean anything.
+
+<div class="component-content pagebody component">
+  <h1 id="whats-next" class="pagebody-header">
+    What&rsquo;s next?
+  </h1>
+</div><p class="component-content component">I haven&rsquo;t seen anything revolutionary in a while, but this doesn&rsquo;t mean anything.
 The next idea could be lurking around the corner, in a small research project that
 I just haven&rsquo;t heard about.</p>
-<p>When I joined PASQAL, I hoped to be wowed by languages for quantum computing. I&rsquo;m
+<p class="component-content component">When I joined PASQAL, I hoped to be wowed by languages for quantum computing. I&rsquo;m
 not there yet, but I don&rsquo;t lose hope!</p>
-<p>I imagine that, despite the overhype and the insane environmental cost, something
+<p class="component-content component">I imagine that, despite the overhype and the insane environmental cost, something
 useful will come from ChatGPT and LLMs, but I&rsquo;m yet to see it. So far, I&rsquo;ve seen
 interesting experiments and many toys that already feel broken. I wonder what the
 future will look like.</p>
-<p>And you, which languages have influenced the way you think about programs?</p></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/basic"><span class="tag">Basic</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/pascal"><span class="tag">Pascal</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/asm"><span class="tag">ASM</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/hypercard"><span class="tag">HyperCard</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/ocaml"><span class="tag">OCaml</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/java"><span class="tag">Java</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/javascript"><span class="tag">JavaScript</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/typescript"><span class="tag">TypeScript</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/python"><span class="tag">Python</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/go"><span class="tag">Go</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/coq"><span class="tag">Coq</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/erlang"><span class="tag">Erlang</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/prolog"><span class="tag">Prolog</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/sql"><span class="tag">SQL</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/rust"><span class="tag">Rust</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/opalang"><span class="tag">Opalang</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/idris"><span class="tag">Idris</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/programming"><span class="tag">Programming</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/programming-languages"><span class="tag">Programming Languages</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/epistemology"><span class="tag">Epistemology</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
-      </p>
-    </footer>
-    
-      
+<p class="component-content component">And you, which languages have influenced the way you think about programs?</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  November 20, 2023</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -607,49 +641,51 @@ future will look like.</p>
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

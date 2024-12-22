@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Compilers on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/tags/compilers/</link>
+    <description>Recent content in Compilers on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 22 Dec 2024 20:00:47 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/compilers/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What would it take to add refinement types to Rust?</title>
+      <link>https://yoric.github.io/post/rust-refinement-types/</link>
+      <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
+      <guid>https://yoric.github.io/post/rust-refinement-types/</guid>
+      <description>&lt;p&gt;A few years ago, on a whim, I wrote &lt;a href=&#34;https://yoric.github.io/post/uom.rs/&#34;&gt;YAIOUOM&lt;/a&gt;. YAOIOUM was a static analyzer for Rust that checked that the code&#xA;was using units of measures correctly, e.g. a distance in meters is not a distance in centimeters, dividing meters&#xA;by seconds gave you a value in &lt;code&gt;m / s&lt;/code&gt; (aka &lt;code&gt;m * s^-1&lt;/code&gt;).&lt;/p&gt;&#xA;&lt;p&gt;YAIOUOM was an example of a &lt;em&gt;refinement type system&lt;/em&gt;, i.e. a type system that does its work after another type&#xA;system has already done its work. It was purely static, users could add new units in about&#xA;one line of code, and it was actually surprisingly easy to write. It also couldn&amp;rsquo;t be written within the Rust&#xA;type system, in part because I wanted legible error messages, and in part because Rust doesn&amp;rsquo;t offer a very&#xA;good way to specify that &lt;code&gt;(m / s) * s&lt;/code&gt; is actually the same type as &lt;code&gt;m&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Sadly, it also worked only on a specific version of Rust Nightly, and the code broke down with every new version&#xA;of Rust. It&amp;rsquo;s a shame, because I believe that there&amp;rsquo;s lots we could do with refinement types. Simple things such&#xA;as units of measure, as above, but also, I suspect, we could achieve much better error messages for complex&#xA;type-level programming, such as what Diesel is doing.&lt;/p&gt;&#xA;&lt;p&gt;It got me to wonder how we could extend Rust in such a way that refinement types could be easily added&#xA;to the language.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

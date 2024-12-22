@@ -1,330 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
-  <meta charset="utf-8" />
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/thinkerbell-postmortem/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="Thinkerbell Postmortem/Brain dump">
+  <meta property="og:description" content="A programming language for the SmartHome. Also, a type system and a process algebra.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2018-03-08T08:50:05+01:00">
+    <meta property="article:modified_time" content="2018-03-08T07:26:05+01:00">
+    <meta property="article:tag" content="Programming Language">
+    <meta property="article:tag" content="DSL">
+    <meta property="article:tag" content="Types">
+    <meta property="article:tag" content="Process Algebra">
+    <meta property="article:tag" content="IoT">
+<title>Thinkerbell Postmortem/Brain dump</title>
 
-  
-  <title>Thinkerbell Postmortem/Brain dump</title>
+    <link rel="canonical" href="https://yoric.github.io/post/thinkerbell-postmortem/">
 
-  
-  
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
 
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
 
+    
+    
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of the Connected Devices branch of Mozilla. While this branch has since been stopped, some part of Project Link lives on as Project Things.
-One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
-Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
-or
-If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
-Thinkerbell also had:
-semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras. Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
-Note that some of the ideas exposed here were never actually implemented. Project Link was cancelled while Thinkerbell was still in its infancy.
-" />
-
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="Thinkerbell Postmortem/Brain dump" />
-    <meta name="twitter:description" content="Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of the Connected Devices branch of Mozilla. While this branch has since been stopped, some part of Project Link lives on as Project Things.
-One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
-Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
-or
-If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
-Thinkerbell also had:
-semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras. Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
-Note that some of the ideas exposed here were never actually implemented. Project Link was cancelled while Thinkerbell was still in its infancy.
-" />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Thinkerbell Postmortem/Brain dump" />
-  <meta property="og:description" content="Two years ago, I was working on a research project called &amp;ldquo;Project Link&amp;rdquo; as part of the Connected Devices branch of Mozilla. While this branch has since been stopped, some part of Project Link lives on as Project Things.
-One of the parts of Project Link that hasn&amp;rsquo;t made it to Project Things (so far) was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome without coding. While only parts of Thinkerbell were ever implemented, they were sufficient to write programs such as:
-Whenever I press any button labelled &amp;ldquo;light&amp;rdquo; in the living room, toggle all the lights in the living room.
-or
-If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.
-Thinkerbell also had:
-semantics that ensured that scripts could continue/resume running unmonitored even when hardware was replaced/upgraded/moved around the house, including both the server and the sensors; a visual syntax, rather than a text syntax; a novel type system designed to avoid physical accidents; a semantics based on process algebras. Ideally, I&amp;rsquo;d like to take the time to write a research paper on Thinkerbell, but realistically, there is very little chance that I&amp;rsquo;ll find that time. So, rather than letting these ideas die in some corner of my brain, here is a post-mortem for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives it a second life.
-Note that some of the ideas exposed here were never actually implemented. Project Link was cancelled while Thinkerbell was still in its infancy.
-" />
-  <meta property="og:url" content="https://yoric.github.io/post/thinkerbell-postmortem/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
-
-
-
-
-<meta name="generator" content="Hugo 0.119.0" />
-
-
-<link rel="canonical" href="https://yoric.github.io/post/thinkerbell-postmortem/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Thinkerbell Postmortem/Brain dump</h1>
-      <p class="post-meta">@David Teller · Mar 8, 2018 · 14 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>Two years ago, I was working on a research project called &ldquo;Project Link&rdquo; as part of
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        programming language
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">March 8, 2018</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Thinkerbell Postmortem/Brain dump</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content">A programming language for the SmartHome. Also, a type system and a process algebra.</div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/programming-language" class="tag">
+                    programming language
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/dsl" class="tag">
+                    DSL
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/types" class="tag">
+                    types
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/process-algebra" class="tag">
+                    process algebra
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/iot" class="tag">
+                    IoT
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">Two years ago, I was working on a research project called &ldquo;Project Link&rdquo; as part of
 the Connected Devices branch of Mozilla. While this branch has since been stopped,
 some part of Project Link lives on as <a href="https://blog.mozilla.org/blog/2018/02/06/announcing-project-things-open-framework-connecting-devices-web/">Project Things</a>.</p>
-<p>One of the parts of Project Link that hasn&rsquo;t made it to Project Things (so far)
+<p class="component-content component">One of the parts of Project Link that hasn&rsquo;t made it to Project Things (so far)
 was Thinkerbell: a Domain-Specific Language designed to let users program their SmartHome
 without coding. While only parts of Thinkerbell were ever implemented, they were sufficient
 to write programs such as:</p>
 <blockquote>
-<p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
+<p class="component-content component">Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
 </blockquote>
-<p>or</p>
+<p class="component-content component">or</p>
 <blockquote>
-<p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
+<p class="component-content component">If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
 </blockquote>
-<p>Thinkerbell also had:</p>
-<ul>
+<p class="component-content component">Thinkerbell also had:</p>
+<div class="component-content component"><ul>
 <li>semantics that ensured that scripts could continue/resume running unmonitored even when hardware
 was replaced/upgraded/moved around the house, including both the server and the sensors;</li>
 <li>a visual syntax, rather than a text syntax;</li>
 <li>a novel type system designed to avoid physical accidents;</li>
 <li>a semantics based on process algebras.</li>
-</ul>
-<p>Ideally, I&rsquo;d like to take the time to write a research paper on Thinkerbell, but
+</ul></div>
+<p class="component-content component">Ideally, I&rsquo;d like to take the time to write a research paper on Thinkerbell, but
 realistically, there is very little chance that I&rsquo;ll find that time.
 So, rather than letting these ideas die in some corner of my brain, here is a post-mortem
 for Thinkerbell, in the hope that someone, somewhere, will pick some of the stuff and gives
 it a second life.</p>
-<p>Note that some of the ideas exposed here were never actually implemented. Project Link
+<p class="component-content component">Note that some of the ideas exposed here were never actually implemented. Project Link
 was cancelled while Thinkerbell was still in its infancy.</p>
-<h1 id="scripts">Scripts</h1>
-<p>Let us consider the kind of scripts we wanted to write:</p>
+
+<div class="component-content pagebody component">
+  <h1 id="scripts" class="pagebody-header">
+    Scripts
+  </h1>
+</div><p class="component-content component">Let us consider the kind of scripts we wanted to write:</p>
 <blockquote>
-<p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
+<p class="component-content component">Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
 </blockquote>
-<p>or</p>
+<p class="component-content component">or</p>
 <blockquote>
-<p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
+<p class="component-content component">If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
 </blockquote>
-<p>or</p>
+<p class="component-content component">or</p>
 <blockquote>
-<p>When the motion detector of the living room hasn&rsquo;t noticed motion for 30 seconds, turn off all the lights in the living room.</p>
+<p class="component-content component">When the motion detector of the living room hasn&rsquo;t noticed motion for 30 seconds, turn off all the lights in the living room.</p>
 </blockquote>
-<p>or</p>
+<p class="component-content component">or</p>
 <blockquote>
-<p>If the entry door is locked and the motion detector notices motion in the living room, if I have a camera in the living room, send an picture to my SmartPhone.</p>
+<p class="component-content component">If the entry door is locked and the motion detector notices motion in the living room, if I have a camera in the living room, send an picture to my SmartPhone.</p>
 </blockquote>
-<p>All these scripts were meant to be executed on a server hosted inside the home (for both privacy
+<p class="component-content component">All these scripts were meant to be executed on a server hosted inside the home (for both privacy
 and reliability reasons). The server itself would also run (mostly trusted) device drivers that
 would let scripts access connected devices such as lightbulbs, water faucets, fridges, &hellip; These
 same device drivers also provided access to remote applications, through a mechanism of authorizations
 and tunneling that has been ported to Project Things (and wasn&rsquo;t part of Thinkerbell itself).</p>
-<h2 id="text-syntax">Text syntax</h2>
-<p>We never attempted to design a human-readable text syntax, as Thinkerbell was designed for
+
+<div class="component-content pagebody component">
+  <h2 id="text-syntax" class="pagebody-header">
+    Text syntax
+  </h2>
+</div><p class="component-content component">We never attempted to design a human-readable text syntax, as Thinkerbell was designed for
 visual programming. Indeed, we implemented a visual interface for programming without
 writing, although what we had was for demonstration purposes and was much more limited
 thank Thinkerbell itself.</p>
-<p>So, anything below is actually the JSON syntax designed to serve as back-end for the UX.</p>
+<p class="component-content component">So, anything below is actually the JSON syntax designed to serve as back-end for the UX.</p>
 <blockquote>
-<p>Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
+<p class="component-content component">Whenever I press any button labelled &ldquo;light&rdquo; in the living room, toggle all the lights in the living room.</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Rules are triggered when a set of conditions becomes true.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// These conditions are provided by device drivers, aka `source`s.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;conditions&#34;</span><span style="color:#f92672">:</span> [
@@ -413,12 +321,17 @@ thank Thinkerbell itself.</p>
 </span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;instruction&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;light/toggle&#34;</span>,
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    ]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Similarly,</p>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Similarly,</p>
 <blockquote>
-<p>If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
+<p class="component-content component">If the entry door is locked and the motion detector notices motion, send an alarm to my SmartPhone.</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;conditions&#34;</span><span style="color:#f92672">:</span> [
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// First condition: the entry door must be locked.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        {
@@ -467,25 +380,30 @@ thank Thinkerbell itself.</p>
 </span></span><span style="display:flex;"><span>            },
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    ]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>If you factor in the fact that:</p>
-<ul>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">If you factor in the fact that:</p>
+<div class="component-content component"><ul>
 <li>the scripts will continue working when we change the motion detector (including changing
 the brand of that motion detector), or the other devices;</li>
 <li>the scripts will resume working if there is a power outage;</li>
 <li>these scripts are easy to run in a power-efficient and bandwidth-efficient manner
 (assuming well-behaved device drivers).</li>
-</ul>
-<p>these scripts are actually impressively concise for what they&rsquo;re doing. Also,
+</ul></div>
+<p class="component-content component">these scripts are actually impressively concise for what they&rsquo;re doing. Also,
 recall that most IoT applications these days are written with Turing-complete
 programming languages, often with the highly dynamic but nearly impossible
 to verify JavaScript language. By opposition, these tiny scripts could be
 easily mechanically verified.</p>
-<p>Let&rsquo;s look at a more sophisticated example before proceeding:</p>
+<p class="component-content component">Let&rsquo;s look at a more sophisticated example before proceeding:</p>
 <blockquote>
-<p>If the entry door is locked and the motion detector notices motion in the living room, if I have a camera in the living room, send an picture to my SmartPhone.</p>
+<p class="component-content component">If the entry door is locked and the motion detector notices motion in the living room, if I have a camera in the living room, send an picture to my SmartPhone.</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;conditions&#34;</span><span style="color:#f92672">:</span> [
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// First condition: the entry door must be locked.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        {
@@ -572,32 +490,41 @@ easily mechanically verified.</p>
 </span></span><span style="display:flex;"><span>            },
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    ]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h1 id="features-and-types">Features and types</h1>
-<p>The first prototype of Thinkerbell didn&rsquo;t really have specific types,
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div>
+<div class="component-content pagebody component">
+  <h1 id="features-and-types" class="pagebody-header">
+    Features and types
+  </h1>
+</div><p class="component-content component">The first prototype of Thinkerbell didn&rsquo;t really have specific types,
 just the usual number/boolean/string/&hellip; . We quickly
 realized that this was a bad idea.</p>
-<p>In your future SmartHome, everything is controllable by scripts and APIs.
+<p class="component-content component">In your future SmartHome, everything is controllable by scripts and APIs.
 This means that your lights, your water tap and your oven all can be turned
 on/off, your heater, your oven, your fridge and your blowtorch (why not?)
 all have a temperature setting &ndash; and that confusing them can flood or
 burn your house, killing you and your loved ones along the way.</p>
-<p>Let me stress this: <strong>in the SmartHome, types can be the difference between life and death</strong>.</p>
-<p>We followed the example of <a href="https://www.semanticscholar.org/paper/Types-for-Units-of-Measure%3A-Theory-and-Practice-Kennedy/10652afefe9d6470e44f0d70cec80207eb243291">F#&rsquo;s unit-of-measure</a> and introduced types
+<p class="component-content component">Let me stress this: <strong>in the SmartHome, types can be the difference between life and death</strong>.</p>
+<p class="component-content component">We followed the example of <a href="https://www.semanticscholar.org/paper/Types-for-Units-of-Measure%3A-Theory-and-Practice-Kennedy/10652afefe9d6470e44f0d70cec80207eb243291">F#&rsquo;s unit-of-measure</a> and introduced types
 for temperatures and other physical measurements, On/Off
 instead of simple booleans, etc. This was not sufficient
 to solve the problem, because setting your freezer to
 bath temperature is still a pretty bad idea.</p>
-<p>Our solution was to differentiate <em>everything</em>. As can seen
+<p class="component-content component">Our solution was to differentiate <em>everything</em>. As can seen
 above in the sample, we have values <code>light/on</code>, <code>light/off</code>,
 <code>light/toggle</code>. These values are distinct from <code>oven/on</code>,
 <code>oven/off</code>. We have a type of oven temperature and a different
 type of freezer temperature and a different type of water
 temperature. And, of course, temperatures and other physical
 measurements had units-of-measure.</p>
-<p>For instance, a device driver for freezers would register
+<p class="component-content component">For instance, a device driver for freezers would register
 (in pseudo syntax – this was done by an API):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;feature&#34;</span><span style="color:#f92672">:</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;key&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;freezer/set-temperature&#34;</span>,
 </span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;freezer/temperature&#34;</span>,
@@ -608,21 +535,26 @@ measurements had units-of-measure.</p>
 </span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;core/temperature&#34;</span>
 </span></span><span style="display:flex;"><span>        ]
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>where predefined type <code>core/temperature</code> could itself handle ºC/ºF
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">where predefined type <code>core/temperature</code> could itself handle ºC/ºF
 conversion.</p>
-<p>Two device drivers for freezers would conflict if they both
+<p class="component-content component">Two device drivers for freezers would conflict if they both
 defined a feature <code>freezer/set-temperature</code> with a
 structurally different type.</p>
-<p>Once we have such definitions, implementing a type system for
+<p class="component-content component">Once we have such definitions, implementing a type system for
 this simple language is not complicated.</p>
-<h2 id="actual-implementation">Actual implementation</h2>
-<p>In the prototype implementation of Thinkerbell, types
+
+<div class="component-content pagebody component">
+  <h2 id="actual-implementation" class="pagebody-header">
+    Actual implementation
+  </h2>
+</div><p class="component-content component">In the prototype implementation of Thinkerbell, types
 were verified dynamically, during the execution of a script.</p>
-<p>The real reason for this was that we operated under strict
+<p class="component-content component">The real reason for this was that we operated under strict
 deadlines and simply didn&rsquo;t have time to implement static
 type checking, during the installation of a script.</p>
-<p>There was also a fundamental issue that we would have needed
+<p class="component-content component">There was also a fundamental issue that we would have needed
 to resolve. Indeed, Thinkerbell supported dynamically removing
 device drivers, which could unregister features/types dynamically.
 This could have invalidated scripts that had already passed type-checking.
@@ -630,23 +562,27 @@ Worse, device drivers could then be re-added, with incompatible
 feature/types definitions. We would have needed to specify a
 semantics for the effect on previously-well-typed and
 previously-ill-typed scripts.</p>
-<h1 id="surviving-earthquakes-kind-of">Surviving earthquakes, kind of</h1>
-<p>One of the key ideas behind Project Link is that the server needs
+
+<div class="component-content pagebody component">
+  <h1 id="surviving-earthquakes-kind-of" class="pagebody-header">
+    Surviving earthquakes, kind of
+  </h1>
+</div><p class="component-content component">One of the key ideas behind Project Link is that the server needs
 to live in the house of a end-user, who may have very little
 technical knowledge, and it will live through famine and war.</p>
-<p>Well, more precisely, a server would be unplugged because the
+<p class="component-content component">Well, more precisely, a server would be unplugged because the
 user would need to plug in the vacuum cleaner, or while it was moved
 between rooms, and it would be rebooted during firmware
 upgrades. All of this needed to happen unmonitored.</p>
-<p>On the other side, old connected lightbulbs were bound to be
+<p class="component-content component">On the other side, old connected lightbulbs were bound to be
 replaced by newer connected lightbulbs, cameras bought from
 one company were bound to be replaced by cameras bought from
 another company and scripts needed to continue working,
 unmonitored.</p>
-<p>So, we designed Thinkerbell and its lower-level API (one
+<p class="component-content component">So, we designed Thinkerbell and its lower-level API (one
 can think of this API as the Thinkerbell VM) to
 handle as much of this as possible.</p>
-<p>We have seen above how Thinkerbell scripts (and its lower-level
+<p class="component-content component">We have seen above how Thinkerbell scripts (and its lower-level
 API) access devices by their properties (features and tags),
 rather than by unique identifiers. Features are exposed
 by the device driver, while tags are entered by the user
@@ -655,7 +591,7 @@ it. This mechanism was designed specifically to
 handle the problem of replacing devices by other devices,
 possibly from incompatible vendor, without having to alter
 their scripts (either Thinkerbell-level or remote scripts).</p>
-<p>Now, the problem of server reboots is made easy to solve
+<p class="component-content component">Now, the problem of server reboots is made easy to solve
 by the simplicity of Thinkerbell scripts and the mechanism
 of device drivers. Since Thinkerbell knows exactly which
 conditions to monitor, and since it communicates with
@@ -665,37 +601,49 @@ If Thinkerbell discovers it has rebooted, it
 can simply load the information from disk, request an
 update-as-soon-as-convenient from device drivers,
 check if conditions have changed, and proceed from there.</p>
-<h2 id="actual-implementation-1">Actual implementation</h2>
-<p>Surviving upgrades of devices was implemented and worked
+
+<div class="component-content pagebody component">
+  <h2 id="actual-implementation-1" class="pagebody-header">
+    Actual implementation
+  </h2>
+</div><p class="component-content component">Surviving upgrades of devices was implemented and worked
 pretty nicely.</p>
-<p>Persistence wasn&rsquo;t actually implemented in
+<p class="component-content component">Persistence wasn&rsquo;t actually implemented in
 Thinkerbell prototypes, due to lack of time.</p>
-<p>The persistence mechanism discussed above doesn&rsquo;t handle the
+<p class="component-content component">The persistence mechanism discussed above doesn&rsquo;t handle the
 case in which Thinkerbell is interrupted while executing
 after conditions have become true. While several semantics
 can be designed and implemented, we did not have the time
 to consider and experiment on the topic.</p>
-<h1 id="process-algebra-aka-formalizing-it">Process algebra (aka formalizing it)</h1>
-<p>The language was never fully formalized, largely because of the
+
+<div class="component-content pagebody component">
+  <h1 id="process-algebra-aka-formalizing-it" class="pagebody-header">
+    Process algebra (aka formalizing it)
+  </h1>
+</div><p class="component-content component">The language was never fully formalized, largely because of the
 deadline pressure mentioned above, and then because Project
 Link pivoted suddenly.</p>
-<p>However, the design of the language was made with the sketch
+<p class="component-content component">However, the design of the language was made with the sketch
 of a process algebra in mind. This clearly helped minimize the
 language and design the type system. Also, the idea was to
 eventually extend the language to:</p>
-<ul>
+<div class="component-content component"><ul>
 <li>let scripts dynamically add or remove scripts;</li>
 <li>let scripts put themselves on temporary pause, e.g. to avoid spamming the user with messages;</li>
 <li>define pseudo-device drivers combining several tasks.</li>
-</ul>
-<p>For all of this, having
+</ul></div>
+<p class="component-content component">For all of this, having
 a formal basis of the language would have
 helped ensure that we knew what we were doing, in
 terms of (non-)interference between scripts and device
 drivers, infinite loops, etc.</p>
-<p>Plus, it was fun to have.</p>
-<p>Semi-formally, the syntax for the process algebra looked like:</p>
-<pre tabindex="0"><code>// Rules
+<p class="component-content component">Plus, it was fun to have.</p>
+<p class="component-content component">Semi-formally, the syntax for the process algebra looked like:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <pre><code class="">// Rules
 R, R&#39; ::= 0
        |  R|R&#39;       // Two parallel rules
        |  C =&gt; E
@@ -726,37 +674,33 @@ E, E&#39; ::= 0
 V, V&#39; ::= x // Variable
        | { key_1: V, key_2: V&#39;, ... } // Structured message
        | string
-       | number
-</code></pre><p>I never got around to writing a formal semantics for this
+       | number</code></pre>
+  
+</div><p class="component-content component">I never got around to writing a formal semantics for this
 process algebra, but I suspect that it would be pretty easy.</p>
-<h1 id="what-now">What now?</h1>
-<p>Well, this is the end of this post-mortem/brain dump.</p>
-<p>I hope I have convinced you that Thinkerbell was pretty cool and some of the ideas
-deserve a second life. If you&rsquo;re interested in doing so, have fun!</p></article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/programming-language"><span class="tag">Programming Language</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/dsl"><span class="tag">DSL</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/types"><span class="tag">Types</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/process-algebra"><span class="tag">Process Algebra</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/iot"><span class="tag">IoT</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2091</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+
+<div class="component-content pagebody component">
+  <h1 id="what-now" class="pagebody-header">
+    What now?
+  </h1>
+</div><p class="component-content component">Well, this is the end of this post-mortem/brain dump.</p>
+<p class="component-content component">I hope I have convinced you that Thinkerbell was pretty cool and some of the ideas
+deserve a second life. If you&rsquo;re interested in doing so, have fun!</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  March 8, 2018</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -771,49 +715,51 @@ deserve a second life. If you&rsquo;re interested in doing so, have fun!</p></ar
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>

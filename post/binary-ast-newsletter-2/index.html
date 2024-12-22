@@ -1,284 +1,239 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="http://localhost:1313/img/favicon.ico">
 
-  <meta charset="utf-8" />
+    <meta name="keyword" content=""><meta property="og:url" content="http://localhost:1313/post/binary-ast-newsletter-2/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="The Binary AST Wishlist">
+  <meta property="og:description" content="Towards a JavaScript Binary AST, part 2">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2017-09-26T13:39:14+02:00">
+    <meta property="article:modified_time" content="2017-09-26T13:39:14+02:00">
+    <meta property="article:tag" content="JavaScript">
+    <meta property="article:tag" content="Mozilla">
+    <meta property="article:tag" content="Parsing">
+    <meta property="article:tag" content="Ast">
+    <meta property="article:tag" content="Compiler">
+    <meta property="article:tag" content="Performance">
+<title>The Binary AST Wishlist</title>
 
-  
-  <title>The Binary AST Wishlist</title>
+    <link rel="canonical" href="http://localhost:1313/post/binary-ast-newsletter-2/">
 
-  
-  
+    <link rel="stylesheet" href="http://localhost:1313/css/global.css">
 
+    <link rel="stylesheet" href="http://localhost:1313/css/custom.css">
 
+    <link rel="stylesheet" href="http://localhost:1313/css/search.css" />
 
+    
+    
 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
 
-  
-  <meta name="author" content="David Teller" />
-  <meta name="description" content="In a previous post, we introduced the ongoing work on the JavaScript Binary AST. To recapitulate, the JavaScript Binary AST is a very special compression format designed:
-for JavaScript; to optimize end-to-end performance, in particular the time it takes for code to start executing. This post attempts to explain some of the process behind the design of the Binary AST, some of the choices we have already made and some of the choices that remain to be made." />
-
-  
-  
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@ImYoric" />
-    <meta name="twitter:title" content="The Binary AST Wishlist" />
-    <meta name="twitter:description" content="In a previous post, we introduced the ongoing work on the JavaScript Binary AST. To recapitulate, the JavaScript Binary AST is a very special compression format designed:
-for JavaScript; to optimize end-to-end performance, in particular the time it takes for code to start executing. This post attempts to explain some of the process behind the design of the Binary AST, some of the choices we have already made and some of the choices that remain to be made." />
-    <meta name="twitter:image" content="https://yoric.github.io/img/avatar.jpg" />
-  
-
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="The Binary AST Wishlist" />
-  <meta property="og:description" content="In a previous post, we introduced the ongoing work on the JavaScript Binary AST. To recapitulate, the JavaScript Binary AST is a very special compression format designed:
-for JavaScript; to optimize end-to-end performance, in particular the time it takes for code to start executing. This post attempts to explain some of the process behind the design of the Binary AST, some of the choices we have already made and some of the choices that remain to be made." />
-  <meta property="og:url" content="https://yoric.github.io/post/binary-ast-newsletter-2/" />
-  <meta property="og:image" content="https://yoric.github.io/img/avatar.jpg" />
-
-
-
-
-<meta name="generator" content="Hugo 0.119.0" />
-
-
-<link rel="canonical" href="https://yoric.github.io/post/binary-ast-newsletter-2/" />
-<link rel="alternative" href="https://yoric.github.io/index.xml" title="Il y a du thé renversé au bord de la table !" type="application/atom+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-
-
-
-
-
-
-
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Il y a du thé renversé au bord de la table !" />
-<meta name="msapplication-tooltip" content="Il y a du thé renversé au bord de la table !" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://yoric.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://yoric.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://yoric.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://yoric.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://yoric.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://yoric.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
-
-
-
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
-
-<link rel="stylesheet" href="https://yoric.github.io/css/bundle.css" />
-
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-
-
-
-  
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+    
+    
 
 </head>
-  <body>
-    
-    <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#gitalk-container"><span class="icon icon-comment"></span></a>
-        
-      
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="http://localhost:1313/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="http://localhost:1313/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="http://localhost:1313/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="http://localhost:1313/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
     </div>
-    
-    
-  <header class="site-header">
-  <img class="avatar" src="https://yoric.github.io/img/avatar.jpg" alt="Avatar">
-  
-  <h2 class="title">Il y a du thé renversé au bord de la table !</h2>
-  
-  <p class="subtitle">Aventure! Excitement! Random ramblings by David Teller!</p>
-  <button class="menu-toggle" type="button">
-    <span class="icon icon-menu"></span>
-  </button>
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://yoric.github.io/">Home</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/about/">About</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/categories/">Categories</a>
-          </li>
-      
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://yoric.github.io/tags/">Tags</a>
-          </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
+  </div>
+</nav>
 
-      
-      <li class="social-item">
-        <a href="mailto:D.O.%28MyLastName%29@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/Yoric" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      <li class="social-item">
-        <a href="//twitter.com/ImYoric" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/davidteller" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://yoric.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">The Binary AST Wishlist</h1>
-      <p class="post-meta">@David Teller · Sep 26, 2017 · 9 min read</p>
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "http://localhost:1313/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
     </header>
-    <article class="post-content"><p>In a previous post, we introduced the ongoing work on the <a href="https://yoric.github.io/post/binary-ast-newsletter-1/">JavaScript Binary AST</a>.
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        JavaScript
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">September 26, 2017</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">The Binary AST Wishlist</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content">Towards a JavaScript Binary AST, part 2</div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="http://localhost:1313/tags/javascript" class="tag">
+                    JavaScript
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/mozilla" class="tag">
+                    Mozilla
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/parsing" class="tag">
+                    parsing
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/ast" class="tag">
+                    ast
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/compiler" class="tag">
+                    compiler
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/performance" class="tag">
+                    performance
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/spidermonkey" class="tag">
+                    SpiderMonkey
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/babel" class="tag">
+                    Babel
+                  </a>
+                
+                  
+                  <a href="http://localhost:1313/tags/newsletter" class="tag">
+                    newsletter
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">In a previous post, we introduced the ongoing work on the <a href="https://yoric.github.io/post/binary-ast-newsletter-1/">JavaScript Binary AST</a>.
 To recapitulate, the JavaScript Binary AST is a very special compression format designed:</p>
-<ul>
+<div class="component-content component"><ul>
 <li>for JavaScript;</li>
 <li>to optimize end-to-end performance, in particular the time it takes for code to start executing.</li>
-</ul>
-<p>This post attempts to explain some of the process behind the design of the Binary AST,
+</ul></div>
+<p class="component-content component">This post attempts to explain some of the process behind the design of the Binary AST,
 some of the choices we have already made and some of the choices that remain
 to be made.</p>
-<h1 id="usability">Usability</h1>
-<p>Before entering in details, let&rsquo;s not forget the most important part: any piece
+
+<div class="component-content pagebody component">
+  <h1 id="usability" class="pagebody-header">
+    Usability
+  </h1>
+</div><p class="component-content component">Before entering in details, let&rsquo;s not forget the most important part: any piece
 of technology, no matter how cleverly designed, is useless if nobody uses it.</p>
-<p>So let&rsquo;s start our wish list with these points:</p>
-<ul>
+<p class="component-content component">So let&rsquo;s start our wish list with these points:</p>
+<div class="component-content component"><ul>
 <li><strong>TODO</strong> the result of this project must be useful;</li>
 <li><strong>TODO</strong> the results of our work must be usable by everyone, without
 having to refactor or learn a new programming language or entire
 new toolchains;</li>
-</ul>
-<h1 id="a-short-introduction-to-asts">A short introduction to ASTs</h1>
-<p>AST stands for Abstract Syntax Tree. No matter which is your preferred
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h1 id="a-short-introduction-to-asts" class="pagebody-header">
+    A short introduction to ASTs
+  </h1>
+</div><p class="component-content component">AST stands for Abstract Syntax Tree. No matter which is your preferred
 programming language, this data structure lurks inside your
 interpreter/compiler/virtual machine. Even HTML has an AST,
 called the DOM tree.</p>
-<p>So, let us consider the following snippet of JavaScript:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// `item` is declared implicitly
+<p class="component-content component">So, let us consider the following snippet of JavaScript:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// `item` is declared implicitly
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">item</span> <span style="color:#66d9ef">of</span> document.<span style="color:#a6e22e">getElementsByClassName</span>(<span style="color:#e6db74">&#34;sun&#34;</span>)) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">contains</span>(<span style="color:#e6db74">&#34;clouds&#34;</span>)) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;sundown&#34;</span>);
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Between the time the browser receives the code and the instant it can start
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Between the time the browser receives the code and the instant it can start
 executing it, this code needs to go through many (costly) steps.</p>
-<p>After a few of these steps, the above source code is converted into something
+<p class="component-content component">After a few of these steps, the above source code is converted into something
 like:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">ForOf</span> {
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">ForOf</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">vars</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;item&#34;</span>],
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">left</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Name</span> <span style="color:#e6db74">&#34;item&#34;</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">right</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Apply</span> {
@@ -314,82 +269,111 @@ like:</p>
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>As you can see, this data structure contains the source code, just in a
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">As you can see, this data structure contains the source code, just in a
 different form. Once the compiler/interpreter/VM has created the AST,
 it will perform a number of transformations on the AST, typically to either
 detect errors or perform early optimizations.</p>
-<p>After this, it will proceed to the next step of execution.</p>
-<p>As you may guess from the name, the core stuff of the JS Binary AST project
+<p class="component-content component">After this, it will proceed to the next step of execution.</p>
+<p class="component-content component">As you may guess from the name, the core stuff of the JS Binary AST project
 is to ship a version of the JavaScript AST directly to the browser, instead
 of the usual source code. While the above snippet looks large, we&rsquo;ll discuss
 below and in future posts how we can actually make the AST smaller – indeed,
 in most cases, much smaller than the (gzipped) source code.</p>
-<h1 id="coming-up-with-an-ast-for-javascript">Coming up with an AST for JavaScript</h1>
-<p>The first problem is to define an AST for JavaScript. Indeed, while each
+
+<div class="component-content pagebody component">
+  <h1 id="coming-up-with-an-ast-for-javascript" class="pagebody-header">
+    Coming up with an AST for JavaScript
+  </h1>
+</div><p class="component-content component">The first problem is to define an AST for JavaScript. Indeed, while each
 Virtual Machine has <em>an</em> AST, to this date, no two VM vendors have attempted
 to work out a common JavaScript AST. This makes sense, because each VM does
 different things with its AST and therefore stores different information on
 it.</p>
-<p>So, our first TODOs are:</p>
-<ul>
+<p class="component-content component">So, our first TODOs are:</p>
+<div class="component-content component"><ul>
 <li><strong>TODO</strong> we need a vendor-neutral AST;</li>
 <li><strong>TODO</strong> we need to convince VM vendors that it can easily and efficiently be translated to their VM&rsquo;s internal AST;</li>
 <li><strong>TODO</strong> this AST must be adopted as a JavaScript standard</li>
 <li><strong>TODO</strong> whenever we specify a new JavaScript feature, its AST
 representation must also be specified.</li>
-</ul>
-<p>As it turns out, there are already a few JavaScript ASTs in the wild:</p>
-<ul>
+</ul></div>
+<p class="component-content component">As it turns out, there are already a few JavaScript ASTs in the wild:</p>
+<div class="component-content component"><ul>
 <li><a href="https://github.com/estree/estree">ESTree</a></li>
 <li><a href="http://shift-ast.org/">Shift</a></li>
 <li><a href="https://github.com/babel/babylon/blob/master/ast/spec.md">Babylon</a></li>
-</ul>
-<p>We have decided to start our work based on Babylon, as it seems to be the most
+</ul></div>
+<p class="component-content component">We have decided to start our work based on Babylon, as it seems to be the most
 battle-tested of the lot. However, our AST will have some deviations from
 Babylon, where it makes sense for performance or file size.</p>
-<h2 id="yesterdays-ast-todays-ast-and-tomorrows-ast">Yesterday&rsquo;s AST, today&rsquo;s AST and tomorrow&rsquo;s AST</h2>
-<p>If you have been using JavaScript recently, you have probably realized that the
+
+<div class="component-content pagebody component">
+  <h2 id="yesterdays-ast-todays-ast-and-tomorrows-ast" class="pagebody-header">
+    Yesterday&rsquo;s AST, today&rsquo;s AST and tomorrow&rsquo;s AST
+  </h2>
+</div><p class="component-content component">If you have been using JavaScript recently, you have probably realized that the
 language keeps changing. This means that yesterday&rsquo;s AST might not be today&rsquo;s
 AST or tomorrow&rsquo;s AST.</p>
-<p>For instance, consider a function. In ES5, a function was characterized by:</p>
-<ul>
+<p class="component-content component">For instance, consider a function. In ES5, a function was characterized by:</p>
+<div class="component-content component"><ul>
 <li>optionally, its name;</li>
 <li>its list of arguments;</li>
 <li>its body.</li>
-</ul>
-<p>So, a simple function</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">empty</span>() {
+</ul></div>
+<p class="component-content component">So, a simple function</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">empty</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Empty body.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>was described as</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDeclaration</span> {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">was described as</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDeclaration</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;empty&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arguments</span><span style="color:#f92672">:</span> [], <span style="color:#75715e">// Empty arguments.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> [], <span style="color:#75715e">// Empty body.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>In 2015, generators appeared, so that same function was described as</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDeclaration</span> {
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In 2015, generators appeared, so that same function was described as</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDeclaration</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;empty&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arguments</span><span style="color:#f92672">:</span> [],
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> [],
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>In 2017, async functions appeared so that same function is now described as</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDeclaration</span> {
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In 2017, async functions appeared so that same function is now described as</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDeclaration</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;empty&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arguments</span><span style="color:#f92672">:</span> [],
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> [],
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">generator</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Of course, to make things more complicated, there is no guarantee that all VM
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Of course, to make things more complicated, there is no guarantee that all VM
 vendors implemented generators or async functions in the same order.</p>
-<p>Similarly, new operators such as <code>**</code> or <code>**=</code> have been added to JavaScript,
+<p class="component-content component">Similarly, new operators such as <code>**</code> or <code>**=</code> have been added to JavaScript,
 as well as entirely new constructions such as <code>await</code>. In other words,
 JavaScript is very much a moving target.</p>
-<p>This translates to the following TODOs:</p>
-<ul>
+<p class="component-content component">This translates to the following TODOs:</p>
+<div class="component-content component"><ul>
 <li><strong>TODO</strong> the AST format must be able to represent AST nodes
 that didn&rsquo;t exist when the AST format was defined;</li>
 <li><strong>TODO</strong> the AST format must be able to represent AST nodes with
@@ -401,47 +385,75 @@ be able to read and process a BinAST that was emitted for an older
 version of JavaScript;</li>
 <li><strong>TODO</strong> the AST format must not rely upon the order in which features
 have been proposed/adopted/implemented.</li>
-</ul>
-<p>We fulfill these TODOs by adopting a self-describing format, which describes
+</ul></div>
+<p class="component-content component">We fulfill these TODOs by adopting a self-describing format, which describes
 inside the file which variant of a node is used. For instance, we may specify
 something along the lines of:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/*40*/</span> ...
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/*40*/</span> ...
 </span></span><span style="display:flex;"><span><span style="color:#75715e">/*41*/</span> ...
 </span></span><span style="display:flex;"><span><span style="color:#75715e">/*42*/</span> <span style="color:#e6db74">&#34;FunctionDeclaration&#34;</span> [<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;arguments&#34;</span>, <span style="color:#e6db74">&#34;body&#34;</span>]
 </span></span><span style="display:flex;"><span><span style="color:#75715e">/*43*/</span> ...
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/*44*/</span> ...
-</span></span></code></pre></div><p>This description lets the parser immediately determine which version(s) of
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/*44*/</span> ...</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This description lets the parser immediately determine which version(s) of
 <code>FunctionDeclaration</code> may appear in the file and how they will be represented.
 Here, the file contains <code>FunctionDeclaration</code> nodes with three
 properties: <code>name</code>, <code>arguments</code> and <code>body</code>.</p>
-<h1 id="making-it-fast-to-send">Making it fast to send</h1>
-<p>If we want to make the Binary AST useful, we need to make sure that files do not
+
+<div class="component-content pagebody component">
+  <h1 id="making-it-fast-to-send" class="pagebody-header">
+    Making it fast to send
+  </h1>
+</div><p class="component-content component">If we want to make the Binary AST useful, we need to make sure that files do not
 become too large. Not only that, but we would like Binary AST compression
 to beat minification + gzip compression in terms of disk usage.</p>
-<ul>
+<div class="component-content component"><ul>
 <li><strong>TODO</strong> adopt a size-efficient representation of the AST;</li>
 <li><strong>TODO</strong> during development, benchmark size against minified + gzipped code;</li>
-</ul>
-<p>Of course, to do this, we need to adopt an efficient representation of the AST.</p>
-<p>In the examples above, we have put the definition of <code>FunctionDeclaration</code> in an
+</ul></div>
+<p class="component-content component">Of course, to do this, we need to adopt an efficient representation of the AST.</p>
+<p class="component-content component">In the examples above, we have put the definition of <code>FunctionDeclaration</code> in an
 index, with number 42. Which means that istead of</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDeclaration</span> {
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">FunctionDeclaration</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;empty&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arguments</span><span style="color:#f92672">:</span> [],
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> [],
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>we can write in our file the following sequence of 9 bytes:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>[<span style="color:#ae81ff">42</span>, <span style="color:#ae81ff">5</span> <span style="color:#75715e">/*length of string*/</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#e6db74">&#39;p&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;y&#39;</span>, <span style="color:#ae81ff">0</span> <span style="color:#75715e">/* length of list*/</span>, <span style="color:#ae81ff">0</span> <span style="color:#75715e">/* length of list */</span>]
-</span></span></code></pre></div><p>This is already much shorter.</p>
-<p>Similarly, let us revisit</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// `item` is declared implicitly
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">we can write in our file the following sequence of 9 bytes:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>[<span style="color:#ae81ff">42</span>, <span style="color:#ae81ff">5</span> <span style="color:#75715e">/*length of string*/</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#e6db74">&#39;p&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;y&#39;</span>, <span style="color:#ae81ff">0</span> <span style="color:#75715e">/* length of list*/</span>, <span style="color:#ae81ff">0</span> <span style="color:#75715e">/* length of list */</span>]</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This is already much shorter.</p>
+<p class="component-content component">Similarly, let us revisit</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// `item` is declared implicitly
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">item</span> <span style="color:#66d9ef">of</span> document.<span style="color:#a6e22e">getElementsByClassName</span>(<span style="color:#e6db74">&#34;sun&#34;</span>)) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">contains</span>(<span style="color:#e6db74">&#34;clouds&#34;</span>)) {
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">classList</span>.<span style="color:#a6e22e">add</span>(<span style="color:#e6db74">&#34;sundown&#34;</span>);
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>We describe it as</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Constructions</span> [
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">We describe it as</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Constructions</span> [
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*0*/</span> <span style="color:#e6db74">&#34;ForOf&#34;</span> [<span style="color:#e6db74">&#34;vars&#34;</span>, <span style="color:#e6db74">&#34;left&#34;</span>, <span style="color:#e6db74">&#34;right&#34;</span>],
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*1*/</span> <span style="color:#e6db74">&#34;Name&#34;</span> [<span style="color:#e6db74">&#34;value&#34;</span>],
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">/*2*/</span> <span style="color:#e6db74">&#34;Apply&#34;</span> [<span style="color:#e6db74">&#34;function&#34;</span>, <span style="color:#e6db74">&#34;args&#34;</span>],
@@ -500,87 +512,85 @@ index, with number 42. Which means that istead of</p>
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span> <span style="color:#75715e">/*7*/</span>
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Or, in binary&hellip;</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/* Index*/</span> ...
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Or, in binary&hellip;</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/* Index*/</span> ...
 </span></span><span style="display:flex;"><span><span style="color:#75715e">/* Strings */</span> [<span style="color:#75715e">/*Number of strings*/</span><span style="color:#ae81ff">10</span>, <span style="color:#75715e">/*Length*/</span><span style="color:#ae81ff">4</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#75715e">/*Length*/</span><span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>, <span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#75715e">/*Length*/</span><span style="color:#ae81ff">22</span>, <span style="color:#e6db74">&#39;g&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;E&#39;</span>, <span style="color:#e6db74">&#39;l&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;B&#39;</span>, <span style="color:#e6db74">&#39;y&#39;</span>, <span style="color:#e6db74">&#39;C&#39;</span>, <span style="color:#e6db74">&#39;l&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;N&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;m&#39;</span>, <span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#75715e">/*Length*/</span><span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#75715e">/*Length*/</span> <span style="color:#ae81ff">9</span>, <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#e6db74">&#39;l&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;L&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#75715e">/*Length*/</span><span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;t&#39;</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#75715e">/*Length*/</span><span style="color:#ae81ff">8</span>, <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#e6db74">&#39;l&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#75715e">/*Length*/</span> <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#75715e">/*Length*/</span> <span style="color:#ae81ff">7</span>, <span style="color:#e6db74">&#39;s&#39;</span>, <span style="color:#e6db74">&#39;u&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>, <span style="color:#e6db74">&#39;d&#39;</span>, <span style="color:#e6db74">&#39;o&#39;</span>, <span style="color:#e6db74">&#39;w&#39;</span>, <span style="color:#e6db74">&#39;n&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/* AST */</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7</span>]
-</span></span></code></pre></div><ul>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* AST */</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">7</span>]</span></span></code></pre></div></div>
+  
+</div><div class="component-content component"><ul>
 <li><strong>TODO</strong> use well-known compression techniques to further reduce the size of
 the binary.</li>
-</ul>
-<h1 id="making-it-fast-to-parse">Making it fast to parse</h1>
-<p>If you recall, the main problem we are trying to solve is performance. More
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h1 id="making-it-fast-to-parse" class="pagebody-header">
+    Making it fast to parse
+  </h1>
+</div><p class="component-content component">If you recall, the main problem we are trying to solve is performance. More
 precisely, we want JavaScript code to <em>start</em> faster. Smaller files will
 definitely help (more on this below), but we can go much further.</p>
-<p>Before we proceed, let me offer you a game: how quickly can you read and understand
+<p class="component-content component">Before we proceed, let me offer you a game: how quickly can you read and understand
 the following snippet?</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>function /*function() {}*/ replace() { // }
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>function /*function() {}*/ replace() { // }
 </span></span><span style="display:flex;"><span>   var string /* my string */ = /.* my string */;
 </span></span><span style="display:flex;"><span>   var re = /* out of the re */ } &#34; /* in the re */ &#34;;
 </span></span><span style="display:flex;"><span>   (...x) =&gt; ({string});
-</span></span><span style="display:flex;"><span>`}`
-</span></span></code></pre></div><p>(yeah, I have deactivated syntax coloring on purpose, I&rsquo;m that kind of guy)</p>
-<p>I hope that, after playing this game, you agree with me that the syntax of
+</span></span><span style="display:flex;"><span>`}`</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">(yeah, I have deactivated syntax coloring on purpose, I&rsquo;m that kind of guy)</p>
+<p class="component-content component">I hope that, after playing this game, you agree with me that the syntax of
 JavaScript is complicated and understanding it needs way too much brainpower.
 For fun, you can try and find how to reactivate syntax coloring – and realize
 that the syntax coloring tool actually misinterprets this source code, or
 perhaps I do.</p>
-<p>So, here&rsquo;s something we can do:</p>
-<ul>
+<p class="component-content component">So, here&rsquo;s something we can do:</p>
+<div class="component-content component"><ul>
 <li><strong>TODO</strong> the syntax of the AST must be extremely simple for the computer to parse;</li>
-</ul>
-<p>And in particular</p>
-<ul>
+</ul></div>
+<p class="component-content component">And in particular</p>
+<div class="component-content component"><ul>
 <li><strong>TODO</strong> don&rsquo;t parse things more than once;</li>
-</ul>
-<p>But that&rsquo;s not all. Parsing JavaScript wouldn&rsquo;t be so much of a problem if we
+</ul></div>
+<p class="component-content component">But that&rsquo;s not all. Parsing JavaScript wouldn&rsquo;t be so much of a problem if we
 didn&rsquo;t actually need to parse <em>the entire file</em> before we could start executing
 it.</p>
-<ul>
+<div class="component-content component"><ul>
 <li><strong>TODO</strong> the syntax of the AST and semantics of parser must allow us to <em>skip</em>
 over stuff that may not be useful;</li>
-</ul>
-<p>So far, we have attempted to decrease the total amount of work before we can
+</ul></div>
+<p class="component-content component">So far, we have attempted to decrease the total amount of work before we can
 start, which is generally the best way to do things. The alternative is to
 delegate it to other cores:</p>
-<ul>
+<div class="component-content component"><ul>
 <li><strong>TODO</strong> the syntax of the AST and semantics of parser must allow us to
 delegate some of the work to other nodes.</li>
-</ul>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://yoric.github.io/tags/javascript"><span class="tag">JavaScript</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/mozilla"><span class="tag">Mozilla</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/parsing"><span class="tag">Parsing</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/ast"><span class="tag">Ast</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/compiler"><span class="tag">Compiler</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/performance"><span class="tag">Performance</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/spidermonkey"><span class="tag">SpiderMonkey</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/babel"><span class="tag">Babel</span></a></li>
-        
-          <li><a href="https://yoric.github.io/tags/newsletter"><span class="tag">Newsletter</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2246</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      
+</ul></div>
+
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:   </p>
+                <p class="content">Posted on:  September 26, 2017</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
       
       <div id="gitalk-container"></div>
+      GITALK ENABLED
       <script>
         const gitalk = new Gitalk({
           clientID: 'be349d0bd8338cd1aa1d',
@@ -588,56 +598,58 @@ delegate some of the work to other nodes.</li>
           repo: 'yoric.github.io',    
           owner: 'Yoric',
           admin: ['Yoric'],
-          id: '72b3beba4cd2817fdc8e2cd60bb2be35',  
+          id: 'a0921d50f3d845b0fcd04a0d20eb4618',  
           distractionFreeMode: false  
         })
 
         gitalk.render('gitalk-container')
       </script>
       
-      
-      
-        
-        
-      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "http://localhost:1313/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
     
-  </section>
-  <footer class="site-footer">
-  <p>© 2017-2023 Il y a du thé renversé au bord de la table !</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
-  
-</footer>
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
 
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
 
-
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\[','\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-<script src="https://yoric.github.io/js/bundle.js"></script>
-
-
-
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2024
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
   </body>
+    
+    
+
+    
+    
 </html>
