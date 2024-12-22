@@ -319,6 +319,10 @@ and <code>Right</code> are equivalent.</p>
 <p class="component-content component">Step 2: At some point before code generation, the compiler calls the plug-in and passes
 the list of equivalences that were assumed and lets the plug-in perform late rejection
 of types that are not actually equivalent.</p>
+<p class="component-content component">Critically, this steps 2 takes place after both trait selection and unification, which
+means that type variables are already either resolved or truly generic. Intuitively,
+this means that the post-processing step only needs to perform type-checking, rather
+than any kind of type inference.</p>
 <p class="component-content component">This variant feels faster, much less powerful than plugging an entirely new trait selection mechanism
 into <code>rustc_infer</code>, the behavior in case of error is clearer, and the plug-in has access
 to better information when displaying error messages. Also, it&rsquo;s possible that the plug-in
@@ -416,12 +420,18 @@ minutes of experimenting with a compiler variant using it showed no really annoy
   <h1 id="what-about-an-api" class="pagebody-header">
     What about an API?
   </h1>
-</div><p class="component-content component">We&rsquo;re a bit far from having an implementation that works on recent rustc. However, it feels to me like, from the point of view of the refinement type developer, the API could be somewhat similar to that of procedural macros:</p>
+</div><p class="component-content component">Let&rsquo;s look a bit further into the future, at a possible stable implementation. I believe that we&rsquo;d like:</p>
+<div class="component-content component"><ul>
+<li>as many types as possible defined in regular, userland crates (in this case, <code>Unit</code>, <code>Value</code>, <code>Mul</code>, <code>Div</code>, etc.);</li>
+<li>any checks that cannot be implemented within Rust&rsquo;s regular type system implemented in a post-processing crate, executed during compilation.</li>
+</ul></div>
+<p class="component-content component">This feels dual to the current design of procedural macros, which I think is a good sign. So, this could look like one of:</p>
 <div class="component-content pagebody component code">
   
   
   
-  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> rust_doc::clean::types::Type; <span style="color:#75715e">// Or some reimplementation thereof.
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> refinement::Type;  <span style="color:#75715e">// Functionally equivalent to rustdoc::clean::types::Type, but doesn&#39;t need `rustc_private`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">use</span> refinement::Error; <span style="color:#75715e">// Somewhat similar to rustc_errors, to be designed.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// If we go for post-processing trait selection.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">//
@@ -451,10 +461,7 @@ minutes of experimenting with a compiler variant using it showed no really annoy
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">/// ...
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74"></span>}</span></span></code></pre></div></div>
   
-</div><p class="component-content component">While a nicer API would certainly be possible, I&rsquo;d already be quite happy if we succeeded
-at implementing one of these in a manner that doesn&rsquo;t break with each new version of Rust
-nightly.</p>
-
+</div>
 <div class="component-content pagebody component">
   <h1 id="whats-next" class="pagebody-header">
     What&rsquo;s next?
