@@ -6,13 +6,41 @@
     <description>Recent content in Tags on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 22 Dec 2024 20:00:47 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jan 2025 23:06:19 +0100</lastBuildDate>
     <atom:link href="https://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ai</title>
+      <link>https://yoric.github.io/tags/ai/</link>
+      <pubDate>Mon, 06 Jan 2025 23:06:19 +0100</pubDate>
+      <guid>https://yoric.github.io/tags/ai/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Compilers</title>
       <link>https://yoric.github.io/tags/compilers/</link>
-      <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
+      <pubDate>Mon, 06 Jan 2025 23:06:19 +0100</pubDate>
       <guid>https://yoric.github.io/tags/compilers/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Llm</title>
+      <link>https://yoric.github.io/tags/llm/</link>
+      <pubDate>Mon, 06 Jan 2025 23:06:19 +0100</pubDate>
+      <guid>https://yoric.github.io/tags/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Theorem Provers</title>
+      <link>https://yoric.github.io/tags/theorem-provers/</link>
+      <pubDate>Mon, 06 Jan 2025 23:06:19 +0100</pubDate>
+      <guid>https://yoric.github.io/tags/theorem-provers/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Type Systems</title>
+      <link>https://yoric.github.io/tags/type-systems/</link>
+      <pubDate>Mon, 06 Jan 2025 23:06:19 +0100</pubDate>
+      <guid>https://yoric.github.io/tags/type-systems/</guid>
       <description></description>
     </item>
     <item>
@@ -27,13 +55,6 @@
       <link>https://yoric.github.io/tags/rust/</link>
       <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
       <guid>https://yoric.github.io/tags/rust/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Type Systems</title>
-      <link>https://yoric.github.io/tags/type-systems/</link>
-      <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
-      <guid>https://yoric.github.io/tags/type-systems/</guid>
       <description></description>
     </item>
     <item>

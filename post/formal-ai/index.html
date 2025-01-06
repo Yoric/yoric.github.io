@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
+
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/formal-ai/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="AI code plus performance minus brittle = ?">
+  <meta property="og:description" content="TL;DR There’s a path towards AI that actually produces high-reliability, high-performance code, and it goes through formal methods and compilers.
+Generative AI has been something of a controversial topic among developers. Some claim that it’s making their life easier, or even that they don’t need to code anymore and can let some agent do the job. Others claim that it’s unreliable, that it’s operating at the wrong level, and that it will never successfully replace developers.
+A few point out (correctly) that Earth simply cannot sustain the exponential energy requirements of AI – or even the exponential money demands of some famous AI company.
+For this post, let’s assume that Generative AI is here to say, and that it will eventually write (almost) all the code. This is by no mean a certainty, but it’s a possible scenario, or even a self-fulfilling prophecy.
+If this happens, there are two directions in which code-written-by-AI goes. Either AI will get better at writing reliable code, or we’ll get used to rolling dice whenever we use an AI to write code, and more often than not, end up with bad, bug-riddled, unreliable and slow AI-generated code. But hey, we’ll have managed to layoff all the developers (and all the voice actors, all the paralegals, all the book illustrators, etc.) so the money will flow and everybody1 will be happy. Let’s be frank: given how the industry has evolved during the last ~40 years, the second option is the most likely. But maybe, just maybe, there is a path towards good AI code2.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-01-06T23:06:19+01:00">
+    <meta property="article:modified_time" content="2025-01-06T23:06:19+01:00">
+    <meta property="article:tag" content="Ai">
+    <meta property="article:tag" content="Llm">
+    <meta property="article:tag" content="Compilers">
+    <meta property="article:tag" content="Type Systems">
+    <meta property="article:tag" content="Theorem Provers">
+<title>AI code plus performance minus brittle = ?</title>
+
+    <link rel="canonical" href="https://yoric.github.io/post/formal-ai/">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
+
+    
+    
+
+</head>
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
+    </header>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        ai
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">January 6, 2025</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">AI code plus performance minus brittle = ?</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/ai" class="tag">
+                    ai
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/llm" class="tag">
+                    llm
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/compilers" class="tag">
+                    compilers
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/type-systems" class="tag">
+                    type systems
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/theorem-provers" class="tag">
+                    theorem provers
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component"><strong>TL;DR</strong> <em>There&rsquo;s a path towards AI that actually produces high-reliability, high-performance code, and it goes through formal methods and compilers.</em></p>
+<p class="component-content component">Generative AI has been something of a controversial topic among developers. Some claim that it&rsquo;s making their life easier, or even that they don&rsquo;t need to code anymore and can let some agent do the job. Others claim that it&rsquo;s unreliable, that it&rsquo;s operating at the wrong level, and that it will never successfully replace developers.</p>
+<p class="component-content component">A few point out (correctly) that Earth simply cannot sustain the exponential energy requirements of AI – or even the exponential money demands of some famous AI company.</p>
+<p class="component-content component">For this post, let&rsquo;s assume that Generative AI is here to say, and that it will eventually write (almost) all the code. This is by no mean a certainty, but it&rsquo;s a possible scenario, or even a self-fulfilling prophecy.</p>
+<p class="component-content component">If this happens, there are two directions in which code-written-by-AI goes. Either AI will get better at writing reliable code, or we&rsquo;ll get used to rolling dice whenever we use an AI to write code, and more often than not, end up with bad, bug-riddled, unreliable and slow AI-generated code. But hey, we&rsquo;ll have managed to layoff all the developers (and all the voice actors, all the paralegals, all the book illustrators, etc.) so the money will flow and everybody<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> will be happy. Let&rsquo;s be frank: given how the industry has evolved during the last ~40 years, the second option is the most likely. But maybe, just maybe, there is a path towards good AI code<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="step-1-eliminating-code-hallucinations-baby-steps" class="pagebody-header">
+    Step 1: Eliminating code hallucinations, baby steps
+  </h1>
+</div><p class="component-content component">If you are a senior enough developer, chances are that you don&rsquo;t consider writing code as something difficult. It may be time-consuming, it may, in some cases, be annoying, but with sufficient experience, it&rsquo;s hardly more difficult than writing your native language. Yes, learning new libraries may be a headscratcher, especially when the documentation is poor, but not a true obstacle.</p>
+<p class="component-content component">How do you write code? Well, you start from some kind of spec, which could be as fuzzy as &ldquo;I want to write some kind of game based on the motion of fluids&rdquo;, or, if you work at NASA, could be thousands of pages of meticulously compiled requirements. Then you refine the spec.  If you&rsquo;re an adept of Test-Driven Development, you refine your specs into tests, then fill in the blanks (i.e. the implementation), and chances are that your tests are part of your documentation. If you&rsquo;re an adept of Types-Driven Development, you refine your specs into types, then fill in the blanks (i.e. the implementation), and chances are that your types are part of your documentation. There are countless other variants, but the ones that interest me for this entry are all based on the same template:</p>
+<div class="component-content component"><ol>
+<li>Start with a list of external requirements.</li>
+<li>Refine your list into something that can be understood by the computer.</li>
+<li>Fill in the blanks.</li>
+<li>Let the computer tell you whether the blanks are filled correctly.</li>
+</ol></div>
+<p class="component-content component">As they&rsquo;re currently being hyped, LLMs promise to semi-magically handle items 2., 3. and 4. without (much) human intervention – and failing to do this reliably. The much-hyped solution pretty much come down to brute-forcing a solution, but none of them seems to actually scale up to any interesting problem.</p>
+<p class="component-content component">On the other hand, the points above already point towards a path that can feels much more reliable.</p>
+<div class="component-content component"><ol>
+<li>A human being starts with a list of external requirements (in some language, human or formal).</li>
+<li>A human being refines this list into something formal.</li>
+<li><strong>The Oracle to fill in the blanks</strong> (presumably, the Oracle is an LLM, but it doesn&rsquo;t have to be).</li>
+<li>The toolchain uses the formal specifications (tests, types, etc.) to confirm that the blank has been filled correctly.</li>
+<li>Return to 3. until the blank has been filled entirely, you run out of money, or the climate is so warm that people have given up on computers.</li>
+</ol></div>
+<p class="component-content component">Note that I&rsquo;m not nearly the first person to come up with the idea of getting an Oracle to fill in the blanks.
+I&rsquo;ve seen a number of people across social networks doing this, with various level of success.
+In fact, Coq/Rocq developers have been doing this for decades, refining informal specs into types, then getting
+the Oracle to write the code, and using the checker to make sure that the code matches the specifications. Just, instead of calling these specs &ldquo;types&rdquo; and these blanks &ldquo;code&rdquo;, they call them &ldquo;proof obligations&rdquo; and &ldquo;proofs&rdquo;, but this is, in fact, <a href="https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence">the same thing</a>. In fact, these proofs can <a href="https://www.lirmm.fr/~delahaye/papers/focal-mod%20(MLPA'09).pdf">compiled to native code and executed</a>.
+Also, there are <a href="https://arxiv.org/abs/2410.19605">precedents for using an LLM as an Oracle for Coq/Rocq</a>.</p>
+<blockquote>
+<p class="component-content component"><strong>Thesis 1</strong> With a powerful enough specification mechanism, we can eliminate code hallucinations.</p>
+</blockquote>
+<p class="component-content component">Importantly (and unsurprisingly), this mechanism is independent from the Oracle used. You can use ChatGPT
+as an Oracle, or genetic algorithms, or your interns, or an agentic architecture, or a Mechanical Turk,
+or an army of monkeys on typewriters.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="step-2-eliminating-code-hallucinations-for-real" class="pagebody-header">
+    Step 2: Eliminating code hallucinations, for real
+  </h1>
+</div><p class="component-content component">Actually, we didn&rsquo;t entirely eliminate hallucinations. For this section, let&rsquo;s assume that you&rsquo;re using
+Test-Driven Development. There is still a chance that your Oracle could be lying to you (or hallucinating
+convincingly) by satisfying <em>only</em> the tests and failing in every other situation.</p>
+<p class="component-content component">When we&rsquo;re writing code manually, this is usually not a problem: we count on developers to be honest, first
+because most people are honest, and secondly because if they&rsquo;re not, they&rsquo;re going to lose their job, so if
+we have sufficient tests/types, it&rsquo;s usually enough. But if your Oracle is an algorithm, or perhaps if you&rsquo;re
+buying your snippet from some mechanical turk of untraceable origin, you can&rsquo;t afford to make any such
+assumption. In fact, in a future of AI marketplace <em>and</em> generalized economic warfare/industrial espionage,
+it&rsquo;s actually far from certain that you will be able to trust an AI bought or rented from another company/nation.</p>
+<p class="component-content component">In other words, in presence of an unreliable Oracle, tests are not sufficient. What could be better than tests?
+From the top of my head, I can think of only one thing that is more powerful than a finite testsuite: an infinite
+testsuite that can test every single possible combination of inputs and outputs that your code could need to
+deal with and produce. Of course, the space of such combinations is infinite, so we will want to pack it into
+some form of code.</p>
+<p class="component-content component">One way to do this is to actually write the code for your application/library/service. You&rsquo;ll be able to compare the behavior of handwritten
+code to whatever your Oracle can generate. But there&rsquo;s the small matter that you&rsquo;ll need to trust your own code,
+and the other small matter that you have written the code, so what&rsquo;s the point of having an Oracle in the first place?</p>
+<p class="component-content component">So perhaps we could do better? What if instead of writing the code manually, we had several competing Oracles,
+each writing one version of the code that fulfills the tests, and we compared their results? Something like
+inverse-fuzzing, or perhaps a bit like generic algorithms. Then you&rsquo;ll just need to pick the best. But there&rsquo;s
+the small matter that you still need to find a way to pick the best among these samples. Since all the samples
+already fulfill your specs-as-tests, at least in theory, you have already used all the knowledge you have at hand
+to pick one.</p>
+<p class="component-content component">So you&rsquo;ll have to be smarter and borrow a page from the data science community, and <em>hide
+some of your specs</em>, only using these specs to reject samples that are convincing but false.
+This is a form of defense against overfitting/hostile Oracle. You&rsquo;ll probably want to combine
+this with some other metric (e.g. performance)to pick among the remaining samples.</p>
+<p class="component-content component">How many hidden tests will you need? If I recall, a common practice among data scientists is to
+keep ~10% hidden <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>. I don&rsquo;t think that I&rsquo;d be satisfied with decreasing by ~10% the chances that my
+plane decides to drop from the sky because it doesn&rsquo;t like the song I&rsquo;m playing, so I hope you&rsquo;ll
+be using more.</p>
+<blockquote>
+<p class="component-content component"><strong>Thesis 2</strong> There is a way to (probabilistically) eliminate hallucinations with Test-Driven Development.</p>
+</blockquote>
+<p class="component-content component">I don&rsquo;t think that there is anything fundamentally wrong with this approach, but I find it a bit disappointing.
+After all, we&rsquo;re still rolling dice, we&rsquo;re just removing some of the bad rolls. In fact, I suspect that removing
+bad rolls will require exponential effort in writing tests. However, in our industry, we are used to just giving
+up on testing and reviewing at some point and simply releasing the code, counting in our ability to patch problems
+once they have surfaced, so perhaps this approach will be sufficient.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="step-3-eliminating-code-hallucinations-absolutely" class="pagebody-header">
+    Step 3: Eliminating code hallucinations, absolutely
+  </h1>
+</div><p class="component-content component">I believe that we have exhausted all that Test-Driven Development can bring it to the conversation on
+hallucinations. It is time to take a look at some of the other fill-in-the-blank approaches to
+writing machine-readable specifications.</p>
+<p class="component-content component">Formal specifications are languages designed that can encode all the meaningful properties of the system we want to
+develop, without any unspecified/undefined behavior. Most developers are familiar with the <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form">Backus Naur Form
+(BNF)</a>,
+used to formally specify the syntax of a language, for instance. Beyond that, several languages have
+formal semantics, including several versions of <a href="https://www-sop.inria.fr/oasis/java/java_sem.html">Java</a>
+or <a href="https://github.com/kframework/javascript-semantics">JavaScript</a>, i.e. a mathematical
+definition of the exact behavior of the language that covers every possible case. Many tools can interpret
+these mathematical definitions, for instance to come up with new tests – an unlimited number of distinct
+tests, if necessary – or to check mathematical proofs that the code actually implements the specifications.</p>
+<p class="component-content component">Formal specifications have been used to develop high-reliability software, including the software that powers the
+<a href="https://homepages.laas.fr/waeselyn/papers/ICSE2009.pdf">Airbus</a>, or automated subways,
+or <a href="https://beta.sel4.systems/Info/FAQ/proof.html">operating systems</a>, or <a href="https://compcert.org/doc/">compilers</a>.</p>
+<p class="component-content component">One of the key aspects of formal methods is that there are well-defined and well-tested mechanisms to guarantee,
+mathematically, that an implementation respects the specification, even in presence of a hostile Oracle. It&rsquo;s not
+probabilistic, it&rsquo;s a certainty (barring bugs within the proof-checker itself). For instance,
+code produced by the Oracle can be annotated in such a way that conformance with the specifications can be checked upon
+delivery (this mechanism is called Proof-Carrying Code).</p>
+<blockquote>
+<p class="component-content component"><strong>Thesis 3</strong> There is a way to absolutely eliminate hallucinations with Formal Methods. Yes, for real.</p>
+</blockquote>
+<p class="component-content component">Even better, a number of languages contain built-in proof mechanisms. I&rsquo;m thinking of the type systems of Rust, Ada,
+Haskell, OCaml/F#/ReasonML, etc. These type systems will let you prove <a href="https://github.com/bwo/units-poc">sophisticated</a> <a href="https://yoric.github.io/post/rust-typestate/">properties</a> – assuming that you run some parallel analysis to guarantee that you don&rsquo;t use
+<code>unsafe</code>/<code>Obj.magic</code>/FFI code/&hellip;</p>
+<p class="component-content component">Sadly, experience shows that the type systems of these specific languages isn&rsquo;t quite sufficient to encode all the interesting
+properties that we want to put in a real-world spec. However, more powerful type systems have been defined for that purpose (e.g. Idris, Coq/Rocq, &hellip;), and these are sufficient to encode properties of almost arbitrary complexity. I&rsquo;m going to continue focusing on type systems, because this is a domain I understand rather well, and because some properties of local reasoning are important in my eyes, but there are also entirely different mechanisms, such as Abstract Interpretation or Model Checking that have also been used to prove extremely sophisticated, real-world software.</p>
+<p class="component-content component">Historically, the lengthy part of Types-Driven Development/writing formal proofs is coming up with the actual proof body
+(aka the code). It&rsquo;s kind of fun, because Types-Driven Development is really solving a puzzle by assembling the
+types/proofs (aka variables and functions) at hands to build larger types/proofs, but it&rsquo;s extremely time-consuming.</p>
+<p class="component-content component">I actually have fairly high hope that LLMs (or some other untrusted Oracle, whether it&rsquo;s Chain-of-Thought
+or some variant on Genetic Algorithms) can solve (or at least help solve) this problem. After all, since we deal with formal proofs, the worst that can happen if the Oracle hallucinates (or attempts an hostile action against the rest of the code) is that their code will be rejected by the proof-checker.</p>
+<p class="component-content component">This, of course, assumes, just as with Test-Driven Development, that we have a sufficiently precise specification of
+what the code needs to do. By opposition to Test-Driven Development, however, there is no dice roll involved.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="step-4-what-about-performance" class="pagebody-header">
+    Step 4: What about performance?
+  </h1>
+</div><p class="component-content component">Oh, right. I did mention performance. And, ideally, we want as much as possible of the performance work automated.</p>
+<p class="component-content component">Performance is&hellip; <a href="https://yoric.github.io/post/so-you-want-to-optimize-your-code/">complicated</a>. To keep it simple,
+I&rsquo;ll summarize a few principles:</p>
+<div class="component-content component"><ol>
+<li>You need to be willing to invest in optimization. These days, most companies don&rsquo;t care until [often way too]
+late in the process.</li>
+<li>You need a core technology that supports optimizations. To this day, nothing supports as much optimization
+as Rust, Ada, Zig, C++ or C, but you can achieve high performance with a host of other languages, from C# to
+Java to Go. For some other languages, it will depend on the domain at hand.</li>
+<li>You need the ability to get performance information, typically with a combination of Telemetry (to find out
+what feature you need to optimize), Profiling (to refine this into actual function names) and Benchmarking (to
+catch regressions quickly).</li>
+<li>You need the ability to replace code that works but with poor performance with code that works with better performance
+without causing bugs.</li>
+</ol></div>
+<p class="component-content component">Step 1. is non-technical, so it doesn&rsquo;t really have a bearing to this conversation.</p>
+<p class="component-content component">Step 4. is already covered by the specs, whether we go with Test-Driven Development or Types-Driven Development, we should
+already have all the tools we need to make sure that we do not break anything by making things faster. If we do, we have
+found a hole in our specs.</p>
+<p class="component-content component">For Step 3, all the tools already exist. I&rsquo;m going to handwave the automated introduction of Telemetry and the automated
+extraction of Benchmarks.</p>
+<p class="component-content component">Even better, by using the information from Step 3. and some automation, it should be possible to extract some specifications
+for the part of the code we wish to optimize, to minimize the amount of re-rewriting/re-testing. We get these specifications
+for free if we&rsquo;re using Types-Driven Development. With Test-Driven Development, it&rsquo;s less clear, but depending on the language,
+it&rsquo;s possible that static analysis could be sufficient to extract local tests.</p>
+<p class="component-content component">Is there a problem with Step 2.? After all, Rust, Ada, Zig, C++, C, C#, Java and Go already exist. Well, if we&rsquo;re using Test-Driven Development, we have already accepted a degree of risk, and it doesn&rsquo;t look like we&rsquo;re incurring any further risk, so the path
+looks open.</p>
+<blockquote>
+<p class="component-content component"><strong>Thesis 4</strong> With sufficient instrumentation and profiling and with a language with clean enough semantics, it should be possible to perform automated optimizations in an Oracle+Test-Driven context.</p>
+</blockquote>
+<p class="component-content component">I&rsquo;m handwaving a bit, once again, the definition of &ldquo;language with clean enough semantics&rdquo;. In my mind, it&rsquo;s something like &ldquo;any language in which we can quickly determine the dependencies and side-effects of a function&rdquo;. Python definitely doesn&rsquo;t do the trick, for instance, because much of the language can be redefined by a hostile Oracle, nor does today&rsquo;s C++, because Undefined Behaviors or accidental imports can cause havoc. Does Rust (minus <code>unsafe</code>) do the trick? Does Go (minus CGo and any of the Unsafe functions) do the trick? To be determined.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="step-5-combining-performance-and-formal-methods" class="pagebody-header">
+    Step 5: Combining performance and Formal Methods
+  </h1>
+</div><p class="component-content component">If we use Formal Methods, we have set ourselves a higher standard, so it&rsquo;s a bit more complicated. For one thing, none of the performance-oriented languages I&rsquo;ve quoted features a combination of a sufficiently powerful type system and sufficiently clean semantics to permit Type Driven Development. The languages that do, such as Coq/Rocq or Idris, are not well-suited for optimizations.</p>
+<p class="component-content component">There is, however, hope.</p>
+<p class="component-content component">For one thing, most of the performance-oriented languages have large subsets that support Model-Checking and Abstract Interpretation, which suggests that these avenues are open.</p>
+<p class="component-content component">For another, both Rust and Ada have demonstrated that we can apply some of the research in formal methods and turn them into industrial languages that don&rsquo;t need a PhD. My gut tells me that it is possible to go much further and develop an Rust/Ada-meets-Coq/Rock, <em>designed to be used by machines</em>, with both a type system powerful enough to let us represent highly complex specifications <em>and</em> zero-cost abstractions and a highly optimizing compiler. I suspect that this would be a very long research project.</p>
+<blockquote>
+<p class="component-content component"><strong>Thesis 5</strong> With sufficient instrumentation and profiling, if we restrict ourselves to a language with clean enough semantics and formal methods, it should be possible to perform automated optimizations in an Oracle + Formal Methods context.</p>
+</blockquote>
+
+<div class="component-content pagebody component">
+  <h1 id="is-it-worth-it" class="pagebody-header">
+    Is it worth it?
+  </h1>
+</div><p class="component-content component">I, for one, don&rsquo;t want to fly in a plane whose code is written by ChatGPT, or to live close to a plant controlled by code written by Claude, and I don&rsquo;t see any sign that LLMs are going to reach sufficient reliability before the end of our civilization, at least not without the kind of help outlined in this post. So no matter what happens to the LLM scene, we will want a to maintain a branch of the development industry that produces highly-reliable code.</p>
+<p class="component-content component">There are many possible futures. One in which such code remains hand-written, by a small, elite caste of system developers, while the rest of the trade progressively disappears, eaten away by LLMs, at least until we run out of energy to power them.</p>
+<p class="component-content component">But if we head towards a future in which Oracles write code that must keep people alive, I would really hate for it to be done by dice-rolling. So, at the very least, I believe that we as a society, need to investigate how to make sure that our Oracles don&rsquo;t kill us by hallucinating bad code.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<div class="component-content component"><ol>
+<li id="fn:1">
+<p class="component-content component">For some very unconvincing definition of &ldquo;everybody&rdquo;.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p class="component-content component">But yes, the developers will have been laid off regardless.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p class="component-content component">I&rsquo;m not a data scientist, don&rsquo;t take my word on this.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol></div>
+</div>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  January 6, 2025</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: 'de7eed713799464ec37f794f8b88f782',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
+    
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
+
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
+
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2025
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+    
+    
+
+    
+    
+</html>
