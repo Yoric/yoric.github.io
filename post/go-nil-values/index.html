@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
+
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/go-nil-values/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="Go Zero Values Make Sense">
+  <meta property="og:description" content="An attempt to visit the zero values Go in some depth">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-04-07T18:08:41+02:00">
+    <meta property="article:modified_time" content="2025-04-07T21:30:41+02:00">
+    <meta property="article:tag" content="Programming Languages">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="Rust">
+<title>Go Zero Values Make Sense</title>
+
+    <link rel="canonical" href="https://yoric.github.io/post/go-nil-values/">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
+
+    
+    
+
+</head>
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
+    </header>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        programming languages
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">April 7, 2025</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Go Zero Values Make Sense</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content">An attempt to visit the zero values Go in some depth</div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/programming-languages" class="tag">
+                    programming languages
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/go" class="tag">
+                    go
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/rust" class="tag">
+                    rust
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">I&rsquo;ve been writing <a href="https://github.com/pasqal-io/gousset">some Go code</a> recently. Let&rsquo;s face it: I don&rsquo;t think that Go is a pragmatic language,
+at least by modern standards.</p>
+<p class="component-content component">But in the interest of being constructive, I&rsquo;ve decided to take the opposite stance and try and justify one of
+my sore points with the language: zero values. So, if you want to know why Go has zero values and why they make
+lots of sense, despite the pitfalls, you&rsquo;re in the right place.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="what-are-zero-values" class="pagebody-header">
+    What are zero values?
+  </h1>
+</div><p class="component-content component">In Go, if you define a value and don&rsquo;t fill it, it has a &ldquo;zero value&rdquo;</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myString</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myInt</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myBool</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myFloat</span> <span style="color:#66d9ef">float32</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mySlice</span> []<span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myArray</span> [<span style="color:#ae81ff">3</span>]<span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myMap</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myPtr</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myString</span>) <span style="color:#75715e">// &#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myInt</span>)    <span style="color:#75715e">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myBool</span>)   <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myFloat</span>)  <span style="color:#75715e">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">mySlice</span>)  <span style="color:#75715e">// []
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myArray</span>)  <span style="color:#75715e">// [false false false]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myMap</span>)    <span style="color:#75715e">// map[]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myPtr</span>)    <span style="color:#75715e">// &lt;nil&gt;
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This expands to structs</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyStruct</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SomeBool</span> <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SomeInt</span>  <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myStruct</span> <span style="color:#a6e22e">MyStruct</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myStruct</span>) <span style="color:#75715e">// {false 0}
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">(this, coupled with the lack of constructors in Go, is my main pain point with zero values)</p>
+<p class="component-content component">This expands to interfaces</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyInterface</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">String</span>() <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myInterface</span> <span style="color:#a6e22e">MyInterface</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myInterface</span>) <span style="color:#75715e">// &lt;nil&gt;
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">(if you&rsquo;ve ever written Go code, you&rsquo;ll recall that <code>myInterface</code> is not exactly <code>nil</code>, it&rsquo;s a fat pointer <code>nil</code>, which is something different, but that&rsquo;s beyond of the scope of this blog entry)</p>
+<p class="component-content component">This expands to deserialization</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">Unmarshal</span>([]byte(<span style="color:#e6db74">`{&#34;SomeInt&#34;: 5}`</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">myStruct</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myStruct</span>) <span style="color:#75715e">// {false 5}
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">(if you&rsquo;re curious, that&rsquo;s my second pain point with zero values)</p>
+<p class="component-content component">This expands to reflection</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">myType</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeFor</span>[<span style="color:#a6e22e">MyStruct</span>]()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">myStruct</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">myType</span>).(<span style="color:#a6e22e">MyStruct</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">myStruct</span>) <span style="color:#75715e">// {false 0}
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">For most types, zero values are regular values, the only exceptions I know of being <code>map</code> and <code>chan</code>.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">mySlice</span> []<span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(len(<span style="color:#a6e22e">mySlice</span>)) <span style="color:#75715e">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">mySlice</span> = append(<span style="color:#a6e22e">mySlice</span>, <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(len(<span style="color:#a6e22e">mySlice</span>), <span style="color:#e6db74">&#34; &#34;</span>, <span style="color:#a6e22e">mySlice</span>) <span style="color:#75715e">// [true] 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myMap</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Print</span>(len(<span style="color:#a6e22e">myMap</span>)) <span style="color:#75715e">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">myMap</span>[<span style="color:#e6db74">&#34;foo&#34;</span>] = <span style="color:#66d9ef">true</span>   <span style="color:#75715e">// /!\ panic: assignment to entry in nil map /!\
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">myChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">42</span> <span style="color:#75715e">// Block forever.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">foo</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">myChan</span> <span style="color:#75715e">// Block forever.
+</span></span></span></code></pre></div></div>
+  
+</div>
+<div class="component-content pagebody component">
+  <h1 id="what-are-the-alternatives" class="pagebody-header">
+    What are the alternatives?
+  </h1>
+</div><p class="component-content component">Introducing zero values in the language is not something that the designers of Go have done accidentally. Other languages have different designs.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="non-zero-values" class="pagebody-header">
+    Non-zero values
+  </h2>
+</div><p class="component-content component">Let&rsquo;s start with C and C-like languages.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> value;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> value2;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, value, value2); <span style="color:#75715e">// 1 43659360
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                                      <span style="color:#75715e">// (or any other value)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In C or C++, since <code>value</code> and <code>value2</code> are uninitialized, they contain whatever laid at that place in memory for any reason.</p>
+<p class="component-content component">Obviously, this is dangerous, in particular if you for some reason manipulate an uninitialized pointer (something that the C++ stdlib and recent-ish standards, for instance, do their best to eliminate).</p>
+
+<div class="component-content pagebody component">
+  <h2 id="noneundefinednull" class="pagebody-header">
+    None/undefined/null
+  </h2>
+</div><p class="component-content component">Now, in JavaScript and most dynamic languages, the situation is a bit different.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myValue</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">myValue</span>) <span style="color:#75715e">// `undefined`
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In JavaScript (and Python, and even in large subsets of Java, etc.) the semantics of the language specify that all values are references (even if the VM doesn&rsquo;t have to actually implement them as references). This gives all values a very simple default value: <code>undefined</code> (or <code>None</code> in Python, or <code>null</code> in Java).</p>
+<p class="component-content component">For pointers, this is equivalent to what Go does. For structs/objects, it&rsquo;s a bit different, as Go&rsquo;s semantics have structs (behave as if they were) allocated on the stack, why JS, Python, Java, &hellip;&rsquo;s semantics have objects (behave as if they were) allocated on the heap.</p>
+<p class="component-content component">Note that Java, just like Go, initializes the <em>memory</em> to zero. So, a boolean that is declared but not filled will be <code>false</code>
+in both Java and Go. But, as mentioned, the <em>semantics</em> of this initialization are different in the case of structs/objects.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="no-uninitialized-values" class="pagebody-header">
+    No uninitialized values
+  </h2>
+</div><p class="component-content component">Of course, Rust, Zig, C#, OCaml, Haskell, &hellip; (and yes, Java, too, depending on how you declare variables) make yet a different choice.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> my_string: String;
+</span></span><span style="display:flex;"><span>println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, my_string); <span style="color:#75715e">// error[E0381]: used binding `my_string` isn&#39;t initialized
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In other words, you simply can&rsquo;t read that memory if it hasn&rsquo;t been initialized. So&hellip; is the memory zeroed (as in Java or Go) or uninitialized (as in C)? In practice, it doesn&rsquo;t matter, since you cannot look at it.</p>
+<p class="component-content component">If you&rsquo;re really adventurous, Rust will let you check this out:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">use</span> std::mem;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x: <span style="color:#66d9ef">i32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">unsafe</span> { mem::uninitialized() }; <span style="color:#75715e">// undefined behavior! ⚠️
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, x); <span style="color:#75715e">// 16843009
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                       <span style="color:#75715e">// (or any other value)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Yep, in Rust, the compiler won&rsquo;t auto-initialize memory. Which, again, doesn&rsquo;t matter, since you&rsquo;re forced to initialize it yourself. And yes, if you&rsquo;re curious, there are ways to manipulate uninitialized memory in Rust without triggering an undefined behavior (e.g. vectors delay initialization of the underlying buffer until it&rsquo;s needed).</p>
+
+<div class="component-content pagebody component">
+  <h1 id="why-does-go-have-zero-values" class="pagebody-header">
+    Why does Go have zero values?
+  </h1>
+</div><p class="component-content component">Let&rsquo;s look at the following snippet:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myString</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyStruct</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SomeString</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myStruct</span> <span style="color:#a6e22e">MyStruct</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In both <code>myString</code> and <code>myStruct</code>, you manipulate an uninitialized pointer. If Go adopted the C or C++ conventions, this pointer could point anywhere. This would have two pretty major consequences:</p>
+<div class="component-content component"><ol>
+<li>The language would be much less safe, giving you the ability to accidentally read or write any place in memory.</li>
+<li>While tracing or copying the memory, the garbage-collector could end up following <code>myString</code> and accidentally end up in weird places, with consequences to both the performance of the GC (how many bogus pointers will it follow?) and its ability to reclaim unused memory.</li>
+</ol></div>
+<p class="component-content component">In other words, being a garbage-collected language, at least in the case of pointers, Go could not adopt C or C++ conventions. From there, Go designers could either have decided to:</p>
+<div class="component-content component"><ol>
+<li>force the users to initialize everything (as in Rust, Zig, C#, etc.);</li>
+<li>force the users to initialize pointers;</li>
+<li>default pointers to <code>nil</code> and adopt C or C++ conventions for everything else (as in recent versions of the C++ stdlib, if I followed correctly);</li>
+<li>default everything to zero.</li>
+</ol></div>
+<p class="component-content component">So why did Go&rsquo;s designers pick 4.?</p>
+<p class="component-content component">If you try to implement 2. or 3., you&rsquo;ll realize quickly that these are the most complex choices for a compiler or a standard library. Either the compiler would need to track which values are pointers and which aren&rsquo;t (option 2. or 3.), or pointers would require some kind of constructors (alternative implementation of option 3.). The former is a big &ldquo;no&rdquo; for the design of Go, which aims to be as simple as possible (recall that by &ldquo;simple&rdquo;, the designers of Go mean &ldquo;the language itself should focus on solving the minimal number of problems&rdquo;, which translates to &ldquo;short specifications&rdquo;/&ldquo;small compiler&rdquo;, not &ldquo;easy to use&rdquo; &ndash; there&rsquo;s an intersection, but the priority is on the former). The latter is also pretty much a &ldquo;no&rdquo; &ndash; the Go language works without constructors and as far as I understand, there is no plan to ever bring them in.</p>
+<p class="component-content component">Also, I don&rsquo;t know how high the objective of having a reflection package was in the design of Go (I kinda assume that it&rsquo;s more of an accidental &ldquo;look at what we can do with our vtables!&rdquo; than an initial design goal), but recall that you can create values with reflection, which makes calling constructors (to properly initialize pointers to <code>nil</code> and/or properly require the user to initialize pointers)&hellip; well, at the very least much more complicated.</p>
+<p class="component-content component">This left two choices: 1. or 4. Again, choice 1. required a more complex compiler, with a layer of static analysis that the Go designers didn&rsquo;t want (in addition to the same difficulty with reflection). In addition, wherever possible, Go is optimized to reduce the time between the instant developers start writing code and the instant they can start debugging it. Time spent writing or fixing constructors was most likely considered an impediment to this, even if it reduced the number of reasons to start the debugger in the first place.</p>
+<p class="component-content component">So they went with 4<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="consequences-for-the-language-design" class="pagebody-header">
+    Consequences for the language design
+  </h1>
+</div><p class="component-content component">At some point in the design of Go, this rule of &ldquo;zero everything&rdquo; was enshrined.</p>
+<blockquote>
+<div class="component-content component"><ol>
+<li>In Go, all values are zeroed.</li>
+</ol></div>
+</blockquote>
+<p class="component-content component">How do you implement this in a compiler? Well, basically, you <code>memset</code> everything to the actual value <code>0</code>. That&rsquo;s easy to do, that&rsquo;s cheap<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, and that&rsquo;s one problem solved.</p>
+<blockquote>
+<ol start="2">
+<li>The zero value is actually represented by zero in memory.</li>
+</ol></div>
+</blockquote>
+<p class="component-content component">The first consequence was that the memory value represented by a sequence of <code>0</code>s had to be valid for every type:</p>
+<div class="component-content component"><ul>
+<li>For pointers, this was obviously <code>nil</code>, as in pretty much every language.</li>
+<li>For other flat values, there is a trivial mapping, since <code>false</code> is represented by <code>0</code> in memory, <code>0.00000</code> is represented by <code>0</code> in memory, etc.</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="the-case-of-struct" class="pagebody-header">
+    The case of <code>struct</code>
+  </h2>
+</div><p class="component-content component">For <code>struct</code>, the designers had two possibilities.</p>
+<p class="component-content component">First, they could have followed Java, Python, etc. and decided that all <code>struct</code>s behaved as pointers, and consequently that a zero <code>struct</code> is <code>nil</code>. Or they could have gone with zeroing the content of <code>struct</code>s, as&hellip; well, in fact, these same languages.</p>
+<p class="component-content component">This is where the design of Go&rsquo;s zero values intersects, I believe, with another design choice: the designers of Go wanted to favor performance, as long as it didn&rsquo;t make the compiler more complex. Avoiding complexity meant that they did not want a JIT, nor a compiler that could alter the layout of data structures. Which meant that they needed to make memory layout explicit in the language, to let the developers optimize themselves. Which meant that they had to materialize the difference between a <code>struct</code> allocated within its container (e.g. on the stack, or within the space of a container <code>struct</code>) and a <code>struct</code> allocated somewhere (else) on the heap.</p>
+<p class="component-content component">Which meant that they needed to make pointers explicit. Which meant that they could not zero <code>struct</code>s to <code>nil</code>.</p>
+<p class="component-content component">So the design of Go went with zeroing the <em>content</em> of <code>struct</code>s instead of treating all <code>struct</code>s as references and zeroing the reference itself.</p>
+<blockquote>
+<ol start="3">
+<li>The zero value for <code>struct</code> is the <code>struct</code> filled with zeroes, rather than <code>nil</code>.</li>
+</ol></div>
+</blockquote>
+
+<div class="component-content pagebody component">
+  <h2 id="the-case-of-interface" class="pagebody-header">
+    The case of <code>interface</code>
+  </h2>
+</div><p class="component-content component">Now&hellip; what&rsquo;s a zero interface?</p>
+<p class="component-content component">If you have ever programmed in Go, you know that a zero interface can be&hellip; surprising.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">IsNil</span>(<span style="color:#a6e22e">v</span> <span style="color:#a6e22e">any</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">any</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">IsNil</span>(<span style="color:#a6e22e">a</span>), <span style="color:#a6e22e">IsNil</span>(<span style="color:#a6e22e">b</span>)) <span style="color:#75715e">// true false
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">It&rsquo;s not that <code>v == nil</code> always fails when <code>v</code> is an interface, it&rsquo;s that it doesn&rsquo;t always work. Needless to say, that&rsquo;s not my favorite part of Go. Part of this is a consequence of the zero value principle.</p>
+<p class="component-content component">When we declare <code>var a any</code>, <code>a</code> is zero-ed. It literally contains a <code>nil</code> pointer. Similarly, when we declare <code>var b *int</code>, it contains a <code>nil</code> pointer. Now, when we cast <code>a</code> or <code>b</code> or any value to <code>any</code>, we need to store several pieces of information:</p>
+<div class="component-content component"><ol>
+<li>we need the value of <code>a</code> or <code>b</code> itself;</li>
+<li>we need a pointer to any methods of <code>a</code> or <code>b</code>, to be able to call these methods (a vtable or itable);</li>
+<li>we need a pointer to the type of <code>a</code> or <code>b</code>, to be able to determine whether we can perform type conversions, such as converting back a <code>any</code> to a <code>*int</code>.</li>
+</ol></div>
+<p class="component-content component">(actually, 2. and 3. are pretty much equivalent, so you only need one of these pointers).</p>
+<p class="component-content component">But since <code>a</code> and <code>b</code> both MUST contain exactly a <code>nil</code> pointer, this means that the data cannot be stored on the stack when the stack is initialized. They MUST be added <em>by the compiler</em> when a value is actually used as an <code>any</code> <em>and</em> the call is not inline.</p>
+<blockquote>
+<ol start="4">
+<li>Type information must be added dynamically.</li>
+</ol></div>
+</blockquote>
+
+<div class="component-content pagebody component">
+  <h2 id="slices-and-strings" class="pagebody-header">
+    Slices and strings
+  </h2>
+</div><p class="component-content component">By opposition to <code>struct</code>, slices and strings are always pointers. So the designers of Go could have decided to make any operation on a zero slice or a zero string invalid. However, if you have programmed in Go, you know that this isn&rsquo;t the case. The zero value of a slice is an empty slice and the zero value of a string is an empty string.</p>
+<p class="component-content component">Why? I believe that there are two reasons.</p>
+<p class="component-content component">First, whether you&rsquo;re creating an API, a data structure or a programming language, in most cases, you&rsquo;ll try to reduce as much as reasonably possible the space of possible failures. Making the program panic with any operation on an invalid slice or string is adding failure states, so removing the possibility of reaching these failure states makes the language&hellip; well, less fallible.</p>
+<p class="component-content component">Note that, these are Go failure modes. For many applications, having an incorrect slice or string (for instance, the empty slice or string) is also a form of failure. In most applications I write, it&rsquo;s a worse kind of failure than a panic, because it&rsquo;s harder to detect and fix, but if you are writing log processors (which was the initial application for Go, as I understand), having a processor that sometimes prints an empty string when the input data is incorrect is most likely less of a problem than having a processor that panics whenever it encounters data it doesn&rsquo;t understand.</p>
+<p class="component-content component">Second, the empty slice or the empty string are absolutely valid value. They&rsquo;re even quite common values, especially for a slice that has just been created. By adopting the convention that the zero slice is the same thing as the empty slice, the designers of Go have cut to zero the initialization time of an empty slice &ndash; all it takes is zeroing the memory, which is exactly what Go is doing in the first place.</p>
+<p class="component-content component">Now, by making the empty string and the empty slice the zero value, Go&rsquo;s designers have implicitly made another language design decision: neither the empty nor the empty slice can be grown in place. At some point, you still need to add some kind of initialization to allocate the memory. Which means that, at least to grow the empty slice, you&rsquo;ll need a function or operator that will take a slice and return a new (larger) slice. Since you need it for the empty slice, you probably want it even for larger slices. This operator, as you know, is called <code>append</code>.</p>
+<p class="component-content component">This contrasts with the design of most non-purely-functional languages designed during the last ~30 years, which offer vector-style data structures that grow mutably.</p>
+<blockquote>
+<ol start="5">
+<li>Slices need <code>append</code>.</li>
+</ol></div>
+</blockquote>
+
+<div class="component-content pagebody component">
+  <h2 id="maps" class="pagebody-header">
+    Maps
+  </h2>
+</div><p class="component-content component">As slices and strings, maps are pointers. So Go&rsquo;s designers could have decided that:</p>
+<div class="component-content component"><ol>
+<li>a zero map is a valid empty map;</li>
+<li>a zero map is an invalid value that causes panics.</li>
+</ol></div>
+<p class="component-content component">And they decided&hellip;</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myMap</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">found</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">myMap</span>[<span style="color:#e6db74">&#34;foo&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">found</span>) <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">myMap</span>[<span style="color:#e6db74">&#34;foo&#34;</span>] = <span style="color:#66d9ef">false</span> <span style="color:#75715e">// panic: assignment to entry in nil map
+</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">&hellip;a bit of both?</p>
+<p class="component-content component">Let&rsquo;s start with the panic at <code>myMap[&quot;foo&quot;] = false</code>. For the purpose of this conversation, let&rsquo;s remove the syntactic sugar and pretend that this is actually <code>maps.Set(myMap, &quot;foo&quot;, false)</code>.</p>
+<p class="component-content component">Could we rewrite this to let the map grow?</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Set</span>[<span style="color:#a6e22e">K</span> <span style="color:#a6e22e">comparable</span>, <span style="color:#a6e22e">V</span> <span style="color:#a6e22e">any</span>](<span style="color:#a6e22e">container</span> <span style="color:#a6e22e">Map</span>[<span style="color:#a6e22e">K</span>]<span style="color:#a6e22e">V</span>, <span style="color:#a6e22e">key</span> <span style="color:#a6e22e">K</span>, <span style="color:#a6e22e">value</span> <span style="color:#a6e22e">V</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">container</span> = <span style="color:#a6e22e">Make</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">internals</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">container</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This doesn&rsquo;t work because we&rsquo;ve mutated <code>container</code> locally, but never returned it. We could get around this, by making it:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Set</span>[<span style="color:#a6e22e">K</span> <span style="color:#a6e22e">comparable</span>, <span style="color:#a6e22e">V</span> <span style="color:#a6e22e">any</span>](<span style="color:#a6e22e">container</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">Map</span>[<span style="color:#a6e22e">K</span>]<span style="color:#a6e22e">V</span>, <span style="color:#a6e22e">key</span> <span style="color:#a6e22e">K</span>, <span style="color:#a6e22e">value</span> <span style="color:#a6e22e">V</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">container</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">*</span><span style="color:#a6e22e">container</span> = <span style="color:#a6e22e">Make</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">internals</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">container</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>)
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">But now, <code>Set</code> is an operation that takes a pointer to a pointer (recall that <code>Map</code> is itself a pointer), instead of a single indirection. There is a fairly large performance penalty for that, which the designers of Go presumably didn&rsquo;t want to pay. So they decided to panic instead. I believe that this is the right behavior, although the irregularity does chafe.</p>
+<p class="component-content component">Now why doesn&rsquo;t <code>_, found := myMap[&quot;foo&quot;]</code> panic? One can only assume that this another attempt to limit the number of failure states in the language.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="channels" class="pagebody-header">
+    Channels
+  </h2>
+</div><p class="component-content component">As slices, strings and maps, chans are pointers. So Go&rsquo;s designers could have decided that:</p>
+<div class="component-content component"><ol>
+<li>a zero chan is a valid chan;</li>
+<li>a zero chan is an invalid value that causes panics;</li>
+<li>bit of both, as above.</li>
+</ol></div>
+<p class="component-content component">And they decided&hellip;</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myChan</span> <span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">myChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#ae81ff">42</span> <span style="color:#75715e">// Block forever.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">foo</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">myChan</span> <span style="color:#75715e">// Block forever.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">&hellip;none of the above?</p>
+<p class="component-content component">Alright, this one baffles me. It&rsquo;s clear that making zero channels valid is meaningless (so no 1. and no 3.), but I have no idea why the designers of Go decided that blocking forever is better than a panic, especially since closed channels already cause panics. Maybe this comes from a specific school of thought? Maybe it simplifies some tests? After all, Obj-C had the same policy with NULL objects dropping messages instead of segfaulting.</p>
+<p class="component-content component">If somebody manages to puzzle this out, I&rsquo;m interested.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="benefits-of-zero-values" class="pagebody-header">
+    Benefits of zero values
+  </h1>
+</div><p class="component-content component">There&rsquo;s a motto within the Go community that you should make zero values work for you, rather than fighting them.</p>
+<p class="component-content component">So let&rsquo;s take a look at a few cases in which you can benefit from zero values.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="trivializing-constructors" class="pagebody-header">
+    Trivializing constructors
+  </h2>
+</div><p class="component-content component">Some data structures manage to be valid when they are zero. The empty slice and the empty string are examples, but the most quoted example is presumably <code>sync.Mutex</code>.</p>
+<p class="component-content component">I&rsquo;m sure that there are a few patterns for that. One I&rsquo;ve seen essentially amounts to delaying construction:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">MyStruct</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Field</span> <span style="color:#a6e22e">MyField</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">me</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyStruct</span>) <span style="color:#a6e22e">DoSomething</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">me</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">me</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MyStruct</span> {}
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">me</span>.<span style="color:#a6e22e">Field</span> = <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">To a large extent, this is what unmarshaling does:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">me</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">MyStruct</span>) <span style="color:#a6e22e">UnmarshalJSON</span>(<span style="color:#a6e22e">source</span> []<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Fill `me` with the contents of source.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">me</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">me</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">MyStruct</span> {}
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">me</span>.<span style="color:#a6e22e">Field</span> = <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div>
+<div class="component-content pagebody component">
+  <h2 id="error-results" class="pagebody-header">
+    Error results
+  </h2>
+</div><p class="component-content component">For better or for worse, Go doesn&rsquo;t have sum values (this might be the topic of another blog entry). Since it also doesn&rsquo;t have (or at least doesn&rsquo;t recommend) stack unwinding, this means that every function that might return a result or an error must return both.</p>
+<p class="component-content component">That&rsquo;s probably the most noticeable pattern when looking at go code:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">doSomething</span>() <span style="color:#a6e22e">Value</span>, <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">doSomething</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Stuff</span>{}, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;let&#39;s add some context: %w&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Some people (including yours truly) don&rsquo;t particularly enjoy the idea of having to deal with a meaningless value that will presumably cause a failure state if we ever mistake it for a valid value. But if we have to deal with such meaningless values, zero values feel tailored for this kind of use. In this snippet, if we didn&rsquo;t have the ability to return a zero-ed <code>Stuff{}</code>, the only alternatives would be to:</p>
+<div class="component-content component"><ol>
+<li>Return a fully constructed <code>Stuff{}</code> (which is generally not possible &ndash; you&rsquo;re bailing out early with an error, that&rsquo;s usually because you can&rsquo;t construct your <code>Stuff{}</code>).</li>
+<li>Return <code>nil, fmt.Errorf(...)</code>, which means that you&rsquo;d need to always return pointers, which would often be bad for performance.</li>
+<li>Prepare an alternate constructor <code>stuff.MakeErrorStuff()</code> that returns an arbitrary and cheap-to-build value of <code>Stuff{}</code>, which would be a waste of time, lines of code and performance.</li>
+</ol></div>
+
+<div class="component-content pagebody component">
+  <h1 id="are-zero-values-a-problem" class="pagebody-header">
+    Are zero values a problem?
+  </h1>
+</div><p class="component-content component">As I mentioned quite a few times by now, I don&rsquo;t particularly like zero values. They regularly creep into my data structures and produce weird results much later, which increases the time I spend debugging. I don&rsquo;t debug for fun.</p>
+<p class="component-content component">But if one looks harder, the problem isn&rsquo;t with the zero values themselves. It&rsquo;s with the fact that Go doesn&rsquo;t support constructors (as in &ldquo;being able to define functions that you must call to construct a value of the given type&rdquo;) &ndash; constructors would remove ~100% of the problems that materialize as zero values in my data structures. Why doesn&rsquo;t Go support constructors? Presumably because the language works without constructors and the designers Go simply didn&rsquo;t want to complicate the specifications. Also, Go relies a lot on reflection, and it feels like adding constructors would break reflection as it exists &ndash; either that, or reflection would break the constructors.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="whats-next" class="pagebody-header">
+    What&rsquo;s next?
+  </h1>
+</div><p class="component-content component">Well, writing this blog entry gave me the opportunity to dive a little bit deeper into zero values, the problems I have with them and confirm that no, the designers of the Go language are not crazy or lazy, they just have priorities different than mine. Go is a language of the worse-is-better design philosophy, much as Unix, and this is a design philosophy that has delivered in many occasions.</p>
+<p class="component-content component">I don&rsquo;t think I&rsquo;ll ever fall in love with Go (at least not while it&rsquo;s Go 1.x), but it&rsquo;s definitely a language that has its uses.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<div class="component-content component"><ol>
+<li id="fn:1">
+<p class="component-content component">Needless to say, as someone raised on the ML family of languages, whenever I work on the design of a language, I push strongly towards 1.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p class="component-content component">Not as cheap as what C is doing, but generally cheaper than what either C++, Rust or Zig are doing.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol></div>
+</div>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  April 7, 2025</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: 'aabf0531a42436cf6152ec295bd3bf0e',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
+    
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
+
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
+
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2025
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+    
+    
+
+    
+    
+</html>

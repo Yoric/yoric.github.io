@@ -6,8 +6,15 @@
     <description>Recent content on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Jan 2025 23:06:19 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 07 Apr 2025 21:30:41 +0200</lastBuildDate>
     <atom:link href="https://yoric.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Zero Values Make Sense</title>
+      <link>https://yoric.github.io/post/go-nil-values/</link>
+      <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
+      <guid>https://yoric.github.io/post/go-nil-values/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been writing &lt;a href=&#34;https://github.com/pasqal-io/gousset&#34;&gt;some Go code&lt;/a&gt; recently. Let&amp;rsquo;s face it: I don&amp;rsquo;t think that Go is a pragmatic language,&#xA;at least by modern standards.&lt;/p&gt;&#xA;&lt;p&gt;But in the interest of being constructive, I&amp;rsquo;ve decided to take the opposite stance and try and justify one of&#xA;my sore points with the language: zero values. So, if you want to know why Go has zero values and why they make&#xA;lots of sense, despite the pitfalls, you&amp;rsquo;re in the right place.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>AI code plus performance minus brittle = ?</title>
       <link>https://yoric.github.io/post/formal-ai/</link>

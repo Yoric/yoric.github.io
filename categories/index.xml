@@ -6,8 +6,29 @@
     <description>Recent content in Categories on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Jan 2025 23:06:19 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 07 Apr 2025 21:30:41 +0200</lastBuildDate>
     <atom:link href="https://yoric.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go</title>
+      <link>https://yoric.github.io/categories/go/</link>
+      <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
+      <guid>https://yoric.github.io/categories/go/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programming Languages</title>
+      <link>https://yoric.github.io/categories/programming-languages/</link>
+      <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
+      <guid>https://yoric.github.io/categories/programming-languages/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rust</title>
+      <link>https://yoric.github.io/categories/rust/</link>
+      <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
+      <guid>https://yoric.github.io/categories/rust/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Programming</title>
       <link>https://yoric.github.io/categories/programming/</link>
@@ -27,20 +48,6 @@
       <link>https://yoric.github.io/categories/mozilla/</link>
       <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
       <guid>https://yoric.github.io/categories/mozilla/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Programming Languages</title>
-      <link>https://yoric.github.io/categories/programming-languages/</link>
-      <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
-      <guid>https://yoric.github.io/categories/programming-languages/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/categories/rust/</link>
-      <pubDate>Sun, 22 Dec 2024 20:00:47 +0100</pubDate>
-      <guid>https://yoric.github.io/categories/rust/</guid>
       <description></description>
     </item>
     <item>
