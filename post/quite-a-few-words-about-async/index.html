@@ -1135,18 +1135,28 @@ scheduler.</p>
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// (probably) no need to sleep manually
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FibonaccyEvent</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Arg</span> <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">e</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">nextEvent</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">event</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.(<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">FibonacciEvent</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">Arg</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
   
 </div><p class="component-content component">How does it work?</p>
 <div class="component-content component"><ol>
-<li>During compilation of Go code, the compiler instruments every (non-inlined) function
-call with a little assembly code that calls into the runtime environment.</li>
-<li>During execution, Go&rsquo;s executor maintains a thread pool of N threads (by default,
-iirc, N is the number of cores + 1, but this can be customized).</li>
-<li>At runtime, every function call <em>may</em> (randomly) trigger a context-switch between
-concurrent tasks. If the context-switch is triggered, the concurrent task is
-paused using platform-specific code, then scheduled to be awakened at a later
-date by the scheduler.</li>
+<li>The Go environment contains a pool of threads and pre-emptive scheduler.</li>
+<li>Launching a goroutine with <code>go</code> allocates dynamically a new stack for this goroutine.</li>
+<li>A goroutine runs on a thread from the thread pool.</li>
+<li>The Go scheduler <em>may</em> stop a goroutine at any moment, saving its program counter, task-local storage, etc. and replacing them with those of another goroutine.</li>
 <li>During compilation of C calls, the CGo compiler instruments the (non-blessed) C code
 with a little assembly that calls into the runtime environment.</li>
 <li>At runtime, when calling a C function, Go&rsquo;s executor expects that the call is blocking,
@@ -1154,7 +1164,6 @@ monitors how long the thread is blocked by the C function, and past some delay, 
 the thread from the thread pool and replaces it with a new thread. Once execution of the
 C function has completed, the thread is not returned to the thread pool.</li>
 </ol></div>
-<p class="component-content component">In other words, Go uses implicit cooperative multi-tasking to emulate pre-emptive multi-tasking.</p>
 <p class="component-content component">The immediate benefit comes in terms of resource usage/cognitive load. You can launch as many
 tasks (&ldquo;goroutines&rdquo;) as you want, without having to deal with <code>async</code>/<code>await</code> or care about
 memory usage, and these tasks will be executed concurrently, hopefully in parallel. Moreover,
@@ -1164,11 +1173,12 @@ need to care whether they accept sync or async implementations, as there is no d
 code harder to reason about. I don&rsquo;t think that this is a real problem, but it does lead to developers
 writing concurrency-unsafe code and running it concurrently without paying attention.</p>
 <p class="component-content component">One could argue that implicit concurrency makes it harder to optimize code, but since very
-few developers actually care about such types of code optimization, and since Go is one of
+few developers actually care about such level of code optimization, and since Go is one of
 the fastest languages around, I consider this a minor impediment. Of course, if you need
 more performance, use Rust.</p>
-<p class="component-content component">There are real issues with Goroutines, such as the implicit capture by reference or the ease of
-accidentally copying a lock instead of sharing it, but these are not due to the concurrency model.</p>
+<p class="component-content component">There are real issues with goroutines, such as the implicit capture by reference or the ease of
+accidentally copying a lock instead of sharing it, but these are not due to the concurrency model
+or implementation.</p>
 
 <div class="component-content pagebody component">
   <h1 id="what-about-ocaml" class="pagebody-header">
