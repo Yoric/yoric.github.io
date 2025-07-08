@@ -6,13 +6,76 @@
     <description>Recent content in Tags on Il y a du thé renversé au bord de la table !</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 07 Apr 2025 21:30:41 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 08 Jul 2025 22:09:29 +0200</lastBuildDate>
     <atom:link href="https://yoric.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Async</title>
+      <link>https://yoric.github.io/tags/async/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/async/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C#</title>
+      <link>https://yoric.github.io/tags/c%23/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/c%23/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://yoric.github.io/tags/c&#43;&#43;/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Concurrent</title>
+      <link>https://yoric.github.io/tags/concurrent/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/concurrent/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Go</title>
       <link>https://yoric.github.io/tags/go/</link>
-      <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
       <guid>https://yoric.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Non-Blocking</title>
+      <link>https://yoric.github.io/tags/non-blocking/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/non-blocking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Parallel</title>
+      <link>https://yoric.github.io/tags/parallel/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/parallel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programming</title>
+      <link>https://yoric.github.io/tags/programming/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>https://yoric.github.io/tags/python/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rust</title>
+      <link>https://yoric.github.io/tags/rust/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/tags/rust/</guid>
       <description></description>
     </item>
     <item>
@@ -20,13 +83,6 @@
       <link>https://yoric.github.io/tags/programming-languages/</link>
       <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
       <guid>https://yoric.github.io/tags/programming-languages/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Rust</title>
-      <link>https://yoric.github.io/tags/rust/</link>
-      <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
-      <guid>https://yoric.github.io/tags/rust/</guid>
       <description></description>
     </item>
     <item>
@@ -90,13 +146,6 @@
       <link>https://yoric.github.io/tags/optimization/</link>
       <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
       <guid>https://yoric.github.io/tags/optimization/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Programming</title>
-      <link>https://yoric.github.io/tags/programming/</link>
-      <pubDate>Mon, 27 Nov 2023 23:42:50 +0100</pubDate>
-      <guid>https://yoric.github.io/tags/programming/</guid>
       <description></description>
     </item>
     <item>
@@ -188,13 +237,6 @@
       <link>https://yoric.github.io/tags/prolog/</link>
       <pubDate>Mon, 20 Nov 2023 09:55:20 +0100</pubDate>
       <guid>https://yoric.github.io/tags/prolog/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Python</title>
-      <link>https://yoric.github.io/tags/python/</link>
-      <pubDate>Mon, 20 Nov 2023 09:55:20 +0100</pubDate>
-      <guid>https://yoric.github.io/tags/python/</guid>
       <description></description>
     </item>
     <item>
@@ -293,13 +335,6 @@
       <link>https://yoric.github.io/tags/prototype/</link>
       <pubDate>Wed, 01 Nov 2023 15:51:13 +0100</pubDate>
       <guid>https://yoric.github.io/tags/prototype/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>C&#43;&#43;</title>
-      <link>https://yoric.github.io/tags/c&#43;&#43;/</link>
-      <pubDate>Fri, 03 Feb 2023 21:54:25 +0100</pubDate>
-      <guid>https://yoric.github.io/tags/c&#43;&#43;/</guid>
       <description></description>
     </item>
     <item>

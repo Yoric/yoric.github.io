@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Parallel on Il y a du thé renversé au bord de la table !</title>
+    <link>https://yoric.github.io/tags/parallel/</link>
+    <description>Recent content in Parallel on Il y a du thé renversé au bord de la table !</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 08 Jul 2025 22:09:29 +0200</lastBuildDate>
+    <atom:link href="https://yoric.github.io/tags/parallel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>(Quite) A Few Words About Async</title>
+      <link>https://yoric.github.io/post/quite-a-few-words-about-async/</link>
+      <pubDate>Tue, 08 Jul 2025 22:09:29 +0200</pubDate>
+      <guid>https://yoric.github.io/post/quite-a-few-words-about-async/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve had a few conversations about async code recently (and not so&#xA;recently) and seen some code that seems to make wrong assumptions&#xA;about async, so I figured out it was time to have a serious chat&#xA;about async, what it&amp;rsquo;s for, what it guarantees and what it doesn&amp;rsquo;t.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

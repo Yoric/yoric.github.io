@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
+
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/quite-a-few-words-about-async/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:title" content="(Quite) A Few Words About Async">
+  <meta property="og:description" content="I’ve had a few conversations about async code recently (and not so recently) and seen some code that seems to make wrong assumptions about async, so I figured out it was time to have a serious chat about async, what it’s for, what it guarantees and what it doesn’t.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-07-08T22:09:29+02:00">
+    <meta property="article:modified_time" content="2025-07-08T22:09:29+02:00">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="Rust">
+    <meta property="article:tag" content="C#">
+    <meta property="article:tag" content="C&#43;&#43;">
+    <meta property="article:tag" content="Programming">
+<title>(Quite) A Few Words About Async</title>
+
+    <link rel="canonical" href="https://yoric.github.io/post/quite-a-few-words-about-async/">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
+
+    
+    
+
+</head>
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
+    </header>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        python
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">July 8, 2025</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">(Quite) A Few Words About Async</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content"></div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/python" class="tag">
+                    python
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/go" class="tag">
+                    go
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/rust" class="tag">
+                    rust
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/c" class="tag">
+                    c#
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/c&#43;&#43;" class="tag">
+                    c&#43;&#43;
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/programming" class="tag">
+                    programming
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/async" class="tag">
+                    async
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/concurrent" class="tag">
+                    concurrent
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/parallel" class="tag">
+                    parallel
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/non-blocking" class="tag">
+                    non-blocking
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">I&rsquo;ve had a few conversations about async code recently (and not so
+recently) and seen some code that seems to make wrong assumptions
+about async, so I figured out it was time to have a serious chat
+about async, what it&rsquo;s for, what it guarantees and what it doesn&rsquo;t.</p>
+<p class="component-content component">Most of the code in this entry will be written with Python syntax
+(and often Python libraries), but with a few minor exceptions, we&rsquo;ll be
+discussing concepts that are valid across languages.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="theres-more-than-one-kind-of-performance" class="pagebody-header">
+    There&rsquo;s more than one kind of performance
+  </h1>
+</div><p class="component-content component">We all know about performance, right? I mean, there is some task we want
+our code to do (display something on screen, or request some data from a
+database, or download a file, or solve a mathematical problem, &hellip;) and
+that task should be finished as fast as possible. For bonus points, it
+should use as little memory as possible.</p>
+<p class="component-content component">Right?</p>
+<p class="component-content component">Well&hellip; not quite.</p>
+<p class="component-content component">This kind of performance is called <em>throughput</em>. And having a high
+throughput is almost always a good thing. But in the 21st century,
+focusing on throughput is generally the wrong goal.</p>
+<p class="component-content component">You see, these days, most applications[^1] look something like this:</p>
+<p class="component-content component">[^1] Other than Unix command-line tools.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (event <span style="color:#f92672">:=</span> get_next_event()):
+</span></span><span style="display:flex;"><span>        on_event(event)
+</span></span><span style="display:flex;"><span>    wait_until_there_is_an_event()</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Maybe you&rsquo;re writing that loop yourself, but usually, not. You might
+be writing <code>asyncio.run</code> or <code>#[tokio::main]</code> or <code>Eio_main.run</code>, or
+just running your code in the browser or Node.js or BEAM,
+or in plenty of other ways, but you&rsquo;re not escaping the <em>event loop</em>.</p>
+<p class="component-content component">If you&rsquo;re writing a video game, you receive an event whenever the user presses
+a key, and also whenever it&rsquo;s time to repaint the screen. If you&rsquo;re writing
+a GUI tool, you receive an event whenever the user clicks on a button. If you&rsquo;re
+writing a web server, you get an event whenever you receive a connection or
+some data.</p>
+<p class="component-content component">And yes, you want to finish the task quickly. In fact, if you&rsquo;re writing any
+kind of user-facing application, whether it&rsquo;s a text processor or a video game,
+you have about 16ms to finish the task. You can do many things in 16ms. But
+there are also quite a few things that you can&rsquo;t do, including opening a file
+[^2] or getting a response from your web server [^3].</p>
+<p class="component-content component">If you&rsquo;re writing a web server, you have more leeway. In most cases, you can
+afford to wait 1 second, possibly even 2. But there are plenty of tasks that
+your web server may need to complete and that will take more than 2 seconds.
+For instance, extracting lots of data from a busy database, or getting anything
+remotely coherent from a LLM.</p>
+<p class="component-content component">[^2] Sure, it will <em>generally</em> open in &lt;16ms. But once in a while, it won&rsquo;t,
+especially if it&rsquo;s a network mount (it can take several seconds), or if your
+file system is already quite busy.
+[^3] As I write this, downloading the <code>index.html</code> from my blog (whithout
+any other resource) takes about 30ms.</p>
+<p class="component-content component">So&hellip; now what?</p>
+<p class="component-content component">Now we need to redefine performance. And in fact, there are plenty of definitions
+of performance. The one we&rsquo;re going to focus on in this discussion <em>reactivity</em>:
+how long until <em>something</em> happens. You may not have finished opening your file,
+getting a response from your web server, or received anything that looks remotely
+coherent from Claude, but you need to respond <em>something</em> quickly.</p>
+<p class="component-content component">Also, if you&rsquo;re interested in the notion of Response Time Limits, it dates
+back to 1993: <a href="https://www.nngroup.com/articles/response-times-3-important-limits/">https://www.nngroup.com/articles/response-times-3-important-limits/</a>.
+I seem to recall that Microsoft lead some further research when they were developing
+the original Surface tables (before the tablets). DoubleClick/Google also published
+some additional refinements in the specific case of web applications and mobile web
+applications. Sadly, I haven&rsquo;t found the links.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="the-need-for-non-blocking-code" class="pagebody-header">
+    The need for non-blocking code
+  </h1>
+</div><p class="component-content component">Let&rsquo;s start with a simple example:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComputeFibonacciEvent</span>:
+</span></span><span style="display:flex;"><span>    arg: int
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibonacci</span>(n: int): int
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_event</span>(event):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(event, ComputeFibonacciEvent):
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> fibonacci(event<span style="color:#f92672">.</span>arg)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci(</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">)=</span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Yes, I&rsquo;m very aware that you can rewrite Fibonacci in a more efficient manner.
+Feel free to replace this with any other task that is slow to execute.</p>
+<p class="component-content component">Now, does our event loop fit within our 16ms budget? For a sufficiently large
+value of <code>arg</code>, it might not. But if we exceed our 16ms budget, we are blocking
+our application from repainting the screen, or taking new HTTP requests, etc.
+and that&rsquo;s bad.</p>
+<p class="component-content component">So how do we make our computation fit?</p>
+<p class="component-content component">Well, there are many solutions, but all of them are variants around the following
+idea:</p>
+<blockquote>
+<p class="component-content component">Make <code>fibonacci</code> non-blocking.</p>
+</blockquote>
+
+<div class="component-content pagebody component">
+  <h1 id="a-few-more-definitions" class="pagebody-header">
+    A few more definitions
+  </h1>
+</div><p class="component-content component">Non-blocking is not the most common word you&rsquo;ll find around the web. You&rsquo;ll often
+read about asynchronous, concurrent, parallel. These are four distinct concepts
+that people tend to confuse hopelessly.</p>
+<blockquote>
+<p class="component-content component">Code is <strong>non-blocking</strong> if it never <em>blocks</em> any critical thread.</p>
+</blockquote>
+<p class="component-content component">In this conversation, we&rsquo;re interested in the thread containing the event loop.
+Non-blocking is an objective. It&rsquo;s also a guarantee provided by some functions
+in your libraries or your operating system.</p>
+<p class="component-content component">How do you achieve this? Well, that&rsquo;s what this entire post is all about.</p>
+<blockquote>
+<p class="component-content component">Code is <strong>asynchronous</strong> if it is systematically structured in such a way that
+it can be made non-blocking.</p>
+</blockquote>
+<p class="component-content component">Asynchronous is about code structure. Typically, this involves callbacks, or events,
+or some abstraction on top of them.
+It does not guarantee that your code is non-blocking. In fact, the only guarantee is
+that if you refactor your code to become non-blocking, you won&rsquo;t break everything.</p>
+<blockquote>
+<p class="component-content component">Code is <strong>concurrent</strong> if you can schedule independent tasks to run.</p>
+</blockquote>
+<p class="component-content component">Concurrency is also a programming style. Concurrency does not guarantee when the
+tasks run. There are concurrency toolkits that simply wait until a task is complete
+before running the next one. There are also concurrency primitives that will interleave
+the execution of two concurrent tasks, attempting to ensure that each of them progresses
+regularly. If this is done automatically, this is called <strong>preemptive multitasking</strong>. If
+the code requires specific annotations, this is called <strong>cooperative multitasking</strong></p>
+<p class="component-content component">Concurrency does not guarantee that an operation is non-blocking.</p>
+<blockquote>
+<p class="component-content component">Code is <strong>parallel</strong> if two tasks can run at the same physical instant.</p>
+</blockquote>
+<p class="component-content component">Parallelism is a property of the language, operating system, hardware and system load.
+Code that is executed in parallel in one run could be executed sequentially in another.</p>
+<p class="component-content component">If parallelism is guaranteed, then it can be used to guarantee that an operation is
+non-blocking.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="the-case-for-and-against-threads" class="pagebody-header">
+    The case for (and against) threads
+  </h1>
+</div><p class="component-content component">We live in the 21st century, so (on most platforms) we have access to threads. Threads are
+always a mean to achieve concurrency and, depending on resource constraints and your
+programming language, may be a mean to achieve parallelism.</p>
+<p class="component-content component">Let&rsquo;s try to use them.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">import</span> threading
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_event</span>(event):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(event, ComputeFibonacciEvent):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">background</span>():
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> fibonacci(event<span style="color:#f92672">.</span>arg)
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci(</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">)=</span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        thread <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>background)
+</span></span><span style="display:flex;"><span>        thread<span style="color:#f92672">.</span>run()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Based on a quick benchmark, creating and launching each thread in Python takes
+about 6µs on my machine, so we&rsquo;re well within budget. Yes, running fibonacci
+in the background can still take an arbitrary amount of time, but that&rsquo;s expected.
+So&hellip; mission accomplished?</p>
+<p class="component-content component">Well&hellip; yes and no.</p>
+<p class="component-content component">If you look at your favorite web backend or video game or desktop application,
+you&rsquo;ll see that this is not the solution that the developers have picked.</p>
+<p class="component-content component">Part of it is the difficulty. Programming with threads has long been considered too difficult
+for mere mortals, with the need to use (and understand!) thread-safety, mutexes, atomic
+operations and, sometimes, thread-local storage. While the specific case in the example
+is trivially thread-safe, it is really easy to write code that appears thread-safe but
+relies on some well-hidden global state (as is very common in Python libraries, for
+instance). I have also, quite a few times, seen code misusing mutexes (typically by
+protecting the wrong variable or protecting it at the wrong moment, or sometimes by
+blocking the main thread with a mutex, hence making the entire exercise pointless) or atomicity
+(by mis-understanding the memory model), so yes, being wary of threads makes all
+sorts of sense.</p>
+<p class="component-content component">In fact, to this day, I am not aware of any multi-threading safe GUI toolkit, and even
+languages that make it simple to write multi-threaded code, such as Go, do not make it
+simple to write <em>correct</em> multi-threaded code [^4]. <a href="https://users.rust-lang.org/t/unsafe-std-set-var-change/112704">Even the Rust stdlib got one function
+wrong for a long time</a>.</p>
+<p class="component-content component">[^4] Among other things, Go stops being type-safe in presence of data race conditions.</p>
+<p class="component-content component">Or, in the words of David Baron:</p>
+<p class="component-content component">
+
+
+
+
+
+
+
+
+<figure class="image component image-fullbleed body-copy-wide nr-scroll-animation nr-scroll-animation--on image-big">  <div class="component-content">
+    <div class="image-sharesheet">
+      <div class="image image-load image-asset image-8271ab4cc1d17856cf5fa5f572e90ca2" id="lht8271ab4cc1d17856cf5fa5f572e90ca2">
+        <picture  class="picture">
+          <img class="picture-image" data-src="https://bholley.net/images/posts/thistall.jpg" alt="You must be this tall to write multi-threaded code (about 2.5m)"  />
+        </picture>
+      </div>
+    </div>
+    <div class="image-description">
+      <div class="image-caption">
+        You must be this tall to write multi-threaded code (about 2.5m)
+      </div>
+    </div>
+  </div>
+</figure>
+</p>
+<p class="component-content component">By the way, I write that the snippet is trivially safe, but that&rsquo;s actually not certain.
+What happens if <code>print</code> is called by several threads at the same time? In such cases,
+the original implementations of <code>printf</code> in C would cause all sorts of memory breakages.
+Nowadays, it&rsquo;s probably safe&hellip; but how do you check that? Rust explicitly uses locks
+around stdout and stderr, to avoid any threading problems, but most other languages and
+frameworks don&rsquo;t.</p>
+<p class="component-content component">Another reason is resource limitations. Each process can launch a finite number of threads.
+Each user can launch a finite number of threads. Each kernel can launch a finite number of
+threads. And when you&rsquo;re writing and deploying your application, you often don&rsquo;t know that
+number, which means that you can&rsquo;t rely upon it: for all you know, your application will
+run without thread support (I have noticed this once with a Docker deployment).</p>
+<p class="component-content component">Oh, and your threads typically eat some memory (8kb physical and 8Mb virtual on Linux,
+last time I checked), which contributes (a bit) to making threads a complicated proposition:
+if you launch a thread to make an operation non-blocking, and if launching threads may fail
+(sometimes in hard-to-catch fashion), how should you handle the case in which your thread
+launch fail? Can you even do it?</p>
+<p class="component-content component">These resource limitations are the reason for which web backends cannot just rely on threads.
+Because it&rsquo;s seldom a good idea to let your users (who could be malicious, or using buggy
+clients, or stampeding after an article on Hacker News) control how many resources
+you use.</p>
+<p class="component-content component">Now, these resource limitations have been known and worked around for decades, through
+the use of thread pools:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor
+</span></span><span style="display:flex;"><span>thread_pool <span style="color:#f92672">=</span> ThreadPoolExecutor() <span style="color:#75715e"># Place a limit on the number of threads used.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_event</span>(event):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(event, ComputeFibonacciEvent):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">background</span>():
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> fibonacci(event<span style="color:#f92672">.</span>arg)
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci(</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">)=</span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        thread_pool<span style="color:#f92672">.</span>submit(background)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">And in many cases (again, assuming that your code is thread-safe), this works.</p>
+<p class="component-content component">When doesn&rsquo;t it work?</p>
+<p class="component-content component">First, it generally doesn&rsquo;t work if you&rsquo;re writing a library. You don&rsquo;t know the thread
+policy of your callers, so you could accidentally be introducing thread-unsafety in the
+caller&rsquo;s code by using a thread pool, or multiplying the number of thread pools, hence
+breaking the constraint limits. Please don&rsquo;t do that. If you wish to work with a thread
+pool, ask your client code to provide it.</p>
+<p class="component-content component">The second problem appears if your threads are, for some reason, blocked. This can happen,
+for instance, if any of your threads needs to access a database, or a remote server, if
+you have any kind of call to <code>sleep</code> or if, for some reason, your <code>print</code> has been rerouted
+to a file that is, for some reason slow. In such cases, can quickly saturate the thread
+pool with threads doing nothing (well, waiting for completion of some activity that is not
+controlled by your code). Any further task will just have to wait until one of the waiting
+threads has finished its work.</p>
+<p class="component-content component">In other words, you have completely lost throughput. If you&rsquo;re writing a webserver, this
+suddenly means that you need more webservers to be able to serve all your users, which
+increases your cloud bills and the energy bill paid by the planet. If you&rsquo;re writing a
+video game, sure, the framerate remains good, but the actions of the PCs and NPCs feel
+sluggish. If you&rsquo;re writing a desktop app, sure, the UI remains responsive, but your
+users wait forever.</p>
+<p class="component-content component">In other words, while threads are a necessary component of any solution, they are not the
+magic bullet that we can hope.</p>
+<p class="component-content component">Oh, and to make things worse, as of this writing, if you&rsquo;re writing in (most versions of)
+Python or Ruby, threads are non-parallel. So they have most of the drawbacks of threads
+(in terms of resource usage and thread-unsafety), but not all of the benefits (in terms
+of speedup or efficient use of hardware).</p>
+
+<div class="component-content pagebody component">
+  <h1 id="chunks" class="pagebody-header">
+    Chunks
+  </h1>
+</div><p class="component-content component">Threads are a fairly high-level construct. Perhaps we could do things differently and manually
+cut our function <code>fibonacci</code> to have it compute things concurrently, manually making sure that
+we never block the event loop.</p>
+<p class="component-content component">This would, of course, be easier if our implementation wasn&rsquo;t (non-tail) recursive, but this
+can be done.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComputeFibonacciEvent</span>(BaseEvent):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Event: We&#39;d like to compute `fibonacci(arg)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    arg: int
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    The value for which we wish to compute fibonacci.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    id: UUID
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    A unique id for this event.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    parent_id: UUID <span style="color:#f92672">|</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    If `None`, this is a toplevel request. Otherwise, the `id` of another
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    `ComputeFibonacciEvent` on behalf of which we&#39;re performing this
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    computation.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CompletedFibonacciEvent</span>(BaseEvent):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Event: We have finished computing `fibonacci(arg)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    arg: int
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    The value for which we requested to compute fibonacci.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    parent_id: UUID <span style="color:#f92672">|</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    If `None`, this was a toplevel request. Otherwise, the `id` of another
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    `ComputeFibonacciEvent` on behalf of which we&#39;re performing this
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    computation.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    result: int
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    The value of `fibonacci(arg)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PendingFibonacci</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Rendez-vous mechanism, holding the pending or partial state
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    of computing `fibonacci(arg)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    arg: int
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    The value for which we requested to compute fibonacci.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    parent_id: UUID <span style="color:#f92672">|</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    If `None`, this was a toplevel request. Otherwise, the `id` of another
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    `ComputeFibonacciEvent` on behalf of which we&#39;re performing this
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    computation.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    first: int <span style="color:#f92672">|</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    If `None`, we haven&#39;t computed `fibonacci(arg - 1)` yet. Otherwise,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    the value of `fibonacci(arg - 1)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pending_fibonaccis: dict[UUID, PendingFibonacci] <span style="color:#f92672">=</span> dict()
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">A mapping of event id =&gt; PendingFibonacci.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle_event</span>(event: BaseEvent):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(event, ComputeFibonacciEvent):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> event<span style="color:#f92672">.</span>arg <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            event_queue<span style="color:#f92672">.</span>put(CompletedFibonacciEvent(
+</span></span><span style="display:flex;"><span>                parent_id<span style="color:#f92672">=</span>event<span style="color:#f92672">.</span>parent_id,
+</span></span><span style="display:flex;"><span>                result<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                arg<span style="color:#f92672">=</span>event<span style="color:#f92672">.</span>arg,
+</span></span><span style="display:flex;"><span>            ))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Enqueue the left and right computations.</span>
+</span></span><span style="display:flex;"><span>            event_queue<span style="color:#f92672">.</span>put(ComputeFibonacciEvent(
+</span></span><span style="display:flex;"><span>                id <span style="color:#f92672">=</span> uuid4(),
+</span></span><span style="display:flex;"><span>                parent_id<span style="color:#f92672">=</span>event<span style="color:#f92672">.</span>id,
+</span></span><span style="display:flex;"><span>                arg <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>arg <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            ))
+</span></span><span style="display:flex;"><span>            event_queue<span style="color:#f92672">.</span>put(ComputeFibonacciEvent(
+</span></span><span style="display:flex;"><span>                id <span style="color:#f92672">=</span> uuid4(),
+</span></span><span style="display:flex;"><span>                parent_id<span style="color:#f92672">=</span>event<span style="color:#f92672">.</span>id,
+</span></span><span style="display:flex;"><span>                arg <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>arg <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>            ))
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Store what we need to propagate the result.</span>
+</span></span><span style="display:flex;"><span>            pending_fibonaccis[event<span style="color:#f92672">.</span>id] <span style="color:#f92672">=</span> PendingFibonacci(
+</span></span><span style="display:flex;"><span>                parent_id<span style="color:#f92672">=</span>event<span style="color:#f92672">.</span>parent_id,
+</span></span><span style="display:flex;"><span>                arg<span style="color:#f92672">=</span>event<span style="color:#f92672">.</span>arg,
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> isinstance(event, CompletedFibonacciEvent):
+</span></span><span style="display:flex;"><span>        pending <span style="color:#f92672">=</span> pending_fibonaccis[event<span style="color:#f92672">.</span>parent_id]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> pending<span style="color:#f92672">.</span>first <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            pending<span style="color:#f92672">.</span>first <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>result
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># We still need to wait for the second computation.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># We have obtained both computations.</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> pending<span style="color:#f92672">.</span>first <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>result
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> pending<span style="color:#f92672">.</span>parent <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">#... and we&#39;re done!</span>
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci(</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">) = </span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">#...continue popping!</span>
+</span></span><span style="display:flex;"><span>                event_queue<span style="color:#f92672">.</span>put(CompletedFibonacciEvent(
+</span></span><span style="display:flex;"><span>                    parent_id<span style="color:#f92672">=</span>pending<span style="color:#f92672">.</span>parent,
+</span></span><span style="display:flex;"><span>                    result<span style="color:#f92672">=</span>result,
+</span></span><span style="display:flex;"><span>                    arg<span style="color:#f92672">=</span>event<span style="color:#f92672">.</span>arg
+</span></span><span style="display:flex;"><span>                ))</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Ouch. That&rsquo;s&hellip; quite a rewrite. We just turned a trivial four-lines
+function into a 180 lines, impossible-to-debug, monster.</p>
+<p class="component-content component">But this, as a mechanism, works. At each step of the event loop, the computation
+is trivial and non-blocking. Alright, I&rsquo;m cheating a bit: the call to
+<code>print</code> remains blocking, but you could also rewrite it into a sequence
+of non-blocking calls. In fact, if you look at Firefox or nginx, for
+instance, you&rsquo;ll find plenty of code written like this, usually
+placing requests for long external operations (for instance, writing to
+the database or to the network), then waking up once the request has
+progressed to the next step, enqueuing the next step of the work as
+a new event, etc.</p>
+<p class="component-content component">Of course, the code I&rsquo;ve written above is not nearly thread-safe. It could
+be made thread-safe, and hopefully take advantage of parallelism, at some
+cost in terms of throughput.</p>
+<p class="component-content component">But before we start thinking about parallelism, let&rsquo;s see how we can
+improve that monster.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="continuation-passing-style-cps" class="pagebody-header">
+    Continuation-passing style (CPS)
+  </h1>
+</div><p class="component-content component">Continuation-passing style is a programming style in which functions
+never return a result. Instead, each function receives as (usually last) argument
+a closure (the &ldquo;continuation&rdquo;) with instructions on what to do with the
+result.</p>
+<p class="component-content component">If you have ever programmed with old-style Node, that&rsquo;s exactly how it
+used to work. If you have ever programmed with monads, this involves the
+same idea.</p>
+<p class="component-content component">So, let&rsquo;s rewrite our code to use CPS:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibonacci_cps</span>(n: int, then: Callable[[int]]):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Compute `fibonacci(n)`, then call `then`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> then(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Once we have the result of `fibonacci(n - 1)`, compute</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># `fibonacci(n - 2)`, then sum both.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">with_left</span>(left: int):
+</span></span><span style="display:flex;"><span>        fibonacci_cps(
+</span></span><span style="display:flex;"><span>            n<span style="color:#f92672">=</span>n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>            then<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> then(left <span style="color:#f92672">+</span> right)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute `fibonacci(n- 1)`.</span>
+</span></span><span style="display:flex;"><span>    fibonacci_cps(
+</span></span><span style="display:flex;"><span>        n<span style="color:#f92672">=</span>n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        then<span style="color:#f92672">=</span>with_left)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle_event</span>(event: BaseEvent):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(event, ComputeFibonacciEvent):
+</span></span><span style="display:flex;"><span>        fibonacci_cps(event<span style="color:#f92672">.</span>arg, <span style="color:#66d9ef">lambda</span> result: print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci(</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">)=</span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> isinstance(event, SleepEvent):
+</span></span><span style="display:flex;"><span>        event<span style="color:#f92672">.</span>thunk()</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">That&rsquo;s nicer. So far, it&rsquo;s blocking, but it&rsquo;s nicer.</p>
+<p class="component-content component">Now, by moving to CPS, we have removed the need to return, which means that
+we can delay computation. For instance, without breaking the rest of the code,
+we can add <code>wait</code> instructions in the middle of <code>fibonacci_cps</code>.</p>
+<p class="component-content component">First, let&rsquo;s add some general-purpose support code:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SleepEvent</span>(BaseEvent):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Wait until the next tick of the event loop before running `thunk`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    thunk: Callable[[]]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wait</span>[T](continuation: Callable[[T]]) <span style="color:#f92672">-&gt;</span> Callable[[T]]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Wait until the next tick of the event loop before running `continuation`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">result</span>(arg: T):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">thunk</span>() <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> continuation(arg)
+</span></span><span style="display:flex;"><span>        event_queue<span style="color:#f92672">.</span>put(SleepEvent(
+</span></span><span style="display:flex;"><span>            thunk<span style="color:#f92672">=</span>thunk
+</span></span><span style="display:flex;"><span>        ))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle_event</span>(event: BaseEvent):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(event, SleepEvent):
+</span></span><span style="display:flex;"><span>        event<span style="color:#f92672">.</span>thunk()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># ... As previously</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Once we have this, we may rewrite <code>fibonacci_cps</code> as follows:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibonacci_cps</span>(n: int, then: Callable[[int]]):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Compute `fibonacci(n)`, then call `then`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> wait(then)(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Once we have the result of `fibonacci(n - 1)`, compute</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># `fibonacci(n - 2)`, then sum both.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">with_left</span>(left: int):
+</span></span><span style="display:flex;"><span>        fibonacci_cps(
+</span></span><span style="display:flex;"><span>            n<span style="color:#f92672">=</span>n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>            then<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> right: wait(then)(left <span style="color:#f92672">+</span> right)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute `fibonacci(n- 1)`.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compute_left</span>():
+</span></span><span style="display:flex;"><span>        fibonacci_cps(
+</span></span><span style="display:flex;"><span>            n<span style="color:#f92672">=</span>n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>            then<span style="color:#f92672">=</span>with_left)
+</span></span><span style="display:flex;"><span>    wait(compute_left)</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">&hellip;and with this, we have made our code non-blocking. And of course, <code>wait</code> and <code>SleepEvent</code>
+can be reused for any other CPS function. We could go further and customize just how many
+ticks we wait, or dispatch tasks to various CPUs if we wanted.</p>
+<p class="component-content component">If you recall our earlier definitions, writing our code as CPS makes it <em>asynchronous</em>.
+And we just demonstrated how to refactor our asynchronous code to also be non-blocking.</p>
+<p class="component-content component">CPS calls are the real reason for which Node.js was initially lauded as &ldquo;fast&rdquo;. It wasn&rsquo;t
+about CPU speed, but about the fact that, thanks to CPS, you can run (literally) millions
+of concurrent tasks, especially tasks that spend most of their time waiting for network
+or database read/writes, without taxing the CPU too much.</p>
+<p class="component-content component">So far, so good. Of course, we have still increased the code size for <code>fibonacci</code> from 4
+lines to 18 and made it harder to read. Also, if you&rsquo;re interested in performance, we
+have allocated a lot of closures, which we&rsquo;re going to pay in garbage-collection time.</p>
+<p class="component-content component">Can we do better?</p>
+
+<div class="component-content pagebody component">
+  <h1 id="generators--iterators" class="pagebody-header">
+    Generators / iterators
+  </h1>
+</div><p class="component-content component">Generators are function-like objects that can be called repeatedly to return a succession
+of values. From the point of view of languages that support CPS natively (more precisely,
+languages that support <code>call/cc</code> or <code>delimcc</code>), generators are simple abstractions upon
+simple use cases for continuations.</p>
+<p class="component-content component">As it turns out, generators have been used in several languages and frameworks to achieve
+concurrency.</p>
+<p class="component-content component">Let&rsquo;s start with some support code:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#a6e22e">@dataclass</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ContinueEvent</span>(BaseEvent):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Schedule an execution for the next tick of the event loop.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    generator: Generator[<span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">handle_event</span>(event: BaseEvent):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(event, ComputeFibonacciEvent):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Start computation.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generator</span>() <span style="color:#f92672">-&gt;</span> Generator[<span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>]:
+</span></span><span style="display:flex;"><span>            fibo <span style="color:#f92672">=</span> fibonacci(event<span style="color:#f92672">.</span>n)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>                    next(fibo)
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># Not ready yet.</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">yield</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">StopIteration</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                result: int <span style="color:#f92672">=</span> e<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>n<span style="color:#e6db74">}</span><span style="color:#e6db74">=</span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        event_queue<span style="color:#f92672">.</span>put(ContinueEvent(generator()))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> isinstance(event, ContinueEvent):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Continue computation</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Are we done yet?</span>
+</span></span><span style="display:flex;"><span>            next(event<span style="color:#f92672">.</span>generator)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Continue next tick.</span>
+</span></span><span style="display:flex;"><span>            event_queue<span style="color:#f92672">.</span>put(event)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">StopIteration</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Done</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">The general idea is that <code>handle_event</code> receives instances of <code>ContinueEvent</code> and keeps
+calling <code>next(event.generator)</code>. If <code>next(event.generator)</code> returns (without raising), it
+means that the code requested a pause. For our implementation of Fibonacci&rsquo;s function,
+this will happen because we decided to break the function call into several non-blocking
+segments, but for anything involving, say, network calls, it will mean that the network
+call isn&rsquo;t finished yet.</p>
+<p class="component-content component">In practice, here&rsquo;s our new version of <code>fibonacci</code>:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibonacci</span>(n: int) <span style="color:#f92672">-&gt;</span> Generator[<span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>, int]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    An implementation of fibonacci.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Yields None to reschedule the computation to the next tick of the event loop.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    After that, returns `int` with the result of `fibonacci(n)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> <span style="color:#66d9ef">None</span> <span style="color:#75715e"># Take a break.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    waiting_left <span style="color:#f92672">=</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            next(waiting_left)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Not `StopIteration` raised, which means we need to take a break.</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">yield</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">StopIteration</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        left: int <span style="color:#f92672">=</span> e<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    waiting_right <span style="color:#f92672">=</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>            next(waiting_right)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Not `StopIteration` raised, which means we need to take a break.</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">yield</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">StopIteration</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        right:int <span style="color:#f92672">=</span> e<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left <span style="color:#f92672">+</span> right</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Alright, it <em>is</em> still pretty long, but it is quite readable, in a Go style of
+things, with lots of easy-to-skip copy &amp; paste code. In fact, if we had some
+syntactic support, we could imagine rewriting this entire function as:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibonacci</span>(n: int) <span style="color:#f92672">-&gt;</span> Generator[<span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>, int]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    An implementation of fibonacci.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Yields None to reschedule the computation to the next tick of the event loop.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    After that, returns `int` with the result of `fibonacci(n)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> <span style="color:#66d9ef">None</span> <span style="color:#75715e"># Take a break.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    left  <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># Pseudo-syntax.</span>
+</span></span><span style="display:flex;"><span>    right <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>) <span style="color:#75715e"># Pseudo-syntax.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left <span style="color:#f92672">+</span> right</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">&hellip;but let&rsquo;s not get too much ahead of ourselves.</p>
+<p class="component-content component">What are the benefits?</p>
+<div class="component-content component"><ol>
+<li>The transformation from our original <code>fibonacci</code> is trivial and, in fact, mostly
+automatizable.</li>
+<li>In many cases, this transformation can be optimized by a compiler, to have small
+to no overhead, by opposition to CPS.</li>
+<li>It is easy to add or remove <code>yield None</code>, which in turn means that you can
+control context-switches, good both for performance and to avoid multi-threading
+pitfalls. Sadly, there is a non-trivial cognitive cost in most languages.
+From the languages I know, only Rust manages to offload this cost onto the
+compiler.</li>
+<li>Writing an implementation of <code>ContinueEvent</code> that dispatches tasks to multiple
+CPUs is quite simple.</li>
+</ol></div>
+<p class="component-content component">What are the downsides?</p>
+<div class="component-content component"><ol>
+<li>We&rsquo;re still allocating memory dynamically, which isn&rsquo;t great wrt performance.</li>
+<li>There are still no guarantees about being non-blocking. If we forget to call
+<code>yield None</code>, our entire transformation will be pointless.</li>
+</ol></div>
+<p class="component-content component">Note that this rewrite as generators is, once again, a concurrent rewrite, which makes
+no guarantee about non-blocking.</p>
+<p class="component-content component">Can we do better?</p>
+
+<div class="component-content pagebody component">
+  <h1 id="a-small-javascript-aside" class="pagebody-header">
+    A small JavaScript aside
+  </h1>
+</div><p class="component-content component">In JavaScript/TypeScript, these days, instead of CPS or generators to achieve concurrency,
+developers tend to use <code>Promise</code>. While JavaScript supports generators, the need to make
+JavaScript code non-blocking (and in particular, historically, the JavaScript code that
+powers the user interface of Firefox) predates the implementation of generators in the
+language.</p>
+<p class="component-content component">Without syntactic support, the implementation of Fibonacci would look more like</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Sleep a few milliseconds. Non-blocking.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#a6e22e">ms</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span>)<span style="color:#f92672">:</span> Promise<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">then</span>) =&gt; <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">then</span>, <span style="color:#a6e22e">ms</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span>)<span style="color:#f92672">:</span> Promise<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">number</span><span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Promise.<span style="color:#a6e22e">resolve</span>(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">0</span>).<span style="color:#a6e22e">then</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">left</span>) =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>).<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">right</span>) =&gt; {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">right</span>
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">which is essentially a higher-level API on top of CPS.</p>
+<p class="component-content component">In practice, JavaScript has a double event loop, with <code>Promise.then()</code> being resolved
+in the inner event loop (micro-ticks) and events (including <code>setTimeout</code>) being resolved
+in the outer event loop (ticks). This simplifies considerably some user-facing APIs,
+but we don&rsquo;t need to enter the details here.</p>
+<p class="component-content component">This formulation is a bit easier to read than CPS, plus provides a better path for
+error-handling (not displayed here), but still a bit hard on the eyes and
+also requires plenty of allocations. Also, in terms of performance, this would
+would not be very friendly to multi-threading. Since JavaScript does not support
+what we usually call multi-threading [^5], that&rsquo;s ok for JavaScript, but explains
+why the same solution isn&rsquo;t pushed forward in other languages.</p>
+<p class="component-content component">[^5] It supports a multi-process paradigm, which may be implemented with threads,
+but that&rsquo;s a bit different.</p>
+<p class="component-content component">So, the question remains: can we do better?</p>
+
+<div class="component-content pagebody component">
+  <h1 id="asyncawait" class="pagebody-header">
+    Async/await
+  </h1>
+</div><p class="component-content component">Well, yes, we can. In fact, in Python or Rust, I don&rsquo;t think I&rsquo;ve ever seen application
+code written by human beings in the above style (I have seen much in JavaScript
+applications and some as part of Python or Rust libraries and frameworks, though).
+What we do, instead, is introduce some syntactic sugar that lets us write</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibonacci</span>(n: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    An implementation of fibonacci.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Yields None to reschedule the computation to the next tick of the event loop.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    After that, returns `int` with the result of `fibonacci(n)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> asyncio<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">0</span>) <span style="color:#75715e"># Take a break.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    left  <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    right <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left <span style="color:#f92672">+</span> right</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This, to a very close approximation, is syntactic sugar for the code we wrote above.
+You can run it with <code>asyncio.run</code>, the de fact standard executor for <code>async</code>/<code>await</code>.</p>
+<p class="component-content component">The code is quite similar in Rust, and will compile essentially to the same
+loop with <code>yield</code> as in Python:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">fibonacci</span>(n: <span style="color:#66d9ef">u32</span>) -&gt; <span style="color:#66d9ef">u64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    tokio::time::sleep(Duration::new(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)).<span style="color:#66d9ef">await</span>; <span style="color:#75715e">// Take a break.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> left  <span style="color:#f92672">=</span> Box::pin(fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)).<span style="color:#66d9ef">await</span>;  <span style="color:#75715e">// We can&#39;t store recursive calls on the fixed-size pseudo-stack, so we need to allocate memory.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> right <span style="color:#f92672">=</span> Box::pin(fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)).<span style="color:#66d9ef">await</span>;  <span style="color:#75715e">// Since we&#39;ll rewrite it, we also want it to remain in place (hence the `pin`).
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    left <span style="color:#f92672">+</span> right
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">Interestingly, as of this writing, <code>yield</code> is not part of Rust&rsquo;s surface level language.
+However, it is used internally for this purpose. The generator will, in turn, compile
+to a much more complicated finite state machine which we won&rsquo;t detail here (if you want to look at it, see <a href="https://play.rust-lang.org/?version=nightly&amp;mode=debug&amp;edition=2018&amp;gist=aedf6dccc1a53459e39075e53b5b69c0">this playground</a> and click &ldquo;MIR&rdquo; instead of &ldquo;Build&rdquo;). This Rust code
+is, of course, thread-safe, and will in fact be dispatched to available CPUs if you execute it with
+tokio, the de facto standard executor for <code>async</code>/<code>await</code> on non-embedded platforms.</p>
+<p class="component-content component">The JavaScript/TypeScript code is, again, quite similar, and will compile to
+the <code>Promise</code>-based code above:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * Sleep a few milliseconds. Non-blocking.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#a6e22e">ms</span>: <span style="color:#66d9ef">number</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">void</span>&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>((<span style="color:#a6e22e">then</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">then</span>, <span style="color:#a6e22e">ms</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span>: <span style="color:#66d9ef">number</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">number</span>&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">sleep</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">left</span>  <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">right</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">right</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This will execute with your browser or Node&rsquo;s built-in executor.</p>
+<p class="component-content component">If you wonder what an executor is, well, it&rsquo;s an event loop we
+have been discussing throughout this piece, along with the basic events
+required to handle <code>async</code>/<code>await</code> and generally whatever you need to
+build your own event loop on top of it if you need one.</p>
+<p class="component-content component">Now, is there any drawback to <code>async</code>/<code>await</code>? Yes, there are a few. For one
+thing, if you&rsquo;re not a Rust developer, you probably won&rsquo;t care, but we haven&rsquo;t
+improved memory allocation. But the biggest problem I&rsquo;ve seen, by far, is that
+<em>most developers don&rsquo;t seem to understand <code>async</code>/<code>await</code></em>.</p>
+<p class="component-content component">So let me insist: <code>async</code>/<code>await</code> is a mechanism to easily make your code
+<em>asynchronous</em>. It will make your code concurrent. It&rsquo;s also a tool that
+you can use to make your code non-blocking, but by itself,
+<em>it doesn&rsquo;t make your code magically non-blocking</em>. In particular, if you
+call blocking code from async code, <em>you will block</em>.</p>
+<p class="component-content component">Also, since every call to <code>await</code> <em>might</em> hide a context-switch to another
+scheduled concurrent task, you will encounter most of the same problems as
+with multi-threaded code: you will encounter data races, you will need locks
+and possibly task-local storage and, to make things worse, your usual locks
+won&rsquo;t work &ndash; for instance, Rust&rsquo;s tokio offers its own async implementation
+of <code>Mutex</code>, <code>RwLock</code>, etc. In fact, these implementations are typically
+<em>slower</em> than their thread counterparts.</p>
+<p class="component-content component">Let me insist on that point: a call to <code>await</code> may or <em>may not</em> context-switch.
+For instance, in Python, Rust or C++ (and I believe C#, but I haven&rsquo;t checked),
+the following will <em>not</em> cause a context-switch:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>() <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;f() was called&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">21</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">g</span>() <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> f() <span style="color:#75715e"># Since `f()` returns immediately, `g()` doesn&#39;t interrupt its work.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> x</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">In JavaScript, however, the equivalent code will cause a context-switch if
+any other Promises have been resolved in the same micro-tick.</p>
+<p class="component-content component">And finally, <code>async</code>/<code>await</code> is a form of function coloring. You can&rsquo;t wait
+for an <code>async</code> function to wait without <code>await</code> and you can&rsquo;t use <code>await</code> in
+anything other than an <code>async</code> function. This means that you can&rsquo;t pass an
+<code>async</code> function as callback to a function that expects a sync function,
+including your <code>map</code>, <code>filter</code>, <code>fold</code> or list comprehensions. This limits
+code reuse and means that, once in a while, it will entirely prevent you
+from using an API &ndash; I recently encountered the problem in Python, with a
+scikit optimization function that required a sync callback, but the function
+could only implemented as <code>async</code>, since it relied on further <code>async</code> functions.
+It&rsquo;s seldom a problem, but when it is, you are without a solution.</p>
+<p class="component-content component">Note that <code>async</code>/<code>await</code> is also available in a bunch of other languages, including
+C# and C++. All languages that I&rsquo;ve checked out, with the exception of JavaScript,
+compile <code>async</code>/<code>await</code> in the same manner as Python or Rust.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="non-blocking-io" class="pagebody-header">
+    Non-blocking I/O
+  </h1>
+</div><p class="component-content component">As mentioned earlier, I/O can be very slow. HTTP calls or database calls can take
+unbounded amounts of time, and even disk I/O can slow things down considerably,
+especially on network shares.</p>
+<p class="component-content component">So far, we have cheated by focusing on a purely mathematical function. But in
+real applications, you will need to deal with I/O and other blocking calls.
+After all, as mentioned previously, if you call blocking code from asynchronous
+code, well, you&rsquo;re still blocking.</p>
+<p class="component-content component">Luckily for you, your favorite async framework will usually provide non-blocking
+and ready-to-use async operations for these tasks. Let&rsquo;s take a look at how these
+operations are made non-blocking.</p>
+<p class="component-content component">There are typically two cases. In the first case, the operating system or
+lower-layer libraries may already provide non-blocking calls for such operations,
+e.g. <code>epoll</code>, <code>io_uring</code>, <code>kqueue</code> or I/O Completion Ports. Generally speaking,
+these primitives will let applications or libraries:</p>
+<div class="component-content component"><ol>
+<li>(un)register to be informed when an operation is possible;</li>
+<li>(un)register to be informed when an operation is complete;</li>
+<li>schedule an operation.</li>
+</ol></div>
+<p class="component-content component">While the specifics are different across these primitives, the
+general idea is not dissimilar to what we have shown, for instance,
+<a href="#chunks">earlier, when dividing fibonacci in chunks</a>. In fact, the
+implementation of <code>async</code>/<code>await</code> in Rust is optimized for such a
+<a href="https://doc.rust-lang.org/std/task/struct.Waker.html">wakeup mechanism</a>.</p>
+<p class="component-content component">In practice, things are a bit more complicated. In fact, I don&rsquo;t know of any <code>async</code>/<code>await</code> embedding
+on top of <code>io_uring</code> in any language yet, because it doesn&rsquo;t quite match this model. But
+generally, that&rsquo;s the idea.</p>
+<p class="component-content component">In the second case, there is no non-blocking call for such operations. So we have to resort
+to threads. In such cases, the framework will:</p>
+<div class="component-content component"><ol>
+<li>request a thread from a thread pool;</li>
+<li>dispatch the blocking call to the thread;</li>
+<li>once the blocking call is complete, wake the executor with the result.</li>
+</ol></div>
+<p class="component-content component">In Python, this may look like:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NonBlockingIOManager</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>pool <span style="color:#f92672">=</span> ThreadPoolExecutor()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">file_read</span>(self, path: str) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Non-blocking file read.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">task</span>():
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">with</span> open(path) <span style="color:#66d9ef">as</span> file:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> file<span style="color:#f92672">.</span>read()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">await</span> asyncio<span style="color:#f92672">.</span>get_event_loop()<span style="color:#f92672">.</span>run_in_executor(
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>pool,
+</span></span><span style="display:flex;"><span>            task)</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This is not ideal, but in the absence of a better solution, it works.</p>
+<p class="component-content component">And in fact, <code>Promise</code> was designed to help integrate results coming from multiple
+threads/processes in such a manner (but without dealing with threads itself).</p>
+
+<div class="component-content pagebody component">
+  <h1 id="what-about-go" class="pagebody-header">
+    What about Go?
+  </h1>
+</div><p class="component-content component">Go is a bit of an outlier, and one of the few programming languages that do not
+provide any kind of support for <code>async</code>/<code>await</code>, or any of the methods explored
+so far. Nevertheless, this language is considered top-of-the-class (by some criteria)
+for concurrent programming and web servers.</p>
+<p class="component-content component">Where Python, C#, Rust, JavaScript or (so far) Java have decided to make user-level
+concurrency <em>explicit</em> by relying on <code>async</code>/<code>await</code> or lower-level constructions,
+Go&rsquo;s designers have decided to make it <em>implicit</em> by provided a transparent M:N
+scheduler.</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">uint32</span>) <span style="color:#66d9ef">uint64</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// (probably) no need to sleep manually
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
+  
+</div><p class="component-content component">How does it work?</p>
+<div class="component-content component"><ol>
+<li>During compilation of Go code, the compiler instruments every (non-inlined) function
+call with a little assembly code that calls into the runtime environment.</li>
+<li>During execution, Go&rsquo;s executor maintains a thread pool of N threads (by default,
+iirc, N is the number of cores + 1, but this can be customized).</li>
+<li>At runtime, every function call <em>may</em> (randomly) trigger a context-switch between
+concurrent tasks. If the context-switch is triggered, the concurrent task is
+paused using platform-specific code, then scheduled to be awakened at a later
+date by the scheduler.</li>
+<li>During compilation of C calls, the CGo compiler instruments the (non-blessed) C code
+with a little assembly that calls into the runtime environment.</li>
+<li>At runtime, when calling a C function, Go&rsquo;s executor expects that the call is blocking,
+monitors how long the thread is blocked by the C function, and past some delay, removes
+the thread from the thread pool and replaces it with a new thread. Once execution of the
+C function has completed, the thread is not returned to the thread pool.</li>
+</ol></div>
+<p class="component-content component">In other words, Go uses implicit cooperative multi-tasking to emulate pre-emptive multi-tasking.</p>
+<p class="component-content component">The immediate benefit comes in terms of resource usage/cognitive load. You can launch as many
+tasks (&ldquo;goroutines&rdquo;) as you want, without having to deal with <code>async</code>/<code>await</code> or care about
+memory usage, and these tasks will be executed concurrently, hopefully in parallel. Moreover,
+Go functions are not colored by synchronicity. This means that interfaces or callbacks don&rsquo;t
+need to care whether they accept sync or async implementations, as there is no difference.</p>
+<p class="component-content component">The immediate drawback is that, since concurrency is, to a large extent, implicit, it makes the
+code harder to reason about. I don&rsquo;t think that this is a real problem, but it does lead to developers
+writing concurrency-unsafe code and running it concurrently without paying attention.</p>
+<p class="component-content component">One could argue that implicit concurrency makes it harder to optimize code, but since very
+few developers actually care about such types of code optimization, and since Go is one of
+the fastest languages around, I consider this a minor impediment. Of course, if you need
+more performance, use Rust.</p>
+<p class="component-content component">There are real issues with Goroutines, such as the implicit capture by reference or the ease of
+accidentally copying a lock instead of sharing it, but these are not due to the concurrency model.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="what-about-ocaml" class="pagebody-header">
+    What about OCaml?
+  </h1>
+</div><p class="component-content component">OCaml is a very interesting case. It has supported the equivalent of Go&rsquo;s channels since the
+late 1990s and, with version 4.0, it finally gained support for multicore. Recent benchmarks
+suggest that it can be actually much faster than Go on some tasks (I didn&rsquo;t take the time to
+check these benchmarks, so don&rsquo;t trust me on this).</p>
+<p class="component-content component">In OCaml, using the Eio executor, our Fibonacci would look like:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> fibonacci <span style="color:#f92672">(</span>n<span style="color:#f92672">:</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> 1 <span style="color:#66d9ef">then</span> <span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>    1
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">)</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>    Fiber.yield()<span style="color:#f92672">;</span> <span style="color:#75715e">(* take a break *)</span>
+</span></span><span style="display:flex;"><span>    fibonacci <span style="color:#f92672">(</span>n <span style="color:#f92672">-</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> fibonacci <span style="color:#f92672">(</span>n <span style="color:#f92672">-</span> 2<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">)</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">this implementation sits somewhere Go&rsquo;s and Python/Rust/JavaScript. As Go, it doesn&rsquo;t need <code>async</code>
+or <code>await</code>. As Python/Rust/JavaScript/C++, it expects an explicit <code>Fiber.yield()</code> to allow
+cooperative context-switching.</p>
+<p class="component-content component">But in fact, OCaml is its own beast. For one thing, as far as I understand, the OCaml compiler
+doesn&rsquo;t go through any compilation step specific to multi-tasking, either to compile <code>async</code>/<code>await</code>
+into <code>yield</code> or <code>Promise</code> or anything similar, or to introduce implicit cooperative context-switching.
+In fact, the above code can run, without change or recompilation, either as a backgrounded, non-blocking
+task, or as a blocking task, depending on the context.</p>
+<p class="component-content component">How does this work?</p>
+<p class="component-content component">Well, the implementation of <code>Fiber.yield()</code> actually raises an <em>effect</em>. Effects are almost identical
+to exceptions, with one key difference: where exception handlers can either handle the exception or
+let it propagate, effect handlers can also decide to <em>resume</em> the work at the site the effect was
+raised. In a way, effects are a generalization of both exceptions (they add the ability to resume)
+and generators (they add the ability to cross an arbitrary stack depth).</p>
+<p class="component-content component">This is an extremely powerful mechanism that can be used to provide context-customizable retries,
+logging, mockable I/O, etc. and of course concurrency. For instance, we could write:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">try</span> some_function() <span style="color:#66d9ef">with</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> effect <span style="color:#a6e22e">Yield</span> continuation <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">(* Proceed in the next tick *)</span>
+</span></span><span style="display:flex;"><span>    enqueue_event <span style="color:#f92672">(</span><span style="color:#a6e22e">Continue</span> continuation<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">or, if we don&rsquo;t want concurrency</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">try</span> some_function() <span style="color:#66d9ef">with</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">|</span> effect <span style="color:#a6e22e">Yield</span> continuation <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">(* Proceed immediately *)</span>
+</span></span><span style="display:flex;"><span>    continuation ()
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">&hellip; and we could even have both on the same stack to force a function to run without concurrency
+locally (e.g. for performance reasons) despite running in a concurrent or even parallel executor.</p>
+<p class="component-content component">It&rsquo;s a very interesting mechanism that I&rsquo;m still test-driving. I&rsquo;m not sure about the performance
+implications of the continuation (I think it&rsquo;s mostly a <code>setjmp</code>/<code>longjmp</code>, but the documentation
+seems to suggest that the OCaml compiler already supports fibers, so maybe the cost is already
+baked in?). There&rsquo;s also the issue that, much like exceptions, effects don&rsquo;t show up in the type
+of a function, which can lead to accidentally uncaught effects. Maybe an updated <code>ocamlexn</code> could
+solve that?</p>
+
+<div class="component-content pagebody component">
+  <h1 id="conclusions" class="pagebody-header">
+    Conclusions
+  </h1>
+</div><p class="component-content component">I hope that these few pages of code have helped clarify why <code>async</code>/<code>await</code> was designed, what
+it is good for and what it won&rsquo;t do for you, as well as a few alternatives.</p>
+<p class="component-content component">If I find the opportunity, I&rsquo;ll try and write a followup with benchmarks.</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David Teller </p>
+                <p class="content">Posted on:  July 8, 2025</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: '17f6fc1669ab5a5f2f69aed6eec12669',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
+    
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
+
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
+
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2025
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+    
+    
+
+    
+    
+</html>
