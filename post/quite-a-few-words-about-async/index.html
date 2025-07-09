@@ -323,7 +323,8 @@ tasks run. There are concurrency toolkits that simply wait until a task is compl
 before running the next one. There are also concurrency primitives that will interleave
 the execution of two concurrent tasks, attempting to ensure that each of them progresses
 regularly. If this is done automatically, this is called <strong>preemptive multitasking</strong>. If
-the code requires specific annotations, this is called <strong>cooperative multitasking</strong></p>
+the code requires specific annotations, this is called <strong>cooperative multitasking</strong>. Most
+developers use the word &ldquo;concurrent&rdquo; only if it involves multitasking.</p>
 <p class="component-content component">Concurrency does not guarantee that an operation is non-blocking.</p>
 <blockquote>
 <p class="component-content component">Code is <strong>parallel</strong> if two tasks can run at the same physical instant.</p>
@@ -1339,8 +1340,8 @@ check these benchmarks, so don&rsquo;t trust me on this).</p>
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">)</span></span></span></code></pre></div></div>
   
 </div><p class="component-content component">this implementation sits somewhere Go&rsquo;s and Python/Rust/JavaScript. As Go, it doesn&rsquo;t need <code>async</code>
-or <code>await</code>. As Python/Rust/JavaScript/C++, it expects an explicit <code>Fiber.yield()</code> to allow
-cooperative context-switching.</p>
+or <code>await</code>. As Python/Rust/JavaScript/C++, it expects an explicit operation (here <code>Fiber.yield()</code>)
+to allow cooperative context-switching.</p>
 <p class="component-content component">But in fact, OCaml is its own beast. For one thing, as far as I understand, the OCaml compiler
 doesn&rsquo;t go through any compilation step specific to multi-tasking, either to compile <code>async</code>/<code>await</code>
 into <code>yield</code> or <code>Promise</code> or anything similar, or to introduce implicit cooperative context-switching.
@@ -1378,9 +1379,12 @@ logging, mockable I/O, etc. and of course concurrency. For instance, we could wr
 </div><p class="component-content component">&hellip; and we could even have both on the same stack to force a function to run without concurrency
 locally (e.g. for performance reasons) despite running in a concurrent or even parallel executor.</p>
 <p class="component-content component">It&rsquo;s a very interesting mechanism that I&rsquo;m still test-driving. I&rsquo;m not sure about the performance
-implications of the continuation (I think it&rsquo;s mostly a <code>setjmp</code>/<code>longjmp</code>, but the documentation
-seems to suggest that the OCaml compiler already supports fibers, so maybe the cost is already
-baked in?). There&rsquo;s also the issue that, much like exceptions, effects don&rsquo;t show up in the type
+implications of the continuation. As far as I understand, context-switching between two fibers
+is (or can be) as fast as in Go, but stack management is more complicated, as the code executed
+in the <code>try</code> needs its stack, the code executed in the <code>effect</code> expression needs its stack, both
+of these stacks stack on top of the code that calls the entire <code>try ... with ...</code> expression, and
+<code>continuation()</code> require its own stack.</p>
+<p class="component-content component">There&rsquo;s also the issue that, much like exceptions, effects don&rsquo;t show up in the type
 of a function, which can lead to accidentally uncaught effects. Maybe an updated <code>ocamlexn</code> could
 solve that?</p>
 
