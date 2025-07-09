@@ -490,7 +490,7 @@ of the native code doesn&rsquo;t know what they&rsquo;re doing, this can quickly
 <p class="component-content component">Also, the case of OCaml demonstrates that you can bring an ecosystem from GIL-ed (OCaml &lt; 4)
 to fully multicore (OCaml ≥ 4), but suggests that it may take a pretty long time. Python
 seems to be slowly heading in this direction, but I don&rsquo;t think we&rsquo;ll see anything usable
-before 2030.</p>
+before 2030<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
 
 <div class="component-content pagebody component">
   <h2 id="threads-are-kinda-slow" class="pagebody-header">
@@ -596,7 +596,7 @@ free and infinite.</p>
   <h2 id="communications-are-expensive" class="pagebody-header">
     Communications are expensive
   </h2>
-</div><p class="component-content component">Communications between threads is simple: you just send the by passing references to it.</p>
+</div><p class="component-content component">Communications between threads is simple: you just send the data by passing references.</p>
 <p class="component-content component">Communication between processes (aka Inter Process Communication or IPC), though? That&rsquo;s another
 story. There are a few ways to do things.</p>
 <p class="component-content component">You can use shared memory:</p>
@@ -1085,9 +1085,9 @@ in the outer event loop (ticks). This simplifies considerably some user-facing A
 but we don&rsquo;t need to enter the details here.</p>
 <p class="component-content component">This formulation is a bit easier to read than CPS, plus provides a better path for
 error-handling (not displayed here), but still a bit hard on the eyes and
-also requires plenty of allocations. Also, in terms of performance, this would
+also requires plenty of allocations. Also, in terms of performance, this
 would not be very friendly to multi-threading. Since JavaScript does not support
-what we usually call multi-threading <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>, that&rsquo;s ok for JavaScript, but explains
+what we usually call multi-threading <sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>, that&rsquo;s ok for JavaScript, but explains
 why the same solution isn&rsquo;t pushed forward in other languages.</p>
 <p class="component-content component">So, the question remains: can we do better?</p>
 
@@ -1198,13 +1198,13 @@ scikit optimization function that required a sync callback, but the function
 could only implemented as <code>async</code>, since it relied on further <code>async</code> functions.
 It&rsquo;s seldom a problem, but when it is, you are without a solution.</p>
 <p class="component-content component">Note that <code>async</code>/<code>await</code> is also available in a bunch of other languages, including
-C# and (to some extent) C++. All languages that I&rsquo;ve checked out, with the exception of JavaScript,
+F#, C#<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>, Haskell, Swift and (to some extent) C++. All languages that I&rsquo;ve checked out, with the exception of JavaScript,
 compile <code>async</code>/<code>await</code> in the same manner as Python or Rust.</p>
 
 <div class="component-content pagebody component">
-  <h1 id="asyncawait-and-non-blocking" class="pagebody-header">
+  <h2 id="asyncawait-and-non-blocking" class="pagebody-header">
     Async/await and non-blocking
-  </h1>
+  </h2>
 </div><p class="component-content component">Are <code>async</code>/<code>await</code> sufficient to make the code non-blocking?</p>
 <p class="component-content component">If you look again at the desugared Python code, full of <code>while True</code> and <code>yield None</code>, you
 will notice that <code>await</code> doesn&rsquo;t yield control to the executor. In fact, you can run
@@ -1355,9 +1355,9 @@ easier on the garbage-collector, I didn&rsquo;t benchmark that).</p>
 were non-blocking, but it&rsquo;s also not sufficient to make your code non-blocking.</p>
 
 <div class="component-content pagebody component">
-  <h1 id="non-blocking-io" class="pagebody-header">
-    Non-blocking I/O
-  </h1>
+  <h2 id="async-and-non-blocking-io" class="pagebody-header">
+    Async and non-blocking I/O
+  </h2>
 </div><p class="component-content component">As mentioned earlier, I/O can be very slow. HTTP calls or database calls can take
 unbounded amounts of time, and even disk I/O can slow things down considerably,
 especially on network shares.</p>
@@ -1413,8 +1413,9 @@ to threads. In such cases, the framework will:</p>
 </span></span><span style="display:flex;"><span>            task)</span></span></code></pre></div></div>
   
 </div><p class="component-content component">This is not ideal, but in the absence of a better solution, it works.</p>
-<p class="component-content component">And in fact, <code>Promise</code> was designed to help integrate results coming from multiple
-threads/processes in such a manner (but without dealing with threads itself).</p>
+<p class="component-content component">And in fact, in JavaScript, <code>Promise</code> was designed to help integrate results
+coming from multiple threads/processes in such a manner (but without dealing
+with threads itself).</p>
 
 <div class="component-content pagebody component">
   <h1 id="what-about-go" class="pagebody-header">
@@ -1585,6 +1586,61 @@ of a function, which can lead to accidentally uncaught effects. Maybe an updated
 solve that?</p>
 
 <div class="component-content pagebody component">
+  <h1 id="which-tool-should-i-use" class="pagebody-header">
+    Which tool should I use?
+  </h1>
+</div>
+<div class="component-content pagebody component">
+  <h2 id="threads" class="pagebody-header">
+    Threads
+  </h2>
+</div><div class="component-content component"><ul>
+<li>Threads are good, but tricky to use.</li>
+<li>On most platforms, threads are needed at some level to handle CPU-heavy tasks.</li>
+<li>On most platforms, threads are needed at some level to make some I/O non-blocking.</li>
+<li>If you are in a position where millisecond matters, you will need to profile your thread switches.</li>
+<li>Don&rsquo;t forget to check whether you are constrained by a GIL.</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="processes" class="pagebody-header">
+    Processes
+  </h2>
+</div><div class="component-content component"><ul>
+<li>Processes are good, but heavy.</li>
+<li>You may need to use them for security/sandboxing/crash isolation, but almost never for the sake of performance.</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="chunkification" class="pagebody-header">
+    Chunkification
+  </h2>
+</div><div class="component-content component"><ul>
+<li>Chunkification makes your code really hard to read.</li>
+<li>If you can avoid it, do so, you generally have better tools at hand<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>.</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="asyncawait-1" class="pagebody-header">
+    Async/await
+  </h2>
+</div><div class="component-content component"><ul>
+<li><code>async</code>/<code>await</code> is useless with blocking I/O.</li>
+<li>once you have non-blocking I/O, <code>async</code>/<code>await</code> shines at using your CPU efficiently in tasks that are constrained by I/O.</li>
+<li><code>async</code>/<code>await</code> don&rsquo;t scale up nearly as well to tasks that are constrained by CPU usage.</li>
+<li><code>async</code>/<code>await</code> is function coloring, which may prevent you from using it.</li>
+</ul></div>
+
+<div class="component-content pagebody component">
+  <h2 id="mn-scheduler-and-variants" class="pagebody-header">
+    M:N scheduler and variants
+  </h2>
+</div><div class="component-content component"><ul>
+<li>I can&rsquo;t think of any good reason to not take advantage of a M:N scheduler if it&rsquo;s available.</li>
+<li>If you do take advantage of it, please take time to learn what makes code thread-safe/thread-unsafe.</li>
+</ul></div>
+
+<div class="component-content pagebody component">
   <h1 id="conclusions" class="pagebody-header">
     Conclusions
   </h1>
@@ -1610,8 +1666,19 @@ any other resource) takes about 30ms. That&rsquo;s roughly the duration of two f
 <p class="component-content component">Among other things, Go stops being type-safe in presence of data race conditions.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:5">
+<p class="component-content component">And just as I write that, I see the ChangeLog for Python 3.14, which suggests that
+free threading is moving on to Phase II. Who knows, maybe it will be faster?&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
 <p class="component-content component">It supports a multi-process paradigm, which may be implemented with threads,
-but that&rsquo;s a bit different.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+but that&rsquo;s a bit different.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7">
+<p class="component-content component">In fact, F# was the first mainstream language to feature <code>async</code>/<code>await</code>, I believe,
+followed by C#.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8">
+<p class="component-content component">Writing this as someone who spent months chunkifying big parts of Firefox to improve reactivity.&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol></div>
 </div>
