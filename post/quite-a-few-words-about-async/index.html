@@ -814,7 +814,7 @@ same idea.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">with_left</span>(left: int):
 </span></span><span style="display:flex;"><span>        fibonacci_cps(
 </span></span><span style="display:flex;"><span>            n<span style="color:#f92672">=</span>n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>,
-</span></span><span style="display:flex;"><span>            then<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> then(left <span style="color:#f92672">+</span> right)
+</span></span><span style="display:flex;"><span>            then<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> right: then(left <span style="color:#f92672">+</span> right)
 </span></span><span style="display:flex;"><span>        )
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute `fibonacci(n- 1)`.</span>
 </span></span><span style="display:flex;"><span>    fibonacci_cps(
@@ -1079,7 +1079,7 @@ language.</p>
 </span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
   
 </div><p class="component-content component">which is essentially a higher-level API on top of CPS.</p>
-<p class="component-content component">In practice, JavaScript has a double event loop, with , and<code>Promise.then()</code> being resolved
+<p class="component-content component">In practice, JavaScript has a double event loop, with <code>Promise.then()</code> being resolved
 in the inner event loop (micro-ticks) and events (including <code>setTimeout</code>) being resolved
 in the outer event loop (ticks). This simplifies considerably some user-facing APIs,
 but we don&rsquo;t need to enter the details here.</p>
