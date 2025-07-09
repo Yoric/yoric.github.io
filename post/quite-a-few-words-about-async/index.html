@@ -515,7 +515,7 @@ code that&rsquo;s not serving your needs. If your code needs to context-switch 5
 core per second (that&rsquo;s an arbitrary number), you have eaten 10-25ms of your budget just
 on context-switching, so that&rsquo;s roughly equivalent to one frame per second which you may
 need to somehow compensate.</p>
-<p class="component-content component">There, of course, other costs to threads. Every lock you need to acquire/release has
+<p class="component-content component">There are, of course, other costs to threads. Every lock you need to acquire/release has
 a raw synchronization cost, plus a contention cost. In particular, you very much want
 to avoid grabbing a lock on the main thread, as this makes thread synchronization
 a blocking operation. Even atomic operation you need to perform may have a performance
