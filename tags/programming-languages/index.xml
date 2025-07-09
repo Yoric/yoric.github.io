@@ -9,7 +9,7 @@
     <lastBuildDate>Mon, 07 Apr 2025 21:30:41 +0200</lastBuildDate>
     <atom:link href="https://yoric.github.io/tags/programming-languages/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Go Zero Values Make Sense</title>
+      <title>Go Zero Values Make Sense, Actually</title>
       <link>https://yoric.github.io/post/go-nil-values/</link>
       <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
       <guid>https://yoric.github.io/post/go-nil-values/</guid>

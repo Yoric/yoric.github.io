@@ -16,7 +16,7 @@
       <description>&lt;p&gt;I&amp;rsquo;ve had a few conversations about async code recently (and not so&#xA;recently) and seen some code that seems to make wrong assumptions&#xA;about async, so I figured out it was time to have a serious chat&#xA;about async, what it&amp;rsquo;s for, what it guarantees and what it doesn&amp;rsquo;t.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Go Zero Values Make Sense</title>
+      <title>Go Zero Values Make Sense, Actually</title>
       <link>https://yoric.github.io/post/go-nil-values/</link>
       <pubDate>Mon, 07 Apr 2025 18:08:41 +0200</pubDate>
       <guid>https://yoric.github.io/post/go-nil-values/</guid>
