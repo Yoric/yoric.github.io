@@ -208,8 +208,7 @@ should use as little memory as possible.</p>
 <p class="component-content component">This kind of performance is called <em>throughput</em>. And having a high
 throughput is almost always a good thing. But in the 21st century,
 focusing on throughput is generally the wrong goal.</p>
-<p class="component-content component">You see, these days, most applications[^1] look something like this:</p>
-<p class="component-content component">[^1] Other than Unix command-line tools.</p>
+<p class="component-content component">You see, these days, most applications<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> look something like this:</p>
 <div class="component-content pagebody component code">
   
   
@@ -232,17 +231,12 @@ some data.</p>
 kind of user-facing application, whether it&rsquo;s a text processor or a video game,
 you have about 16ms to finish the task. You can do many things in 16ms. But
 there are also quite a few things that you can&rsquo;t do, including opening a file
-[^2] or getting a response from your web server [^3].</p>
+<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> or getting a response from your web server <sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
 <p class="component-content component">If you&rsquo;re writing a web server, you have more leeway. In most cases, you can
 afford to wait 1 second, possibly even 2. But there are plenty of tasks that
 your web server may need to complete and that will take more than 2 seconds.
 For instance, extracting lots of data from a busy database, or getting anything
 remotely coherent from a LLM.</p>
-<p class="component-content component">[^2] Sure, it will <em>generally</em> open in &lt;16ms. But once in a while, it won&rsquo;t,
-especially if it&rsquo;s a network mount (it can take several seconds), or if your
-file system is already quite busy.
-[^3] As I write this, downloading the <code>index.html</code> from my blog (whithout
-any other resource) takes about 30ms.</p>
 <p class="component-content component">So&hellip; now what?</p>
 <p class="component-content component">Now we need to redefine performance. And in fact, there are plenty of definitions
 of performance. The one we&rsquo;re going to focus on in this discussion <em>latency</em>:
@@ -383,9 +377,8 @@ blocking the main thread with a mutex, hence making the entire exercise pointles
 sorts of sense.</p>
 <p class="component-content component">In fact, to this day, I am not aware of any multi-threading safe GUI toolkit, and even
 languages that make it simple to write multi-threaded code, such as Go, do not make it
-simple to write <em>correct</em> multi-threaded code [^4]. <a href="https://users.rust-lang.org/t/unsafe-std-set-var-change/112704">Even the Rust stdlib got one function
+simple to write <em>correct</em> multi-threaded code <sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>. <a href="https://users.rust-lang.org/t/unsafe-std-set-var-change/112704">Even the Rust stdlib got one function
 wrong for a long time</a>.</p>
-<p class="component-content component">[^4] Among other things, Go stops being type-safe in presence of data race conditions.</p>
 <p class="component-content component">Or, in the words of David Baron:</p>
 <p class="component-content component">
 
@@ -520,7 +513,8 @@ that CPU/core. This is transparent to the user, but there is a cost.</p>
 mine that indicate a cost of 2-5µs during each context-switch. That&rsquo;s time spent executing
 code that&rsquo;s not serving your needs. If your code needs to context-switch 5000 times per
 core per second (that&rsquo;s an arbitrary number), you have eaten 10-25ms of your budget just
-on context-switching, so that&rsquo;s in the same order of magnitude as one frame per second.</p>
+on context-switching, so that&rsquo;s roughly equivalent to one frame per second which you may
+need to somehow compensate.</p>
 <p class="component-content component">There, of course, other costs to threads. Every lock you need to acquire/release has
 a raw synchronization cost, plus a contention cost. In particular, you very much want
 to avoid grabbing a lock on the main thread, as this makes thread synchronization
@@ -591,8 +585,9 @@ garbage-collection on one process will generally not block another process.</p>
     Processes are expensive
   </h2>
 </div><p class="component-content component">Each process runs its own copy of Python (or Ruby, or JavaScript, etc.), including an in-memory copy of
-not only the standard library, but every single dependency, a garbage-collector, etc. The memory costs
-quickly add up.</p>
+not only the standard library, but every single dependency, a garbage-collector, etc. Also, if your
+language is JITed, each process runs its own JIT, which means its own copy of all the profiling
+data, and the optimized native code. The memory costs quickly add up.</p>
 <p class="component-content component">In fact, one could argue that running multiple processes for a non-system language only makes sense if RAM is
 free and infinite.</p>
 <p class="component-content component">Also, just as there are limits to the number of threads, there are limits to the number of processes.</p>
@@ -628,7 +623,8 @@ with process B;</li>
     Processes are (kinda) slow
   </h2>
 </div><p class="component-content component">Everything I wrote about threads being (kinda) slow? Well, all of this is true of processes,
-except that processes have more data to save/restore in their Process Control Block.</p>
+except that processes have way more data to save/restore in their Process Control Block: memory
+mappings, file descriptors, etc.</p>
 <p class="component-content component">Also, locks between processes (which are fortunately needed much less often than locks within
 a process) typically go through the file system, so they&rsquo;re a bit more expensive than locks between
 threads.</p>
@@ -1041,8 +1037,8 @@ CPUs is quite simple.</li>
 <p class="component-content component">What are the downsides?</p>
 <div class="component-content component"><ol>
 <li>We&rsquo;re still allocating memory dynamically, which isn&rsquo;t great wrt performance.</li>
-<li>There are still no guarantees about being non-blocking. If we forget to call
-<code>yield None</code>, our entire transformation will be pointless.</li>
+<li>There are still no guarantees about being non-blocking. In particular, if we
+forget to call <code>yield None</code>, our entire transformation will be pointless.</li>
 </ol></div>
 <p class="component-content component">Note that this rewrite as generators is, once again, a concurrent rewrite, which makes
 no guarantee about non-blocking.</p>
@@ -1091,10 +1087,8 @@ but we don&rsquo;t need to enter the details here.</p>
 error-handling (not displayed here), but still a bit hard on the eyes and
 also requires plenty of allocations. Also, in terms of performance, this would
 would not be very friendly to multi-threading. Since JavaScript does not support
-what we usually call multi-threading [^5], that&rsquo;s ok for JavaScript, but explains
+what we usually call multi-threading <sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>, that&rsquo;s ok for JavaScript, but explains
 why the same solution isn&rsquo;t pushed forward in other languages.</p>
-<p class="component-content component">[^5] It supports a multi-process paradigm, which may be implemented with threads,
-but that&rsquo;s a bit different.</p>
 <p class="component-content component">So, the question remains: can we do better?</p>
 
 <div class="component-content pagebody component">
@@ -1597,6 +1591,30 @@ solve that?</p>
 </div><p class="component-content component">I hope that these few pages of code have helped clarify why <code>async</code>/<code>await</code> was designed, what
 it is good for and what it won&rsquo;t do for you, as well as a few alternatives.</p>
 <p class="component-content component">If I find the opportunity, I&rsquo;ll try and write a followup with benchmarks.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<div class="component-content component"><ol>
+<li id="fn:1">
+<p class="component-content component">Other than Unix command-line tools.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p class="component-content component">Sure, it will <em>generally</em> open in &lt;16ms. But once in a while, it won&rsquo;t,
+especially if it&rsquo;s a network mount (it can take several seconds), or if your
+file system is already quite busy.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p class="component-content component">As I write this, downloading the <code>index.html</code> from my blog (whithout
+any other resource) takes about 30ms. That&rsquo;s roughly the duration of two frames.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4">
+<p class="component-content component">Among other things, Go stops being type-safe in presence of data race conditions.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p class="component-content component">It supports a multi-process paradigm, which may be implemented with threads,
+but that&rsquo;s a bit different.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol></div>
+</div>
           </div><div class="component">
             <div class="component-content">
               <div class="article-copyright">
