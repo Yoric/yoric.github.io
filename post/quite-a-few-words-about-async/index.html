@@ -245,7 +245,7 @@ file system is already quite busy.
 any other resource) takes about 30ms.</p>
 <p class="component-content component">So&hellip; now what?</p>
 <p class="component-content component">Now we need to redefine performance. And in fact, there are plenty of definitions
-of performance. The one we&rsquo;re going to focus on in this discussion <em>reactivity</em>:
+of performance. The one we&rsquo;re going to focus on in this discussion <em>latency</em>:
 how long until <em>something</em> happens. You may not have finished opening your file,
 getting a response from your web server, or received anything that looks remotely
 coherent from Claude, but you need to respond <em>something</em> quickly.</p>
@@ -268,7 +268,7 @@ applications. Sadly, I haven&rsquo;t found the links.</p>
   <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComputeFibonacciEvent</span>:
 </span></span><span style="display:flex;"><span>    arg: int
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibonacci</span>(n: int): int
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fibonacci</span>(n: int) <span style="color:#f92672">-&gt;</span> int:
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fibonacci(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
@@ -280,7 +280,8 @@ applications. Sadly, I haven&rsquo;t found the links.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span></span></span></code></pre></div></div>
   
-</div><p class="component-content component">Yes, I&rsquo;m very aware that you can rewrite Fibonacci in a more efficient manner.
+</div><p class="component-content component">Yes, I&rsquo;m very aware that you can rewrite Fibonacci in a more efficient manner,
+buy let&rsquo;s keep this awfully inefficient implementation.
 Feel free to replace this with any other task that is slow to execute.</p>
 <p class="component-content component">Now, does our event loop fit within our 16ms budget? For a sufficiently large
 value of <code>arg</code>, it might not. But if we exceed our 16ms budget, we are blocking
@@ -318,13 +319,13 @@ that if you refactor your code to become non-blocking, you won&rsquo;t break eve
 <blockquote>
 <p class="component-content component">Code is <strong>concurrent</strong> if you can schedule independent tasks to run.</p>
 </blockquote>
-<p class="component-content component">Concurrency is also a programming style. Concurrency does not guarantee when the
+<p class="component-content component">Concurrency is also a programming style. Concurrency does not guarantee <em>when</em> the
 tasks run. There are concurrency toolkits that simply wait until a task is complete
 before running the next one. There are also concurrency primitives that will interleave
 the execution of two concurrent tasks, attempting to ensure that each of them progresses
 regularly. If this is done automatically, this is called <strong>preemptive multitasking</strong>. If
 the code requires specific annotations, this is called <strong>cooperative multitasking</strong>. Most
-developers use the word &ldquo;concurrent&rdquo; only if it involves multitasking.</p>
+developers use the word &ldquo;concurrent&rdquo; only if it involves some kind of multitasking.</p>
 <p class="component-content component">Concurrency does not guarantee that an operation is non-blocking.</p>
 <blockquote>
 <p class="component-content component">Code is <strong>parallel</strong> if two tasks can run at the same physical instant.</p>
@@ -354,7 +355,7 @@ programming language, may be a mean to achieve parallelism.</p>
 </span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> fibonacci(event<span style="color:#f92672">.</span>arg)
 </span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci(</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">)=</span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
 </span></span><span style="display:flex;"><span>        thread <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Thread(target<span style="color:#f92672">=</span>background)
-</span></span><span style="display:flex;"><span>        thread<span style="color:#f92672">.</span>run()
+</span></span><span style="display:flex;"><span>        thread<span style="color:#f92672">.</span>start()
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span></span></span></code></pre></div></div>
   
@@ -365,7 +366,12 @@ So&hellip; mission accomplished?</p>
 <p class="component-content component">Well&hellip; yes and no.</p>
 <p class="component-content component">If you look at your favorite web backend or video game or desktop application,
 you&rsquo;ll see that this is not the solution that the developers have picked.</p>
-<p class="component-content component">Part of it is the difficulty. Programming with threads has long been considered too difficult
+
+<div class="component-content pagebody component">
+  <h2 id="threads-are-tricky" class="pagebody-header">
+    Threads are tricky
+  </h2>
+</div><p class="component-content component">Part of it is the difficulty. Programming with threads has long been considered too difficult
 for mere mortals, with the need to use (and understand!) thread-safety, mutexes, atomic
 operations and, sometimes, thread-local storage. While the specific case in the example
 is trivially thread-safe, it is really easy to write code that appears thread-safe but
@@ -412,7 +418,12 @@ the original implementations of <code>printf</code> in C would cause all sorts o
 Nowadays, it&rsquo;s probably safe&hellip; but how do you check that? Rust explicitly uses locks
 around stdout and stderr, to avoid any threading problems, but most other languages and
 frameworks don&rsquo;t.</p>
-<p class="component-content component">Another reason is resource limitations. Each process can launch a finite number of threads.
+
+<div class="component-content pagebody component">
+  <h2 id="threads-cost-resources" class="pagebody-header">
+    Threads cost resources
+  </h2>
+</div><p class="component-content component">Another reason is resource limitations. Each process can launch a finite number of threads.
 Each user can launch a finite number of threads. Each kernel can launch a finite number of
 threads. And when you&rsquo;re writing and deploying your application, you often don&rsquo;t know that
 number, which means that you can&rsquo;t rely upon it: for all you know, your application will
@@ -464,20 +475,180 @@ increases your cloud bills and the energy bill paid by the planet. If you&rsquo;
 video game, sure, the framerate remains good, but the actions of the PCs and NPCs feel
 sluggish. If you&rsquo;re writing a desktop app, sure, the UI remains responsive, but your
 users wait forever.</p>
-<p class="component-content component">In other words, while threads are a necessary component of any solution, they are not the
+
+<div class="component-content pagebody component">
+  <h2 id="threads-may-be-giled" class="pagebody-header">
+    Threads may be GILed
+  </h2>
+</div><p class="component-content component">Let&rsquo;s get one nasty thing out of the way: if you&rsquo;re writing Python or Ruby (or pretty old
+versions of OCaml), your threads are never, ever, going to run in parallel. That&rsquo;s because
+these languages rely on a Global Interpreter Lock, designed specifically to make sure that
+only one thread is ever running at a given instant.</p>
+<p class="component-content component">Why? Well, this makes the rest of the implementation of the language much, much simpler, in
+particular refcounting/garbage-collection. This also avoids lots of pitfalls that would make
+your life miserable. This also allows a number of optimizations (both in the VM/interpreter
+and by at user-level) that would become very much unsafe if the code truly ran in parallel.</p>
+<p class="component-content component">The big drawback is that in these languages multi-threaded code is always quite slower than
+single-threaded code.</p>
+<p class="component-content component">Note that (at least in Python), native code (e.g. PyTorch, NumPy, any code written with PyO3,
+etc.) can <em>release the GIL</em>, which means that its content can run in background threads
+without blocking other threads. Most of the time, it&rsquo;s a good thing, but if the developer
+of the native code doesn&rsquo;t know what they&rsquo;re doing, this can quickly lead to memory corruption.</p>
+<p class="component-content component">Also, the case of OCaml demonstrates that you can bring an ecosystem from GIL-ed (OCaml &lt; 4)
+to fully multicore (OCaml ≥ 4), but suggests that it may take a pretty long time. Python
+seems to be slowly heading in this direction, but I don&rsquo;t think we&rsquo;ll see anything usable
+before 2030.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="threads-are-kinda-slow" class="pagebody-header">
+    Threads are (kinda) slow
+  </h2>
+</div><p class="component-content component">Operating System threads need to <em>context-switch</em> to provide preemptive multitasking, i.e.
+some thread runs on a CPU/core, then the thread is put on hold while some other code runs on
+that CPU/core. This is transparent to the user, but there is a cost.</p>
+<p class="component-content component">Roughly speaking, to context-switch between two tasks, the OS scheduler will need to:</p>
+<div class="component-content component"><ol>
+<li>interrupt the user-level code on that CPU and place the CPU into kernel mode;</li>
+<li>backup the registers, including the program counter;</li>
+<li>backup the pointers to the thread stack, the thread-local storage, etc;</li>
+<li>deactivate interrupt and signal-handling and backup their state;</li>
+<li>replace registers, pointers, interrupt handlers, signal handlers with those of the new thread;</li>
+<li>return to user land and resume execution of the code onto the CPU.</li>
+</ol></div>
+<p class="component-content component">There is a cost to all this.</p>
+<p class="component-content component">I&rsquo;ve been too lazy to benchmark, but I&rsquo;ve seen benchmarks on a machine more recent than
+mine that indicate a cost of 2-5µs during each context-switch. That&rsquo;s time spent executing
+code that&rsquo;s not serving your needs. If your code needs to context-switch 5000 times per
+core per second (that&rsquo;s an arbitrary number), you have eaten 10-25ms of your budget just
+on context-switching, so that&rsquo;s in the same order of magnitude as one frame per second.</p>
+<p class="component-content component">There, of course, other costs to threads. Every lock you need to acquire/release has
+a raw synchronization cost, plus a contention cost. In particular, you very much want
+to avoid grabbing a lock on the main thread, as this makes thread synchronization
+a blocking operation. Even atomic operation you need to perform may have a performance
+cost, in particular on your cache. Etc.</p>
+<p class="component-content component">In most cases, you probably don&rsquo;t care. However, if you&rsquo;re writing performance-sensitive
+code (e.g. a video game, a video player, a browser), threads are not just part of the
+solution but also sometimes part of the performance problems you need to deal with.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="what-about-green-threads" class="pagebody-header">
+    What about green threads?
+  </h2>
+</div><p class="component-content component">Green threads are threads implemented purely in user-land, i.e. they behave as threads
+but they don&rsquo;t go through OS-level scheduling.</p>
+<p class="component-content component">Scheduling between green threads is very similar to scheduling OS threads, but two things
+make it faster:</p>
+<div class="component-content component"><ol>
+<li>scheduling doesn&rsquo;t need to cross between user land and kernel;</li>
+<li>there are fewer things to backup and restore (in particular, generally no interrupt
+and signal handlers).</li>
+</ol></div>
+<p class="component-content component">Similarly, lock synchronization may be faster.</p>
+<p class="component-content component">On the other hand, pure green threads do not benefit from multiple cores or CPUs,
+which strongly decreases the usefulness of these threads.</p>
+<p class="component-content component">Using pure green threads is rather uncommon these days. However, a few languages
+have so-called M:N schedulers, which combine green threads and OS threads. We&rsquo;ll
+speak more of this in the section dedicated to Go.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="so-threads" class="pagebody-header">
+    So, threads?
+  </h2>
+</div><p class="component-content component">In other words, while threads are a necessary component of any solution, they are not the
 magic bullet that we can hope.</p>
-<p class="component-content component">Oh, and to make things worse, as of this writing, if you&rsquo;re writing in (most versions of)
-Python or Ruby, threads are non-parallel. So they have most of the drawbacks of threads
-(in terms of resource usage and thread-unsafety), but not all of the benefits (in terms
-of speedup or efficient use of hardware).</p>
+
+<div class="component-content pagebody component">
+  <h1 id="the-case-for-and-against-processes" class="pagebody-header">
+    The case for (and against) processes
+  </h1>
+</div><p class="component-content component">For a long time, Linux did not support threads. This has never prevented developers from writing
+concurrent/parallel code. One of the workarounds for this lack of threads was to use multiple
+processes. Similarly, the solution to running code across multiple CPUs or cores in GIL-based
+languages has traditionally been to use multiple processes. In the 90s, OCaml even had a dialect
+called JoCaml, which featured a rather excellent paradigm for parallelism and distribution.</p>
+<p class="component-content component">With a high-level API, spawning execution on a process is fairly simple:</p>
+<div class="component-content pagebody component code">
+  
+  
+  
+  <div class=""><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ProcessPoolExecutor
+</span></span><span style="display:flex;"><span>process_pool <span style="color:#f92672">=</span> ProcessPoolExecutor()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">on_event</span>(event):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(event, ComputeFibonacciEvent):
+</span></span><span style="display:flex;"><span>        future <span style="color:#f92672">=</span> process_pool<span style="color:#f92672">.</span>submit(fibonacci, event<span style="color:#f92672">.</span>arg)
+</span></span><span style="display:flex;"><span>        future<span style="color:#f92672">.</span>add_done_callback(<span style="color:#66d9ef">lambda</span> result: print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci(</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">)=</span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">...</span></span></span></code></pre></div></div>
+  
+</div><p class="component-content component">This has immediate benefits: processes are not limited by a GIL, so code will typically
+run in parallel. Also, garbage-collectors are indendent across processes, so a slow
+garbage-collection on one process will generally not block another process.</p>
+<p class="component-content component">There are a few drawbacks to the approach, though.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="processes-are-expensive" class="pagebody-header">
+    Processes are expensive
+  </h2>
+</div><p class="component-content component">Each process runs its own copy of Python (or Ruby, or JavaScript, etc.), including an in-memory copy of
+not only the standard library, but every single dependency, a garbage-collector, etc. The memory costs
+quickly add up.</p>
+<p class="component-content component">In fact, one could argue that running multiple processes for a non-system language only makes sense if RAM is
+free and infinite.</p>
+<p class="component-content component">Also, just as there are limits to the number of threads, there are limits to the number of processes.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="communications-are-expensive" class="pagebody-header">
+    Communications are expensive
+  </h2>
+</div><p class="component-content component">Communications between threads is simple: you just send the by passing references to it.</p>
+<p class="component-content component">Communication between processes (aka Inter Process Communication or IPC), though? That&rsquo;s another
+story. There are a few ways to do things.</p>
+<p class="component-content component">You can use shared memory:</p>
+<div class="component-content component"><ol>
+<li>process A <em>serializes</em> all the data it wishes to send to some local buffer;</li>
+<li>now that process A knows how much memory is needed to represent the data, it
+locks (internally) a segment of shared memory for this specific communication
+with process B;</li>
+<li>process A <em>copies</em> all this data to the shared memory segment;</li>
+<li>process A sends a signal to process B to inform process B that it should read the data (it&rsquo;s a system call, so this needs to go through the kernel);</li>
+<li>process B receives a signal from process A (it&rsquo;s an interrupt, so this may happen during garbage-collection for instance, or during a file access, etc. so the following steps may need to be delayed until garbage-collection is complete);</li>
+<li>process B finds the data in the shared memory and copies it to some local buffer;</li>
+<li>process B sends a signal to process A to inform process A that the data can now be deallocated (again, system call);</li>
+<li>process A receives the signal from process B;</li>
+<li>process A releases (internally) the locked segment;</li>
+<li>in parallel with 8-9, process B deserializes and checks for corruption the data receives from process A;</li>
+<li>process B has finally received the message.</li>
+</ol></div>
+<p class="component-content component">Yeah, that&rsquo;s not just complicated (that part is hidden from the user by a nice IPC library), it&rsquo;s expensive.</p>
+<p class="component-content component">You can simplify things quite a bit by going through sockets or pipes instead of shared memory, but at the expense of making more system calls, plus you&rsquo;ll need to somehow make your pipe I/O non-blocking, which brings us back to our original problem.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="processes-are-kinda-slow" class="pagebody-header">
+    Processes are (kinda) slow
+  </h2>
+</div><p class="component-content component">Everything I wrote about threads being (kinda) slow? Well, all of this is true of processes,
+except that processes have more data to save/restore in their Process Control Block.</p>
+<p class="component-content component">Also, locks between processes (which are fortunately needed much less often than locks within
+a process) typically go through the file system, so they&rsquo;re a bit more expensive than locks between
+threads.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="so-processes" class="pagebody-header">
+    So, processes?
+  </h2>
+</div><p class="component-content component">Processes are sometimes the right tool for the task, but their costs are steep, so you&rsquo;ll need to be
+very careful about picking processes to solve your problem. Unless you only have access to processes,
+in which case&hellip; well, you don&rsquo;t have a choice, do you?</p>
 
 <div class="component-content pagebody component">
   <h1 id="chunks" class="pagebody-header">
     Chunks
   </h1>
-</div><p class="component-content component">Threads are a fairly high-level construct. Perhaps we could do things differently and manually
-cut our function <code>fibonacci</code> to have it compute things concurrently, manually making sure that
-we never block the event loop.</p>
+</div><p class="component-content component">Threads and processes are a fairly high-level and expensive constructs. Perhaps we got off on the wrong
+foot, and the right way to solve our problem is to approach it from the other end. What if we rewrote
+our function <code>fibonacci</code> to have it compute things concurrently, manually making sure that
+we never block the event loop?</p>
 <p class="component-content component">This would, of course, be easier if our implementation wasn&rsquo;t (non-tail) recursive, but this
 can be done.</p>
 <div class="component-content pagebody component code">
@@ -592,7 +763,7 @@ can be done.</p>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e"># We have obtained both computations.</span>
 </span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> pending<span style="color:#f92672">.</span>first <span style="color:#f92672">=</span> event<span style="color:#f92672">.</span>result
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> pending<span style="color:#f92672">.</span>parent <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> pending<span style="color:#f92672">.</span>parent_id <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
 </span></span><span style="display:flex;"><span>                <span style="color:#75715e">#... and we&#39;re done!</span>
 </span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;fibonacci(</span><span style="color:#e6db74">{</span>event<span style="color:#f92672">.</span>arg<span style="color:#e6db74">}</span><span style="color:#e6db74">) = </span><span style="color:#e6db74">{</span>result<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
@@ -912,7 +1083,7 @@ language.</p>
 </span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
   
 </div><p class="component-content component">which is essentially a higher-level API on top of CPS.</p>
-<p class="component-content component">In practice, JavaScript has a double event loop, with <code>Promise.then()</code> being resolved
+<p class="component-content component">In practice, JavaScript has a double event loop, with , and<code>Promise.then()</code> being resolved
 in the inner event loop (micro-ticks) and events (including <code>setTimeout</code>) being resolved
 in the outer event loop (ticks). This simplifies considerably some user-facing APIs,
 but we don&rsquo;t need to enter the details here.</p>
@@ -1275,7 +1446,7 @@ scheduler.</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fibonacci</span>(<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FibonaccyEvent</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FibonacciEvent</span> <span style="color:#66d9ef">struct</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Arg</span> <span style="color:#66d9ef">uint32</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
@@ -1308,8 +1479,9 @@ memory usage, and these tasks will be executed concurrently, hopefully in parall
 Go functions are not colored by synchronicity. This means that interfaces or callbacks don&rsquo;t
 need to care whether they accept sync or async implementations, as there is no difference.</p>
 <p class="component-content component">The immediate drawback is that, since concurrency is, to a large extent, implicit, it makes the
-code harder to reason about. I don&rsquo;t think that this is a real problem, but it does lead to developers
-writing concurrency-unsafe code and running it concurrently without paying attention.</p>
+code harder to reason about. I don&rsquo;t think that this is a real problem, but I&rsquo;ve seen it lead to developers
+writing concurrency-unsafe code and running it concurrently without paying attention. I think it&rsquo;s
+more a problem of education than language.</p>
 <p class="component-content component">One could argue that implicit concurrency makes it harder to optimize code, but since very
 few developers actually care about such level of code optimization, and since Go is one of
 the fastest languages around, I consider this a minor impediment. Of course, if you need
@@ -1317,6 +1489,36 @@ more performance, use Rust.</p>
 <p class="component-content component">There are real issues with goroutines, such as the implicit capture by reference or the ease of
 accidentally copying a lock instead of sharing it, but these are not due to the concurrency model
 or implementation.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="other-languages-with-mn-scheduling" class="pagebody-header">
+    Other languages with M:N scheduling
+  </h2>
+</div><p class="component-content component">Now, I mention that Go is an outlier, but it&rsquo;s by no mean the only language with M:N scheduling.
+Erlang has been the poster child for M:N scheduling since the 90s, Haskell has supported it since
+the early 2000s, Rust used to support it but removed the feature before 1.0, and Java is moving
+towards supporting it. I believe that OCaml supports it, too, but I&rsquo;m still investigating that.</p>
+<p class="component-content component">Rust <em>removing</em> the feature is an interesting case for why M:N scheduling is not always the solution.</p>
+<p class="component-content component">This happened for a variety of reasons. It took some time for Rust to decide what kind of language it was. Initial versions of Rust offered garbage-collection, a M:N scheduler, built-in support for real-time programming.
+Each of these features was convenient, but made Rust harder to maintain or port to new
+architectures.</p>
+<p class="component-content component">In particular, as it became clear that Rust was a really good language to write very low-level code,
+including firmware, memory allocators, embedded code and OS code, these features became blockers, as
+they relied on having an operating system and an allocator in the first place. To make Rust a true
+system language, these features had to leave (and be turned into libraries).</p>
+<p class="component-content component">In addition, the Rust ethos prefers explicit costs to implicit ones. Many languages claim that (including
+Go and Python), but few languages actually implement this (the ones I can think of are Rust, Zig, and
+of course C and C++). Having a M:N scheduler requires allocating and growing stacks implicitly, which
+goes against this ethos.</p>
+<p class="component-content component">Also, M:N scheduling simply made no sense on some architectures. For instance, making M:N work
+doesn&rsquo;t make sense on architectures that do not support dynamic memory allocation or (embedded)
+operating systems that do not support native threads.</p>
+<p class="component-content component">And finally, M:N scheduling is complicated and was holding the language back. So the decision was made
+to move M:N scheduling into a crate called <code>libgreen</code>. Then, as work on <code>Future</code>, then <code>async</code>/<code>await</code>
+advanced, the Rust community decided that <code>async</code>/<code>await</code> served much better the Rust ethos of explicit
+costs than M:N scheduling, and decision was taken to drop the feature.</p>
+<p class="component-content component">None of this means that M:N scheduling is bad, incidentally. But it does illustrate that it is not
+always a desired feature.</p>
 
 <div class="component-content pagebody component">
   <h1 id="what-about-ocaml" class="pagebody-header">
