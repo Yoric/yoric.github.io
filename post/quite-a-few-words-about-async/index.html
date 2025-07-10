@@ -481,14 +481,16 @@ only one thread is ever running at a given instant.</p>
 particular refcounting/garbage-collection. This also avoids lots of pitfalls that would make
 your life miserable. This also allows a number of optimizations (both in the VM/interpreter
 and by at user-level) that would become very much unsafe if the code truly ran in parallel.</p>
-<p class="component-content component">The big drawback is that in these languages multi-threaded code is always quite slower than
-single-threaded code.</p>
 <p class="component-content component">Note that (at least in Python), native code (e.g. PyTorch, NumPy, any code written with PyO3,
 etc.) can <em>release the GIL</em>, which means that its content can run in background threads
 without blocking other threads. Most of the time, it&rsquo;s a good thing, but if the developer
 of the native code doesn&rsquo;t know what they&rsquo;re doing, this can quickly lead to memory corruption.</p>
-<p class="component-content component">Also, the case of OCaml demonstrates that you can bring an ecosystem from GIL-ed (OCaml &lt; 4)
-to fully multicore (OCaml ≥ 4), but suggests that it may take a pretty long time. Python
+<p class="component-content component">What does this mean for performance? It means that if your code is not calling into code that
+releases the GIL, it&rsquo;s always going to be quite slower in multi-threaded mode than in
+single-threaded mode. How do you know if code releases the GIL? Sadly, it&rsquo;s pretty much
+never documented, so you have to experiment to find out.</p>
+<p class="component-content component">Also, the case of OCaml demonstrates that you can bring an ecosystem from GIL-ed
+to fully multicore (OCaml ≥ 5), but suggests that it may take a pretty long time. Python
 seems to be slowly heading in this direction, but I don&rsquo;t think we&rsquo;ll see anything usable
 before 2030<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
 
@@ -1614,7 +1616,10 @@ languages that expand this feature, including Lexa and Effekt.</p>
   </h2>
 </div><div class="component-content component"><ul>
 <li>Processes are good, but heavy.</li>
-<li>You may need to use them for security/sandboxing/crash isolation, but almost never for the sake of performance.</li>
+<li>You may need to use them for security/sandboxing/crash isolation.</li>
+<li>They can be useful for performance, typically in GIL-constrained languages,
+but the cost of communications can hurt a lot, so you&rsquo;ll have to benchmark
+carefully.</li>
 </ul></div>
 
 <div class="component-content pagebody component">
