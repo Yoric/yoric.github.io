@@ -1095,7 +1095,7 @@ why the same solution isn&rsquo;t pushed forward in other languages.</p>
 
 <div class="component-content pagebody component">
   <h1 id="asyncawait" class="pagebody-header">
-    Async/await
+    async/await
   </h1>
 </div><p class="component-content component">Well, yes, we can. In fact, in Python or Rust, I don&rsquo;t think I&rsquo;ve ever seen application
 code written by human beings in the above style (I have seen much in JavaScript
@@ -1121,7 +1121,12 @@ What we do, instead, is introduce some syntactic sugar that lets us write</p>
   
 </div><p class="component-content component">This, to a very close approximation, is syntactic sugar for the code we wrote above.
 You can run it with <code>asyncio.run</code>, the de facto standard executor for <code>async</code>/<code>await</code>.</p>
-<p class="component-content component">The code is quite similar in Rust, and will compile essentially to the same
+
+<div class="component-content pagebody component">
+  <h2 id="asyncawait-in-rust" class="pagebody-header">
+    async/await in Rust
+  </h2>
+</div><p class="component-content component">The code is quite similar in Rust, and will compile essentially to the same
 loop with <code>yield</code> as in Python:</p>
 <div class="component-content pagebody component code">
   
@@ -1143,7 +1148,18 @@ However, it is used internally for this purpose. The generator will, in turn, co
 to a much more complicated finite state machine which we won&rsquo;t detail here (if you want to look at it, see <a href="https://play.rust-lang.org/?version=nightly&amp;mode=debug&amp;edition=2018&amp;gist=aedf6dccc1a53459e39075e53b5b69c0">this playground</a> and click &ldquo;MIR&rdquo; instead of &ldquo;Build&rdquo;). This Rust code
 is, of course, thread-safe, and will in fact be dispatched to available CPUs if you execute it with
 tokio, the de facto standard executor for <code>async</code>/<code>await</code> on non-embedded platforms.</p>
-<p class="component-content component">The JavaScript/TypeScript code is, again, quite similar, and will compile to
+<p class="component-content component">Note that while both Rust and Python compile to similar-looking generators,
+there are quite a few differences in the underlying machinery, besides threads and
+in-memory representation. In particular, where the Python executor needs to poll
+by calling the generator (<code>Awaitable</code>) repeatedly until it eventually advances, the Rust executor
+expects the be informed by the generator (<code>Future</code>) once it is ready to be polled once again.</p>
+<p class="component-content component">Rust also supports canceling futures.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="asyncawait-in-javascript" class="pagebody-header">
+    async/await in JavaScript
+  </h2>
+</div><p class="component-content component">The surface-level JavaScript/TypeScript code is, again, quite similar, and will compile to
 the <code>Promise</code>-based code above:</p>
 <div class="component-content pagebody component code">
   
@@ -1167,13 +1183,39 @@ the <code>Promise</code>-based code above:</p>
 </span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
   
 </div><p class="component-content component">This will execute with your browser or Node&rsquo;s built-in executor.</p>
-<p class="component-content component">If you wonder what an executor is, well, it&rsquo;s an event loop we
+<p class="component-content component">Note that, despite similar surface-level syntax, the underlying behavior is quite
+different from either Rust or Python: Promises do not rely on the executor to be
+polled, put to sleep or awakened. Rather, Promises essentially schedule themselves.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="executors" class="pagebody-header">
+    Executors?
+  </h2>
+</div><p class="component-content component">If you wonder what an executor is, well, it&rsquo;s an event loop we
 have been discussing throughout this piece, along with the basic events
 required to handle <code>async</code>/<code>await</code> and generally whatever you need to
 build your own event loop on top of it if you need one.</p>
-<p class="component-content component">Now, is there any drawback to <code>async</code>/<code>await</code>? Yes, there are a few. For one
-thing, if you&rsquo;re not a Rust developer, you probably won&rsquo;t care, but we haven&rsquo;t
-improved memory allocation. But the biggest problem I&rsquo;ve seen, by far, is that
+
+<div class="component-content pagebody component">
+  <h2 id="the-case-for-and-against" class="pagebody-header">
+    The case for and against
+  </h2>
+</div><p class="component-content component">Now, is there any drawback to <code>async</code>/<code>await</code>? Yes, there are a few, and they
+differ across implementations.</p>
+<p class="component-content component">The first drawback, in some languages, is stacks. If you&rsquo;ve ever attempted to
+debug async code in Python or read through stack traces, you may have suffered.
+This used to be the case in JavaScript, too, although there have been improvements.
+This problem is not universal, as Rust, C# or F#, for instance, have proper
+async backtraces.</p>
+<p class="component-content component">A second drawback is that <code>async</code>/<code>await</code> has a performance cost. CPU-bound code
+written with <code>async</code>/<code>await</code> will simply never be as fast or as memory-efficient
+as the equivalent synchronous code. The cost is higher in Python (which requires
+polling and numerous allocations) or JavaScript (which supports wakeups but
+requires even more allocations) than in Rust (which supports wakeups and can
+often avoid allocations), but it exists regardless. Of course, if you&rsquo;re writing
+I/O-bound code, the cost of I/O is typically several orders of magnitude larger
+than any <code>async</code>/<code>await</code> overhead, so you will probably not observe any difference.</p>
+<p class="component-content component">But the biggest problem I&rsquo;ve seen, by far, is that
 <em>most developers don&rsquo;t seem to understand <code>async</code>/<code>await</code></em>.</p>
 <p class="component-content component">So let me insist: <code>async</code>/<code>await</code> is a mechanism to easily make your code
 <em>asynchronous</em>. It will make your code concurrent. It&rsquo;s also a tool that
@@ -1197,15 +1239,15 @@ from using an API &ndash; I recently encountered the problem in Python, with a
 scikit optimization function that required a sync callback, but the function
 could only implemented as <code>async</code>, since it relied on further <code>async</code> functions.
 It&rsquo;s seldom a problem, but when it is, you are without a solution.</p>
-<p class="component-content component">Note that <code>async</code>/<code>await</code> is also available in a bunch of other languages, including
-F#, C#<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>, Haskell, Swift and (to some extent) C++. All languages that I&rsquo;ve checked out, with the exception of JavaScript,
-compile <code>async</code>/<code>await</code> in the same manner as Python or Rust.</p>
+<p class="component-content component">As I&rsquo;ve briefly alluded to, <code>async</code>/<code>await</code> is also available in a bunch of other languages, including
+F#, C#<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>, Haskell, Swift, Kotlin and (to some extent) C++. All languages that I&rsquo;ve checked out, with the exception of JavaScript, compile <code>async</code>/<code>await</code> in the same manner as Python or Rust.</p>
 
 <div class="component-content pagebody component">
   <h2 id="asyncawait-and-non-blocking" class="pagebody-header">
     Async/await and non-blocking
   </h2>
-</div><p class="component-content component">Are <code>async</code>/<code>await</code> sufficient to make the code non-blocking?</p>
+</div><p class="component-content component">Are <code>async</code>/<code>await</code> sufficient to make the code non-blocking? Well, I&rsquo;ve already answered
+that question above, but let me illustrate and explain.</p>
 <p class="component-content component">If you look again at the desugared Python code, full of <code>while True</code> and <code>yield None</code>, you
 will notice that <code>await</code> doesn&rsquo;t yield control to the executor. In fact, you can run
 code full of <code>await</code> and never context-switch to another task:</p>
