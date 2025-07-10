@@ -514,7 +514,7 @@ mine that indicate a cost of 2-5µs during each context-switch. That&rsquo;s tim
 code that&rsquo;s not serving your needs. If your code needs to context-switch 5000 times per
 core per second (that&rsquo;s an arbitrary number), you have eaten 10-25ms of your budget just
 on context-switching, so that&rsquo;s roughly equivalent to one frame per second which you may
-need to somehow compensate.</p>
+need to somehow compensate <sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>.</p>
 <p class="component-content component">There are, of course, other costs to threads. Every lock you need to acquire/release has
 a raw synchronization cost, plus a contention cost. In particular, you very much want
 to avoid grabbing a lock on the main thread, as this makes thread synchronization
@@ -1029,8 +1029,8 @@ to no overhead, by opposition to CPS.</li>
 <li>It is easy to add or remove <code>yield None</code>, which in turn means that you can
 control context-switches, good both for performance and to avoid multi-threading
 pitfalls. Sadly, there is a non-trivial cognitive cost in most languages.
-From the languages I know, only Rust manages to offload this cost onto the
-compiler.</li>
+From the languages I know, only Rust manages to offload (most of) the cognitive
+cost of paying attention to race conditions onto the compiler.</li>
 <li>Writing an implementation of <code>ContinueEvent</code> that dispatches tasks to multiple
 CPUs is quite simple.</li>
 </ol></div>
@@ -1087,7 +1087,7 @@ but we don&rsquo;t need to enter the details here.</p>
 error-handling (not displayed here), but still a bit hard on the eyes and
 also requires plenty of allocations. Also, in terms of performance, this
 would not be very friendly to multi-threading. Since JavaScript does not support
-what we usually call multi-threading <sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>, that&rsquo;s ok for JavaScript, but explains
+what we usually call multi-threading <sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>, that&rsquo;s ok for JavaScript, but explains
 why the same solution isn&rsquo;t pushed forward in other languages.</p>
 <p class="component-content component">So, the question remains: can we do better?</p>
 
@@ -1107,8 +1107,7 @@ What we do, instead, is introduce some syntactic sugar that lets us write</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    An implementation of fibonacci.
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Yields None to reschedule the computation to the next tick of the event loop.
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    After that, returns `int` with the result of `fibonacci(n)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Yields back time to the scheduler at each non-trivial recursive call.
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
@@ -1119,7 +1118,7 @@ What we do, instead, is introduce some syntactic sugar that lets us write</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left <span style="color:#f92672">+</span> right</span></span></code></pre></div></div>
   
 </div><p class="component-content component">This, to a very close approximation, is syntactic sugar for the code we wrote above.
-You can run it with <code>asyncio.run</code>, the de fact standard executor for <code>async</code>/<code>await</code>.</p>
+You can run it with <code>asyncio.run</code>, the de facto standard executor for <code>async</code>/<code>await</code>.</p>
 <p class="component-content component">The code is quite similar in Rust, and will compile essentially to the same
 loop with <code>yield</code> as in Python:</p>
 <div class="component-content pagebody component code">
@@ -1166,7 +1165,6 @@ the <code>Promise</code>-based code above:</p>
 </span></span><span style="display:flex;"><span>}</span></span></code></pre></div></div>
   
 </div><p class="component-content component">This will execute with your browser or Node&rsquo;s built-in executor.</p>
-<p class="component-content component">Does</p>
 <p class="component-content component">If you wonder what an executor is, well, it&rsquo;s an event loop we
 have been discussing throughout this piece, along with the basic events
 required to handle <code>async</code>/<code>await</code> and generally whatever you need to
@@ -1198,7 +1196,7 @@ scikit optimization function that required a sync callback, but the function
 could only implemented as <code>async</code>, since it relied on further <code>async</code> functions.
 It&rsquo;s seldom a problem, but when it is, you are without a solution.</p>
 <p class="component-content component">Note that <code>async</code>/<code>await</code> is also available in a bunch of other languages, including
-F#, C#<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup>, Haskell, Swift and (to some extent) C++. All languages that I&rsquo;ve checked out, with the exception of JavaScript,
+F#, C#<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>, Haskell, Swift and (to some extent) C++. All languages that I&rsquo;ve checked out, with the exception of JavaScript,
 compile <code>async</code>/<code>await</code> in the same manner as Python or Rust.</p>
 
 <div class="component-content pagebody component">
@@ -1502,9 +1500,15 @@ including firmware, memory allocators, embedded code and OS code, these features
 they relied on having an operating system and an allocator in the first place. To make Rust a true
 system language, these features had to leave (and be turned into libraries).</p>
 <p class="component-content component">In addition, the Rust ethos prefers explicit costs to implicit ones. Many languages claim that (including
-Go and Python), but few languages actually implement this (the ones I can think of are Rust, Zig, and
+Go and Python), but few languages actually follow up on this design principle
+(the ones I can think of are Rust, Zig, and
 of course C and C++). Having a M:N scheduler requires allocating and growing stacks implicitly, which
-goes against this ethos.</p>
+goes against this ethos: allocating memory has a cost, imposes a choice of allocator on the user
+(which would make Rust much less usable for e.g. browser engines or game engines), and may fail.</p>
+<p class="component-content component">Not only that, but Rust is designed to both call into C and be callable from C
+transparently and at zero implicit cost and zero implicit risk. However, to be able to call into C
+without blocking, you need a machinery comparable to what CGo provides. This machinery requires,
+once again, implicit allocations, hence hidden costs and hidden points of failure.</p>
 <p class="component-content component">Also, M:N scheduling simply made no sense on some architectures. For instance, making M:N work
 doesn&rsquo;t make sense on architectures that do not support dynamic memory allocation or (embedded)
 operating systems that do not support native threads.</p>
@@ -1520,7 +1524,7 @@ always a desired feature.</p>
     What about OCaml?
   </h1>
 </div><p class="component-content component">OCaml is a very interesting case. It has supported the equivalent of Go&rsquo;s channels since the
-late 1990s and, with version 4.0, it finally gained support for multicore. Recent benchmarks
+late 1990s and, with version 5.0, it finally gained support for multicore. Recent benchmarks
 suggest that it can be actually much faster than Go on some tasks (I didn&rsquo;t take the time to
 check these benchmarks, so don&rsquo;t trust me on this).</p>
 <p class="component-content component">In OCaml, using the Eio executor, our Fibonacci would look like:</p>
@@ -1584,6 +1588,8 @@ of these stacks stack on top of the code that calls the entire <code>try ... wit
 <p class="component-content component">There&rsquo;s also the issue that, much like exceptions, effects don&rsquo;t show up in the type
 of a function, which can lead to accidentally uncaught effects. Maybe an updated <code>ocamlexn</code> could
 solve that?</p>
+<p class="component-content component">Note: As pointed out by /u/phischu on Reddit, there are of course several more experimental
+languages that expand this feature, including Lexa and Effekt.</p>
 
 <div class="component-content pagebody component">
   <h1 id="which-tool-should-i-use" class="pagebody-header">
@@ -1595,7 +1601,7 @@ solve that?</p>
     Threads
   </h2>
 </div><div class="component-content component"><ul>
-<li>Threads are good, but tricky to use.</li>
+<li>Threads are good, but tricky to use. By all means, please learn how to use them correctly and safely.</li>
 <li>On most platforms, threads are needed at some level to handle CPU-heavy tasks.</li>
 <li>On most platforms, threads are needed at some level to make some I/O non-blocking.</li>
 <li>If you are in a position where millisecond matters, you will need to profile your thread switches.</li>
@@ -1617,7 +1623,8 @@ solve that?</p>
   </h2>
 </div><div class="component-content component"><ul>
 <li>Chunkification makes your code really hard to read.</li>
-<li>If you can avoid it, do so, you generally have better tools at hand<sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>.</li>
+<li>Chunkification always makes your code slower.</li>
+<li>You can often avoid doing it manually, e.g. by using <code>async</code>/<code>await</code><sup id="fnref1:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>.</li>
 </ul></div>
 
 <div class="component-content pagebody component">
@@ -1625,9 +1632,10 @@ solve that?</p>
     Async/await
   </h2>
 </div><div class="component-content component"><ul>
-<li><code>async</code>/<code>await</code> is useless with blocking I/O.</li>
+<li><code>async</code>/<code>await</code> is useless if you perform blocking calls, whether they&rsquo;re blocking on CPU or on I/O.</li>
+<li>if you own the CPU-bound blocking code, you can use <code>async</code>/<code>await</code> to chunkify it cleanly into non-blocking code.</li>
+<li>otherwise, the only generic way to turn blocking calls into non-blocking calls is to use threads (or sometimes, processes).</li>
 <li>once you have non-blocking I/O, <code>async</code>/<code>await</code> shines at using your CPU efficiently in tasks that are constrained by I/O.</li>
-<li><code>async</code>/<code>await</code> don&rsquo;t scale up nearly as well to tasks that are constrained by CPU usage.</li>
 <li><code>async</code>/<code>await</code> is function coloring, which may prevent you from using it.</li>
 </ul></div>
 
@@ -1637,7 +1645,7 @@ solve that?</p>
   </h2>
 </div><div class="component-content component"><ul>
 <li>I can&rsquo;t think of any good reason to not take advantage of a M:N scheduler if it&rsquo;s available.</li>
-<li>If you do take advantage of it, please take time to learn what makes code thread-safe/thread-unsafe.</li>
+<li>The risks are almost identical to multi-threading, so please take time to learn how to write thread-safe code.</li>
 </ul></div>
 
 <div class="component-content pagebody component">
@@ -1670,15 +1678,15 @@ any other resource) takes about 30ms. That&rsquo;s roughly the duration of two f
 free threading is moving on to Phase II. Who knows, maybe it will be faster?&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:6">
-<p class="component-content component">It supports a multi-process paradigm, which may be implemented with threads,
-but that&rsquo;s a bit different.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p class="component-content component">/u/asb kindly pointed out on Reddit that there are efforts to decrease the cost of scheduling: <a href="https://lkml.org/lkml/2020/7/22/1202">https://lkml.org/lkml/2020/7/22/1202</a> .&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:7">
-<p class="component-content component">In fact, F# was the first mainstream language to feature <code>async</code>/<code>await</code>, I believe,
-followed by C#.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p class="component-content component">It supports a multi-process paradigm, which may be implemented with threads,
+but that&rsquo;s a bit different.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:8">
-<p class="component-content component">Writing this as someone who spent months chunkifying big parts of Firefox to improve reactivity.&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p class="component-content component">In fact, F# was the first mainstream language to feature <code>async</code>/<code>await</code>, I believe,
+followed by C#.&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol></div>
 </div>
