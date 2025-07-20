@@ -308,13 +308,14 @@ Non-blocking is an objective. It&rsquo;s also a guarantee provided by some funct
 in your libraries or your operating system.</p>
 <p class="component-content component">How do you achieve this? Well, that&rsquo;s what this entire post is all about.</p>
 <blockquote>
-<p class="component-content component">Code is <strong>asynchronous</strong> if it is systematically structured in such a way that
-it can be made non-blocking.</p>
+<p class="component-content component">Code is <strong>asynchronous</strong> if it <em>structured</em> to present explicit dependencies
+between executions.</p>
 </blockquote>
 <p class="component-content component">Asynchronous is about code structure. Typically, this involves callbacks, or events,
-or some abstraction on top of them.
-It does not guarantee that your code is non-blocking. In fact, the only guarantee is
-that if you refactor your code to become non-blocking, you won&rsquo;t break everything.</p>
+or some abstraction on top of them.</p>
+<p class="component-content component">Asynchronous does NOT guarantee that your code is non-blocking. In fact, the only
+guarantee is that if you refactor your code to become non-blocking, you won&rsquo;t break
+everything.</p>
 <blockquote>
 <p class="component-content component">Code is <strong>concurrent</strong> if you can schedule independent tasks to run.</p>
 </blockquote>
@@ -325,7 +326,13 @@ the execution of two concurrent tasks, attempting to ensure that each of them pr
 regularly. If this is done automatically, this is called <strong>preemptive multitasking</strong>. If
 the code requires specific annotations, this is called <strong>cooperative multitasking</strong>. Most
 developers use the word &ldquo;concurrent&rdquo; only if it involves some kind of multitasking.</p>
-<p class="component-content component">Concurrency does not guarantee that an operation is non-blocking.</p>
+<p class="component-content component">Concurrency also does not guarantee that an operation is non-blocking.</p>
+<p class="component-content component">Concurrent and asynchronous are often confused, but they&rsquo;re different things:</p>
+<div class="component-content component"><ul>
+<li>code can be concurrent without being asynchronous, e.g. if you launch multiple tasks and synchronize them implicitly
+either by assuming run-to-completion or by using locks;</li>
+<li>code can be asynchronous without being concurrent, e.g. Haskell is all about letting you specify dependencies, but without <code>par</code>, you can&rsquo;t launch tasks.</li>
+</ul></div>
 <blockquote>
 <p class="component-content component">Code is <strong>parallel</strong> if two tasks can run at the same physical instant.</p>
 </blockquote>
@@ -333,6 +340,14 @@ developers use the word &ldquo;concurrent&rdquo; only if it involves some kind o
 Code that is executed in parallel in one run could be executed sequentially in another.</p>
 <p class="component-content component">If parallelism is guaranteed, then it can be used to guarantee that an operation is
 non-blocking.</p>
+<p class="component-content component">Concurrent and parallel are also often confused, but they&rsquo;re different things:</p>
+<div class="component-content component"><ul>
+<li>code can be concurrent without being parallel, e.g. threads in pure Python
+will let you launch tasks, and only one of them will ever be executed at a time;</li>
+<li>it&rsquo;s a bit of a stretch, but code could be parallel without being concurrent, e.g.
+if the garbage-collector or some tasks runs in parallel but the developer does not
+have access to primitives to launch additional parallel tasks.</li>
+</ul></div>
 
 <div class="component-content pagebody component">
   <h1 id="the-case-for-and-against-threads" class="pagebody-header">
@@ -527,7 +542,8 @@ a raw synchronization cost, plus a contention cost. In particular, you very much
 to avoid grabbing a lock on the main thread, as this makes thread synchronization
 a blocking operation. Even atomic operation you need to perform may have a performance
 cost, in particular on your cache. Etc.</p>
-<p class="component-content component">In most cases, you probably don&rsquo;t care. However, if you&rsquo;re writing performance-sensitive
+<p class="component-content component">In most cases, you probably don&rsquo;t care. In particular, if you&rsquo;re writing Python, you
+have bigger performance issues. However, if you&rsquo;re writing performance-sensitive
 code (e.g. a video game, a video player, a browser), threads are not just part of the
 solution but also sometimes part of the performance problems you need to deal with.</p>
 
