@@ -1,7 +1,7 @@
 (() => {
   // ns-hugo-params:<stdin>
   var baseURL = "https://yoric.github.io/";
-  var params = { defaultcover: "/img/avatar.jpg", email: "D.O.MyLastName@gmail.com", gitalk: true, gitalkclientid: "be349d0bd8338cd1aa1d", gitalkclientsecret: "6190d06de070bfa3ed050a29390a4ccd77ba032a", paginate: 5, showcopyright: true, showmore: true, showrss: true, socialmedia: [{ name: "github", url: "http://github.com/Yoric" }] };
+  var params = { defaultcover: "/img/avatar.jpg", email: "D.O.MyLastName@gmail.com", gitalk: true, gitalkclientid: "be349d0bd8338cd1aa1d", gitalkclientsecret: "6190d06de070bfa3ed050a29390a4ccd77ba032a", paginate: 5, showcopyright: true, showmore: true, showrss: true, socialmedia: [{ name: "github", url: "http://github.com/Yoric" }], subtitle: "Adventure! Excitement! Other random thoughts! by David Teller", title: "Il y a du th\xE9 renvers\xE9 au bord de la table" };
 
   // <stdin>
   var { appid, appkey, searchindex: indexName, enabled } = params.algolia;

@@ -349,6 +349,19 @@ header{
   white-space: nowrap;
 }
 
+.nav-subtitle {
+  color: #1d1d1f;
+  font-size: 21px;
+  line-height: 1.14286;
+  font-weight: 600;
+  letter-spacing: 0.011em;
+  cursor: default;
+  display: block;
+  margin: 14px 0 -18px;
+  padding: 0;
+  height: 52px;
+  white-space: nowrap;
+}
 
 .nav-item-content {
   font-size: 14px;
@@ -798,7 +811,7 @@ html.js .tile.large-loaded .image {
   line-height: 1.125;
   font-weight: 700;
   letter-spacing: 0.004em;
-  margin-top: 24px;
+  margin-top: 72px;
   margin-bottom: 24px;
 }
 

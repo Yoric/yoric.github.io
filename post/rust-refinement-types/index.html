@@ -8,7 +8,7 @@
     <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
 
     <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/rust-refinement-types/">
-  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table !">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table, by David &#34;Yoric&#34; Teller">
   <meta property="og:title" content="What would it take to add refinement types to Rust?">
   <meta property="og:description" content="A few years ago, on a whim, I wrote YAIOUOM. YAOIOUM was a static analyzer for Rust that checked that the code was using units of measures correctly, e.g. a distance in meters is not a distance in centimeters, dividing meters by seconds gave you a value in m / s (aka m * s^-1).
 YAIOUOM was an example of a refinement type system, i.e. a type system that does its work after another type system has already done its work. It was purely static, users could add new units in about one line of code, and it was actually surprisingly easy to write. It also couldn’t be written within the Rust type system, in part because I wanted legible error messages, and in part because Rust doesn’t offer a very good way to specify that (m / s) * s is actually the same type as m.
@@ -52,7 +52,7 @@ It got me to wonder how we could extend Rust in such a way that refinement types
   <div class="nav-wrapper">
     <div class="nav-content-wrapper">
       <div class="nav-content">
-        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table !</a>
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table, by David &#34;Yoric&#34; Teller</a>
         <div class="nav-menu">
           <div class="nav-item-wrapper">
             <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
