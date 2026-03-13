@@ -18,6 +18,10 @@ blockquote {
   }
 }
 
+blockquote .component-content {
+  width: auto;
+}
+
 h1.pagebody-header {
   font-size: 1.5em;
 }
