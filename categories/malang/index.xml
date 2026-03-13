@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Malang on Il y a du thé renversé au bord de la table, by David &#34;Yoric&#34; Teller</title>
+    <link>https://yoric.github.io/categories/malang/</link>
+    <description>Recent content in Malang on Il y a du thé renversé au bord de la table, by David &#34;Yoric&#34; Teller</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 13 Mar 2026 23:26:01 +0100</lastBuildDate>
+    <atom:link href="https://yoric.github.io/categories/malang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Diary of Designing a Language in the Age of Agents, Part 1</title>
+      <link>https://yoric.github.io/post/designing-a-language-in-the-age-of-agents/</link>
+      <pubDate>Fri, 13 Mar 2026 20:26:01 +0100</pubDate>
+      <guid>https://yoric.github.io/post/designing-a-language-in-the-age-of-agents/</guid>
+      <description>&lt;p&gt;Let&amp;rsquo;s face it: for developers, the Age of Agents has begun.&lt;/p&gt;&#xA;&lt;p&gt;Yes, there&amp;rsquo;s plenty of hype surrounding them, and your boss may be forcing an Agent down your throat, and companies are hiding behind agents to layoff hundreds of thousands of developers, but there are also countless coders who have used an Agent to code something, and enjoyed doing it, and countless more non-coders who have somehow managed to get something working through the use of an Agent.&lt;/p&gt;&#xA;&lt;p&gt;Something has changed, and there is a societal cost, and an ethical cost, and an environmental cost. But that&amp;rsquo;s not what I want to discuss in this post.&lt;/p&gt;&#xA;&lt;p&gt;Agents are a mean to develop applications. So far, means to develop applications have been the realm of the Programming Languages community. So I&amp;rsquo;d like to take a look at Agents not as a developer, or as someone worried by the implications of Agents on both our industry, education and the entirety of our society, but as a Programming Language designer.&lt;/p&gt;&#xA;&lt;p&gt;I hope that this will be the first of a series of posts, from which maybe something will grow that could one day look like a programming language adapted to the Age of Agents. We&amp;rsquo;ll see.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

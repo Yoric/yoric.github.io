@@ -2,6 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://yoric.github.io/tags/ai/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/categories/ai/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/categories/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/post/designing-a-language-in-the-age-of-agents/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/llm/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/categories/llm/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/malang/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/categories/malang/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/tags/pl/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/categories/pl/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/post/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
+    <loc>https://yoric.github.io/categories/programming-language/</loc>
+    <lastmod>2026-03-13T23:26:01+01:00</lastmod>
+  </url><url>
     <loc>https://yoric.github.io/post/quite-a-few-words-about-async/</loc>
     <lastmod>2025-07-08T22:09:29+02:00</lastmod>
   </url><url>
@@ -14,16 +53,10 @@
     <loc>https://yoric.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2025-07-08T22:09:29+02:00</lastmod>
   </url><url>
-    <loc>https://yoric.github.io/categories/</loc>
-    <lastmod>2025-07-08T22:09:29+02:00</lastmod>
-  </url><url>
     <loc>https://yoric.github.io/tags/concurrent/</loc>
     <lastmod>2025-07-08T22:09:29+02:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/go/</loc>
-    <lastmod>2025-07-08T22:09:29+02:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/</loc>
     <lastmod>2025-07-08T22:09:29+02:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/mozilla/</loc>
@@ -39,9 +72,6 @@
     <lastmod>2025-07-08T22:09:29+02:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/categories/performance/</loc>
-    <lastmod>2025-07-08T22:09:29+02:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/post/</loc>
     <lastmod>2025-07-08T22:09:29+02:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/programming/</loc>
@@ -71,16 +101,10 @@
     <loc>https://yoric.github.io/categories/rust/</loc>
     <lastmod>2025-04-07T21:30:41+02:00</lastmod>
   </url><url>
-    <loc>https://yoric.github.io/tags/ai/</loc>
-    <lastmod>2025-01-06T23:06:19+01:00</lastmod>
-  </url><url>
     <loc>https://yoric.github.io/post/formal-ai/</loc>
     <lastmod>2025-01-06T23:06:19+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/tags/compilers/</loc>
-    <lastmod>2025-01-06T23:06:19+01:00</lastmod>
-  </url><url>
-    <loc>https://yoric.github.io/tags/llm/</loc>
     <lastmod>2025-01-06T23:06:19+01:00</lastmod>
   </url><url>
     <loc>https://yoric.github.io/categories/research/</loc>

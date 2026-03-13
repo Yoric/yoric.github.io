@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="js no-touch  progressive-image  no-reduced-motion progressive" lang="en">
+  <head>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://yoric.github.io/img/favicon.ico">
+
+    <meta name="keyword" content=""><meta property="og:url" content="https://yoric.github.io/post/designing-a-language-in-the-age-of-agents/">
+  <meta property="og:site_name" content="Il y a du thé renversé au bord de la table, by David &#34;Yoric&#34; Teller">
+  <meta property="og:title" content="Diary of Designing a Language in the Age of Agents, Part 1">
+  <meta property="og:description" content="Start of a series on Programming Language Design in the Age of Agents">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2026-03-13T20:26:01+01:00">
+    <meta property="article:modified_time" content="2026-03-13T23:26:01+01:00">
+    <meta property="article:tag" content="Malang">
+    <meta property="article:tag" content="Llm">
+    <meta property="article:tag" content="Ai">
+    <meta property="article:tag" content="Pl">
+<title>Diary of Designing a Language in the Age of Agents, Part 1</title>
+
+    <link rel="canonical" href="https://yoric.github.io/post/designing-a-language-in-the-age-of-agents/">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/global.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/custom.css">
+
+    <link rel="stylesheet" href="https://yoric.github.io/css/search.css" />
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    
+
+    
+    
+
+</head>
+  </head>
+  <body class=" page-article   ">
+    <header>
+      <nav class="nav">
+  <div class="nav-wrapper">
+    <div class="nav-content-wrapper">
+      <div class="nav-content">
+        <a href="https://yoric.github.io/ " class="nav-title">Il y a du thé renversé au bord de la table, by David &#34;Yoric&#34; Teller</a>
+        <div class="nav-menu">
+          <div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/post " class="nav-item-content">Articles</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/about" class="nav-item-content">About</a>
+          </div><div class="nav-item-wrapper">
+            <a href="https://yoric.github.io/index.xml" class="nav-item-content" target="_blank">RSS</a>
+          </div></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function toggleSearchModal(){
+    const template = `
+    <div class="modal-body">
+      <div id="autocomplete" onclick="event.stopPropagation();"></div>
+    </div>
+    `
+    const modal = document.querySelector("#modal-wrapper")
+    if(!modal){
+      const div = document.createElement("div")
+      document.body.setAttribute("style","overflow: hidden;")
+      div.setAttribute("id", "modal-wrapper")
+      div.setAttribute("onclick", "toggleSearchModal()")
+      div.innerHTML = template
+      const script = document.createElement("script");script.setAttribute("src", "https://yoric.github.io/js/algolia.js")
+      div.appendChild(script)
+      document.body.append(div)
+    } else {
+      document.body.removeAttribute("style")
+      document.body.removeChild(modal)
+    }
+  }
+</script>
+    </header>
+    
+  
+  
+  <main id="main" class="main">
+      <section>
+        <article class="article">
+          
+          <div class=" article-header ">
+            <div class="category component">
+              <div class="component-content">
+                <div class="category-eyebrow">
+                  <span class="category-eyebrow__category category_original">
+                    
+                      
+                        malang
+                      
+                    
+                  </span>
+                  <span class="category-eyebrow__date">March 13, 2026</span>
+                </div>
+              </div>
+            </div>
+            <div class="pagetitle component">
+              <div class="component-content">
+                <h1 class="hero-headline">Diary of Designing a Language in the Age of Agents, Part 1</h1>
+              </div>
+            </div>
+            <div class="component  article-subhead ">
+              <div class="component-content">Start of a series on Programming Language Design in the Age of Agents</div>
+            </div>
+
+            <div class="tagssheet component">
+              <div class="component-content">
+                
+                  
+                  <a href="https://yoric.github.io/tags/malang" class="tag">
+                    malang
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/llm" class="tag">
+                    llm
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/ai" class="tag">
+                    ai
+                  </a>
+                
+                  
+                  <a href="https://yoric.github.io/tags/pl" class="tag">
+                    pl
+                  </a>
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="pagebody">
+            
+            
+            
+            
+            
+            
+            
+            
+            <p class="component-content component">Let&rsquo;s face it: for developers, the Age of Agents has begun.</p>
+<p class="component-content component">Yes, there&rsquo;s plenty of hype surrounding them, and your boss may be forcing an Agent down your throat, and companies are hiding behind agents to layoff hundreds of thousands of developers, but there are also countless coders who have used an Agent to code something, and enjoyed doing it, and countless more non-coders who have somehow managed to get something working through the use of an Agent.</p>
+<p class="component-content component">Something has changed, and there is a societal cost, and an ethical cost, and an environmental cost. But that&rsquo;s not what I want to discuss in this post.</p>
+<p class="component-content component">Agents are a mean to develop applications. So far, means to develop applications have been the realm of the Programming Languages community. So I&rsquo;d like to take a look at Agents not as a developer, or as someone worried by the implications of Agents on both our industry, education and the entirety of our society, but as a Programming Language designer.</p>
+<p class="component-content component">I hope that this will be the first of a series of posts, from which maybe something will grow that could one day look like a programming language adapted to the Age of Agents. We&rsquo;ll see.</p>
+<p class="component-content component">Let&rsquo;s start with a few assumptions for this project:</p>
+<div class="component-content component"><ol>
+<li>No, the age of coding is not over. Coding is evolving, as it has evolved many times since the invention of machine language, but there are no tangible signs of its extinction so far.</li>
+<li>Yes, there&rsquo;s a cost to Agents. Yes, I care. No, I&rsquo;m not going to discuss it any further in this series of posts.</li>
+<li>Python (or Rust, or Go, or Haskell, or C, or TypeScript, or C++, or Idris, or Ruby, or Prolog, or Coq/Rocq or whichever language you enjoy most) is <em>not</em> a perfect programming language for Agent-based development. However, there are plenty of ideas we could and should borrow from any of them.</li>
+<li>I&rsquo;m not particularly attached to one specific Agent or underlying Model. In fact, an Agent doesn&rsquo;t really have to be based on an LLM, but that&rsquo;s all we have to play with at the moment, so this is of course going to shape my thoughts.</li>
+<li>I&rsquo;m not trying to reinvent programming, or adapt it to a novel architecture (e.g. Quantum Computing, or TPUs, etc.)</li>
+<li>At this stage, I&rsquo;m more interested in asking questions than in finding answers. I hope that answers will come up naturally, but we&rsquo;ll see.</li>
+</ol></div>
+<p class="component-content component">Also, a few personal observations of what Agents get right:</p>
+<div class="component-content component"><ol>
+<li>I believe that the main reason for the success of Agents among developers (CEOs have other reasons to like them) is that they free the brain of the developer from having to focus on small tasks that are in the way of big thinking.</li>
+<li>I believe that the second reason for the success of Agents among developers is that they are really good (and fast) at looking things up, whether inside your codebase or inside a documentation. This is generally a low-risk activity, in which they can generally help even when taking hallucinations into account.</li>
+<li>And of course, there are plenty of non-developers who can successfully produce Proof of Concepts. Even if this is abused, that&rsquo;s great!</li>
+</ol></div>
+<p class="component-content component">&hellip;and what they get wrong:</p>
+<div class="component-content component"><ol>
+<li>I believe that the main reason for the distrust of developers against Agents is that they gaslight developers quite a lot, by producing convincing hallucinations that don&rsquo;t really solve the problems they&rsquo;re expected to solve.</li>
+<li>I believe that the second reason for the distrust of developers against Agents is that they tend to lull the user into turning off their brain, which is bad for seniors and lethal for juniors.</li>
+</ol></div>
+<p class="component-content component">Oh, every project needs a codename, right? Given that I only have questions so far, I&rsquo;m going to call this project <a href="https://en.wikipedia.org/wiki/Socratic_method">Maieutics</a>Language, aka &ldquo;Malang&rdquo;.</p>
+<p class="component-content component">So, armed with this name and a few assumptions, let&rsquo;s start asking questions.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="syntax" class="pagebody-header">
+    Syntax
+  </h1>
+</div><p class="component-content component">If you&rsquo;ve ever developed a language, whether a formal language or a programming language, one of the first things you&rsquo;ve done was probably come up with an early prototype of a syntax. In the early stages, syntax serves as support to define semantics, and to explain the language. Once you have an implementation, well, you need to be able to write in the language, and how would you do this without a concrete syntax?</p>
+<p class="component-content component">But Agents are changing how we approach programming. In fact, while you&rsquo;re using an Agent to code, you&rsquo;re typically not writing code (although you&rsquo;re hopefully reviewing the code it produces). So, I&rsquo;d like to start our questioning with syntax.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="do-we-need-a-_concrete_-syntax" class="pagebody-header">
+    Do we need a <em>concrete</em> syntax?
+  </h2>
+</div>
+<div class="component-content pagebody component">
+  <h3 id="do-we-need-a-concrete-syntax-for-code-storage" class="pagebody-header">
+    Do we need a concrete syntax for code storage?
+  </h3>
+</div><p class="component-content component">Without a concrete syntax, can we even save the code as a file?</p>
+<p class="component-content component">Well, yes, we very much can. We could just as well store an abstract format (say S Expressions or some JSON format) and display a concrete syntax only when the developer decides to look at the code. This is what <a href="https://texmacs.org">TeXmacs</a> does, letting you write your code and documents with a Lisp-style syntax, an ML-style syntax or an XML-style syntax, storing it in its own format, and letting you see it in any of these three syntaxes. This is also, to some extent, what we did when prototyping <a href="https://github.com/binast/binjs-ref">binast</a>: provide a storage format for JavaScript that had a 1:1 mapping with (syntactically correct) JS code but stored more information to optimize reading and compilation speed.</p>
+<p class="component-content component">There are even (formal) languages without a concrete syntax, such as <a href="https://en.wikipedia.org/wiki/Bigraph">bigraphs</a>, that are specified by drawings. Reactive programming, which yielded React, is at its core defined by a dependency graph. Many developers using the Entity Component System paradigm write code without having a concrete syntax to declare the entities themselves, but rather trusting the UI of Unity or Unreal Engine to sort these out.</p>
+<p class="component-content component">Also, there are other ways to store a language than a flat file, for instance a database, such as GitLab&rsquo;s <a href="https://docs.gitlab.com/user/project/repository/knowledge_graph/">Knowledge Graph</a>.</p>
+<p class="component-content component">So the answer sounds like &ldquo;no, code storage doesn&rsquo;t require a concrete syntax.&rdquo;</p>
+
+<div class="component-content pagebody component">
+  <h3 id="do-we-need-a-concrete-syntax-for-writing-the-code" class="pagebody-header">
+    Do we need a concrete syntax for writing the code?
+  </h3>
+</div><p class="component-content component">Well, the main point of Agents is that they&rsquo;re writing the code for us, aren&rsquo;t they?</p>
+<p class="component-content component">So, at least in some circumstances, we can develop applications using Agents without needing a concrete syntax. Let&rsquo;s see if we can roll with that.</p>
+
+<div class="component-content pagebody component">
+  <h3 id="do-we-need-a-concrete-syntax-for-reviewing-code" class="pagebody-header">
+    Do we need a concrete syntax for reviewing code?
+  </h3>
+</div><p class="component-content component">Of course, I don&rsquo;t trust Agents, and I believe that no user of Malang should trust them entirely, so we will want some kind of syntax for reviewing.</p>
+<p class="component-content component">This syntax does not need to be the concrete syntax of the language, though.</p>
+<p class="component-content component">If we don&rsquo;t want to adopt a concrete syntax, I see the following design options:</p>
+<div class="component-content component"><ol>
+<li>Keep an abstract syntax for storage, but adopt a TeXmacs-like mechanism, to display it in a number of human-readable formats (possibly including a well-defined subset of English).</li>
+<li>Keep an abstract syntax for storage, but trust the Agent to explain the language in any way that the user sees fit.</li>
+<li>Keep an abstract syntax for storage, and only expose metadata that is sufficient to figure out what the code is doing.</li>
+</ol></div>
+<p class="component-content component">Let&rsquo;s take a look at that last option. If you have ever programmed in Rust, for instance, you have probably used the type system, including the typestate pattern, to model the behavior of your data structure within its type signature: once a file has been closed, you can&rsquo;t use it anymore; you need network access to proceed beyond some point, so the function can only be called by passing a network capability, etc. If you have gone further and programmed in a dependently-typed or adjacent language, such as Coq/Rocq or Idris (or Ur, I believe), you have encoded the entirety of <em>what</em> your function does in its type, leaving the body to specify the <em>how</em>.</p>
+<p class="component-content component">In the age of Agents, combining the strong logical foundations of dependently-typed languages and the intuitive developer experience of Agents would be a form of neurosymbolic programming. We could combine this with options 1. or 2., storing the <em>what</em> metadata as part of the concrete syntax, and using either a well-defined subset of English or Agent-issued explanations to surface this <em>what</em> as something understandable by the developer.</p>
+<p class="component-content component">I&rsquo;ll dig in this further once this has decanted a bit in my mind. For the time being, I&rsquo;ll just be happy to answer that &ldquo;no, we (probably) don&rsquo;t need a concrete syntax for reviewing code.&rdquo;</p>
+
+<div class="component-content pagebody component">
+  <h3 id="do-we-need-a-concrete-syntax-for-navigating-in-the-code" class="pagebody-header">
+    Do we need a concrete syntax for navigating in the code?
+  </h3>
+</div><p class="component-content component">Without a concrete syntax, how do we look things up in the code?</p>
+<p class="component-content component">Yes, we&rsquo;re used to grepping and looking things up with our eyeballs. But that&rsquo;s not the only way to look things up. In the age of OG Basic, this was done with line numbers, and in the age of OG Fortran, with punchcard numbers. We don&rsquo;t want either option, but this shows that code navigation has evolved already, and will undoubtedly evolve further.</p>
+<p class="component-content component">In the age of IDEs, I often trust my IDE to bring me to all the points in the code that use my data structures, or my function, or my method, or to bring me to the definition of the function I&rsquo;m using. If we were to compare our code to a database, that would be more or less akin to using symbols as indices for queries in the code.</p>
+<p class="component-content component">In the age of Agents, I found out that Agents are really good at searching. &ldquo;Show me the code responsible for deciding how often we need to save&rdquo;, or &ldquo;where do we use the invariant that <code>i &gt; 0</code>?&rdquo; Again, if we were to compare our code to a database, that would be more or less akin to a vector search in a graph database.</p>
+<p class="component-content component">So&hellip; at this stage, I&rsquo;m tempted to say that we don&rsquo;t need a concrete syntax for navigating the code. At this point of my thoughts, I feel that we&rsquo;d want some kind of easy to lookup index (e.g. module names, type/class names, function names, etc.) for quick navigation and when you want to be absolutely certain that the Agent and the Developer are referring to the same part of the code, and the Agent&rsquo;s ability to lookup content by semantics for everything else.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="do-we-need-an-_abstract_-syntax" class="pagebody-header">
+    Do we need an <em>abstract</em> syntax?
+  </h2>
+</div><p class="component-content component">Some developers believe that Agents can one day grow to replace compilers and that the natural language specifications will be the code.</p>
+<p class="component-content component">I don&rsquo;t share that belief. Having the ability to converse with the Agent in a natural language feels useful, but natural language is, by definition, vague and full of ambiguities, as we can attest whenever we try to get the Agent to fulfill exactly what we want, so this sounds like a good recipe for disaster.</p>
+<p class="component-content component">By opposition, I want Malang to have clear semantics. We want to be better than having an Agent write Python (or even Idris), not worse.</p>
+<p class="component-content component">For this, I don&rsquo;t see how we could get away without some kind of abstract syntax.</p>
+
+<div class="component-content pagebody component">
+  <h2 id="conclusions" class="pagebody-header">
+    Conclusions
+  </h2>
+</div><p class="component-content component">At this point in time, I believe that Malang doesn&rsquo;t need a concrete syntax, but I don&rsquo;t see a way forward without an abstract syntax.</p>
+<p class="component-content component">If I were to start prototyping today, I&rsquo;d probably <em>store</em> Malang&rsquo;s code as some kind of S Expressions, but claim that it&rsquo;s an implementation detail. I might, of course, decide to <em>display</em> it or <em>parse</em> it as a different syntax.</p>
+<p class="component-content component">I would also very much investigate dependent types as a mechanism to specify <em>what</em> each piece of code does, letting the Agent translate this from and into natural language.</p>
+
+<div class="component-content pagebody component">
+  <h1 id="whats-next" class="pagebody-header">
+    What&rsquo;s next?
+  </h1>
+</div><p class="component-content component">We&rsquo;re barely started. Among the topics we need to discuss next are:</p>
+<div class="component-content component"><ul>
+<li>code documentation;</li>
+<li>picking a paradigm.</li>
+</ul></div>
+<p class="component-content component">At this stage, I need to let my thoughts decant a few days.</p>
+<p class="component-content component">See you in a bit for Part 2.</p>
+          </div><div class="component">
+            <div class="component-content">
+              <div class="article-copyright">
+                <p class="content">
+                  Copyright: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed" target="_blank">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>
+                </p>
+                <p class="content">Author:  David &#39;Yoric&#39; Teller </p>
+                <p class="content">Posted on:  March 13, 2026</p>
+              </div>
+            </div>
+          </div></article>
+      </section>
+      
+      <div id="gitalk-container"></div>
+      <script>
+        const gitalk = new Gitalk({
+          clientID: 'be349d0bd8338cd1aa1d',
+          clientSecret: '6190d06de070bfa3ed050a29390a4ccd77ba032a',
+          repo: 'yoric.github.io',    
+          owner: 'Yoric',
+          admin: ['Yoric'],
+          id: '61e044d8aa5c89ece815b0972503c455',  
+          distractionFreeMode: false  
+        })
+
+        gitalk.render('gitalk-container')
+      </script>
+      
+    </main>
+
+  <script>
+    var script = document.createElement("script");script.src = "https://yoric.github.io/js/initPost.js";
+    document.head.appendChild(script);
+  </script>
+
+    
+    <div class="footer-main ">
+  <div class="content-body footer-wraper">
+    <div class="footer-box">
+      <div class="foot-nav">
+        <div class="foot-nav-items">
+          <div class="item">
+            <div class="logo"></div>
+            <div class="email">Email: <a href="mailto:D.O.MyLastName@gmail.com">D.O.MyLastName@gmail.com</a></div>
+          </div>
+
+          <div class="item community">
+            <div class="item-title">Social Media</div>
+            
+              <a href="http://github.com/Yoric" target="_blank">github</a>
+            
+          </div>
+
+          <div class="item resources">
+            <div class="item-title">Related</div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="item copyright">
+          &copy; 2026
+          Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> & <a href="https://github.com/floyd-li/hugo-theme-itheme" target="_blank">iTheme</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+    
+    
+
+    
+    
+</html>
